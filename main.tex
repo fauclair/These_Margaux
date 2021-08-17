@@ -1,0 +1,275 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Manuscrit these
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,12pt,notitlepage]{report}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[a4paper,top=1.5cm,bottom=2cm,left=2.5cm,right=2.5cm,marginparwidth=1.75cm]{geometry}
+\usepackage{graphicx} 
+\usepackage[hidelinks]{hyperref} 
+\usepackage{multirow} 
+\usepackage{tabularx} 
+\usepackage{color} 
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{array}
+\usepackage{amsxtra} 
+\usepackage{wasysym} 
+\usepackage{isomath} 
+\usepackage{mathtools} 
+\usepackage{txfonts} 
+\usepackage{upgreek} 
+\usepackage{enumerate} 
+\usepackage{tensor} 
+\usepackage{pifont} 
+\usepackage{titlesec}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+%\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{subcaption}
+\usepackage[normalem]{ulem} %25/05 Barrer un texte.
+\usepackage{caption}        %04/06
+\usepackage{afterpage}      %04/6
+\usepackage{geometry}       %05/06
+%\usepackage{wrapfig}        %04/06
+\usepackage{float}
+%\usepackage[printfigures]{endfloat}
+%\usepackage{endfloat}
+%\usepackage{subfig}
+%\usepackage{graphicx}
+%package floatend
+\usepackage{booktabs}
+\usepackage{appendix}
+%\usepackage{array, makecell}
+%\renewcommand\theadfont{\bfseries}
+%\usepackage{esint}
+\usepackage{cancel}
+%\usepackage{pdfpages}
+%----------------------------------------------------------------------------
+% Packages: uncomment to debug
+%----------------------------------------------------------------------------
+%\usepackage{refcheck}
+%\renewcommand{\labelitemi}{\textbullet}
+
+%----------------------------------------------------------------------------
+% Packages: bibliography
+%----------------------------------------------------------------------------
+\usepackage[nottoc, notlof, notlot]{tocbibind}
+%\usepackage[authoryear, round]{natbib}
+\usepackage[authoryear]{natbib}
+%\usepackage[frenchb]{babel}
+%\usepackage{authblk}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definitions & commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------
+% New operators
+%----------------------------------------------------------------------------
+\DeclareMathOperator{\cotan}{cotan}
+
+%----------------------------------------------------------------------------
+% New commands
+%----------------------------------------------------------------------------
+\newcommand{\nhi}[1]{%
+	{\itshape \color{magenta} (NHI approx: {#1})}}
+\newcommand{\hi}[1]{%
+	{\itshape \color{cyan} (HI approx: {#1})}}
+
+%----------------------------------------------------------------------------
+\setlength\parindent{0pt}
+%----------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------
+% Colors...
+%----------------------------------------------------------------------------
+\definecolor{color-1}{rgb}{0.21,0.37,0.57}
+\definecolor{color-2}{rgb}{0.31,0.51,0.74}
+
+%----------------------------------------------------------------------------
+\geometry{hmargin=2.5cm,vmargin=2.5cm} %marges
+%----------------------------------------------------------------------------
+
+\renewcommand{\thepage}{}
+\renewcommand{\thepage}{\arabic{page}}
+
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+
+\numberwithin{equation}{section}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hypersetup{pdfborder=0 0 0}%----------------------------------------------------------------------------
+% \ref with or without ( )
+%----------------------------------------------------------------------------
+\let\noparref\ref
+\renewcommand{\ref}[1]{(\noparref{#1})}
+
+\setcounter{tocdepth}{3}%1 juste 1 niveau sous-partie de chapitre
+
+Inclure pdf page de titre
+
+\newpage
+\textbf{Avant-propos et remerciements}
+\addcontentsline{toc}{section}{Avant-propos et remerciements}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\chapter{Introduction}
+\cite{BS84}
+
+\begin{itemize}
+\item fines échelles et leur rétroaction/structuration de circu générale
+\item choix région Gibraltar (Rencontre deux masses d'eaux, alimentation Méditerranée, outflow med)
+\item les fines échelles à Gibraltar (quels phénomènes (solitons, ressaut, etc))
+\item Outils de la thèse : num, obs (compagne,sat)
+\item état des lieux modélisation num fines échelles océaniques, problematique quantification mélange diapycnale
+\item plan
+\end{itemize}
+
+\section{aaa}
+
+\subsection{iii}
+
+
+
+\chapter{Mod\'elisation  Repr\'esentation de l'oc\'ean et de son m\'elange}
+\begin{itemize}
+\item eq du mouvements, discretisation numérique, échelles (RANS/LES(/DNS)), paramétrisation du mélange
+\item contenu en PV
+\item definition BPE, eq d'évolution 'générale'
+\item code CROCO (ou code CROCO en premisce de chap 3 GBR2D????(sinon parait cours?)GBR2D parle passage hydro a NBQ...)
+\end{itemize}
+%\noindent\textit{Quantification du mélange diapycnale : évolution de la BPE}\\
+%L'énergie potentielle de "background", i.e. non-disponible, ou BPE (pour \textit{Background Potential Energy}), d'un volume de fluide est l'énergie potentielle minimale obtenue après ré-arrangement adiabatique des parcelles de fluide du volume \citep{winters_2013}. De nombreuses études se sont attachées à relier l'évolution de cette énergie "non disponible" (notée ci-dessous $E_b$) consécutive au mélange diapycnal dans un domaine fermé, la réalisation d'un bilan rigoureux de cette forme d'énergie potentielle dans une région océanique pour laquelle la position de la surface libre varie est une contribution originale du LAERO développée dans le cadre des travaux de thèse de Margaux Hilt et appliquée dans le cadre du présent "Courants de Gravité". Son équation d'évolution en coordonnées verticales "s" est ainsi donnée par:
+%\begin{subequations}
+%  \begin{alignat}{2}
+%  \displaystyle
+% &\frac{d E_b}{d t} &&= \quad g\int_x \int_{-1}^0 \rho h \frac{\partial z^*}{\partial t}\bigg\rvert_{xs} \ dx ds\\
+% & &&\quad +g\int_x \int_{-1}^0\rho v_s \frac{\partial z^*}{\partial s}\bigg\rvert_{tx} \ dx ds
+%+g\int_x \int_{-1}^0 \rho h u \frac{\partial z^*}{\partial x}\bigg\rvert_{ts} \ dx ds \\
+% & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x} - g\bigg[ \int_x\rho z^* v_s \ dx\bigg]_0^1 \\
+% & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
+% - g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds \\
+% & && \quad + g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
+% - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dx ds
+%\end{alignat}
+%\end{subequations}
+%où $z^*$ est la position d'une particule fluide après ré-arrangement adiabatique du champ de masse, $\rho$ est la masse volumique, $u$ et $v_s$ sont respectivement les vitesses horizontales et verticales en coordonnées "s", $g$ est l'accélération de la pesanteur, $h$ est la hauteur de la colonne d'eau et $\kappa^h$ et $\kappa^v$ sont les diffusités horizontales et verticales. $s=0$ en surface et $s=-1$ au fond.
+%Les derniers termes du membre de droite sont en particulier des sources de BPE dues au mélange diapycnal et font intervenir dans la forme de cette équation un coefficient de diffusion. C'est ce coefficient qui permet de quantifier le mélange diapycnal car il est le résultat de tous les mécanismes irréversibles de diffusion. Dans le cas de simulations numériques, il va inclure en plus de la dissipation moléculaire explicite, la dissipation implicite induite par les schémas à différence finie. Il prendra aussi en compte la paramétrisation du mélange dans les simulations de type RANS ou LES lors d'évènements de mélange.
+
+%L'évaluation de la BPE et de son évolution a pour finalité d'être appliqué dans des cas de simulation réaliste de l'océan mais est aussi applicable à la simulation physique.\\
+
+\chapter{GBR2D}
+\begin{itemize}
+\item R\'esum\'e en français
+\item Papier 2D (! Changer numero de page pour debut pdf !, et retirer biblio (avec en fin these....), mise en page verifier...(problème tableau 2))
+\item Recap/clsion/transition français
+\end{itemize}
+
+\section{Resumé en français}
+\begin{itemize}
+\item blabla détroit Gibraltar, pourquoi choisi cette zone, résumé intro papier
+\item mise en place configuration, résolution, non hydrostatique...
+\item résultats : a bien solitons (aspect, KdV), controle hydraulique, voit des rouleaux = instabilités primaires (confirmation)
+\end{itemize}
+
+CE chapitre contient l'artcile "..." publié dans ... .CErtains des éléments de cet article, l'élaboration du processus de 
+certaisn éléments d'analyse de cette configuration ont été ralisés entière ment ou au moins améliorés dans la première année de thèse, c'ets le cas de l'analyse en composante principake des instabilités primaire sdéveloppées...etc.
+
+
+Une configuration numérique simple 2D est implémentée dans le détroit de Gibraltar avec le code communautaire CROCO dans sa version non-hydrostatique, non-Boussinesq (CROCO-NBQ). Cette configuration est peu coûteuse en temps de calcul et incorpore la bathymétrie le long de l'axe du détroit avec sa configuration de seuils (Farmer et Armi, 1988, programme \textit{Gibraltar Experiment}). Dans l'élaboration de cette configuration, une attention toute particulière a été apportée au rôle de la pseudo-force de Coriolis sur l'échange moyen simulé lors de l'initialisation par \textit{lock-exchange}.\\
+
+LA simulation est initialisée par lock exhange, c'est à dire un profil type atl et med de part et d'autre du seuil de camarinal, point central du passage.LA marée est simulée par un courant barotrope à la frontière ouest. Dans une simulation où la rotation de la terre n'est pas rise en compte, mélange détruit stratification obtenue apres relâchement du lock exhange, en particulier la profondeur de l'interface où se propagent les solitons, suite au mélange intense par la marée interne.
+
+
+Malgré les défauts inhérents à une représentation 2D-verticale (nécessairement limitée dynamiquement et non représentative des effets longitudinaux comme le contrôle dans le détroit de Tarifa), la configuration proposée permet de représenter de façon réaliste les mécanismes de \textit{fine échelle} dans le détroit à la fréquence de la marée barotrope : propagation des deux premiers modes d'ondes internes, contrôles hydrauliques aux seuils, ressaut hydraulique, et mélange turbulent. En particulier, les ondes internes de grande amplitude de mode 1 se propageant dans l'est du détroit sont caractérisées comme ondes solitaires (ou solitons) par comparaison avec le modèle analytique non-linéaire de Korteweig de Vries.\\
+
+La modulation des phénomènes observés par divers paramètres (bathymétrie, intensité des courants de marée, hypothèse hydrostatique, résolution spatiale) est étudiée en détail. A haute résolution (environ 45 m), la relaxation de l'hypothèse non-hydrostatique est indispensable pour représenter les instabilités de cisaillement qui apparaissent dans le jet Méditerranéen, et qui constituent l'amorce de la cascade turbulente directe.
+
+
+
+%%%%PAPIER 2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%voir si faut mettre pdf envoye ou quoi.... mise en forme abstract, key words, auteurs...
+%%% faut le mettre en section seul sans les plus petits titres...
+%%numerotation...
+%\newpage
+%\input{./GBR2D/main.tex}
+%\newpage
+%%%% En mettant PDF
+%%%mettre autre pdf avec figure incluse aux bons endroits etc...
+\addtocounter{section}{1}
+\addcontentsline{toc}{section}{\protect\numberline{\thesection}Papier 2D}
+%\includepdf[pages=-]{./GBR2D/PDF_GBR2D.pdf}
+
+
+
+\section{ccl français}
+\begin{itemize}
+\item Limitation de la simulations 2D, transition partie 3D
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{GBR3D}
+\begin{itemize}
+\item Résumé en français, reste en anglais
+\item Intro : présenter mésoéchelle, marée, atm,etc.
+\item Dynamique local en VHR : que forçage de marée, présenter où controle hyd, propagation des solitons
+\item Focus : Passage de Camarinal : écoulement veine(diag TS), variab ME,VE/intermediaire(diag ressaut + froude), simulations insta primaires(param Q, std et svd), sensibilité schéma de fermeture  (Variabilité spatiale et temporelle des ressauts et des instas)
+\item Campagne et Prévi : MAquette imbriquée (présenter dyn dans cette maquette, ie situation pendant la campagne, marée dans modèle), Comp obs/modèle (MP?)
+\end{itemize}
+
+
+%\selectlanguage{english}
+\input{./GBR3D/chapGBR3D.tex}
+%\selectlanguage{french}
+
+
+
+
+\chapter{BPE}
+\begin{itemize}
+\item Résumé en français
+\item papier
+\end{itemize}
+
+\chapter*{Discussion Conclusion}
+
+\chapter*{Annexes}
+
+
+\listoffigures
+
+\listoftables
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%              Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{apalike}
+\bibliography{mybib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
