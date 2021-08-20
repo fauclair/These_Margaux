@@ -327,7 +327,7 @@ After the 2D study of Hilt 2020 seeing the improvement of non-hydrostatic and de
 
 
 
-\subsection{Configuration}
+\subsection{Numerical Configuration}
 \subsubsection{Numerical framework}
 
 Use CROCO-NBQ as was the case in Hilt 2020 (see a presentation of CROCO-NBQ there ) 
@@ -469,6 +469,10 @@ Following (Sannino?), the central salinity value of the interface is taken as th
 with $X_{CS}=5.75^o$, $dx=0.25^o$, the location and width of the Camarinal Sill in degrees, $S_M=37.39$ and $S_m=37.1$ the max and minimum values
 
 This may not give the perfetc interfaceat any given time...
+
+
+\subsection{Numerical diagnostics}
+Mettre que définitions des diagnostiques, dans partie d'après y fait référence
 
 
 
@@ -772,7 +776,7 @@ Explore how the passage of the sill takes place in simulations.
 
 \subsection{WAter mass mixing near/downflow of Camarinal Sill}
 
-Take a result in spring tide case (S0.05), figure std(Q) of last part zoom in on Camarinal Sill area. Green inset is area where SVD is performed, can see hotspots of high std correspond with trace of the spatial EOF field of Q. Trace T,S diagrams in between areas where those instabilities develop. See the transformations happen mostly between areas where instabilities, otherwise signal eroded as outflow makes its way.
+Take a result in spring tide case (S0.05), figure std(Q) of last part zoom in on Camarinal Sill area. Green inset is area where SVD is performed, can see hotspots of high std correspond with trace of the spatial EOF field of Q. Trace T,S diagrams in between areas where those instabilities develop. See the transformations happen mostly between areas where instabilities, otherwise signal eroded as outflow makes its way by entrainment and circulation in shallower parts of the strait that leave the coldest, saltiest waters behind.
 
 \begin{figure}[!h]
 % \centering
@@ -826,13 +830,30 @@ If more dissipation in the simulation, edge of hydraulic jump where instability 
 
 The behaviour of the hydraulic jump changes with the parametrisation chosen... Case S0.001 instabilities devlop from the inset of the jump at approx 5.77 deg and the billows contain less salty waters, ie the signal of atl surface water in the med outflow will be stronger in this simulation.
 
+
+While the width of the Med vein as it begins to go downslope of Camarinal as salty water is the same, in simulations 1 and 2 instabilities are earlier in the jump and bring more atl waters as the core or billows are advected downslope, resulting in more atl water being integrated to the med outflow at the passage of CS. Figure gives the average salinity of the med outflow taken at lon ... averaged over all latitude (med outflow defined by all parcels of salinity superior to interface smlinity...).
+
+Looking at condiftions for the instability development, richardosn number (computed on 1h averaged field to filter the billows) is below 0.25 for each simulation, however, looking more in detail the shear and stratification, stratification is more or less teh same but shear is lesser in 3.
+
+This is counterintuitive as 3 has a greater diffusivity and viscosity, this acts without instabilitied for exemple like east of the sill in figure with enhancing mixing in the haloclyne with surafce waters becoming saltier and deep waters becoming less salty.
+
+Kepsilon...
+
 \begin{figure}[!h]
 % \centering
- \includegraphics[width=\textwidth]{./GBR3D/Screen_Insta_fermSch.png}
+ \includegraphics[width=.7\textwidth]{./GBR3D/CoupesSsmago.png}
  \caption {fiels of salinity at lat = $35.9372^o$ in simu IES at 4h of simulation time  (1:S0.001  2:S0.01  3:S0.1 4:Kep)}
 \end{figure}
-
-
+\begin{figure}[!h]
+% \centering
+ \includegraphics[width=.5\textwidth]{./GBR3D/Avg_dsdz_dudz_smago.png}
+ %\caption {fiels of salinity at lat = $35.9372^o$ in simu IES at 4h of simulation time  (1:S0.001  2:S0.01  3:S0.1 4:Kep)}
+\end{figure}
+\begin{figure}[!h]
+% \centering
+ \includegraphics[width=.5\textwidth]{./GBR3D/Smoy_ouest-est_Atl-Med_smago.png}
+ %\caption {fiels of salinity at lat = $35.9372^o$ in simu IES at 4h of simulation time  (1:S0.001  2:S0.01  3:S0.1 4:Kep)}
+\end{figure}
 
 %-------------------------------------------------------------------------------------
 \subsection{Discussion}
