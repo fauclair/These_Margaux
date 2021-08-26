@@ -500,7 +500,7 @@ Following (Sannino?), the central salinity value of the interface is taken as th
 \end{equation}
 with $X_{CS}=5.75^o$, $dx=0.25^o$, the location and width of the Camarinal Sill in degrees, $S_M=37.39$ and $S_m=37.1$ the max and minimum values
 
-This may not give the perfetc interfaceat any given time...
+%This may not give the perfect interface at any given time...
 
 \subsubsection{Froude layer number}
 
@@ -558,6 +558,9 @@ Due to this advection, there are grid cells for which a succession of billows pr
 
 By implementing this calculation directly in the code, we can asses where instabilities/vortexes propagate without having to make a huge volume of simulation outputs over the whole domain, those economising in storage place and data readability. Thus it is possible to create a map of standard deviation of Q which will reflect areas where KH billows will propagate in the simulation.
 
+
+Standard deviation of parameter Q is computed as in \ref{eqstdQ} and for each 30 minute average interval the maximum standard deviation in the water column is outputed for each horizontal grid point. Figure \ref{fig3} shows this map for t=...H during outflow/rising water/... .
+
 One can also use SVD of parameter Q, where as in SVD of Okubo-Weiss parameter in 2D chapter / case, complex SVD means see propagation in the left  term of temporal evolution... However thhis calculation is offline and necessitates a high frequency 3D output to pick up the relevent structures.
 
 
@@ -597,13 +600,6 @@ In reality $C=C_s+u$ the composition of the soliton velocity and the ambiant bar
 %\item Avec definition interface, defini nombre de froude pour couche atl, couche med (prend modele 2 couche, prend pas interface indépendante comme peut être le cas dans autres papiers....)
 \item Exemple hyd control en inflow/outflow (quel couche quand et où)
 \item En particulier à CS peut avoir control des 2 : ressaut hydraulique
-\end{itemize}
-
-
-
-\subsubsection{Hydraulic Jump, acceleration of flow}
-
-\begin{itemize}
 %\item Presente diag ressaut
 \item Comp trace diag ressaut et nombre de froude, montre coupe 3D?
 \item utilise ce diag que a camarinal... parle déjà variabilité neap/spring tide? OUI (partie suivante, a déjà établi les 'régimes', regarde juste effet sur svd.
@@ -615,7 +611,56 @@ La figure \ref{fig_ressaut_NH-HR}.a présente une coupe verticale dans la régio
 
 
 
-(mettre figure 3D plus points !!!!)
+Figure... presents several diagnosis for series of maximal outflows and inflows. Are represented the area of supercritical flow in atl and med layer as defined in .., the detection of hydraulic jump as per ..., and area of standard deviation of parameter Q. The hydraulic control as are expected, in outflow med vein at sills, for strong and very strong outflow atl layer also supercritical at CS. In this case detect hydraulic jump. In inflow, can have signal of hyd jump at CS to although in neap spring tide supercritical is not very extended, in spring tide case very extended supercritical at CS. In this case also well developped patch of supercritical flow in Tarifa narrows(where is soliton at this time?), this patch is only reduced to north in neap tide case.
+
+hydraulic control shape can be two ways during outflow. in spring tide at first resembles the intermediate case but as barotropic currents increase jump is swept wesward as the area of supercritical atl layer extends over the sill.
+
+Patches of high standard deviation of parameter Q. Extended patch appear for outflows at sills downflow of supercritical med vein. Most intense signal for the spring tide outflow.
+
+ See areas : CS from 35.9-35.95°lat (?) then west of CS secodary seamounts extends in Tanger Basin. +ES south. Nothing east. No signal during inflow except ponctually in longer simulation at 50m when soliton encounters Moroccan shelf at around ...° longitude.
+
+
+\begin{figure}[!h]
+ \centering
+ 
+ \begin{subfigure}{\linewidth}
+\centering
+\includegraphics[width=1\linewidth]{./GBR3D/ME2_19h_p.png}
+\end{subfigure}
+ 
+ \begin{subfigure}{\linewidth}
+\centering
+\includegraphics[width=\linewidth]{./GBR3D/ME2_13h_p.png}
+\end{subfigure}
+\caption {For neap tide, inflow then outflow. Blue (red) shaded area is supercritical med (atl) layer. Black dots are hyd jump detection. grey area denotes where S bottom$<$Sinterface. colorbar for . Also inicated barotropic znal current at 5.7553$^o$W  35.9238$^o$N. }
+\end{figure}
+
+\begin{figure}[!h]
+ \centering
+\begin{subfigure}{\linewidth}
+\centering
+\includegraphics[width=\linewidth]{./GBR3D/VE2_18h30_p.png}
+\end{subfigure}
+
+\begin{subfigure}{\linewidth}
+\centering
+\includegraphics[width=\linewidth]{./GBR3D/VE2_25h_p.png}
+\end{subfigure}
+\caption {Same as figure ... for spring tide}
+\end{figure}
+
+\begin{figure}[!h]
+ \centering
+%\begin{subfigure}{\linewidth}
+%\centering
+\includegraphics[width=\linewidth]{./GBR3D/IES_41h_p.png}
+%\end{subfigure}
+ \caption {Same as figure ... for intermediate outflow case, on figure SLA also put trace of jump of spring tide outflow}
+\end{figure}
+
+
+
+
 
 
 
@@ -649,18 +694,6 @@ Figure ... is an exemple of the value of $Q$ in 3D simulation where localisation
 
 
 
-Standard deviation of parameter Q is computed as in \ref{eqstdQ} and for each 30 minute average interval the maximum standard deviation in the water column is outputed for each horizontal grid point. Figure \ref{fig3} shows this map for t=...H during outflow/rising water/... . See areas : CS from 35.9-35.95°lat (?) then west of CS secodary seamounts extends in Tanger Basin. +ES south. Nothing east. No signal during inflow except ponctually in longer simulation at 50m when soliton encounters Moroccan shelf at around ...° longitude.
-
-
-In figure ... it is only shown for west of Camarinal Sill and secondary sills in Tanger basin.
-
-
-\begin{figure}[!h]
-% \centering
- \includegraphics[width=\textwidth]{./GBR3D/stdQ_25mIES_it-8.png}
- \caption {(!Quel S?) (laisse toute zone ou zoom?).t=4hsimu Standard deviation of Q (seuillé a 10-5 s-2) (ajouter isodepth 200/400/600(?)m)}
-  \label{fig3}
-\end{figure}
 
 In (next part), look at the influence of tidal cycle (and so of hydrauli jump) and numerical choices, on the instabilities at area of Camarinal Sill.
 
