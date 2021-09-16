@@ -10,45 +10,14 @@
 Partie a été rédigée en anglais dans l'éventualité d'une soumission prochaine en tant qu'article....
 
 
-%\noindent\fbox{\noindent\begin{minipage}{1\textwidth}
-%\noindent La maquette tri-dimensionnelle NH-HR est la maquette la mieux résolue sur l'horizontale (45 m) et la verticale (40 niveaux $\sigma$) implémentée dans le cadre du présent contrat.  De façon originale, cette maquette permet la simulation des "grandes structures turbulentes" \textit{(LES)}. Elle est pour cela basée sur le coeur non-hydrostatique et non-Boussinesq CROCO et met en oeuvre les schémas d'advection d'ordre supérieur et les schémas de diffusion turbulente isotropes disponibles dans CROCO, trois éléments essentiels et indispensables pour simuler numériquement à minima les instabilités primaires amorçant la cascade turbulente directe. Une comparaison détaillée de la dynamique à haute résolution avec celle simulée avec la maquette à plus basse résolution (NH-REF, section \ref{section3DNHREF}) montre que les processus de grande échelle sont représentés de façon comparable dans les deux maquettes. La simulation NH-HR permet en outre un raffinement du train d'ondes solitaires et surtout une représentation cohérente et explicite des instabilités de Kelvin-Helmholtz générées au voisinage du jet méditerranéen.
-%\end{minipage}
-%}
-
-
- %Comme discuté à plusieurs reprises dans le présent rapport, les différentes maquettes implémentées et exploitées dans le cadre du projet Gibraltar 16CR01 ne sont pas figées mais en constante évolution. Les évolutions en cours sont multiples:
- %\begin{itemize}
- %    \item Le code communautaire CROCO et son coeur numérique non-hydrostatique et non-Boussinesq CROCO-NBQ sont aménés à évoluer. De nouveaux schémas d'advection, de fermeture turbulente LES ou plus fondamentalement de couplage des modes numériques (associés au \textit{mode splitting}) sont en cours de développement et de test.
- %    \item La quête pour une plus grande efficacité du code a déjà permis des gains importants depuis la première implantation de l'algorithme non-hydrostatique, non-Boussinesq dans le code de recherche SNBQ. Elle se poursuit actuellement avec le portable du code sur des machines à structure dite hétérogène (CPU-GPU).
-  %   \item En lien avec les futurs gains en efficacité de calcul, la maquette à haute résolution NH-HR est aussi amenée à évoluer vers plus de réalisme: les conséquences du forçage par la circulation générale et la marée étant correctement appréhendées, le forçage atmosphérique peut désormais être introduit. Le domaine simulé est de plus en cours d'extension, en particulier vers l'ouest.
-% \end{itemize}
- 
- %Le raffinement local de la circulation générale ouvre donc aussi des perspectives pour une meilleure représentation du "mélange" dans les modèles numériques de bassin. On peut en effet supposer que le mélange induit dans des régions telles que la région du ressaut hydraulique à Gibraltar sera plus facilement localisé et ainsi beaucoup mieux quantifié si l'on est capable de simuler explicitement les plus grandes structures turbulentes dans cette région. Leur modélisation implicite dans les simulations RANS réalisées jusqu'à présent repose en effet entièrement sur des schémas de fermeture turbulente représentant les conséquences des instabilités primaires. La simulation explicite d'une partie au moins de ces instabilités (les "structures turbulentes de grande échelle") permet une comparaison avec des observations directes ainsi qu'une analyse plus fine de leurs conséquences. \\
-%Dans la région du détroit de Gibraltar toujours, nous disposons enfin avec la maquette NH-HR d'un outil d'étude de la formation du jet méditerranéen. Les mécanismes de génération du contenu en vorticité potentielle peuvent ainsi être étudiés à partir d'une maquette d'extension horizontale légèrement plus étendue. Une telle étude devrait permettre de mieux comprendre comment les différents mécanismes induisant un mélange notable peuvent modifier le contenu en vorticité potentielle de ce courant, bien en amont de la génération des instabilités baroclines auxquelles il est finalement soumis.\\
-
-%Les simulations numériques et l'étude de la dynamique de fine échelle ont montré la nécessité d'une simulation des \textit{grandes structures turbulentes (LES)} dans la région du détroit de Gibraltar et dans la foulée l'adéquation du protocole original de modélisation basé sur le code CROCO. Les processus de fine échelle (ressauts hydrauliques, trains d'ondes solitaires, mécanisme de génération du jet méditerranéen, ondes de sillage, structures tourbillonnaires, instabilités primaires de Kelvin-Helmholtz...) ont pu être simulés explicitement. A notre connaissance, cette dynamique de \textit{fine échelle} n'a pas à ce jour fait l'objet d'observations in-situ dédiées dans la région du détroit. Une campagne d'observations permettrait d'évaluer précisément la pertinence de ce protocole de modélisation et des choix numériques. Elle ouvrirait aussi la porte à de nouveaux développements en mettant en évidence les limites du système actuel et permettrait finalement de préciser la localisation, la périodicité et l'amplitude des processus et autres mécanismes de fine échelle mis en évidence.
-
-%La simulation de la région du détroit avec des maquettes de mieux en mieux résolues a permis de montrer qu'une résolution de l'ordre de quelques dizaines de mètres (45 m pour 40 niveaux verticaux "$\sigma$") était à minima nécessaire pour modéliser explicitement les instabilités de type Kelvin-Helmholtz dans la région du détroit. Ces instabilités dites primaires initient localement la cascade turbulente directe conduisant au mélange des masses d'eau atlantique et méditerranéenne.\\
-%Le code CROCO et son coeur non-hydrostatique et non-Boussinesq ont ainsi été implémentés dans la région du détroit de Gibraltar (maquette NH-HR) afin de réaliser une simulation explicite des grandes structures turbulentes \textit{(LES)} dans la région du détroit. A notre connaissance, une telle simulation avec un code à surface libre explicite est une première.\\
-
-%La maquette NH-HR a de surcroît permis de confirmer les résultats obtenus par Bordois (2015) et Bordois et al. (2016, 2017) à partir de sections verticales 2D: caractéristiques spatiales et temporelles de l'onde solitaire, génération de solitons mode 1 et mode 2, génération d'ondes topographiques... Plusieurs réflexions des ondes solitaires sur les côtes bordant le détroit ont de plus été mises en évidence et comparées aux observations disponibles dans la région. La dynamique du ressaut hydraulique a pu être précisée et le développement d'instabilités primaires de type Kelvin-Helmholtz a été confirmée à l'interface entre les eaux méditerranéenne et atlantique. La génération de tourbillons d'extension réduite au passage des solitons internes a été confirmée et le rôle déstructurant de ces tourbillons sur les trains de solitons est actuellement en cours d'étude.
-%La qualité de la simulation des ondes et courants de marée dans cette région d'extension réduite et très active dynamiquement a été évaluée et des stratégies de simulation ont été proposées et implémentées pour améliorer la précision numérique des prévisions.\\
-
-
-%La simulation des grandes structures turbulentes \textit{(LES)} de la région du détroit de Gibraltar ouvre des perspectives prometteuses pour l'étude de la cascade turbulente conduisant au mélange des masses d'eau. L'océan global est en effet connu pour n'abriter qu'un nombre vraisemblablement limité de régions présentant un mélange notable des masses d'eaux: régions peu-profondes localisées sur les plateaux continentaux ou dans les détroits, couches limites de fond et de surface abritant de violents cisaillements de courant, régions abritant sporadiquement des déferlements d'ondes de gravité ou des instabilités convectives... En dehors de ces "patchs" de mélange localisés dans l'espace et le temps, le mélange diapycnal dans la majeure partie de l'océan demeure faible (Munk et Wunsch, 1998). Cette double localisation des zones de mélange intense a plusieurs conséquences:
-% \begin{itemize}
-%        \item Le mélange diapycnal demeure difficile à quantifier et ses conséquences difficiles à évaluer: il est en effet intimement lié à des mécanismes de "fine échelle" mais il a des conséquences importantes sur les caractéristiques des masses d'eau et sur le maintien de la circulation à l'échelle globale.
-%        \item Les observations directes du mélange et de la cascade turbulente directe dont il est une conséquence sont difficiles à réaliser, relativement récentes et restent très parcellaires.
-%        \item La simulation directe du mélange diapycnal dans les modèles numériques est impossible et sa paramétrisation complexe.
-% \end{itemize}
-% La présente étude apporte ainsi plusieurs types de contributions pour progresser vers une meilleure connaissance du mélange diapycnal et de ses effets induits.\\
-
-
 
 
 %-------------------------------------------------------------------------------------
 \section{Papier 3D}
 \subsection{Review of general points about circulation at Gibraltar (intro/biblio)}
+
+(revoir plan intro...)
+
 
 The Atlantic - Mediterranean exchange occuring in the Strait of Gibraltar has been explained summarily in previous part (2D). It consists in Med waters exiting the Strait at depth as what has been dubbed the 'Mediterranean outflow' while Atl waters use this pathway to enter the Mediterranean basin at the surface.
 
@@ -412,29 +381,28 @@ Those waters flowing west of the sill are result of mixing with Atl waters at th
 In certain case, water flowing westward is saltier and colder, which may be interpreted as a greater part of original med water masses in the mix.
 
 
-Explore how the passage of the sill takes place in simulations.
+
+This work focuses on the variability of the flow in the Strait during the neap-spring tide cycle, and how it may affect mixing of water masses constituting the mediterranean outflow through the turbulent (direct?)cascade in numerical simulation resolving the development of primary shear instabilities.
+
+Plan :
+The numerical simulation framework constitued of three simulation periods is presented in section ..., with various diagnosis that have been applied to said simulations /experiments then presneted (blah) in section... . Section ... presents results pertaining to the hydraulogical state of the flow depending on the strength of barotropic tidal currents, the propagation of ISW in the simulations, then areas of generation of primary instabilities, ending with a comparison of turbulence scheme.
+
+
+
+
 
 
 \subsection{Numerical Configuration}
 \subsubsection{Numerical framework}
 
-Use CROCO-NBQ as was the case in Hilt 2020 (see a presentation of CROCO-NBQ there ) . The table ..., 
+Simulations are run using CROCO-NBQ as was the case in Hilt 2020 (see a presentation of CROCO-NBQ there ) . Table \ref{tab_NH-HR} surmrizes some simulation choice. Non-linear equation of state, noslip condition at the bottom,etc...  The turbulent closure scheme used is Smagorinsky with coef 0.05 except for paragraph ... in which simulations used coeff , and also one use GLSk-$\epsilon$.
 
-40 sigma level homogeneously distributed in the water column, in the area of the Sill sufficient to be more resolved on the vertical than in horizontal direction (see table).
-
-%Domain area 6°4.8'W  5°3.4'W;35°23.8'N  36°27.4'N 
-
-Bathymetry data from SHOM (MNT100(toujour sle cas???)), smoothed for pressure gradient...
-
-Initialisation and open boundary conditions are from a simulation of the operational Med and Black Sea ENEA using MitGCM (ENEA, Rome)\footnote{http://www.enea.it/it/seguici/pubblicazioni/pdf-volumi/cresco-report-2016.pdf}, whch serves as parent simulation. interpolated on sigma grid, integrates tidal forcing. No atm forcing/surface flux. 
-
-First 6 hours of simulation are run in CROCO-Hydro at 50m resolution and the last field is used to restart in NBQ mode. Otherwise the balance in MitGCM (dx $\approx$ 700m in the Strait) is to coarse for stability at 50m.
-
-Non-linear equation of state
-
-Either Smagorinski closure scheme or GLS k-$\epsilon$ in part, only Smagorinsky in part.. .
+Bathymetry data from 100m resolved MNT SHOM, smoothed for pressure gradient... is shown in figure \ref{FigBathy3D}. (bathy seuillée?)
 
 
+Initialisation and open boundary conditions (that incude tdial forcing) are from a simulation of the operational Med and Black Sea ENEA using MitGCM (ENEA, Rome)\footnote{http://www.enea.it/it/seguici/pubblicazioni/pdf-volumi/cresco-report-2016.pdf}, whch serves as parent simulation. The parent simulation as an horizontal resolution in the strait of $\approx$ 700m and verical z-levels (repartition?), that are interpolated on grid of horizontal resolution 45 m with 40 evenly spaced vertical $\sigma$-levels. This is sufficient in the area of the main Camarinal Sill sufficient (300m at the top and 500m downslope) to be more resolved on the vertical than in horizontal direction. No atmospheric forcing is embedded in the simulation.
+
+First 6 hours of simulation are run in CROCO-Hydro at 50m resolution and the last field is used to restart in NBQ mode. Otherwise the balance in MitGCM is to coarse for stability at high resolution.
 
 \begin{table}[!h]
         %\begin{minipage}{.6\textwidth}
@@ -462,28 +430,14 @@ Either Smagorinski closure scheme or GLS k-$\epsilon$ in part, only Smagorinsky 
                 Tidal harmonics (from ENEA) & \multicolumn{2}{c|} { $\text{M}_{\text{2}}$, $\text{S}_{\text{2}}$,$\text{K}_{\text{1}}$, $\text{O}_{\text{1}}$ }\\
                 \hline
         \end{tabular}
-        \captionof{table}{.....}
+        \captionof{table}{Simulation parameters}
         \label{tab_NH-HR}
         %\end{minipage}
 \end{table}
 
 
-%L'hydrologie, les courants de marée et la circulation générale sont forcés comme pour la maquette NH-REF à partir d'une simulation hydrostatique "Mère" MitGcm du modèle opérationnel de la Méditerranée et de la Mer Noir de l'ENEA, gracieusement fournie par l'équipe de G. Sannino (ENEA, Rome)\footnote{http://www.enea.it/it/seguici/pubblicazioni/pdf-volumi/cresco-report-2016.pdf}. Ce forçage est utilisé comme condition initiale et comme conditions aux frontières ouvertes. Cette simulation "Mère" a une résolution horizontale variable d'environ 700 m dans la région du détroit, soit environ une quinzaine de fois supérieure à celle de la maquette à haute résolution NH-HR. Ce saut en résolution relativement élevé est associé à un changement de coordonnées verticales (le MitGcm est basé sur une grille à niveaux z, CROCO sur une grille $\sigma$).  Les cœurs dynamiques utilisés dans les simulations Mère et NH-HR sont de plus différents: la maquette NH-HR est en effet non-hydrostatique et non-Boussinesq alors que la version du modèle MitGcm utilisée pour réaliser la simulation "Mère" est hydrostatique et Boussinesq.\\
-%L'ensemble de ces différences est à l'origine d'un choc violent lorsque la simulation NH-HR est initialisée et forcée directement à partir de la simulation Mère MitGcm. Un tel choc entraîne une période de \textit{spin-up} de plusieurs heures durant lesquelles la qualité des caractéristiques des masses d'eaux méditerranéenne et atlantique est peut-être fortement dégradée. En conséquence, un protocole de simulation spécifique a été mis en place:
-%\begin{itemize}
-%        \item La simulation à haute résolution (HR) est initialisée et forcée par la simulation Mère MitGcm.
-%        \item Durant les 6 premières heures de simulation, le coeur hydrostatique, Boussinesq de CROCO est implémenté, limitant ainsi le choc initial et permettant une première mise en équilibre des champs initiaux sur la bathymétrie à haute résolution.
-%        \item La simulation HR est alors redémarrée (\textit{Hot Restart}) en version non-Hydrostatique et non-Boussinesq.
-%\end{itemize}
-%Quatre ondes de marées sont forcées aux frontières latérales: ($\text{M}_{\text{2}}$, $\text{S}_{\text{2}}$, $\text{K}_{\text{1}}$, $\text{O}_{\text{1}}$). Ce forçage est intégré dans les sorties issues de la simulation MitGcm à 700 m.\\
-
-
 \subsubsection{Tidal forcing and simulation period}
-Tidal forcing is integrated to the boundary forcing by the parent simulation. It comprises four harmonics (?)($\text{M}_{\text{2}}$, $\text{S}_{\text{2}}$, $\text{K}_{\text{1}}$, $\text{O}_{\text{1}}$)
-
-In september are greatest(?) tidal coefficients, link to equinox.
-
-Three different periods are investigated among neap tide spring tide cycle, the date of the beginning and end of each NBQ simulation is surmrised in table \ref{tab_dates_MIV}, and does not include the 6hour hyrostatic spin up period. The comparison between tidal gauge at Tarifa is in figure 
+The tidal forcing is integrated to the boundary forcing by the parent simulation. As indicated in table \ref{tab_NH-HR},  it comprises four tidal harmonics (?)($\text{M}_{\text{2}}$, $\text{S}_{\text{2}}$, $\text{K}_{\text{1}}$, $\text{O}_{\text{1}}$). Simulations are run for 3 days along 3 different periods of September of year 2017 (close to equinox). The date of the beginning and end of each NBQ simulation is surmrised in table \ref{tab_dates_MIV}, and does not include the 6hour hyrostatic spin up period. The comparison of the sea-level anomaly between a grid point near Tarifa (coord -5.6° - 36.01°) in both the parent MitGCM and CROCO simulation and the tidal gauge data (from Puertos del Estado) are shown in figure \ref{fig_maree_tar}. Can see close to the parent simulation except in the neap tide period.
 
 \begin{table}[h]
         %\begin{minipage}{.6\textwidth}
@@ -498,45 +452,22 @@ Three different periods are investigated among neap tide spring tide cycle, the 
                 Vives Eaux (ME) & 19/09/2017 22h00 - 21/09/17 23h00  \\
                 \hline
         \end{tabular}
-        \captionof{table}{Périodes de simulation pour les 3 sitituations VE, MM et ME (format date JJ/MM/YY????)}
+        \captionof{table}{Trouver des noms pours les simus....Périodes de simulation pour les 3 sitituations VE, MM et ME (format date JJ/MM/YY????)}
         \label{tab_dates_MIV}
         %\end{minipage}
 \end{table}
 
-Figure... compare the sea level anomaly at the closest grid point to Tarifa (coord -5.6° - 36.01°) in both the VHR simulation and the parent MitGCM simulation, and compares it to Tarifa's tidal gauge data made available by spanish institute \textit{Puertos del Estado} (Mettre une ref pour data...). 'Dephasage' is under one hour when it is , the most 'dephase' is for the lowest amplitude tidal period during neap tide, retains the lower amplitude of anomaly of MitGCM (around 10 cm), that can be explained by difference in bathymetry in simulation at proximity of near the coast, the lack of more tidal harmonics, lack of atmosphere forcing.
-
-%(Refaire figure en ajoutant ubar a camarinal sill en notant heures des max d'outflow...???)
-
 \begin{figure}[!h]
         \includegraphics[width=0.5\textwidth]{./GBR3D/FigBathyVHR.png}
-        \caption{Ajouter point Tarifa(et Ceuta, Tanger, Gibraltar, Tarifa), point ubar...(5.7553$^o$W  35.9238$^o$N)}
+        \caption{Ajouter point Tarifa(et Ceuta, Tanger, Gibraltar, Tarifa), point ubar...(5.7553$^o$W  35.9238$^o$N) (Foutre a cote d'un tableau???)}
+        \label{FigBathy3D}
 \end{figure}
 
-%\begin{table}[h]
-%        %\begin{minipage}{.6\textwidth}
-%        \centering
-%        \begin{tabular}{|c|c|c|c|c|}
-%                \hline
-%                Situation & \multicolumn{2}{c|}{Tarifa} &\multicolumn{2}{c|} {Ceuta}\\
-%                &CROCO &MitGCM&CROCO &MitGCM\\
-%                \hline
-%                Mortes Eaux (VE) &10 cm &7 cm &9 cm& 6 cm\\
-%                %\hline
-%                Marée Moyenne (MM) & 13 cm&10 cm &12 cm&9 cm \\
-%                Vives Eaux (ME) & 14 cm& 11 cm& 12 cm&9 cm \\
-%                \hline
-%        \end{tabular}
-%        \captionof{table}{Erreur standard(rmse) de l'anomalie de niveau de la mer entre les simulations et les marégraphes. A REFAIRE? (IE pas bon sûr)}
-%        \label{tab_dates_MIV}
-%        %\end{minipage}
-%\end{table}
 
 
 \begin{figure}[!h]
         \includegraphics[width=\textwidth]{./GBR3D/SLA_Tarifa_ME2VE2IES.png}
-        \caption{Anomalie du niveau de la mer (m) à Tarifa (36°N 5°36'W) enregistrée par le marégraphe  (courbe noire),
-        interpolée dans le champ de forçage (courbe rouge), dans CROCO (courbe bleu) dans la situation ME (a), MM (b) et VE (c).
-        En tirets bleus le signal filtré à 25h dans CROCO.}
+        \caption{Sea level-anomaly at Tarifa from tidal gauge data (black) or at the nearest grid point for parent simulation (red) and CROCO simulation (blue), for situation ME (a), MM (b) et VE (c)}
         \label{fig_maree_tar}
 \end{figure}
 
@@ -545,44 +476,44 @@ Figure... compare the sea level anomaly at the closest grid point to Tarifa (coo
 
 \begin{figure}[!h]
         \includegraphics[width=\textwidth]{./GBR3D/WM_ini_IES.png}
-        \caption{}
+        \label{Fig_Ini_WM3D}
 \end{figure}
 
 
-Figure shows the T,S diagrams for east west entry of the Strait in initial tracer field of simulation Intermediate Tide. As expected, for med waters see on the west side two signals for the two pathways, on the east side see distinctly a deep water mass and an intermediate one (not the value found in biblio) that could be interpreted as WMDW and LIW, with the latter being present mostly on the northern part, difficult to say if other water masses. For atl waters, NACW present on west of domain, less on east. On east, see difference surface water north/south.
-
-%In simulation, profile T,S are similar in their overall shape to what is bibliographycally expected, see mediterranean water masses distinct in latitude west of the sill.
-%Although the water mass signature have some bias compared to existing observational data so they are to be adressed as generic mediterranean water masses, with the densest analogous to WMDW, if we distinguish two others east of the sill that may be analogous to LIW and TDW, those analogous water masses are denotes A,B,C centroid are taken from WM present east of the sill, but looking at water masses west of the sill they will simply be called OA and OB for med outflow water A and B. OA and OB are not differentiated by hydrological characteristics but simplt by latitude (ie the path taken along the strait).
-%Mixing does not occur homogeneously along the strait and results in at least two distinctive enough med vein in the strait of Gibraltar. Furthermore, simulation permits to see variability in time is those two veins T,S characteristics at a given section, so the water mass being transported varies in time at the M2 time scale.
+Figure \ref{Fig_Ini_WM3D} shows the $\theta$-S diagrams for east and west entry of the Strait in initial tracer field of simulation Intermediate Tide. As expected, for med waters see on the west side two signals for the two pathways of the med outflow, on the east side see distinctly a deep water mass and an intermediate one (not the value found in biblio) that could be interpreted as WMDW and LIW, with the latter being present mostly on the northern part, difficult to say if other water masses. For atl waters, NACW present on west of domain, less on east. On east, see difference surface water north/south.
 
 
 
 
 \subsection{Numerical diagnostics}
-Mettre que définitions des diagnostiques, dans partie d'après y fait référence
+
 
 \subsubsection{Interface definition}
 
-Take a two-layer approach to the dynamic and definition of atl and med layer.
+The analysis of simulation result is based on two layer definition of an Atlantic waters layer and Mediterranean waters layer. They are defined in regard to a reference salinity, with the interface defined from the first water parcel from the top down in teh water column for which salinity is above the reference salinity.
 
-Following (Sannino?), the central salinity value of the interface is taken as the middle of the slope area in a hyperbolic tangent fit of the salinity profile at one grid point. This has been repeated for some ... accross the three simulations and along the Strait, can see that the pycnoncline is saltier east of the camarinal Sill. To define med and atlantic layer then chose a salinity of interface as a fuction of longitude :
+The reference salinity is taken as varying along the Strait in function of longitude as a hyperbolic tangente function centered at the Camarinal Sill to account for the different water mass composition in the eastern and western part of the Strait of Gibraltar. %The function was fitted against the median salinity found by of fitted hyperbolic tangente to the salinity profile in the water column for the initial field
+
+%Take a two-layer approach to the dynamic and definition of atl and med layer.
+
+%Following (Sannino?), the central salinity value of the interface is taken as the middle of the slope area in a hyperbolic tangent fit of the salinity profile at one grid point. This has been repeated for some ... accross the three simulations and along the Strait, can see that the pycnoncline is saltier east of the camarinal Sill. To define med and atlantic layer then chose a salinity of interface as a fuction of longitude :
 
 \begin{equation}
 	S_i(x)=tanh(\frac{x-X_{CS}}{DX})\frac{S_M-S_m}{2}+\frac{S_M+S_m}{2}
 \end{equation}
-with $X_{CS}=5.75^o$, $dx=0.25^o$, the location and width of the Camarinal Sill in degrees, $S_M=37.39$ and $S_m=37.1$ the max and minimum values
+with $X_{CS}=5.75^o$, $dx=0.25^o$, the location and width of the Camarinal Sill in degrees, $S_M=37.39$ and $S_m=37.1$ the max and minimum values taken respectively east and west of the sill.
 
 %This may not give the perfect interface at any given time...
 
 \subsubsection{Froude layer number}
 
-With de definition of the interface of paragraph. Can define a froude layer number. 
+With the atlantic and mediterranean layers defined as above, the Froude layer number for internal gravity wave is computed at each 2D grid point as : 
 
 \begin{equation}
-G^2=F_1^2+F_2^2 \ \ , \ \text{with} \ F_i=\frac{u_i^2}{g'h_i} , \ \text{with} g'=g \frac{\rho_2-\rho_1}{\rho_0}
+F_i=\frac{u_i^2}{g'h_i} , \ \text{with} g'=g \frac{\rho_2-\rho_1}{\rho_0}
 \end{equation}
 
-where $\rho_i$ averaged density in layer i,  u is averaged velocity norm (u and v) over the layer i of height h. If $F_i>1$ say that layer i is supercritical.
+where $\rho_i$ averaged density in layer i,  u is averaged velocity norm (u and v) over the layer i of height h. If $F_i>1$ say that the flow in layer i is supercritical.
 
 
 \subsubsection{Hydraulic Jump detection, acceleration of flow}
@@ -631,7 +562,7 @@ Due to this advection, there are grid cells for which a succession of billows pr
 
 \begin{equation} 
 \label{eqstdQ} 
-    std ( Q ) (\vec{x},t)=  \sqrt{   \overline{Q (\vec{x},t)^{2}} -  \overline{Q(\vec{x},t)}^{2}       }
+    std ( Q ) (\vec{x},t)=  \sqrt{   \overline{Q (\vec{x},t)^{2}} -  \overline{Q(\vec{x},t)}^{2}  }
 \end{equation}
 
 By implementing this calculation directly in the code, we can asses where instabilities/vortexes propagate without having to make a huge volume of simulation outputs over the whole domain, those economising in storage place and data readability. Thus it is possible to create a map of standard deviation of Q which will reflect areas where KH billows will propagate in the simulation.
@@ -645,48 +576,11 @@ Standard deviation of parameter Q is computed as in \ref{eqstdQ} and for each 30
 One can also use SVD of parameter Q, where as in SVD of Okubo-Weiss parameter in 2D chapter / case, complex SVD means see propagation in the left  term of temporal evolution... However thhis calculation is offline and necessitates a high frequency 3D output to pick up the relevent structures.
 
 
-%\subsubsection{Matching Pursuit(retirer?pas au point)}
-%Solutions of solitons are generally given by solution of KdV equation as the general form 
-%\begin{equation}
-%\eta(x,t) = A sech^2\bigg( \frac{x-Ct}{l} \bigg) 
-%\end{equation}
-%with A amplitude, C the phase speed and l a lengthscale. Those three parameters(?) are linked, and knowing two of them gives the third, for exemple greater the phase speed, greater the amplitude. Analytical expressions of those two remaining parameters varies on the choices made to solve the KdV equation and have in their expressions startification, etc. depth. 
-
-%Here chose solution for ... 
-
-%Locating ISWs in temporal signal of tracer in the water column (and in u? essayer) use Matching Pursuit algorithm. Rely on finding better convolution for the signal among elements of a 'dictionary' called 'atoms'. The shape of this atoms is decided by the user, here we chose Morlet waves, Dirac peaks, and define a 'soliton shape' from the analytical solution of the KdV problem. Additionally, the signal chosed as the basis for the Matching Pursuit will not be directly the depth of an isopycnal $\eta$ for it varies greatly due to internal tide but the trend $\partial \eta/\partial t$ for which at $x=0$ the expression derived from eq ... is :
-%\begin{equation}
-%\frac{\partial \eta}{\partial t} = \frac{2 C A}{l} \frac{sinh(-Ct/l)}{cosh^3(-Ct/l)}
-%\end{equation}
-
-%However, in this case the propagation speed of the wave is not only its phase speed, as it is advected by the currents, so $C=C_s+u$ with u the ambiant barotropic current.
-
-%%\noindent\textit{Repérer le passage de train d'ondes solitaires : Matching Pursuit}\\
-%Une forme analytique de la perturbation de l'interface où se propage un soliton dans un fluide bicouche est donnée sous la forme : (general KdV formulation for one solitary wave in sech squared, two 'parameters'/'degrees', with amplitude linked to phase speed and wavelength, the latter have expressions depending on variables such as stratification and depth) However in a temporal serie the wave is also advected by , and it is this composite speed that defines the signal's form. take as parameters, depth, amplitude and speed, derivate from the couple depth/amplitude a first wavelength, it is compared to 
-%\begin{equation}
-%\eta = A sech^2\bigg( \frac{x-Ct}{l} \bigg) \ \ , \ \text{avec} \ l = \frac{2h_1h_2}{\sqrt{3A(h_1-h_2)}} \ \text{et} \ C=c_0 \ (1 + \frac{A}{2} \frac{h_1-h_2}{h_1h_2})
-%\end{equation}
-%où $\eta$ est la position de la surface isopycnale séparant les deux fluides, $h_1$ et $h_2$ sont les épaisseurs des deux couches de fluide de masse volumique $\rho_1$ et $\rho_2$ et $c_0=\sqrt{g'H}$ est la vitesse d'une onde longue interfaciale.
-%Pour localiser le passage de solitons dans un signal temporel de la colonne d'eau, un "dictionnaire" de formes (dites "atomes") et en particulier de solitons peut être créé en combinant les paramètres d'amplitude et de profondeur. L'algorithme de \textit{Matching Pursuit} (...) permet de sélectionner la meilleur combinaison de paramètres pour "expliquer" le signal.\color{black}
-
-%Comp parametres donnes par matching pursuit (ex : vitesse(compo courant + mode 1?) vs vitesse propag dans champs 3D...)
-
-%Locating ISWs in temporal signal of tracer in the water column (and in u? essayer) use Matching Pursuit algorithm. Rely on finding better convolution for the signal among elements of a 'dictionary' called 'atoms'. The shape of this atoms is decided by the user, here we chose Morlet waves, Dirac peaks, and define a 'soliton shape' from the analytical solution of the KdV problem.
-
-%\begin{equation}
-%\eta = A sech^2\bigg( \frac{x-Ct}{l} \bigg) \ \ , \ \text{with} \ l = \frac{2h_1h_2}{\sqrt{3A(h_1-h_2)}} \ \text{and} \ C=c_0 \ (1 + \frac{A}{2} \frac{h_1-h_2}{h_1h_2})
-%\end{equation}
-
-%In reality $C=C_s+u$ the composition of the soliton velocity and the ambiant barotropic current. And of course the analytical solution is for two-layer, 2D problem, but shape is correct enough that convolution factor $\beta$ corrects amplitude. To create the atoms of the dictionary, use different combinations of $h_1$ the upper layer depth (or depth above the pycnocline), $A$ the amplitude and $C$  (comment?). (correct l with $\beta$?)
-
 
 \subsection{Results}
 
 
 \subsubsection{Flow criticality/Hydraulically controlled layer and hydraulic jump, neap-spring tide variability}
-
-%La maquette NH-HR simule correctement le contrôle hydraulique localisé dans la région du seuil de Camarinal. Un tel contrôle est attendu dans cette région lorsque les courants de marée sont suffisamment puissants pour que le flot au-dessus du seuil devienne supercritique. Ce processus intervient à chaque période de marée durant 3 à 4 heures lorsque les courants de marée sont orientés vers l'Atlantique Nord (à l'exception notable de certaines périodes en régime de mortes-eaux durant lesquelles ces courants sont trop faibles). Le contrôle entraîne la formation d'un ressaut hydraulique dont la géométrie va dépendre de l'intensité des courants de marée. \\
-%La figure \ref{fig_ressaut_NH-HR}.a présente une coupe verticale dans la région du Seuil de Camarinal lors d'une période d'\textit{outflow} maximum simulée avec la maquette NH-HR, et la figure \ref{fig_ressaut_NH-HR}.b la trace visible du ressaut en terme d'élévation de la surface libre dans la simulation. Le ressaut est visible sur la coupe vers -5.755° longitude dans la région où les surfaces isopycnales présentent une discontinuité d'une amplitude d'environ 70 m au-dessus du seuil.\\
 
 \begin{figure}[!h]
  \centering
@@ -733,40 +627,19 @@ Figure \ref{FigHCN} presents weak barotropic tidal currents in outflow and inflo
  \label{FigHCI}
 \end{figure}
 
-Firstly, can see two channels west of the Camarinal Sill where Med layer is present, separated by Majuan Bank. The path of the med vein through the south channel does not change much, however in the northern channel see a variable area of cicrulation for med waters above 200m depth and centered at 36$^o$ N. This area is larger in outflows, as new med waters go upsolpe due to the westward barotropic current, but there is also a southern component to the flow that bends back into the main north channel (see figure (bathy) for a better view of the bathymetry of the area).
+Firstly, can see two channels west of the Camarinal Sill where Med layer is present, separated by Majuan Bank. The path of the med vein through the south channel does not change much, however in the northern channel see a variable area of cicrulation for med waters above 200m depth and centered at 36$^o$ N. This area is larger while in outflows, as new med waters go upsolpe due to the westward barotropic current, but there is also a southern component to the flow that bends back into the main north channel (see figure (bathy) for a better view of the bathymetry of the area).
 
-For all cases, supercriticality of the atlantic (mediterranean) layer happens mostly east (west) of 5.8$^o$W which is the western slope of Camarinal sill. During inflows in figure \ref{FigHCN}.a and \ref{FigHCS}.a, criticality of the mediterranean layer only occurs in patches, the most extended one in the area of the nothern channel just discussed. In outflows in figures \ref{FigHCN}.b,\ref{FigHCS}.b and \ref{FigHCI} the Mediterranean layer is supercritical at both Camarinal,Espartel Sill and nothern channel for all cases. In spring case outflow most of the nothern channel has a supercritical flow (descrip crit med layer outflow...)
+For all cases, supercriticality of the atlantic (mediterranean) layer happens mostly east (west) of 5.8$^o$W which is the western slope of Camarinal sill. During inflows in figure \ref{FigHCN}.a and \ref{FigHCS}.a, criticality of the mediterranean layer only occurs in patches, the most extended one in the area of the nothern channel discussed above. In outflows in figures \ref{FigHCN}.b,\ref{FigHCS}.b and \ref{FigHCI} the Mediterranean layer is supercritical at both Camarinal,Espartel Sill and nothern channel for all cases. In spring case outflow most of the nothern channel has a supercritical flow (descrip crit med layer outflow...)
 
 
-During outflow suprcritical atl layer only at CS, except in neap case where it does not occur at all. in inflows, for neap case it is critical only at a patch near nrth shore in TN at 5.59$^o$W and north part of CS. for spring tide case, it is supercritical at TNboth as a more extended patch of the one of the neap case and a greater patch going north/south between 5.5$^o$W and 5.4$^o$W , and at CS. See next paragraph for description of the flow in Tanger basin and impact of propagating solitary waves.
+During outflow suprcritical atl layer only at CS, except in neap case where it does not occur at all. in inflows, for neap case it is critical only at a patch near nrth shore in TN at 5.59$^o$W and north part of CS. for spring tide case, it is supercritical at TNboth as a more extended patch of the one of the neap case and a greater patch going north/south between 5.5$^o$W and 5.4$^o$W , and at CS. Figure \ref{FigISWGBR3D}(onde a TN) shows the fiel of surface current divergence in Tarifa Narrows while a train of ISW is propagating, igure a for condition of inetrmediate strength of barotropic current in inflow and figure b for a strong barotropic current at the same time as figure \ref{FigHCS}.b. Are also shown the areas of critical atlantic layer flow as black mesh area. The propagation of the ISW train occurs at the same time as maximum inflow in this area and sea the area of atl layer criticality is after . it seems the northern part of the criticlaity of the atl layer is dissociated from its southern part. The former is occurs often and is more or less extended while the other may be affected by influence of the passage of the ISW be it i the form of induced velocity or stratification.
 
-Hyd jump are detected for all cases except the neap tide outflow (usually) at the junction between an area where atl and med layer are supercitical. It follows area of high gradient of free surface elevation. The shape of the hydraulic jump in inflow is more pronounced for stronger barotropic currents. For outflows, two different shapes are seen accross the simulations when hydraulic jump is formed, in spring tide at first resembles the intermediate case//at first the hyd jump forms at the top of the sill, but as the tidal barotropic current strenghten the hydraulic control on the atl layer expends west, but as barotropic currents increase jump is swept wesward as the area of supercritical atl layer extends over the sill. 
-
-Patches of high standard deviation of parameter Q are indicated, they are the most extended for all outflow cases and for the spring tide inflow, although the values for this latter case are not as high. In particular, highest values are found for the two outflow case where hydraulic jump is detected (ping and intermediate tide), in the area west of CS at 5.79$^o$W and west of secondary bathymetric features in Tanger basin at 5.84$^o$W. There is also a signal at Espartel Sill, of greater standard deviation for the spring tide outflow, meaning higher values for the parameter Q are reached there, ie the rotational part of the velocity gradient is greater, indicating vortices. Paragraph ... describes in more details the dynamic at the Sill and the generation/dynamic of the vortices. 
-
+Those propagating ISW are developped from hyd jump that are detected in figures... for all cases except the neap tide outflow. It is (usually) located at the junction between an area where atl and med layer are supercitical. It follows area of high gradient of free surface elevation. The shape of the hydraulic jump in inflow is more pronounced for stronger barotropic currents. For outflows, two different shapes are seen accross the simulations when hydraulic jump is formed, in spring tide at first resembles the intermediate case//at first the hyd jump forms at the top of the sill, but as the tidal barotropic current strenghten the hydraulic control on the atl layer expends west, but as barotropic currents increase jump is swept wesward as the area of supercritical atl layer extends over the sill.
 
 
 
 
 \subsubsection{Propagation of Solitons (ISWs)}
-
-\begin{figure}[!h]
- \centering
-%\begin{subfigure}{\linewidth}
-%\centering
-\includegraphics[width=\linewidth]{./GBR3D/FigTourbVE2.png}
-%\end{subfigure}
- \caption {Vorticity of surface current (upper row) and divergence of surface current (lower row)  (!rajouter vecteurs vitesses au champ vorticité????)}
- \label{FigeddGBR3D}
-\end{figure}
-
-Solitary waves are generated at each tidal cycle at CS, except when there is no hydraulic jump. However, even at this point the tide passing through the strait and through tarifa gives a signal at the surface that exiting the strait starts disppersing in a wave train, though not as extended. Always organised train with the leading wave being greater except when propagation in the ALboran Sea due to refraction on an eddy.
-
-This case is presented in figure \ref{FigeddGBR3D}, for simulation ...,  two rows of figure plotted the vorticity and divergence field of the surface currents. In figure \ref{FigeddGBR3D}.a wave packet arrives at exit of the Strait, in south part off of Ceuta, filament of positive vorticity. As the wave passes this area in \ref{FigeddGBR3D}.b the filament is now a cyclonic eddy detached from the coast. In \ref{FigeddGBR3D}.c one tidal cycle later the eddy is at 5.2$^o$W and 36$^o$N and thenleading waves of the next wave packet generated at this cycle are arriving at this position, disforming the shape of the packet, south part accelerated and north part decelareted, at the same time can see once again potential vorticity patch off of Ceuta. In \ref{FigeddGBR3D}.d this patch too has developped in a cyclonic eddy that propagates in the Alboran Sea while the interaction between the solitary waves and the previous cyclonic eddy has resulted in interference pattern in the wave packet. 
-
-In the simulations, this process of generation of cyclonic eddy off of the coeast of CEuta occurs each time solitary waves exit the srait,  The wave of the next tidal cycle gets diffracted on this eddy, creating interference in the train of solitary waves.
-
-
 
 \begin{figure}[!h]
  \centering
@@ -780,60 +653,30 @@ In the simulations, this process of generation of cyclonic eddy off of the coeas
 
 
 
+\begin{figure}[!h]
+ \centering
+%\begin{subfigure}{\linewidth}
+%\centering
+\includegraphics[width=\linewidth]{./GBR3D/FigTourbVE2.png}
+%\end{subfigure}
+ \caption {Vorticity of surface current (upper row) and divergence of surface current (lower row)  (!rajouter vecteurs vitesses au champ vorticité????)}
+ \label{FigeddGBR3D}
+\end{figure}
 
-%Of the three period, for IT (intermediate tide), have satellite observations, SAR images . (remettre celle du poster)
+Solitary waves are generated at each tidal cycle at CS, except when there is no hydraulic jump. However, even at this point the tide passing through the strait and through tarifa gives a signal at the surface that exiting the strait starts disppersing in a wave train, though not as extended. In the simulations, Always organised train with the leading wave being greater except when propagation in the ALboran Sea due to refraction on an eddy.
 
+This case is presented in figure \ref{FigeddGBR3D}, for simulation ...,  two rows of figure plotted the vorticity and divergence field of the surface currents. In figure \ref{FigeddGBR3D}.a wave packet arrives at exit of the Strait, in south part off of Ceuta, filament of positive vorticity. As the wave passes this area in \ref{FigeddGBR3D}.b the filament is now a cyclonic eddy detached from the coast. In \ref{FigeddGBR3D}.c one tidal cycle later the eddy is at 5.2$^o$W and 36$^o$N and thenleading waves of the next wave packet generated at this cycle are arriving at this position, disforming the shape of the packet, south part accelerated and north part decelareted, at the same time can see once again potential vorticity patch off of Ceuta. In \ref{FigeddGBR3D}.d this patch too has developped in a cyclonic eddy that propagates in the Alboran Sea while the interaction between the solitary waves and the previous cyclonic eddy has resulted in interference pattern in the wave packet. 
 
-%In those simulation, Even when no hyd jump can see a signal propagating in neap tide
-
-%((The , using matching pursuit, see that the waves of the train are resolved enough to fit the scenate(?) profile of solitary waves. 
-
-
-%Speed in the Strait, how relaxation ? Comparison velocity given by MP and propagation...
-
-
-%Comme son homologue à plus basse résolution NH-REF, la maquette à haute résolution NH-HR est permet de simuler la génération et la propagation des modes 1 et 2 d'ondes internes de gravité dans le détroit de Gibraltar, ce qui est en accord avec les observations des satellites Sentinel 1 et 2. De façon similaires, des ondes de grande amplitude (de l'ordre de la centaine de mètres), sont générées lors de la relaxation du ressaut hydraulique au Seuil de Camarinal. Ces ondes ont une signature de mode 1. Elles sont précédées par la propagation d'un mascaret interne puis se décomposent en train d'ondes solitaires sous l'action de la dispersion non-hydrostatique qui vient équilibrer les non-linéarités liées à l'advection. Au cours de sa propagation dans le détroit de Tarifa, ce train d'onde va en partie se réfléchir sur les côtes en train ondes se propageant vers l'ouest. Afin de détailler l'apport de l'augmentation de la résolution sur ces ondes, la figure \ref{fig_mod1_HR-REF}.a présente une coupe verticale en densité du train d'ondes solitaires alors qu'il entre en Mer d'Alboran dans la maquette NH-HR (en couleur) et dans la maquette NH-REF (en pointillés). \\
-%Les ondes de mode 1 se sont propagées plus vite dans la maquette NH-HR, et le nombre d'ondes dans le train est plus grand (5 contre 2). Ce comportement est le même à chaque période de marée et la variation du nombre de solitons d'une période de marée à une autre peut être simulée avec la maquette NH-HR. Cette forte variabilité diurne est illustrée dans le tableau \ref{tab_XEC}, réalisé en notant l'arrivée de l'onde de mode 1 au point le plus à l'est dans la figure \ref{fig_mod1_HR-REF}.a (ou à tous les points de la figure \ref{fig_mod1_HR-REF}.b pour le calcul de la vitesse de propagation). Les vitesses les plus fortes dans ce tableau correspondent à une advection par des courants de marée plus importants, on observe que ces périodes sont associées à un plus petit nombre d'ondes dans le train avec une périodicité elle aussi plus petite. Il est à noter que ces valeurs ne sont pas identiques pour toutes les latitudes à la sortie du détroit: du fait de la dispersion induite par la force de Coriolis, l'amplitude de la première onde est par exemple plus grande dans la partie sud.
-
-
-
-
-
-
-
-Figure \ref{FigISWGBR3D} compares the propagation in Tarifa Narrows of the solitary wave packet in case of intermediate and spring inflow. Plots the divergence field of the surface currents and in black meshed area the localtion where atl layer is supercritical.  figure \ref{FigISWGBR3D}.b is at the same time as \ref{FigHCS}.a..
-
-In figure \ref{FigISWGBR3D}.a two areas of critical atl layer, north part of the strait off the spanish coast east of Tarifa, and south part of the Strait off the moroccoan coast behind the solitary wave packet.
-
-  
-
-
-Control at Tarifa occurs at the maximum of inflow, but also when the solitary wave has just passed through this area. This twho events are not necessarily synchronized (at the same time), 
-in inflow north of the tarifa narrows atl layer has froude sup to 1, behind the solitary wave however, can also have but more on the south side, for spring tide inflow those two control can join
-
-%Each time solitary waves exits the strait at east side, generation of a positive vorticity / cyclonic eddy at (nom cap...) . The wave of the next tidal cycle gets diffracted on this eddy, creating interference in the train of solitary waves
-
-
-
-
-
-%Les simulations NH-REF et NH-HR montrent la génération d'un tourbillon au passage des trains de solitons à la sortie du détroit. Cette génération pourrait être une conséquence des violents cisaillements de courants horizontaux générés par l'onde interne.\\
-%La structure tourbillonnaire demeure dans cette région puis déforme le train d'ondes solitaires suivant. A notre connaissance, il n'existe pas d'observations ni de preuves directes de son existence.\\
-%Son impact sur les solitons n'est toutefois pas négligeable puisque les simulations numériques montrent pour certaines périodes de marées une désorganisation du train d'ondes solitaires à la sortie du détroit. Cette déstructuration du train d'ondes solitaires pourrait être une conséquence de son interaction avec le tourbillon suivant ou être associée à la génération de la structure tourbillonnaire. Ces conséquences ont été observées par (Vlasenko et al., 2009) et pourraient quoiqu'il en soit confirmer indirectement la présence de la structure tourbillonnaire. Il convient toutefois d'être prudent et de nouvelles investigations sont actuellement en cours afin de préciser le mécanisme de génération du tourbillon et de rassembler des observations in situ pouvant confirmer sa présence.
-
-
+In the simulations, this process of generation of cyclonic eddy off of the coeast of CEuta occurs each time solitary waves exit the srait,  The wave of the next tidal cycle gets diffracted on this eddy, creating interference in the train of solitary waves.
 
 
 
 \subsubsection{Dynamic at Camarinal Sill, primary instabilities}
 
-\subparagraph{Mixing downflow of hydraulic jump}
-\begin{itemize}
-	\item Exemple domaine Cso et diagrammes TS entre zones où insta se developpent (diag TS, std, trace svd et histogrammes, montrer les vecteurs temps des premieres EOF et EOF de cell où insta en 3D)
-	\item Variabilité marée, voit difference emplacement selon maree (pas diag T,S dispo mais pas les même situations donc comparaisons bof.)
-	\item Effet simu num, schéma de fermeture etc, sur premier outflow IES (voit effet salinité, dynamique différente des instabilités)
-	\item Selon comment simule le passage, caractéristique de la veine med différentes...
-\end{itemize}
+
+Figures blabla  Patches of high standard deviation of parameter Q are indicated, they are the most extended for all outflow cases and for the spring tide inflow, although the values for this latter case are not as high. In particular, highest values are found for the two outflow case where hydraulic jump is detected (ping and intermediate tide), in the area west of CS at 5.79$^o$W and west of secondary bathymetric features in Tanger basin at 5.84$^o$W. There is also a signal at Espartel Sill, of greater standard deviation for the spring tide outflow, meaning higher values for the parameter Q are reached there, ie the rotational part of the velocity gradient is greater, indicating vortices. 
+
+Figure \ref{FigTSCS}.a superposes to the standard deviation the ... field of the left-hand term (spatial) term of SVD of the 3D field of parameter Q computed during the outflow for the EOF that had the most high-frequencey variability associated with propagation of vortical structures (higher order EOF (not shown) have low frequency variability and structure associated with the regional flow itself). Can see that the contour of parameter Q$=1e-5m^2s^{-2}$ are located at same place as high standard deviation.See generation areas of vortexes are approximately centered around two longitudes. Figures \ref{FigTSCS}.b to e show the partial view of $\theta$-S diagram in part of the graph of med waters where every hydrological property at each grid point in the simulation for a given longitude. See that in b that at ...degrés still up at the sill have a repartition of med water masses alike that in figure ... . then from c to d more and more homogenized along same latitude under the efefct of mixing.
 
 \begin{figure}[!h]
 % \centering
@@ -843,102 +686,26 @@ in inflow north of the tarifa narrows atl layer has froude sup to 1, behind the 
 \end{figure}
 
 
-Figure \ref{FigTSCS} , standard deviation of parameter Q as was the case in figures ... for simulation ... at t = ... at this time outflow of spring tide case. Is superposed the contour of the EOF / left hand term of SVD of parameter Q at the same time that was realised in the black rectangle, showing correlation betwee position of high values of standard deviation, and the EOF. According to right-hand side term of SVD, those vortexes have been developping for some time. See generation areas of vortexes are approximately centered around two longitudes. Figures \ref{FigTSCS}b to e are $\theta$-S diagrams zoomed in med waters area . In figure \ref{FigTSCS}b at the edge of the hydraulic jump still the same type of profile as in ... (ini water mass)  . in fig c, 
+Figure ...a,b,c presents the EOF of parameter Q for the outflows of figures .... along with vertical sections of salinity at the time of ... d,e,f. Figures.. g and h are histograms giving the height above seafoor and latitude of the grid points if the EOF for which Q$\geq 1e-5m^2/s^2$. See that the positive value of Q parammeter are associated with billow structures of salinity. At this longitude where the instabilities are still developped, cores are not yet mixed in the simulation. The structure of those billows is different whether or not there is a hydraulic jump at Camarinal Sill, and the position of the jump whether it is an intermediate tide case or spring tide case also changes the repartition f those billows.
+
+All those simulation were run with a Smagorinski turbulence scheme of coefficient ... 0.05. 
 
 
 
-
-%\subsubsection{Primary shear instabilities  (non general paragraphe avant, met cette partie avec reste la parle ressauts etc...}
-
-%Mettre coupe avec/sans ressaut, comp les 3 cas...
-
-\begin{itemize}
-\item Cisaillement passage de seuils car accélération veine med et accélération supplémentaire avec couranst de marée : cascade turbulente avec développement instabilités de cisaillement (ou point expliqué dans partie antérieure/biblio???)
-\item Le début de ces isntabilités/instabilités primaires/début de la cascade est simulé dans modèle non hydrostatique. Orécédemment a été montré dans simus 2D, ici 3D
-\item Pour repérer ces instabilités, utilise le calcul de l'invariant Q (exemple de coupe où on voit aussi le 'rouleau' d'eau interfaciale et contour Q$>$Qa). Voit les rouleaux êtres advectés
-\item 2 statistiques effectuées : on line (sur 30 minutes), calcul de la standard deviation / ecart type max dans la colonne d'eau de Q. Comme a advection des instabilités primaires, en un point voit oscillations haute fréquence
-\item SVD comme pour chap 2D. Sauf que traitement off line nécessite d'avoir sorties 3D hautes fréquences, vite des fichiers lourds
-\item Montre exemple d'un EOF (montre celui qui a de la HF, EOF précédents liés mouvement du ressaut), mêmes emplacements ou a ecart type grand. Ici EOF que sur partie Camarinal, montre carte ecart type voit aussi ES et a trace du déplacement du soliton.
-\item Partie suivante voir plus sur CS, la variabilité.
-\item PEut ajouter un mot sur le fait que voit effet mélange dans diagramme T,S
-\end{itemize}
-
-La sortie des eaux Méditerranéennes au détroit de Gibraltar commence par le passage du Seuil de Camarinal. A cet endroit, la veine Méditerranéenne est accélérée sous l'effet de la topographie et des courants de la marée barotrope semi-diurnes. Cette accélération peut amener à la formation d'un ressaut hydraulique à l'aval duquel les eaux méditerranéennes sont mélangées. 
-
-The (primary) instabilities in the jump at CS were numerically represented in a 2D non-hydrostatic high resolution model of the Strait ( Hilt et al 2020), they will also be explicitely represented in a realistic 3D model, and can look at their repartition/general behaviour. Just as used Okubo-Weiss in Hilt2020, naother tracer of the rotation of the instabilities can be used : the Q-parameter (Kolar2011).
-
-Figure ... is an exemple of the value of $Q$ in 3D simulation where localisation of $Q>Q_a$ is compared at t=$x$h to $u$ (ou u moins u barotrope?) and salinity $S$. Can see area of minimum $S$, when look at next iterations of the simulation, see this 'rolls' are being advected by the med flow westward. 
-
-
-%\begin{figure}[!h]
-% \centering
-% \includegraphics[width=1\textwidth]{./GBR3D/FigInstaQ_IES4H.png}
-% \caption {RETIRER? (juste pour faire exemple, trop de figures)(a) Vue zénitale d'isosurfaces de salinité $S=38.1$ (verte) et d'invariant $Q=5.10^{-5}$ (rouge) dans une zone à l'ouest du Seuil de Camarinal, Détroit de Gibraltar. Isobathe 300 m (trait plein) et trace de la section des coupes verticales (b) et (c) (trait pointillé). (b) Section veticale de salinité (couleur), vecteur des composantes (u,w) du courant et isocontours de l'invariant $Q=5.10^{-5}$ (rouge). (c) Szection verticale de l'invariant Q (couleurs), isohalines (trait noir et trait vert $S=38.1$), et vecteurs des composantes (u',w) où u' est le courant dans la direction longitudinale moins sa composante barotrope.}
-% \label{figdraftQ}
-%\end{figure}
-
-
-
-
-
-In (next part), look at the influence of tidal cycle (and so of hydrauli jump) and numerical choices, on the instabilities at area of Camarinal Sill.
-
-(diag T,S a longitude constante selon region avant/apres les instabilites....)
-
-
-
-
-
-%-------------------------------------------------------------------------------------
-%\subsection{Results}
-
-%Section discussion physique du detroit dans les maquettes 50m
-
-%\subsubsection{Water mass mixing near/downflow of Camarinal Sill}
-
-Take a result in spring tide case (S0.05), figure std(Q) of last part zoom in on Camarinal Sill area. Green inset is area where SVD is performed, can see hotspots of high std correspond with trace of the spatial EOF field of Q. Trace T,S diagrams in between areas where those instabilities develop. See the transformations happen mostly between areas where instabilities, otherwise signal eroded as outflow makes its way by entrainment and circulation in shallower parts of the strait that leave the coldest, saltiest waters behind.
-
-
-
-
-Look at the area where the first instabilities are developped in med outflow.
-
-\subparagraph{Neap-spring tide variability}
-
-%\subsubsection{Neap-spring tide variability}
-%\subsubsection{Mediteranean pathways and hydraulic jump at Camarinal Sill variability(dans partie precedente?)}
-
-Flow in the Strait is constrained by hydraulic controls at several points. The major one is Camarinal Sill.
-
-The outflow of Med waters at CS is intermitent
-West a reservoir , in outflow period add Med waters.
-
-
-
-
-%\subsubsection{Primary instabilities variability}
-
-(S0.05), look at the three different outflow case of part ... and do SVD of Q parameter on area of the CS and directly downflow. (rajoute trace std???) Select the first EOF for which signal in the right hand side vector (that defines temporal evolution of the EOF) is high frequency, in each case the fifth, for the four others more lower frequency associated with the general flow, except for neap tide outflow that retains/superposes high frequency. Figure ... presents the left-hand side (spatial structure) term as the zenithal contour for tha value Q ... , as well as histogram of points that have value gerater than Qp. For each case center of the Q vortexes are 100m above seafloor, a bit less in neap tide case reflecting the height of the mediteranean outflow.
 
 
 \begin{figure}[!h]
 % \centering
  \includegraphics[width=\textwidth]{./GBR3D/EOF5_MIV_2D.png}
- \caption {}
+ \caption {(Retirer les EOF superieures, pas normaliser)}
 \end{figure}
-
-(mettre effet sur mélange diag T,S ici plutot.... a CSo aussi long ? ou s'en fout...
 
 
 \subparagraph{Closure scheme}
 
-\begin{itemize}
-\item Situation de la comparaison : Simu IES, premier outflow, ressaut a l'aplomb seuil (?)
-\item Comparaison, Smago avec coefficient horcon 0.001 ou 0.01 ou 0.1  et GLS Kepsilon
-\item coef Smago plus grand, prend moins d'eaux de la pycno injectée dns la veine, med outflow plus salé, Kepsilon enter cas 0.001 et 0.01, discuter pourquoi ce sdifférences
-\end{itemize}
+Compare simulations, three use Smagorinsky turbulent scheme with different coefficients. One is using GLS K-$\epsilon$
 
-The behaviour of the hydraulic jump changes with the parametrisation chosen... Case S0.001 instabilities devlop from the inset of the jump at approx 5.77 deg and the billows contain less salty waters, ie the signal of atl surface water in the med outflow will be stronger in this simulation.
+Case S0.001 instabilities devlop from the inset of the jump at approx 5.77 deg and the billows contain less salty waters, ie the signal of atl surface water in the med outflow will be stronger in this simulation.
 
 
 While the width of the Med vein as it begins to go downslope of Camarinal as salty water is the same, in simulations 1 and 2 instabilities are earlier in the jump and bring more atl waters as the core or billows are advected downslope, resulting in more atl water being integrated to the med outflow at the passage of CS. Figure gives the average salinity of the med outflow taken at lon ... averaged over all latitude (med outflow defined by all parcels of salinity superior to interface smlinity...).
@@ -990,25 +757,6 @@ Interest for global models but also for field studies as to chose precisely area
 
 
 
-La maquette NH-HR permet, de façon attendue, de raffiner la simulation des ondes solitaires se propageant en direction de la Méditerranée depuis le détroit de Gibraltar. Une étude plus détaillée de ces ondes de grande amplitude à partir d'observations dédiées et, ou, d'une modélisation simultanée avec un modèle simplifié de type KdV devrait fournir de précieuses informations sur l'impact de la résolution sur la dissipation physique et la dissipation numérique, sur la dispersion non-hydrostatique ou encore sur la bonne représentation des processus non-linéaires.\\
-La maquette  NH-HR autorise en outre de façon originale la simulation explicite des "grandes structures turbulentes" (simulation dite \textit{LES}) dans la région du détroit de Gibraltar. L'augmentation de la résolution entre les maquettes NH-REF et NH-HR autorise en effet la simulation des structures tourbillonnaires associées aux instabilités primaires de type Kelvin-Helmholtz entre les masses d'eaux méditerranéenne et atlantique. Ces instabilités marquent classiquement l'amorce de la cascade turbulente directe induisant localement un important mélange des masses d'eaux. Ces instabilités ne sont pas représentées dans la simulation NH-REF par manque de résolution effective. Elles ne pourraient être simulées explicitement dans une simulation hydrostatique de même résolution (45 m) dans cette région. Ces instabilités sont en effet associées à une vorticité relative d'axe horizontal qui ne peut être simulée sous une hypothèse hydrostatique. Un résultat important pour cette première simulation pouvant être qualifiée de \textit{LES} concerne les différences importantes entre le mélange simulé au moyen des maquettes NH-REF et NH-HR. L'intercomparaison montre à minima une très forte dépendance au protocole de simulation. La maquette NH-REF (de type \textit{RANS}\footnote{RANS: Reynolds Average Navier Stokes simulation, simulation basée sur une représentation implicite des "grandes structures turbulentes" à partir d'un schéma de fermeture turbulent.}) permet une simulation implicite du mélange et dépend pour cela entièrement du schéma de fermeture turbulente.\\
-La maquette NH-HR montre donc l'importance d'une représentation explicite des "grandes structures turbulentes" dans des régions dynamiquement instables telles que la région du ressaut hydraulique. Elle donne de plus l'ordre de grandeur de la résolution horizontale (environ 45 m) et verticale (40 niveaux $\sigma$) permettant la simulation explicite des instabilités primaires.\\
-Une première évaluation de la pertinence et de la qualité des structures instables simulées a pu être réalisée à partir d'observations publiées (Wesson and Gregg 1994). Un protocole d'observations dédié devra toutefois être plus spécifiquement mis en oeuvre pour espérer évaluer les caractéristiques principales de ces instabilités (localisation spatio-temporelle, amplitude...) et surtout pour quantifier les caractéristiques statiques du mélange qu'elles induisent. La campagne d'observations planifiée par le SHOM dans la région du détroit à la fin de l'été 2020 (soit un peu plus d'un an après la publication du présent rapport) devrait sans aucun doute répondre à un certain nombre de questions. Les maquettes numériques développées et évaluées dans le cadre du projet Gibraltar 16CR01 pourront être utilisées pour préparer cette campagne via par exemple la génération d'observations synthétiques.\\
-Une discussion des principales perspectives associées à l'exploitation de la dynamique simulée d'une part et à l'évolution du protocole de simulation d'autre part est fournie au chapitre \ref{chapitreconclusion}.
-%-------------------------------------------------------------------------------------
-\section{Campagne de mesure Gibraltar 2020 (en anglais?)}
-\subsection{Insights on Campaign Preparation from VHR simulation}
-Section ce qui a ete fait pour preparer la campagne
-
-\begin{itemize}
-\item déroulé campagne
-\item Position mouillages, zones susceptibles d'avoir instas...
-\item Propagation des solitons
-\item Preparation maquette triple imbrication : choix zoom sur camarinal important (ou non parle que maquette 2 niveaux?)
-\end{itemize}
-
-
-\subsection{Maquette imbriquée, comp quelques obs}
 
 
 
