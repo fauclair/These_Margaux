@@ -442,14 +442,14 @@ The tidal forcing is integrated to the boundary forcing by the parent simulation
 \begin{table}[h]
         %\begin{minipage}{.6\textwidth}
         \centering
-        \begin{tabular}{|c|c|}
+        \begin{tabular}{|c|c|c|}
                 \hline
-                Situation & Dates (UTC)\\
+                Situation & Simulation name & Dates (UTC)\\
                 \hline
-                Marées Moyenne (MM) & 10/09/2017 19h00 - 13/09/17 01h00  \\
-                Mortes Eaux (VE) & 13/09/2017 16h00 - 15/09/17 17h00 \\
+                Intermediate Tide & IT & 10/09/2017 19h00 - 13/09/17 01h00  \\
+                Neap Tide& NT & 13/09/2017 16h00 - 15/09/17 17h00 \\
                 %\hline
-                Vives Eaux (ME) & 19/09/2017 22h00 - 21/09/17 23h00  \\
+                Spring Tide& ST & 19/09/2017 22h00 - 21/09/17 23h00  \\
                 \hline
         \end{tabular}
         \captionof{table}{Trouver des noms pours les simus....Périodes de simulation pour les 3 sitituations VE, MM et ME (format date JJ/MM/YY????)}
@@ -485,14 +485,14 @@ Figure \ref{Fig_Ini_WM3D} shows the $\theta$-S diagrams for east and west entry 
 
 
 
-\subsection{Numerical diagnostics}
+\subsection{Numerical diagnosis}
 
 
 \subsubsection{Interface definition}
 
 The analysis of simulation result is based on two layer definition of an Atlantic waters layer and Mediterranean waters layer. They are defined in regard to a reference salinity, with the interface defined from the first water parcel from the top down in teh water column for which salinity is above the reference salinity.
 
-The reference salinity is taken as varying along the Strait in function of longitude as a hyperbolic tangente function centered at the Camarinal Sill to account for the different water mass composition in the eastern and western part of the Strait of Gibraltar. %The function was fitted against the median salinity found by of fitted hyperbolic tangente to the salinity profile in the water column for the initial field
+The reference salinity is taken as varying along the Strait as a hyperbolic tangente function of longitude centered at the Camarinal Sill to account for the different water mass composition in the eastern and western part of the Strait of Gibraltar. %The function was fitted against the median salinity found by of fitted hyperbolic tangente to the salinity profile in the water column for the initial field
 
 %Take a two-layer approach to the dynamic and definition of atl and med layer.
 
@@ -510,16 +510,13 @@ with $X_{CS}=5.75^o$, $dx=0.25^o$, the location and width of the Camarinal Sill 
 With the atlantic and mediterranean layers defined as above, the Froude layer number for internal gravity wave is computed at each 2D grid point as : 
 
 \begin{equation}
-F_i=\frac{u_i^2}{g'h_i} , \ \text{with} g'=g \frac{\rho_2-\rho_1}{\rho_0}
+F_i=\frac{U_i^2}{g'h_i} , \ \text{with} g'=g \frac{\rho_2-\rho_1}{\rho_0}
 \end{equation}
 
-where $\rho_i$ averaged density in layer i,  u is averaged velocity norm (u and v) over the layer i of height h. If $F_i>1$ say that the flow in layer i is supercritical.
+where $\rho_i$ averaged density in layer i,  $U$ is averaged velocity norm (u and v) over the layer i of height h. If $F_i>1$ say that the flow in layer i is supercritical.
 
 
 \subsubsection{Hydraulic Jump detection, acceleration of flow}
-Given geometry of the strait can say that condition of conservation of flux through the area of the hydraulic jump. 
-%Solution for hyd jump, when authors try to find analytical solution of hyd jump (biblio). Here not trying to find general approach but just a diagnosisi for Camarinal Sill. 
-Detection based on the modification of the flow downstream of hydraulic jump. No trying to find analytical form of the hydraulic jump, only the consequence that the presence of hydraulic jump has on the flow.
 
 \begin{figure}[!h]
  \centering
@@ -529,25 +526,38 @@ Detection based on the modification of the flow downstream of hydraulic jump. No
 \end{figure}
 
 
-Assume that homongeneous flow in both atlantic and mediterranean layer (defined in regard to salinty as previously). Consequence of hydralic jump : pycnocnline depth varies greatly on short interval (non linearity?). Due to the geometry of the Strait, how the flow of Med water is constrained by bathymeetry, it is commanded by flow conservation, less so for Atlantic water that can disperse in part in upper layer on continental shelf. For lower layer This give us equation :
+A simple diagnosis for detection of the hydraulic jump at Camarinal Sill in the simulations is based on the impact such a structure has on the flow. As schemtized(?) in figure \ref{schemaRH}, hydraulic jump (also called hydraulic drop) induces a drop of the interface depth. Since the flow in the Strait is cannalised by bathymetry (for med flow) and coast (for atl flow), there must be conservation of flux from one section downflow and upflow of the hydraulic jump, which with the variation of the inteface depth, means acceleration/deceleration of flow (depending on which layer is reference).
+
+The drop in interface depth is noted $\Delta n=b_2-b_1$, the variation of bottom depth $\Delta H=H_2-H_1$ and the acceleration in the bottom layer $\Delta u_b = u_2-u_1$. For the bottom layer conservation of flux is :
+\begin{subequations}
+\begin{alignat}{2}
+  \displaystyle
+&u_1 (H_1-b_1)&& = u_2 (H_2-b_2)\\
+& &&= u_1 (\Delta H + \Delta n) + u_1 (H_1-b_1) + \Delta u_b (H_2-b_2)
+\end{alignat}
+\end{subequations}
 
 \begin{equation}
-u_1 (H_1-b_1) = u_2 (H_2-b_2) 
-u_1 (H_1-b_1)= u_1 (\Delta H + \Delta n) + u_1 (H_1-b_1) + \Delta u_b (H_2-b_2) 
 \Delta u_b = -u_1 \frac{\Delta H + \Delta n}{H_2-b_2}
 \end{equation}
 
-To complete, can use another condition, the fact that in area oh hydraulic jump flow is critical, ie Froude number $\geq$ 1. We search minimal condition for hydraulic jump so $F=1$ or $U=c$ flow equal propagation/phase speed of internal wave, if we take the interfacial speed : 
+For the surface flow, similarly can find
+\begin{equation}
+\Delta u_s = -\Delta n \frac{u_1}{b_2}
+\end{equation}
+
+Velocity in the area of the hydraulic jump must validate condition of (at least) critical flow, ie Froude number $\geq$ 1. We search minimal condition for hydraulic jump so $F=1$ or $U=c$ flow equal propagation/phase speed of internal wave, if we take the interfacial speed can have an expression for $u_1$: 
 \begin{equation}
 |u_1|=c=\sqrt{g' \frac{(H_1-\Delta n - b_2)(\Delta n + b_2)}{H_1}}
 \end{equation}
 
 
 
-In the end, some parameters are chosen as threshold, here take values that should be correct for area of camarinal sill, the minimum excursion of the jump $\Delta n$ and the height of the Atl layer , and the reduced gravity
+In the end, some parameters are chosen as threshold, here take values that should be correct for area of camarinal sill, the minimum excursion of the jump $\Delta n$ and the height of the Atl layer $b_2$ , and the reduced gravity.  (ici prend...)
 
 \subsubsection{Q parameter and derivated diagnosis}
 
+We want to detect primary shear instabilities in the Med outflow.
 To detect vortex structures without a proiori choosing a rotation axe as with vorticity diagnosis, can use parameter Q (refs) 
 
 \begin{equation}
@@ -555,25 +565,20 @@ Q=-\frac{1}{2} \frac{\partial u_i}{\partial x_j} \frac{\partial u_j}{\partial x_
 \end{equation}
 with $u_i$ the component of velocity, and $S_{ij}$ and $\Omega_{ij}$ are respectively symetrical and anti-symetrical parts of velocity gradient (comme ça se dit en anglais????). When $Q>0$, anti-symetrical term contribution, which denotes rotation, is predominent over the symmetrical, shear, part. ((It can also be viewed as a generalisation of Okubo-Weiss parameter used in 2D, however rotation is indicated by negative values for OW, but by positive values for Q parameter.))
 
-Also $Q>0$ better to detect vortices than just vorticity since there is still then shear between med vein and atl layer.
+This distinction between shear an rotation is not achieved by a simple vorticity calculation // Also $Q>0$ better to detect vortices than just vorticity since there is still then shear between med vein and atl layer.
 
 
-Due to this advection, there are grid cells for which a succession of billows propagate. The temporal evolution of Q over such grid cell will show oscillations between high positive value (center of a billow/vortex) and low negative values (shear between two consecutive billows). This would mean a high value of standard deviation of this timeserie, as defined in equation \ref{eqstdQ} where the overbar denotes temporal average over 30 minutes, a period over which there will be minimal modification of the general flow in the Strait.
+Due to advection by the Med outflow, a succession of primary instabilities will propagate over teh same grid cells. The temporal evolution of Q over such grid cell will show oscillations between high positive value (center of a billow/vortex) and low negative values (shear between two consecutive billows). A proxy to detect this area is chosen as high value of standard deviation of parameter Q, as defined in equation \ref{eqstdQ} where the overbar denotes temporal average over 30 minutes, a period over which there will be minimal modification of the general flow in the Strait.
 
 \begin{equation} 
 \label{eqstdQ} 
     std ( Q ) (\vec{x},t)=  \sqrt{   \overline{Q (\vec{x},t)^{2}} -  \overline{Q(\vec{x},t)}^{2}  }
 \end{equation}
 
+To create 2D maps, only the maximal value of standard deviation in the water column is saved...
 By implementing this calculation directly in the code, we can asses where instabilities/vortexes propagate without having to make a huge volume of simulation outputs over the whole domain, those economising in storage place and data readability. Thus it is possible to create a map of standard deviation of Q which will reflect areas where KH billows will propagate in the simulation.
 
-
-
-
-
-Standard deviation of parameter Q is computed as in \ref{eqstdQ} and for each 30 minute average interval the maximum standard deviation in the water column is outputed for each horizontal grid point. Figure \ref{fig3} shows this map for t=...H during outflow/rising water/... .
-
-One can also use SVD of parameter Q, where as in SVD of Okubo-Weiss parameter in 2D chapter / case, complex SVD means see propagation in the left  term of temporal evolution... However thhis calculation is offline and necessitates a high frequency 3D output to pick up the relevent structures.
+The result of this proxy can be compared to the result of the Singular Value Decomposition (SVD) of the time-varying 3D field. However thhis calculation is offline and necessitates a high frequency 3D output to pick up the relevent structures.
 
 
 
@@ -598,7 +603,7 @@ One can also use SVD of parameter Q, where as in SVD of Okubo-Weiss parameter in
 \label{FigHCN}
 \end{figure}
 
-Figures \ref{FigHCN} to \ref{FigHCI} present several diagnosis for series of maximal outflows and inflows far variable strength of the tidal forcing. Are represented the area of supercritical flow in atl and med layer as defined in paragraph .., the detection of hydraulic jump as per paragraph ..., and area of standard deviation of parameter Q, which indicate were vortices are propagating. The grey area indicates where the salinity in the bottom level was below the interfacial salinity as defined in paragraph ... .
+Figures \ref{FigHCN} to \ref{FigHCI} present several diagnosis for series of maximal outflows and inflows for variable strength of the tidal forcing among simulations NT,ST then IT. Are represented the area of supercritical flow in atl and med layer as defined in paragraph .., the detection of hydraulic jump as per paragraph ..., and area of standard deviation of parameter Q, which indicate were vortices are propagating. The grey area indicates where the salinity in the bottom level was below the interfacial salinity as defined in paragraph ... .
 
 Figure \ref{FigHCN} presents weak barotropic tidal currents in outflow and inflow and is considered a 'neap-tide' case, figure \ref{FigHCS} is for strong brotropic currents for the in- and outflow of a 'spring-tide' case. Finally, figure \ref{FigHCI} is the case of an outflow for an intermediate strength of the barotropic currents.
 
@@ -635,6 +640,8 @@ For all cases, supercriticality of the atlantic (mediterranean) layer happens mo
 During outflow suprcritical atl layer only at CS, except in neap case where it does not occur at all. in inflows, for neap case it is critical only at a patch near nrth shore in TN at 5.59$^o$W and north part of CS. for spring tide case, it is supercritical at TNboth as a more extended patch of the one of the neap case and a greater patch going north/south between 5.5$^o$W and 5.4$^o$W , and at CS. Figure \ref{FigISWGBR3D}(onde a TN) shows the fiel of surface current divergence in Tarifa Narrows while a train of ISW is propagating, igure a for condition of inetrmediate strength of barotropic current in inflow and figure b for a strong barotropic current at the same time as figure \ref{FigHCS}.b. Are also shown the areas of critical atlantic layer flow as black mesh area. The propagation of the ISW train occurs at the same time as maximum inflow in this area and sea the area of atl layer criticality is after . it seems the northern part of the criticlaity of the atl layer is dissociated from its southern part. The former is occurs often and is more or less extended while the other may be affected by influence of the passage of the ISW be it i the form of induced velocity or stratification.
 
 Those propagating ISW are developped from hyd jump that are detected in figures... for all cases except the neap tide outflow. It is (usually) located at the junction between an area where atl and med layer are supercitical. It follows area of high gradient of free surface elevation. The shape of the hydraulic jump in inflow is more pronounced for stronger barotropic currents. For outflows, two different shapes are seen accross the simulations when hydraulic jump is formed, in spring tide at first resembles the intermediate case//at first the hyd jump forms at the top of the sill, but as the tidal barotropic current strenghten the hydraulic control on the atl layer expends west, but as barotropic currents increase jump is swept wesward as the area of supercritical atl layer extends over the sill.
+
+Find accross all simulated tidal cycle three type of flow at Camarinal Sill during outflow : no hydraulic jump as in figure \ref{FigHCN}.b (\textit{no-jump}), a hydraulic jump situated just above the sill (figure \ref{FigHCI}, \textit{s-jump}), and a hydraulic jump situated over the west slope of the Camarinal Sill (figure \ref{FigHCS}.b, \textit{w-jump}).
 
 
 
@@ -674,7 +681,7 @@ In the simulations, this process of generation of cyclonic eddy off of the coeas
 \subsubsection{Dynamic at Camarinal Sill, primary instabilities}
 
 
-Figures blabla  Patches of high standard deviation of parameter Q are indicated, they are the most extended for all outflow cases and for the spring tide inflow, although the values for this latter case are not as high. In particular, highest values are found for the two outflow case where hydraulic jump is detected (ping and intermediate tide), in the area west of CS at 5.79$^o$W and west of secondary bathymetric features in Tanger basin at 5.84$^o$W. There is also a signal at Espartel Sill, of greater standard deviation for the spring tide outflow, meaning higher values for the parameter Q are reached there, ie the rotational part of the velocity gradient is greater, indicating vortices. 
+Figures \ref{FigHCN,FigHCS,FigHCI}  Patches of high standard deviation of parameter Q are indicated, they are the most extended for all outflow cases and for the spring tide inflow, although the values for this latter case are not as high. In particular, highest values are found for the two outflow case where hydraulic jump is detected (ping and intermediate tide), in the area west of CS at 5.79$^o$W and west of secondary bathymetric features in Tanger basin at 5.84$^o$W. There is also a signal at Espartel Sill, of greater standard deviation for the spring tide outflow, meaning higher values for the parameter Q are reached there, ie the rotational part of the velocity gradient is greater, indicating vortices. 
 
 Figure \ref{FigTSCS}.a superposes to the standard deviation the ... field of the left-hand term (spatial) term of SVD of the 3D field of parameter Q computed during the outflow for the EOF that had the most high-frequencey variability associated with propagation of vortical structures (higher order EOF (not shown) have low frequency variability and structure associated with the regional flow itself). Can see that the contour of parameter Q$=1e-5m^2s^{-2}$ are located at same place as high standard deviation.See generation areas of vortexes are approximately centered around two longitudes. Figures \ref{FigTSCS}.b to e show the partial view of $\theta$-S diagram in part of the graph of med waters where every hydrological property at each grid point in the simulation for a given longitude. See that in b that at ...degrés still up at the sill have a repartition of med water masses alike that in figure ... . then from c to d more and more homogenized along same latitude under the efefct of mixing.
 
