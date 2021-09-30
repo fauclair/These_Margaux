@@ -157,28 +157,6 @@ Inclure pdf page de titre
 
 
 
-%\noindent\textit{Quantification du mélange diapycnale : évolution de la BPE}\\
-%L'énergie potentielle de "background", i.e. non-disponible, ou BPE (pour \textit{Background Potential Energy}), d'un volume de fluide est l'énergie potentielle minimale obtenue après ré-arrangement adiabatique des parcelles de fluide du volume \citep{winters_2013}. De nombreuses études se sont attachées à relier l'évolution de cette énergie "non disponible" (notée ci-dessous $E_b$) consécutive au mélange diapycnal dans un domaine fermé, la réalisation d'un bilan rigoureux de cette forme d'énergie potentielle dans une région océanique pour laquelle la position de la surface libre varie est une contribution originale du LAERO développée dans le cadre des travaux de thèse de Margaux Hilt et appliquée dans le cadre du présent "Courants de Gravité". Son équation d'évolution en coordonnées verticales "s" est ainsi donnée par:
-%\begin{subequations}
-%  \begin{alignat}{2}
-%  \displaystyle
-% &\frac{d E_b}{d t} &&= \quad g\int_x \int_{-1}^0 \rho h \frac{\partial z^*}{\partial t}\bigg\rvert_{xs} \ dx ds\\
-% & &&\quad +g\int_x \int_{-1}^0\rho v_s \frac{\partial z^*}{\partial s}\bigg\rvert_{tx} \ dx ds
-%+g\int_x \int_{-1}^0 \rho h u \frac{\partial z^*}{\partial x}\bigg\rvert_{ts} \ dx ds \\
-% & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x} - g\bigg[ \int_x\rho z^* v_s \ dx\bigg]_0^1 \\
-% & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
-% - g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds \\
-% & && \quad + g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
-% - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dx ds
-%\end{alignat}
-%\end{subequations}
-%où $z^*$ est la position d'une particule fluide après ré-arrangement adiabatique du champ de masse, $\rho$ est la masse volumique, $u$ et $v_s$ sont respectivement les vitesses horizontales et verticales en coordonnées "s", $g$ est l'accélération de la pesanteur, $h$ est la hauteur de la colonne d'eau et $\kappa^h$ et $\kappa^v$ sont les diffusités horizontales et verticales. $s=0$ en surface et $s=-1$ au fond.
-%Les derniers termes du membre de droite sont en particulier des sources de BPE dues au mélange diapycnal et font intervenir dans la forme de cette équation un coefficient de diffusion. C'est ce coefficient qui permet de quantifier le mélange diapycnal car il est le résultat de tous les mécanismes irréversibles de diffusion. Dans le cas de simulations numériques, il va inclure en plus de la dissipation moléculaire explicite, la dissipation implicite induite par les schémas à différence finie. Il prendra aussi en compte la paramétrisation du mélange dans les simulations de type RANS ou LES lors d'évènements de mélange.
-
-%L'évaluation de la BPE et de son évolution a pour finalité d'être appliqué dans des cas de simulation réaliste de l'océan mais est aussi applicable à la simulation physique.\\
-
-
-%\input{./GBR3D/chapGBR3D.tex}
 
 
 \chapter{GBR2D}
@@ -221,7 +199,7 @@ La modulation des phénomènes observés par divers paramètres (bathymétrie, i
 %%%mettre autre pdf avec figure incluse aux bons endroits etc...
 \addtocounter{section}{1}
 \addcontentsline{toc}{section}{\protect\numberline{\thesection}Papier 2D}
-%\includepdf[pages=-]{./GBR2D/PDF_GBR2D.pdf}
+%\includepdf[pages=-]{./GBR2D/PDF_GBR2D.pdf}%%!!attention decommenter package
 
 
 
