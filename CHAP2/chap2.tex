@@ -1,8 +1,315 @@
 \hypersetup{pdfborder=0 0 0}
 
-\section{Primary equations/conservation}
+\section{Primary equations/conservation \& Croco}
+%\section{CROCO}
 
-\section{CROCO}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %----------------------------------------------------------------------------
+ \subsection{Continuous free-surface compressible equations in z-coordinates}
+ %----------------------------------------------------------------------------
+\label{subsectiongenesystem}
 
+Conservation of mass, conservation of momentum (Newton's second law of motion), conservation of total energy (first law of thermodynamics) and conservation of chemical species are the backbones of ocean dynamics. In the ocean, the conservation of mass can be written as a prognostic equation for density (written $\rho$), the conservation of momentum leads to prognostic equations for the three components of momentum (written $\rho \mathbf{v}$) and the conservation of total energy can be stated as a prognostic equation for potential temperature ($\theta$). The conservation of chemical species can then be expressed as a prognostic equation for salinity ($S$). These conservation equations consequently lead to the following general system of prognostic equations (expressed in flux form):
+\begin{subequations}
+ \begin{alignat}{2}
+ \displaystyle
+ \label{NS_a} 
+ & \frac{\partial\rho}{\partial t} &&= - \mathbf{\nabla}\cdot(\rho \mathbf{v})\\[3mm]  
+ \label{NS_b}
+ & \frac{\partial \rho \mathbf{v}}{\partial t} 
+	 &&= -\mathbf{\nabla}\cdot(\rho \mathbf{v}\otimes \mathbf{v}) 
+	  \color{black} -2\rho\ \mathbf{\Omega}\ \times \ \mathbf{v} \color{black} -\mathbf{\nabla}p + 		
+	\mathbf{\nabla}\cdot\left(
+	\mu(\mathbf{\nabla}\mathbf{v}+\mathbf{\nabla}\mathbf{v}^{\ T})
+ +\mu_2(\mathbf{\nabla}\cdot\mathbf{v})\ \mathbf{I}\ \right)
+ +\rho \mathbf{g}\\
+ %
+ \label{NS_c}
+ & \frac{\partial \rho \theta}{\partial t} &&=-\mathbf{\nabla}\cdot(\rho \theta\mathbf{v})
+ +\mathbf{\nabla}\cdot\color{black}(\kappa_\theta\mathbf{\nabla}{\theta})\color{black}\\[3mm]
+ %
+ \label{NS_d}
+ & \frac{\partial \rho S}{\partial t} &&=-\mathbf{\nabla}\cdot(\rho S\mathbf{v})
+ +\mathbf{\nabla}\cdot\color{black}(\kappa_S\mathbf{\nabla}{S})\color{black}
+ %
+  \end{alignat}
+\end{subequations}
+with $\mu$, $\mu_2$, $\kappa_T$ and $\kappa_S$ respectively the dynamical and bulk viscosities and the thermal and salt diffusivities. $\mathbf{\Omega}$ is the earth instant rotation vector.
+Assuming that variables are in thermodynamic equilibrium, the equation of state (EOS) can be formulated as a non-linear, diagnostic functional relation between temperature, salinity, density and (total) pressure (written $p$):
+\begin{equation}
+ \label{NS_e}
+ \rho = \rho_{eos}[\theta,S,p]
+\end{equation}
+The position of the interface separating the ocean and the atmosphere must additionally be calculated and is introduced as a boundary condition. This can be achieved by stating that a salty-water particles that is just bellow this interface in the ocean, remains at the interface, leading to the surface kinematic relation:
+\begin{equation}
+  \displaystyle
+  \label{NS_BC2}
+  %\frac{\textrm{d}\zeta(\mathbf{x}_{\scriptscriptstyle H},t)}{\textrm{dt}}=w(\mathbf{x}_{\scriptscriptstyle H},z=\zeta)
+  \frac{\partial \zeta}{\partial t}=w(\mathbf{x}_{\scriptscriptstyle H},z=\zeta)-\mathbf{v}_H(\mathbf{x}_{\scriptscriptstyle H},z=\zeta)\cdot\mathbf{\nabla}_H\zeta
+\end{equation}
+where $\zeta$ is the free-surface anomaly in the vicinity of the geoid and subscribe $H$ indicates that only the horizontal component is considered. Assuming then that ocean water cannot penetrate the ocean bottom (at depth $z=-H$):
+\begin{equation}
+ \displaystyle
+ \label{NS_BC0}
+  \mathbf{v}(\mathbf{x}_{\scriptscriptstyle H},z=-H)=\mathbf{0}
+\end{equation}
+Neglecting surface-tension pressure drop, the boundary condition for pressure at the surface of the ocean is given by:
+\begin{equation}
+ \displaystyle
+ \label{NS_BC1}
+  p(\mathbf{x}_{\scriptscriptstyle H},z=\zeta,t)= p_{atm}
+\end{equation}
+with $p_{atm}$ the atmospheric pressure above the surface of the ocean.
+The resulting system of prognostic equations, diagnostic relations and boundary conditions leads to a non-linear problem whose main characteristics is the wild spectrum of dynamic processes involved (see for instance \cite{gill_atmosphere-ocean_1982} or \cite{vallis_atmospheric_2006}). Periodic processes such as ocean waves can give a comprehensive overview of the extension of space-time spectrum of transient processes which can propagate in the ocean and \cite{auclair_modied_2021} derive a compressible, free-surface, stratified model of two dispersion relations for wave-numbers and pulsation gathering acoustic, surface and internal waves and insisting on the modification of the dispersion of gravity (acoustic) waves by compressibility (gravity and stratification).\\
+Formulated thus, the system of Navier-Stokes and conservation equations for a free-surface ocean can, at least in theory, be integrated straightforwardly. All variables but the pressure have their own prognostic equation and pressure can be diagnosed from the EOS \ref{NS_e}. Note that the system can be reformulated so that pressure is also given by a prognostic equation.
+ %----------------------------------------------------------------------------  
+ %\subsection{Density and pressure decomposition}
+ %----------------------------------------------------------------------------
+ 
+ %----------------------------------------------------------------------------  
+ \subsection{Time-splitting}
+ %----------------------------------------------------------------------------
+\subsubsection{Dynamical time-scales}
+Numerical constraints can conveniently be enumerated in terms of time-scales of dynamical "transfers" of tracer, pressure or velocity anomalies in the ocean. Advection, diffusion or radiation by gravity or acoustic waves are examples of such transfers. For a given length-scale (such as a model grid scale), maximum characteristic velocities can give an order of magnitude of the most restrictive time-scales for each type of "transfer". Anomalies are conveniently defined with respect to the hydrostatic rest state leading to the pressure decomposition:
+\begin{equation}
+	\displaystyle
+	\label{decompoP_0}
+	p(\mathbf{x},t)=p_h(\mathbf{x},t)+\delta p(\mathbf{x},t)
+\end{equation}
+with $p_h(\mathbf{x},t)$ the hydrostatic pressure component and $\delta p(\mathbf{x},t)$ an anomaly. The former is defined by $\partial_z p_h=-\rho_h(\mathbf{x},t) g$ where $\rho_h(\mathbf{x},t)$ can be chosen as the slowly-varying, statically-stable field of density. Based on this pressure decomposition, a first-order Taylor expansion of the density field can be carried out:
+\begin{equation}
+  \displaystyle 
+	\label{decompor_0}
+  \rho(T,S,p)=\rho_{\theta S}(T,S,p_0)+\frac{p_h+\delta p-p_0}{c_s^2}+\mathcal{O}(\delta p^2)
+\end{equation}
+for a reference, slow component of pressure $p_0$ which is most often chosen different from the hydrostatic pressure in numerical models.\\
+Numerical constraints associated to the various transfers of anomalies can basically be classified into three categories depending if they are associated to compressibility (acoustic waves..), surface-induced processes (surface gravity waves...) or internal-ocean (incompressible) processes (internal gravity waves, advection, diffusion, buoyancy-induced processes...). Orders of magnitude of maximum velocities in a deep ocean of each category are respectively given by $v[\delta p]\approx \mathcal{O}(1500\ m/s)$, $v[p_\zeta]\approx\sqrt{g H}\approx \mathcal{O}(100\ m/s)$ and $v[p_{int},\ ...]\approx \mathcal{O}(1\ m/s)$ leading to at least two spectral gaps in terms of velocities in the ocean:
+\begin{equation}
+	\displaystyle
+	\label{velocityscales}
+	v[p_{int},\ ...] \ll v[p_\zeta] \ll v[\delta p]
+\end{equation} 
+This hierarchy of velocity (and thus time) scales and the associated gaps constitute the basis to develop time-splitting approaches for numerical models of the ocean.
+Under free-surface, Boussinesq and hydrostatic assumptions, the time-splitting procedure implemented in ROMS model \citep{shchepetkin_regional_2005} filters for instance acoustic and non-hydrostatic processes and takes advantage of the gap $v[p_{int},\ ...] \ll v[p_\zeta]$. It can be formulated as a decomposition of the pressure between a 2D surface-induced pressure-component (named external or barotropic-like component) $\bar{p}_h(\mathbf{x},t)$ and a 3D density-induced (internal or baroclinic-like) pressure-component $p_h'(\mathbf{x},t)$. \\
+The time-splitting approach for a more general free-surface, non-hydrostatic and compressible ocean can also be based on \ref{velocityscales}. The procedure is yet different from that used for hydrostatic ocean models. In the latter, coupling is based on the separation of the velocity field between a "barotropic-like", depth-averaged component and a "baroclinic-like" anomaly. Faster, surface-induced component of the pressure force is integrated with a small time-step and after each integration sequence of the external mode, the depth-averaged component of the internal-mode velocity is forced to fit to the external-mode, depth-averaged velocity. Separating the "fast" and "slow" components of momentum in a compressible model to integrate them separately is not that simple and more importantly, it is not even necessary. The time-splitting procedure proposed here is indeed based on the splitting of the terms on the RHS of the prognostic and diagnostic equations of the ocean model. Two coupled models (hereafter called the slow and fast numerical kernel) are then integrated in turn. The slow (respectively fast) kernel is advanced with a larger (smaller) time-step computing explicitly slowly-varying (rapidly-varying) terms at the RHS and implicitely the remaining terms which are given by the other kernel. A time-filtering procedure is implemented to force both the slow and fast mode in a similar way to \cite{shchepetkin_regional_2005}.
+
+\subsubsection{Pressure and density decompositions}
+The splitting of the processes depending on the magnitude of their time-scale relies essentialy on a decomposition of the pressure and density fields. Following \cite{auclair_modied_2021}, the pressure decomposition \ref{decompoP_0} can be further developed for a free-surface ocean:
+\begin{subequations}
+  \begin{alignat}{2}
+  % Pressure decomposition
+  \displaystyle 
+ \label{decompoP_fa}
+  &p(\mathbf{x},t) &&= 
+  \underbrace{p_{atm}
+  (\mathbf{x}_{\scriptscriptstyle H},t)
+  +g\int_z^{\zeta}\rho_{h}(\mathbf{x}_{\scriptscriptstyle H},z',t)\ dz'}_{p_h(\mathbf{x},t)}
+  +\delta p(\mathbf{x},t)\\[3mm]
+  \label{decompoP_f}
+  & &&= \underbrace{
+  \underbrace{\rho_0 g\left(\zeta(\mathbf{x}_{\scriptscriptstyle H},t)-z\right)}_{\bar{p}_h(\mathbf{x},t)}
+  +\underbrace{g\int_z^{\zeta}{\left(\rho_{h}(\mathbf{x}_{\scriptscriptstyle H},z',t)-\rho_0\right)\ dz'}}
+  _{p_h'(\mathbf{x},t)}}_{p_h(\mathbf{x},t)}
+  +\delta p(\mathbf{x},t)
+  \end{alignat}
+\end{subequations}
+where $\rho_0$ is a constant reference density. 
+The Taylor expansion of density with respect to total pressure \ref{decompor_0} leads then to:
+\begin{subequations}
+  \begin{alignat}{2}
+  % Pressure decomposition
+  \displaystyle 
+  % Density decomposition
+  &\rho(\mathbf{x},t) &&=\rho_{\theta S}(\mathbf{x},t)
+  +\underbrace{\frac{1}{c_s^{2}}\left(p_h(\mathbf{x},t)+\delta p(\mathbf{x},t)-p_0(\mathbf{x},t)\right)}_{\left.\partial \rho / \partial p\right|_{T,S}\ (p(\mathbf{x},t)-p_0(\mathbf{x},t))} 
+   +\, \mathrm{O}(p^2) \\[3mm]
+  \label{decompor_f0}  
+  & &&\approx\underbrace{\rho_h(\mathbf{x},t)+\rho_{nh}(\mathbf{x},t)
+  +\frac{1}{c_s^{2}}\left(p_h(\mathbf{x},t)-p_0(\mathbf{x},t)\right)}_{\rho_{s}(\mathbf{x},t)}
+  +\underbrace{\frac{\delta p(\mathbf{x},t)}{c_s^{2}}}_{\rho_f(\mathbf{x},t)}
+  \end{alignat}
+\end{subequations}
+\noindent with $\partial p / \partial \rho|_\eta = c_s^2$ at constant entropy $\eta$ and $\rho_{\theta S}=\rho_{eos}(\theta,\ S,\ p_0)$. This decomposition of the pressure and density fields clearly demonstrate, if necessary, the inextricable relationships between compressibility and hydrostaticity assumptions. 
+
+ %----------------------------------------------------------------------------  
+ \subsubsection{Slow vs fast components}
+ %----------------------------------------------------------------------------
+Based on the decomposition of the pressure and density fields (\noparref{decompoP_f}, \noparref{decompor_f0}), the terms at the RHS of the momentum equations can be splitted in two categories depending on the time-scales they are associated with: 
+\begin{equation}
+   \displaystyle
+   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   % Momentum
+   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   \label{momsf}
+   \partial_t\rho\mathbf{v} = 
+   \underbrace{-\mathbf{\nabla}.\left(\rho\mathbf{v}\otimes\mathbf{v}\right)
+   %-2\rho\mathbf{\Omega}\wedge\mathbf{v}
+   -\rho f\mathbf{u_z}\wedge\mathbf{v}
+   -\mathbf\nabla(\int\limits_z^{\zeta}{(\rho_{s}-\rho_0)g\ dz'})
+   +\mu\Delta\mathbf{v}}_{\mathbf{\Lambda}_{s}}
+   \underbrace{-\rho_0 g\mathbf\nabla\zeta
+   -\mathbf\nabla{\delta p}
+   -\rho f'\mathbf{u_y}\wedge\mathbf{v}
+   +\rho\mathbf{g}
+   +\lambda\mathbf{\nabla}(\mathbf{\nabla}.\mathbf{v})}_{\mathbf{\Lambda}_{f}}
+\end{equation}
+Note that the Coriolis pseudo-force is itself splitted: the traditional component (with $f=2\Omega sin(\phi)$, $\mathbf{u}_z$ the vertical unit vector in Cartesian coordinates and $\phi$ the latitude) is integrated with the slow kernel whereas the non-traditional component (with $f'=2\Omega cos(\phi)$ and $\mathbf{u}_y$ the south-north horizontal unit vector in Cartesian coordinates). This latter component can indeed be associated with horizontal-axis rolls and is integrated with the fast kernel. The nonlinear advective terms are integrated with the slow kernel, i.e. a priori with a larger time-step and thus at a lower cost. Diffusion terms associated to dynamical (respectively bulk) viscosity are integrated with the slow (fast) kernel. The momentum equation \ref{momsf} can thus be rewritten in a compact form as:
+\begin{subequations}
+\begin{alignat}{3}
+ \displaystyle
+ &\partial_t\rho h_s\mathbf{v}_s   &&=\quad\Lambda_s  &&+\ll\Lambda_f\gg\\[3mm]
+ &\partial_t\rho h\mathbf{v}_f &&=\ [[\Lambda_s]]   &&+\quad\Lambda_f
+\end{alignat}
+\end{subequations}
+This splitting conserves basically the formulation of the horizontal momentum equations proposed in \cite{shchepetkin_regional_2005}, the length-scales of the processes and the fast-mode forcing are yet obviously different but the filtering procedure $\ll.\gg$ is the "flat" filter proposed by \cite{shchepetkin_regional_2005}. $[[.]]$ notation indicates the extrapolation in time of the slow-kernel terms to be used at the fast-kernel RHS (see \noparref{TimeSplit}). 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Time-stepping}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The time-splitting and time-stepping proposed in the following build both on \cite{shchepetkin_regional_2005} and on \cite{auclair_non-hydrostatic_2018}.   \cite{shchepetkin_regional_2005}'s LFAM3, predictor-corrector time-stepping is indeed implemented in the slow kernel while a Forward-Backward (FB) scheme is used to integrate the fast-mode. The introduction of a compressible, non-hydrotatic kernel is taken from \cite{auclair_non-hydrostatic_2018}.\\
+Figure \ref{ModelTS} gives a schematic representation of the predictor-corrector implementation of the slow and fast kernels based on ROMS baroytropic/baroclinic time-splitting and both the time-splitting and the various time-stepping are summarized in Equations \ref{TimeSplit}.
+\begin{figure}[!h]
+	\centering		
+	\begin{subfigure}{1.0\linewidth}
+		\includegraphics[width=1\linewidth]{CHAP2/Model_TS.png}
+		\caption{}
+	\end{subfigure}
+\caption{ \textit{Caption.}}
+	\label{ModelTS}
+\end{figure}
+%
+\begin{table}
+\begin{subequations}
+\label{TimeSplit}
+\begin{alignat}{3}
+ \displaystyle
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ &\nonumber \textbf{I.a Time-interpolation: } t_s-\frac{\Delta t_s}{2}\\[0mm]
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \label{TimeSplitIa1}
+ &\quad[\Theta] ^{n-\frac{1}{2}}=\alpha_{n-1}\Theta_s^{n-1}
+ +\alpha_{n}\Theta^{n}\\[3mm]
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ &\nonumber \textbf{I.b Predictor step: } t_s+\frac{\Delta t_s}{2}\\[0mm]
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \label{TimeSplitIb1}
+ &\quad\rho h_s\mathbf{v}_s^{n+\frac{1}{2}}=
+ [\rho h_s\mathbf{v}_s]^{n-\frac{1}{2}}
+ +\Delta t_s\left(\Lambda_{s,v}^{n}+<\Lambda_{f,v}>^n\right)\\[3mm]
+ %
+ \label{TimeSplitIb2}
+ &\quad\rho h_s(\theta_s,\ S_s)^{n+\frac{1}{2}}=
+ \rho h_s[\theta_s,\ S_s]^{n-\frac{1}{2}}
+ +\Delta t_s\Lambda_{s,(\theta,S)}^{n}\\[3mm]
+ %
+ \label{TimeSplitIb3}
+ &\quad\rho_s^{n+\frac{1}{2}}=\rho_{eos}\left(\theta_s^{n+\frac{1}{2}},\ S_s^{n+\frac{1}{2}},\ z_s^{n+\frac{1}{2}}\right)\\[3mm]
+ %
+ \label{TimeSplitIb4}
+ &\quad\partial_s\omega_s^{n+\frac{1}{2}}=-\partial_t\rho h_s^{n+\frac{1}{2}}
+ +\mathbf{\nabla}\cdot\rho h_s \mathbf{u}_s^{n+\frac{1}{2}}\\[3mm]
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ &\nonumber \textbf{I.c AB3-extrapolation: } t_s+\frac{\Delta t_s}{2}\\[0mm]
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \label{TimeSplitIc1}
+ &\quad[[\Psi_s]]^{n+\frac{1}{2}}=
+  \beta_{n-2}\Psi_s^{n-2}
+ +\beta_{n-1}\Psi_s^{n-1}
+ +\beta_{n}\Psi_s^{n}\\[3mm]
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ &\nonumber \textbf{II. Fast-mode steps: } t_f\in(t_s,\ t_s+\Delta t_s] \textit{ or } m\in[0,\ N_f)_\mathcal{N}\\[2mm]
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \label{TimeSplitIIa}
+ &\quad\zeta_f^{m+1}=\zeta_f^{m}+\Delta t_f\left(
+  w_{surf}^{m}-\mathbf{u}_{surf}^{m}.\mathbf{\nabla}\zeta^{m}\right)\\[3mm]
+ %
+ \label{TimeSplitIIb}
+ &\quad\rho h u_f^{m+1}=
+ \rho h u_f^{m}
+ +\Delta t_f\left(
+  [[\Lambda_{s,u}]]^{n+\frac{1}{2}}
+ -[[\overline{\Lambda_{s,u}}]]^{n+\frac{1}{2}}
+ +\Lambda_{f,u}^{m}
+% +\overline{\overline{\Lambda_{f,u}}}^{\ m}
+ +\overline{\overline{\Lambda_{f,u}}}^{\ m}
+ +\overline{\overline{\Lambda_{f,-\mathbf{\nabla}\zeta}}}^{\ m+1}
+ \right)\\[3mm]
+ %
+ \label{TimeSplitIIc}
+ &\quad\overline{\overline{\rho h U}}_f^{\ m+1}=
+ \overline{\overline{\rho h U}}_f^{\ m}
+ +\Delta t_f\left(
+ %[[\overline{\Lambda_{s,u}}]]^{n+\frac{1}{2}}+
+ \overline{\Lambda_{f,u}^{m}}
+ +\overline{\overline{\Lambda_{f,u}}}^{\ m}
+ +\overline{\overline{\Lambda_{f,-\mathbf{\nabla}\zeta}}}^{\ m+1}
+ \right)\\[0mm]
+ %
+ \label{TimeSplitIId}
+ &\quad\rho h w_f^{m+1}=
+ \rho h w_f^{m}
+ +\Delta t_f\left([[\Lambda_{s,w}]]^{n+\frac{1}{2}}
+ +\Lambda_{f,w}^{m+1*}\right)\\[0mm]
+ %
+ \label{TimeSplitIIe}
+ &\quad\rho h_f^{m+1}=\rho h_f^{m}
+ -\Delta t_f\left(
+ [[\partial_t\rho h_s]]^{n+\frac{1}{2}}
+ +\mathbf{\nabla}\cdot\{\rho h \mathbf{v}\}_f^{m+1}
+ \right)\\[0mm]
+ %
+ \label{TimeSplitIIh}
+ &\quad \textit{Last\ fast\ time-step ($m=N_f-1$):}\ \bar{\rho}\zeta_s^{n+1}
+ =\bar{\rho}(H+\zeta_f)^{m}
+ -\bar{\rho}H_s^{m+1}
+ -\Delta t_f\mathbf{\nabla}\cdot\overline{\overline{\rho h\mathbf{u}}}^{\ m+1}\\[3mm]
+ %
+ \label{TimeSplitIIg}
+ &\quad \textit{Update\ grid:}\ \rho h_f^{m+1},\ z_f^{m+1}\\[3mm]
+ %
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ &\nonumber \textbf{III.a Filtering: } t_s+\Delta t_s\ \textit{and}\ t_s+\frac{\Delta t_s}{2}\\[0mm]
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \label{TimeSplitIIIa1}
+ &\quad<\Phi_f>^{n+1}=\Phi_f^{m=n+1}\\[0mm]
+ \label{TimeSplitIIIa2}
+ &\quad\ll\Phi_f\gg^{n+\frac{1}{2}}=\frac{1}{N_f}\sum_{m=1}^{N_f}\Phi_f^{m}\\[3mm]
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ &\nonumber \textbf{III.b Corrector step: } t_s+\Delta t_s\\[0mm]
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %
+ \label{TimeSplitIIIb1}
+ &\quad\rho h_s\mathbf{v}_s^{n+1}=
+ \rho h_s\mathbf{v}_s^{n}
+ +\Delta t_s\left(\Lambda_s^{n+\frac{1}{2}*}
+ +\ll\Lambda_f\gg^{n+\frac{1}{2}}\right)\\[0mm]
+ %
+ \label{TimeSplitIIIb2}
+ &\quad\partial_s\omega_s^{n+1}=
+ -\partial_{t\ }\rho h_s^{n+1}
+ +\mathbf{\nabla}\cdot\rho h_s \mathbf{u}_s^{\ n+1}
+ -\overline{\mathbf{\nabla}\cdot\rho h_s \mathbf{u}_s}^{\ n+1}
+ -\overline{<\mathbf{\nabla}\cdot\rho h_s \mathbf{u}_s>}^{\ n+1}\\[3mm]
+ %
+ \label{TimeSplitIIIb3}
+ &\quad\rho h_s(\theta_s,\ S_s)^{n+1}=
+ \rho h_s(\theta_s,\ S_s)^{n}
+ +\Delta t_s\Lambda_{s,(\theta,S)}^{n+\frac{1}{2}*}\\[0mm]
+ %
+ \label{TimeSplitIIIb4}
+ &\quad\rho_s^{n+1}=\rho_{eos}\left(\theta_s^{n+1},\ S_s^{n+1},\ z_s^{n+1}\right)\\[0mm]
+ %
+ \label{TimeSplitIIIb5}
+ &\quad\rho h_s\mathbf{u}_s^{n+1}=\rho h_s\mathbf{u}_s^{n+1}
+ -\overline{\rho h_s\mathbf{u}_s}^{\ n+1}
+ +\overline{\rho h\mathbf{u}_f}^{\ m=N_f-1}
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{alignat}
+\end{subequations}
+\end{table}
+Predictor (I), fast-kernel Forward-Backward (II) and Corrector (III) steps are shown in horizontal color bands (yellow for the slow kernel, blue for the fast kernel) on figure \ref{ModelTS}. After time-interpolating slow-kernel variables to time-step $t_s-\Delta t_s/2$ (step I.a, notation $[.]$), the slow kernel is advanced from $t_s-\Delta t_s/2$ to $t_s+\Delta t_s/2$ with a centered, leap-frog-like, time-stepping (step I.b). Then, to prepare the integration of the fast kernel, the slow-kernel RHS is extrapolated to $t_s+\Delta t_s/2$ based on an AB3 scheme using its previous evaluations at $t_s-2\Delta t_s$, $t_s-\Delta t_s$ and $t_s$ (step I.c, notation $[[.]]$). The fast kernel can in turn be advanced from $t_s$ to $t_s+\Delta t_s$ using a forward-backward time-stepping (step II) with time-step $\Delta t_f$ satisfying  $N_f=\Delta t_s/\Delta t_f\in\mathcal{N}$. The vertical grid is updated at each fast time-step \ref{TimeSplitIIg} but slow-kernel components of the RHS remain constant during the fast-kernel integration. At the last fast time-step, surface elevation displacement for the slow kernel can be recomputed to ensure perfect numerical coherence between the surface kinematic relation and depth-integrated mass conservation (\noparref{TimeSplitIIa} and \noparref{TimeSplitIIh}). 
+%The barotropic-like, depth-independent component is also integrated with the same time-step $\Delta t_f$ with a forward-backward scheme as in \cite{shchepetkin_regional_2005}. 
+A major difference with the hydrostatic time-splitting is that the surface elevation displacement is given by the kinematic condition \ref{TimeSplitIIa} and not by the depth-integral of the mass conservation equation. Once the fast-kernel RHS and variables have been filtered both at $t_s+\Delta t_s$ and $t_s+\Delta t_s/2$ (step III.a, notations $<.>$ and $\ll.\gg$), the slow kernel is finally advanced from $t$ to  $t_s+\Delta t_s$ during the leap-frog-like Corrector step (III.b).\\
+Note that the 2D depth-average, barotropic-like, horizontal momentum equations \ref{TimeSplitIIc} are advanced in the same way as in \cite{shchepetkin_regional_2005}. The result of this 2D integration is indeed used to correct both the horizontal momentum itself and the RHS of the horizontal momentum equation at Corrector step. It can also be used to require a perfect coherence of the surface elevation displacement and the depth-average transport (at machine precision) during slow-mode integration. 
 
 
