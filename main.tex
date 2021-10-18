@@ -109,6 +109,15 @@
 
 \numberwithin{equation}{section}
 
+%----------------------------------------------------------------------------
+% Taille des chapitres, sections...
+%----------------------------------------------------------------------------
+\titleformat{\chapter}
+{\Large\bfseries}
+{\thechapter}{1em}{}
+\titleformat{\section}
+{\large\bfseries}
+{\thesection}{1em}{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -144,7 +153,7 @@ Inclure pdf page de titre
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\chapter{Mod\'elisation  Repr\'esentation de l'oc\'ean et de son m\'elange}
+\chapter{Simulation (explicite) \& modélisation numérique de l'oc\'ean et de son m\'elange}
 \begin{itemize}
 \item conservation masses/qdm, discretisation numérique, échelles (RANS/LES(/DNS)), paramétrisation du mélange, fermeture turb (Smago/GLS...)
 \item contenu en PV
@@ -159,14 +168,14 @@ Inclure pdf page de titre
 
 
 
-\chapter{GBR2D}
+\chapter{Fine scales in Gibraltar strait: a high-resolution, vertical section based on Gibraltar Experiment.}
 \begin{itemize}
 \item R\'esum\'e en français
 \item Papier 2D (! Changer numero de page pour debut pdf !, et retirer biblio (avec en fin these....), mise en page verifier...(problème tableau 2))
 \item Recap/clsion/transition français
 \end{itemize}
 
-\section{Resumé en français}
+\section{Résumé en français}
 \begin{itemize}
 \item blabla détroit Gibraltar, pourquoi choisi cette zone, résumé intro papier
 \item mise en place configuration, résolution, non hydrostatique...
@@ -210,19 +219,19 @@ La modulation des phénomènes observés par divers paramètres (bathymétrie, i
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\chapter{GBR3D}
-
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Fines scales \& Large Eddy Simulation in Gibraltar Strait}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{GbR3D}
+ 
 %%\selectlanguage{english}
 \input{./GBR3D/chapGBR3D.tex}
 %%\selectlanguage{french}
 
 \input{./GBR3D/GEPETO.tex}
 
-
-\chapter{BPE}
+\chapter{Background Potential Energy: an essential \& pertinent tool to diagnose mixing.}
 \begin{itemize}
 \item Résumé en français
 \item papier

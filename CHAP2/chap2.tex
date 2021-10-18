@@ -158,7 +158,7 @@ Note that the Coriolis pseudo-force is itself splitted: the traditional componen
 \begin{alignat}{3}
  \displaystyle
  &\partial_t\rho h_s\mathbf{v}_s   &&=\quad\Lambda_s  &&+\ll\Lambda_f\gg\\[3mm]
- &\partial_t\rho h\mathbf{v}_f &&=\ [[\Lambda_s]]   &&+\quad\Lambda_f
+ &\partial_t\rho h_f\mathbf{v}_f &&=\ [[\Lambda_s]]   &&+\quad\Lambda_f
 \end{alignat}
 \end{subequations}
 This splitting conserves basically the formulation of the horizontal momentum equations proposed in \cite{shchepetkin_regional_2005}, the length-scales of the processes and the fast-mode forcing are yet obviously different but the filtering procedure $\ll.\gg$ is the "flat" filter proposed by \cite{shchepetkin_regional_2005}. $[[.]]$ notation indicates the extrapolation in time of the slow-kernel terms to be used at the fast-kernel RHS (see \noparref{TimeSplit}). 
@@ -174,7 +174,7 @@ Figure \ref{ModelTS} gives a schematic representation of the predictor-corrector
 		\includegraphics[width=1\linewidth]{CHAP2/Model_TS.png}
 		\caption{}
 	\end{subfigure}
-\caption{ \textit{Caption.}}
+\caption{ \textit{time-splitting and time-stepping of CROCO model with its non-hydrostatic, compressible (NBQ) kernel. Yellow (blue) background color: slow (fast) kernel. }}
 	\label{ModelTS}
 \end{figure}
 %
