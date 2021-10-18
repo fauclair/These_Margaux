@@ -11,6 +11,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[a4paper,top=1.5cm,bottom=2cm,left=2.5cm,right=2.5cm,marginparwidth=1.75cm]{geometry}
+\usepackage[ED=SDU2E-Oc, Ets=UT3]{tlsflyleaf}%page de garde
 \usepackage{graphicx} 
 \usepackage[hidelinks]{hyperref} 
 \usepackage{multirow} 
@@ -119,6 +120,31 @@
 {\large\bfseries}
 {\thesection}{1em}{}
 
+%----------------------------------------------------------------------------
+% Page de garde
+%----------------------------------------------------------------------------
+%% Titre, auteur, date, laboratoire, cotutelle
+\title{Le titre de la thèse}
+\author{Margaux HILT}
+\defencedate{Date de défense (JJ/MM/AAAA)}
+\lab{Laboratoire d'Aérologie}
+%\cotutelle{Institut de cotutelle}
+
+%% Directeur(s) de thèse
+\nboss{2}                                    % Nombre de directeur(s) de thèse
+\makesomeone{boss}{2}{Franck DUMAS}{AA}{AA}  % Sera affiché en second
+\makesomeone{boss}{1}{Francis AUCLAIR}{AA}{AA} % Sera affiché en premier
+%% Referee
+\nreferee{2}
+\makesomeone{referee}{1}{Xavier CARTON}{AA}{AA}
+\makesomeone{referee}{2}{Jesus GARCIA-LAFUENTE}{AA}{AA}
+%% Jury
+\njudge{3}
+\makesomeone{judge}{1}{Premier MEMBRE}{Professeur d'Université}{Président du Jury}
+\makesomeone{judge}{2}{Second MEMBRE}{Astronome Adjoint}{Membre du Jury}
+\makesomeone{judge}{3}{Troisième MEMBRE}{Chargé de Recherche}{Membre du Jury}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -131,7 +157,10 @@
 
 \setcounter{tocdepth}{3}%1 juste 1 niveau sous-partie de chapitre
 
-Inclure pdf page de titre
+
+%Page de garde
+\makeflyleaf
+
 
 \newpage
 \textbf{Avant-propos et remerciements}
@@ -236,6 +265,9 @@ La modulation des phénomènes observés par divers paramètres (bathymétrie, i
 \item Résumé en français
 \item papier
 \end{itemize}
+
+\input{./CHAP_BPE/chap5.tex}
+
 
 \chapter*{Discussion Conclusion}
 
