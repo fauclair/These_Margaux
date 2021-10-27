@@ -7,9 +7,10 @@
 %----------------------------------------------------------------------
 
 %----------------------------------------------------------------------
-%\color{blue}\section{3D LES in the Strait of Gibraltar} \color{black}
+\color{blue}\section{3D LES in the Strait of Gibraltar} \color{black}
 %----------------------------------------------------------------------
-\section{Introduction}
+\label{sectionSim3D}
+\subsection{Introduction}
 
 The Atlantic - Mediterranean exchange occurring in the Strait of Gibraltar has been \color{blue} explored \color{black} summarily in a previous section (2D \color{blue} Utilise des labels dès maintenant pour les sections et les sous-sections cela t'évitera de perdre du temps à tout vérifier et tout reprendre à la fin \color{black}). \color{blue} The consequences at basin scale broadly \color{black} consists in Mediterranean waters leaving the Strait at depth (as what has been dubbed the 'Mediterranean outflow') whereas \color{blue}Atlantic\color{black} waters enter the Mediterranean basin in the surface layer.
 
@@ -19,7 +20,7 @@ More details are provided in this section on the characteristics of the strait, 
 A clear objective of the numerical approach proposed in the present chapter is the explicit representation of these fine scales in Gibraltar strait in order to better simulate the route toward mixing in this peculiar region of the ocean. Large Eddy Simulation (LES) is implemented to simulate the primary instabilities developing at depth between the Mediterranean and Atlantic water masses.
 
 %----------------------------------------------------------------------
-\subsection{Circulation in neighbouring areas (Gulf of Cadix and Alboran Sea)}
+\subsubsection{Circulation in neighbouring areas (Gulf of Cadix and Alboran Sea)}
 %----------------------------------------------------------------------
  \color{blue}\sout{(de Pascual-Collar ; NAjanro 2012 ; Sanchez Garrido 2013 ;Lorente 2019 ; garcia lafuente 2017)} 
  \color{black}
@@ -42,7 +43,7 @@ At depth, several \color{blue}components of \color{black} the Mediterranean wate
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\color{blue}\subsection{Morphology, barotropic tides and atmospheric forcing.} \color{black}
+\color{blue}\subsubsection{Morphology, barotropic tides and atmospheric forcing.} \color{black}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -55,7 +56,7 @@ The wind is funneled through the strait and is either \color{blue}blowing westwa
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Baroclinic exchange and small-scale processes}
+\subsubsection{Baroclinic exchange and small-scale processes}
 
 
 The circulation of eastward Atlantic waters at the surface and of westward Mediterranean waters at depth sets up a baroclinic exchange in the strait of Gibraltar. Due to the amplitude of the barotropic \color{blue}(tidal) currents, this exchange is \color{black} intermittent with regard to the M2 tide. \color{blue}The circulation can thus be splitted into a Reynolds-averaged sheared component and a depth-averaged, eddy-flux-like anomaly. The latter has an important impact on the exchange flow (Naranjo, 2014, etc..), and can even have a larger amplitude than the former at CS (Vargas, 2006). \color{black}
@@ -80,7 +81,7 @@ ISWs are generated during each tidal cycle except when westward current are not 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Toward Large Eddy Simulation (LES)}
+\subsubsection{Toward Large Eddy Simulation (LES)}
 
 The small-scale processes are consequently responsible for the mixing of Atlantic and Mediterranean waters in Gibraltar strait, and the characteristics of the water masses involved in the baroclinic exchange at Gibraltar are not conserved (garcia lafuente 2017). \color{blue} \sout{: difficult to link characteristics at ES (INGRES, long term mooring to monitor outflow) to processes in the Mediterranean).} It remains yet difficult to clearly isolate the retroaction of such small-scale processes on the circulation and more generally on the large-scale processes observed in the Mediterranean basin  (INGRES?). \color{black}
 The enhanced mixing in the strait must in any event be \color{black}parameterized in coarsely-resolved global or even in regional models and the modification of water-mass characteristics \color{black} has an impact on the circulation in both the Mediterranean and the northern Atlantic basins. 
@@ -90,11 +91,11 @@ Based on the preliminary numerical study presented by Hilt2020 \color{blue}(chap
 The numerical simulation framework \color{blue} based on three simulation periods is presented in section \ref{section3Dnum} and the various diagnosis that have been implemented in the numerical experiments are then described (blah) (?) in section \ref{PartDiag3D}. Section \ref{section3DRes} presents results pertaining to the hydrological state of the flow depending on the strength of barotropic tidal currents, the propagation of ISWs, the areas of generation of primary instabilities and a comparison of several turbulence closure schemes.\color{black}
 
 %----------------------------------------------------------------------
-\section{Numerical Configuration}
+\subsection{Numerical Configuration}
 %----------------------------------------------------------------------
 \label{section3Dnum}
 
-\subsection{Numerical framework}
+\subsubsection{Numerical framework}
 
 \color{blue}Numerical configurations are based on \color{black} CROCO-NBQ and build on Hilt (2020), see chapter XXX. \color{black} Table \ref{tab_NH-HR} summarizes \color{blue} the main numerical parameters and choices that have been made. A non-linear equation of state and a no-slip condition at the bottom have also been implemented. \color{blue} A simple Smagorinsky-like turbulent closure scheme (Smago in Table XXX) has been used except obviously in configurations dedicated to the evaluation of several different closure schemes (\S XXX). The characteristic Smagorinsky coefficient is chosen equal to 0.05 (reference?).\sout{For paragraph ... three simulations use Smago with coefs} In (\S XXXX), several Smagorinsky coefficients are further tested  ($10{-3}$,$10{-2}$,$10^{-1}$) and the consequences on the dynamics are carefully evaluated together with that of the used of a GLS k-$\epsilon$ turbulent closure scheme. \color{black}
 
@@ -150,7 +151,7 @@ No wind forcing and no atmospheric fluxes are specified at the surface of the oc
         \label{tab_sim3Dnames}
 \end{table}
 
-\subsection{Tidal forcing and simulation period}
+\subsubsection{Tidal forcing and simulation period}
 Tidal forcing is integrated to the forcing \color{blue} at the lateral eastern and western boundaries  \color{black}. As indicated in table \ref{tab_NH-HR}, it comprises four tidal harmonic \color{blue} components ($\text{M}_{\text{2}}$, $\text{S}_{\text{2}}$, $\text{K}_{\text{1}}$, $\text{O}_{\text{1}}$).
 %Due to computational cost constraints,
 To limit computational costs\color{black}, simulations are run for three-day periods \color{blue}of 3 characteristic flow configurations of September, \sout{of year} 2017 (i.e. close to equinox). \sout{The date of the beginning and end} \color{blue}The start and end dates of each CROCO simulation are prescribed in table \ref{tab_dates_MIV}. \color{blue} They do \color{black} not include the 6-hour-hydrostatic spin-up period.\\ 
@@ -203,11 +204,11 @@ As far as Atlantic waters are concerned, NACW are mostly present on the western 
 \sout{On east side, see difference surface water north/south of the opening of the Strait, with saltier surface waters in the north. } \color{green} Reformule différemment, je ne comprends pas trop ce que tu veux dire...??? \color{black}
 
 %----------------------------------------------------------------------
-\section{Numerical diagnosis}
+\subsection{Numerical diagnosis}
 %----------------------------------------------------------------------
 \label{PartDiag3D}
 
-\subsection{Hydraulic control}
+\subsubsection{Hydraulic control}
 \color{green} 
 \textit{Il faut introduire ici les raisons pour lesquelles tu as besoin de définir clairement l'interface, ce qui n'est pas évident si tu l'introduis indépendemment de la suite... je te propose donc de regrouper cela dans une section associée au contrôle hydraulique... .} \color{black}\\
 
@@ -239,7 +240,7 @@ F_i=\frac{U_i^2}{g'h_i} , \ \text{with} g'=g \frac{\rho_2-\rho_1}{\rho_0}
 where $\rho_i$ averaged density in layer i,  $U$ is averaged velocity norm over the layer i of height h. $F_i>1$ means that the flow in layer i is supercritical.
 
 
-\subsection{Hydraulic jump detection, acceleration of flow}
+\subsubsection{Hydraulic jump detection, acceleration of flow}
 \color{blue}The necessity not only to caricature the stratification but also to evaluate a local phase velocity of internal waves based on this stratification renders the evaluation of a local Froude number rather complex and, as a consequence, can somehow blur the characterization of the local regime of the dynamics.  \color{black}
 Another simple diagnosis for detection of the hydraulic jump at Camarinal Sill in the simulations is \color{black} proposed based \color{black} on the impact such a structure is known to have on the flow. 
 \begin{figure}[!h]
@@ -275,7 +276,7 @@ The velocity in the area of the hydraulic jump must validate the condition of (a
  \color{green}Il faut que tu reformules et que tu expliques un peu plus ce qui suit... difficilement reproductible par un lecteur qui découvre ce diagnostique. Tu peux ajouter une petite explication en annexe si tu as peur que cela fasse trop dans la partie principale. \color{black} 
 Several parameters are chosen as threshold, here take values that should be correct for area of camarinal sill, the minimum excursion of the jump $\Delta n = 30m$ and the height of the Atl layer $b_2=50 m$ , and the reduced gravity $g'\ =0.02\ m.s^{-2}$.
 
-\subsection{Q parameter and derivated diagnosis}
+\subsubsection{Q parameter and derivated diagnosis}
 
 \color{blue}The studied configurations are all based on grid resolutions of a few tenths of meters, an objective being the explicit simulation of at least the largest turbulent eddies. The region of the Mediterranean outflow is of particular interest since large velocity shears are known to be associated there to a large vertical density (salinity) stratification. This region is thus a key area to better understand and simulate the mixing of Mediterranean and Atlantic water masses in Gibraltar strait.\\
 A dedicated diagnostic is now proposed to "detect" the primary instabilities and more specifically to identify Kelvin-Helmholtz instabilities developing potentially in this region. \color{black}
@@ -307,12 +308,12 @@ The result of this proxy can be compared to the result of the Singular Value Dec
  \color{blue}SVD computations requires a priori the storage of the field to be decomposed. This could not be made online: SVD have consequently been computed off-line which necessitates high frequency 3D outputs to pick up the relevant structures. \color{black}
 
 %----------------------------------------------------------------------
-\section{Fine scales in the strait of Gilbraltar}
+\subsection{Fine scales in the strait of Gilbraltar}
 %----------------------------------------------------------------------
 \label{section3DRes}
 
-\subsection{Flow criticality/Hydraulically controlled layer and hydraulic jump, neap-spring tide variability}
-
+\subsubsection{Flow criticality/Hydraulically controlled layer and hydraulic jump, neap-spring tide variability}
+\label{section3DResFlow}
 
 \begin{figure}[!h]
  \centering
@@ -389,7 +390,7 @@ Figure \ref{FigISWGBR3D} shows \color{blue} the divergence of surface currents i
  \label{FigISWGBR3D}
 \end{figure}
 
-\subsection{Propagation of Solitons (ISWs)}
+\subsubsection{Propagation of Solitons (ISWs)}
 
 \begin{figure}[!h]
  \centering
@@ -416,7 +417,8 @@ Figures (\noparref{FigeddGBR3D}.a-b) then (\noparref{FigeddGBR3D}.a-d) show two 
 
 In the simulations, this process of generation of cyclonic eddies \color{blue} in the region of Ceuta \color{black} occurs each time a train of solitary waves exits the strait. The train of the next tidal cycle gets diffracted on this eddy, creating local \color{blue}modifications of the structure of the train. \color{black}
 
-\subsection{Dynamical structures at Camarinal Sill, primary instabilities}
+\subsubsection{Dynamical structures at Camarinal Sill, primary instabilities}
+
 
 \subparagraph{Neap-tide cycle.}
 Along with the features of the flow already discussed previously, figures \ref{FigHCN}, \ref{FigHCS} and \ref{FigHCI} indicate patches of high standard deviation of parameter Q \color{blue} defined in (\S XXX). The extension of these patches is maximal during all outflow periods \color{black} and for the spring-tide inflow \color{green} (you mean "spring-tide flow"?), \color{black} although the values \color{green}(which values, standard deviations?) \color{black} for this latter case are not as large and the patch itself is not as extended. High values of the \color{blue} standard deviation \color{black} indicate the occurrence of large-amplitude oscillations of the values of parameter Q. \color{blue} Larger standard deviations can be found during the two outflow periods. Indeed during these periods, the hydraulic jump \color{black} is detected (\textit{w-jump} and \textit{s-jump}) west of CS at 5.79 $^\text{o}$ W and west of secondary bathymetric features in Tangier basin at 5.84 $^\text{o}$ W. There is also \color{blue} a smaller amplitude \color{black} signal at ES. It is of greater standard deviation for the spring tide outflow \color{green} (not sure to understand what you mean...). \color{black}
@@ -475,7 +477,7 @@ Looking at averaged layer salinities \color{green}(tu veux dire lorsque les sali
 \end{figure}
 
 %----------------------------------------------------------------------
-\section{Discussion \& conclusions}
+\subsection{Discussion \& conclusions}
 %----------------------------------------------------------------------
 \color{blue}\subparagraph{Fines scales in Gibraltar strait.}
 \sout{Have looked into} The variability of the hydraulic control and of the other dynamical features during the neap-spring tidal cycle have been explored with high resolution, non-hydrostatic, free-surface simulations of the region of the Gibraltar strait. \sout{.See no permanent} No permanent supercritical flow has been identified in the various simulations and only intermittent events of such flows have been observed during the tidal cycle. The location and extension of the area of supercritical flow depend on the strength of the barotropic currents. \color{black}

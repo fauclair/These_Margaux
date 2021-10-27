@@ -3,7 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[a4paper,12pt,notitlepage]{report}
+\documentclass[a4paper,12pt,notitlepage,twoside]{report}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -57,6 +57,7 @@
 %\usepackage{esint}
 \usepackage{cancel}
 %\usepackage{pdfpages}
+\usepackage{fancyhdr}
 %----------------------------------------------------------------------------
 % Packages: uncomment to debug
 %----------------------------------------------------------------------------
@@ -71,6 +72,15 @@
 \usepackage[authoryear]{natbib}
 %\usepackage[frenchb]{babel}
 %\usepackage{authblk}
+
+%%%%EN tête
+%\fancyhf{}
+\lhead{}
+\rhead{}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RE]{}
+\fancyhead[RO]{\rightmark}		% Nom des sections
+\fancyhead[LO]{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Definitions & commands
@@ -160,7 +170,9 @@
 
 %Page de garde
 \makeflyleaf
-
+\pagestyle{fancy}
+%\renewcommand{\sectionmark}[1]{%
+%\markboth{\thesection.\ \MakeUppercase{#1}}{}}
 
 \newpage
 \textbf{Avant-propos et remerciements}
@@ -173,6 +185,7 @@
 
 \newpage
 \chapter{Introduction}
+\label{chapINTRO}
 %\cite{BS84}
 \citet{armi_1985}
 
@@ -183,6 +196,7 @@
 
 
 \chapter{Simulation (explicite) \& modélisation numérique de l'oc\'ean et de son m\'elange}
+\label{chap2}
 \begin{itemize}
 \item conservation masses/qdm, discretisation numérique, échelles (RANS/LES(/DNS)), paramétrisation du mélange, fermeture turb (Smago/GLS...)
 \item contenu en PV
@@ -198,6 +212,7 @@
 
 
 \chapter{Fine scales in Gibraltar strait: a high-resolution, vertical section based on Gibraltar Experiment.}
+\label{chapGBR2D}
 \begin{itemize}
 \item R\'esum\'e en français
 \item Papier 2D (! Changer numero de page pour debut pdf !, et retirer biblio (avec en fin these....), mise en page verifier...(problème tableau 2))
@@ -235,10 +250,10 @@ La modulation des phénomènes observés par divers paramètres (bathymétrie, i
 %\newpage
 %%%% En mettant PDF
 %%%mettre autre pdf avec figure incluse aux bons endroits etc...
-\addtocounter{section}{1}
-\addcontentsline{toc}{section}{\protect\numberline{\thesection}Papier 2D}
+%\addtocounter{section}{1}
+%\addcontentsline{toc}{section}{\protect\numberline{\thesection}Papier 2D}
 %\includepdf[pages=-]{./GBR2D/PDF_GBR2D.pdf}%%!!attention decommenter package
-
+\input{./GBR2D/PapierGBR2D.tex}
 
 
 \section{ccl français}
@@ -252,7 +267,7 @@ La modulation des phénomènes observés par divers paramètres (bathymétrie, i
 \chapter{Fines scales \& Large Eddy Simulation in Gibraltar Strait}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\label{GbR3D}
+\label{chapGBR3D}
  
 %%\selectlanguage{english}
 \input{./GBR3D/chapGBR3D.tex}
@@ -260,7 +275,11 @@ La modulation des phénomènes observés par divers paramètres (bathymétrie, i
 
 \input{./GBR3D/GEPETO.tex}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Background Potential Energy: an essential \& pertinent tool to diagnose mixing.}
+\label{chapBPE}
 \begin{itemize}
 \item Résumé en français
 \item papier
@@ -282,7 +301,7 @@ La modulation des phénomènes observés par divers paramètres (bathymétrie, i
 %              Bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{apalike}
-\bibliography{mybib,mybib_Francis}
+\bibliography{mybib,mybib_Francis,biblio_GBR2D}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
