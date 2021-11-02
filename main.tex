@@ -174,14 +174,70 @@
 %\renewcommand{\sectionmark}[1]{%
 %\markboth{\thesection.\ \MakeUppercase{#1}}{}}
 
+%3pages blanches
+\newpage
+ \null
+ \thispagestyle{empty}
+\newpage
+ \null
+ \thispagestyle{empty}
+\newpage
+ \null
+ \thispagestyle{empty}
+ 
 \newpage
 \textbf{Avant-propos et remerciements}
+\setcounter{page}{1}
 \addcontentsline{toc}{section}{Avant-propos et remerciements}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \tableofcontents
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\addcontentsline{toc}{section}{Liste des acronymes}
+\begin{table}[!h]
+        \centering
+        \begin{tabular}{|c|ll|}
+                \hline
+                 \multicolumn{3}{|c|} {Table des Acronymes} \\ 
+                 \hline
+                 \hline
+                AJ & Atlantic Jet & Jet Atlantique \\
+                \hline
+                CROCO & \multicolumn{2}{l|}{Coastal and Regional Ocean Community MOdel}\\
+                \hline
+                CS & Camarinal Sill & Seuil de Camarinal\\
+                \hline
+                EAG & East Alboran Gyre & Gyre est de la mer d'Alboran\\
+                \hline
+                ES & Espartel Sill & Seuil d'Espartel\\
+                \hline
+                ISW & Internal Solitary Wave & Onde interne solitaire\\
+                \hline
+                LAIW & Large Amplitude Internal Wave & Onde Interne de Grande Amplitude \\
+                \hline
+                LES & Large Eddy Simulation & Simulation (numérique) des grandes structures turbulentes \\
+                \hline
+                LIW & Levantine Intermediate Water & Eau Intermédiaire Lévantine \\
+                \hline
+                NACW & North Atlantic Central Water & Eau centrale Nord-Atlantique\\
+                \hline
+                SAR & Synthetic Aperture Radar & \\
+                \hline
+                SAW & Surface Atlantic Water & Eau de surafce Atlantique\\
+                \hline
+                WAG & West Alboran Gyre & Gyre ouest de la mer d'Alboran\\
+                \hline
+                WMDW & West Mediterranean Deep Water & Eau profonde de la mer Méditerranée ouest\\
+                \hline
+        \end{tabular}
+%        \captionof{table}{Type of measures, coordinates and date of deployment for moorings of Gibraltar 2020 field campaign.}
+%        \label{tab_moor}
+        %\end{minipage}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \chapter{Introduction}

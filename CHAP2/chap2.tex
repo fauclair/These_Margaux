@@ -66,19 +66,21 @@ Formulated thus, the system of Navier-Stokes and conservation equations for a fr
  %\subsection{Density and pressure decomposition}
  %----------------------------------------------------------------------------
  
- \subsection{Following-rterrain coordinate.Equations in s-coordinate}
+ \subsection{Terrain-following coordinates}
  
- Due to topography can shose etrrain following corrdinates,a nd in teh case of the ocean can use sigma coordinate that generalize s coordinate but take also into account the topography of the free surface
- Especially, the model CROCO prensnted in scetion ... uses terrai-following coordinates/sigma-coordinates that are defined here.
+ %Due to topography can shose etrrain following corrdinates,a nd in teh case of the ocean can use sigma coordinate that generalize s coordinate but take also into account the topography of the free surface
+ %Especially, the model CROCO prensnted in scetion ... uses terrai-following coordinates/sigma-coordinates that are defined here.
  
  
- Here talk about the coordinate transformation, give the formula for conservation/fluxes in this coordinate system... Establish conservation of a (extensive?) quantity rho A   /// want to express the evolution in s-coordinate of the extensive quantity $\rho$A both local and integral
+ %Here talk about the coordinate transformation, give the formula for conservation/fluxes in this coordinate system... Establish conservation of a (extensive?) quantity rho A   /// want to express the evolution in s-coordinate of the extensive quantity $\rho$A both local and integral
  
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-S-coordinates are generally defined based on "generalized surfaces" $s=cte$ with s given by:
+The capacity of numerical models to portray the evolution of global or regional oceanic circulation relies on horizontal and vertical definition of a grid on which the Navier-Stokes and conservation equations previously defined are solved and integrated in time.
+
+Due to considerations of the representation of bathymetric features, terrain-following coordinates, or S-coordinates, can be choosen for the vertical discretisation. They are generally defined based on "generalized surfaces" $s=cte$ with s given by:
 \begin{equation}
  \displaystyle
  s=s(x,y,z,t)
@@ -88,87 +90,13 @@ requiring:
  \displaystyle
  \frac{\partial s}{\partial z}\bigg\vert_{xyt}\ne 0
 \end{equation}
-As a consequence, $\partial s / \partial z$ being continue must remain single-signed, and $s(z)$ is monotonic.
+As a consequence, for $\partial s / \partial z$ to be continuous and single-signed/either strictly positive or negative, $s(z)$ must be monotonic.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Local orthonormal coordinates (annexe?)}
+%\subsubsection{Examples}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\cite{griffies_fundamentals_2004} further defines in his chapter (6.4) a system of orthonormal coordinates:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  &\mathbf{e}_{x^*} &&=\frac{\mathbf{y}\wedge{\mathbf{\nabla}s}}
-  {\norm{\mathbf{y}\wedge{\mathbf{\nabla}s}}}\\
-  &\mathbf{e}_{y^*} &&=\mathbf{e}_s\wedge{\mathbf{e}_{x^*}}\\
-  &\mathbf{e}_s &&=\frac{\mathbf{\nabla}s}{\norm{\mathbf{\nabla}s}}
-  \end{alignat}
-\end{subequations}
-In this particular case ($\mathbf{e}_s.\mathbf{z}$ has a unique signe, the basis vectors can be rewritten:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  &\mathbf{e}_{x^*} &&=\frac{\mathbf{x}+S_x\mathbf{z}}{\sqrt{1+S_x^2}}\\
-  &\mathbf{e}_{y^*} &&=\frac{-S_xS_y\mathbf{x}+(1+S_x^2)\mathbf{y}+S_y\mathbf{z}}{\sqrt{1+S^2)(1+S_x^2)}}\\
-  &\mathbf{e}_s &&=\frac{(-\mathbf{S},1)}{\sqrt{1+S^2}}
-  \end{alignat}
-\end{subequations}
-The s-coordinate transformation is a rotation and:
-\begin{equation}
-   \displaystyle
-   \mathbf{e}_{x^*y^*s}=\Lambda_{s}^{z}\mathbf{e}_{xyz}
-\end{equation}
-Note in particular the definition of the slope $\mathbf{S}$ and its norm $S=\norm{\mathbf{S}}$ used to rewrite the orthonormal basis:
-\begin{equation}
-   \displaystyle
-   \mathbf{S}=\mathbf{\nabla}_s z=
-   -\frac{\partial z}{\partial s}\mathbf{\nabla}_z s=\left( S_x,\ S_y,\ 0 \right)
-\end{equation}
-where $\mathbf{\nabla}_s z$ is "the horizontal gradient of the height of a fluid parcel as taken along surfaces of constant generalized vertical coordinate s" \citep{griffies_fundamentals_2004}.\\
-\textbf{Caution:} this orthonormal basis is not used to project the equations of the model. S-coordinates are "only" used as a change of variable whereas equations and vector quantities remain written in the original Cartesian or spherical basis. The present s-coordinate orthonormal basis is presented here to be latter used in the computation of fluxes through s-surfaces.
+Several examples and comparisons on the choice of $s(x,y,z,t)$ are given in chapter 6 of \citet{griffies_fundamentals_2004}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Coordinate transformation}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The transformation matrix of the generalized coordinate transformation is:
-\begin{equation}
-    \displaystyle
-    \Lambda^z_s=
-    \begin{pmatrix}
-    1 & 0 & 0 & 0 \\
-    0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    \frac{\partial z}{\partial t} & \frac{\partial z}{\partial x}
-    & \frac{\partial z}{\partial y} & h=\frac{\partial z}{\partial s}
-    \end{pmatrix}
-\end{equation}
-The inverse transformation is given by:
-\begin{equation}
-    \displaystyle
-    \Lambda_z^s=
-    \begin{pmatrix}
-    1 & 0 & 0 & 0 \\
-    0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    \frac{\partial s}{\partial t} & \frac{\partial s}{\partial x}
-    & \frac{\partial s}{\partial y} & \frac{\partial s}{\partial z}
-    \end{pmatrix}
-\end{equation}
-
-The Jacobian of the transformation $J=det(\Lambda^z_s)$ is the (specific) thickness:
-\begin{equation}
- \displaystyle
- J=h=\frac{\partial z}{\partial s}=\frac{\partial z}{\partial s}\bigg\vert_{xyt}
-\end{equation}
-\cite{griffies_fundamentals_2004} further define the infinitesimal  thickness for modelling developments:
-\begin{equation}
- \displaystyle
- \delta h=\frac{\partial z}{\partial s} \delta s
-\end{equation}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Examples}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Several examples and comparisons are given in \cite{griffies_fundamentals_2004} (chapter 6).\\
 Following  \citep{shchepetkin_regional_2005},  $\sigma$-coordinates can for instance be defined by:
 \begin{equation}
  \displaystyle
@@ -179,7 +107,7 @@ or:
  \displaystyle
  z(\mathbf{x},\sigma,t)=\sigma(H+\zeta)+\zeta
 \end{equation}
-whereas its generalization to s-coordinates is defined by:
+Where $H(\mathbf{x})$ is the bottom topography and $\zeta(\mathcal{x},t)$ the surface elevation anomaly. Its generalization to s-coordinates is defined by:
 \begin{equation}
  \displaystyle
  z(\mathbf{x},s,t)=\mathcal{S}(s) H(\mathbf{x})
@@ -189,117 +117,14 @@ which is currently written:
  \displaystyle
  z(\mathbf{x},\sigma,t)=\mathcal{S}(\sigma) H(\mathbf{x})
 \end{equation}
-where $s(\sigma)$ can be a non-linear function. See current definitions on Wiki-Roms web-site \footnote{\url{https://www.myroms.org/wiki/Vertical_S-coordinate}}.\\
-
-In these definition, $H(\mathbf{x})$ is the bottom topography and $\zeta(\mathcal{x},t)$ the surface elevation anomaly.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Formula and identities}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Coordinate transformations are given by:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  &\frac{\partial A}{\partial t}\bigg\rvert_{xz} &&=
-   \frac{\partial A}{\partial t}\bigg\rvert_{xs}
-  - \frac{1}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx}
-  \frac{\partial z}{\partial t}\bigg\rvert_{xs}\\
-  &\frac{\partial A}{\partial x}\bigg\rvert_{tz} &&=
-   \frac{\partial A}{\partial x}\bigg\rvert_{ts}
-  - \frac{1}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx}
-  \frac{\partial z}{\partial x}\bigg\rvert_{ts}\\
-  &\frac{\partial A}{\partial z}\bigg\rvert_{tx} &&=
-   \frac{1}{h}
-   \frac{\partial A}{\partial s}\bigg\rvert_{tx}
-  \end{alignat}
-\end{subequations}
-Material derivatives satisfy:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & \frac{d}{dt} &&=\frac{\partial}{\partial t}\bigg\vert_z
-  + \mathbf{u}.\mathbf{\nabla}_z
-  + w\frac{\partial }{\partial z}\\
-  & &&=\frac{\partial}{\partial t}\bigg\vert_s
-  + \mathbf{u}.\mathbf{\nabla}_s
-  + \dot{s}\frac{\partial}{\partial s}
-  \end{alignat}
-\end{subequations}
-which leads to:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & \dot{z} &&=\frac{dz}{dt}\bigg\vert_s=\frac{\partial z}{\partial t}\bigg\vert_s
-  + \mathbf{u}.\mathbf{\nabla}_s z
-  + \dot{s}\frac{\partial z}{\partial s}\\
-  & \dot{s} &&=\frac{ds}{dt}\bigg\vert_z=\frac{\partial s}{\partial t}\bigg\vert_z
-  + \mathbf{u}.\mathbf{\nabla}_z s
-  + w\frac{\partial s}{\partial z}
-  \end{alignat}
-\end{subequations}
-Using the identities:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle
-  &\frac{\partial s}{\partial t}\bigg\vert_z &&=
-  \left(\frac{\partial t}{\partial s}\bigg\vert_z\right)^{-1}\\
-  &\frac{\partial s}{\partial x}\bigg\vert_z &&=
-  \left(\frac{\partial x}{\partial s}\bigg\vert_z\right)^{-1}\\
-  &\frac{\partial s}{\partial y}\bigg\vert_z &&=
-  \left(\frac{\partial y}{\partial s}\bigg\vert_z\right)^{-1}\\
-  &\frac{\partial s}{\partial z}\bigg\vert_x &&=
-  \left(\frac{\partial z}{\partial s}\bigg\vert_x\right)^{-1}
-  \end{alignat}
-\end{subequations}
-several relations are obtained from the triple product rule:
-Coordinate transformations are given by:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle
-  &\frac{\partial z}{\partial t}\bigg\vert_s &&=
-  -\frac{\partial s}{\partial t}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\
-  &\frac{\partial z}{\partial x}\bigg\vert_s &&=
-  -\frac{\partial s}{\partial x}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\
-  &\frac{\partial z}{\partial y}\bigg\vert_s &&=
-  -\frac{\partial s}{\partial y}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\
-  \end{alignat}
-\end{subequations}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Flux through a surface}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Based on \citep{delhaye_thermohydraulique_2008}, let $\mathbf{v}_{\Sigma}$ be the velocity of a material surface in the fluid:
-\begin{equation}
-	\displaystyle
-	\mathbf{v}_{\Sigma}=\frac{\partial \mathbf{x}}{\partial t}\bigg\rvert _{\Sigma}
-\end{equation}
-with $\mathbf{x}$ the position of the current point where the velocity is computed. Caution this velocity is undetermined  since the tangential component is itself undetermined... As  a consequence, one should compute and isolate only its normal component $(\mathbf{n}_{\Sigma}.\mathbf{v}_{\Sigma})$ in the following computations.\\
-Demonstrations and further expressions can be found in \citep{griffies_fundamentals_2004}, \citep{griffies_elements_2012} and \citep{delhaye_thermohydraulique_2008}.
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & \frac{\partial z}{\partial t}\bigg\vert_s &&=
-  \frac{\partial s}{\partial t}\bigg\vert_z
-  \frac{\partial z}{\partial s}\bigg\vert_t\\
-  & &&=h\norm{\mathbf{\nabla}s}\mathbf{n}_{\Sigma}.
-  \mathbf{v}_{\Sigma}
-  \end{alignat}
-\end{subequations}
-Metric tensor formulations lead to:
-\begin{subequations}
-  \begin{alignat}{2}
- & dS_{\Sigma} &&= h\norm{\mathbf{\nabla}s} dS\\
- & h dS &&=\mathbf{n}_{\Sigma}.\mathbf{v}_{\Sigma}dS_{\Sigma}
-  \end{alignat}
-\end{subequations}
-See bellow how this formula is used to write Leibniz rule...
+where $s(\sigma)$ can be a non-linear function. Some current definitions are presented on the Wiki-Roms web-site \footnote{\url{https://www.myroms.org/wiki/Vertical_S-coordinate}}.\\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Vertical velocities}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Vertical velocities $v_z$ and $v_s$ are related by:
+Using coordinate transformation presented in (annexe?), the vertical velocity $w \equiv v_z$ is decomposed as :
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
@@ -317,36 +142,41 @@ Vertical velocities $v_z$ and $v_s$ are related by:
 	+u \frac{\partial z}{\partial x}\bigg\rvert_{ts}}
 	_{\frac{d z}{d t}\big\rvert_{s}=v_{\Sigma,z}}
   \end{alignat}
+  \label{eq_vertvelcomp}
 \end{subequations}
 where:
 \begin{equation}
 	\displaystyle
-	h\equiv\frac{\partial z}{\partial s}\bigg\rvert_{tx} \qquad and \qquad
+	h\equiv\frac{\partial z}{\partial s}\bigg\rvert_{tx} 
 	v_s\equiv h\frac{d s}{d t}
 \end{equation}
-From \citep{griffies_fundamentals_2004}:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & w_s &&= h \frac{ds}{dt} \\
-  & &&= h\left(\frac{\partial s}{\partial t}\bigg\vert
-  +\mathbf{v}.\mathbf{\nabla}_z s \right) \\
-  & &&=-\frac{\partial z}{\partial t}\bigg\vert_s
-  +(\mathbf{v}.\mathbf{n}_{\Sigma})h\norm{\mathbf{\nabla}s}\\
-  & &&=-\frac{\partial z}{\partial t}\bigg\vert_s
-  +(\mathbf{v}.\mathbf{n}_{\Sigma})\sqrt{1+S^2}\\
-  & &&=-\frac{\partial z}{\partial t}\bigg\vert_s+\mathbf{v}.(-S,1)\\
-  & &&=w-\left(
-  \frac{\partial z}{\partial t}\bigg\vert_s
-  +\mathbf{u}.\mathbf{\nabla}_s z
-  \right)
-  \end{alignat}
-\end{subequations}
-with $\mathbf{S}=\mathbf{\nabla}_s z=-h\mathbf{\nabla}_z s=(S_x,S_y,0)$.
+
+In other words, the vertical velocity is the composition of $v_{\Sigma,z}$ the vertical component of the velocity of the moving surface $s=cst$, and $v_s$ the velocity through this same surface.
+
+
+%From \citep{griffies_fundamentals_2004}:
+%\begin{subequations}
+%  \begin{alignat}{2}
+%  \displaystyle 
+%  & w_s &&= h \frac{ds}{dt} \\
+%  & &&= h\left(\frac{\partial s}{\partial t}\bigg\vert
+%  +\mathbf{v}.\mathbf{\nabla}_z s \right) \\
+%  & &&=-\frac{\partial z}{\partial t}\bigg\vert_s
+%  +(\mathbf{v}.\mathbf{n}_{\Sigma})h\norm{\mathbf{\nabla}s}\\
+%  & &&=-\frac{\partial z}{\partial t}\bigg\vert_s
+%  +(\mathbf{v}.\mathbf{n}_{\Sigma})\sqrt{1+S^2}\\
+%  & &&=-\frac{\partial z}{\partial t}\bigg\vert_s+\mathbf{v}.(-S,1)\\
+%  & &&=w-\left(
+%  \frac{\partial z}{\partial t}\bigg\vert_s
+%  +\mathbf{u}.\mathbf{\nabla}_s z
+%  \right)
+%  \end{alignat}
+%\end{subequations}
+%with $\mathbf{S}=\mathbf{\nabla}_s z=-h\mathbf{\nabla}_z s=(S_x,S_y,0)$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsubsection{Vertical velocities in $"\sigma"$-coordinates}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Vertical velocities in $"\sigma"$-coordinates}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In the more restrictive case when  $\sigma$-coordinates are used:
+In the more restrictive case when $\sigma$-coordinates are used:
 % In $\sigma$-coordinates:
 \begin{equation}
  \displaystyle
@@ -369,16 +199,16 @@ v_{\sigma}=(H+\zeta)\frac{d\sigma}{dt}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Divergence of the velocity field in s-coordinates}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Using the two fomulae:
+Using :
 \begin{equation}
  \displaystyle
- \frac{\partial}{\partial t} \frac{\partial z}{\partial s}\bigg\vert_{tx}= \frac{\partial h}{\partial t}
+ \frac{\partial}{\partial t} \frac{\partial z}{\partial s}\bigg\vert_{tx}= \frac{\partial h}{\partial t} \qquad and \qquad \frac{\partial}{\partial x} \frac{\partial z}{\partial s}\bigg\vert_{tx}= \frac{\partial h}{\partial x}
 \end{equation}
-and
-\begin{equation}
- \displaystyle
- \frac{\partial}{\partial x} \frac{\partial z}{\partial s}\bigg\vert_{tx}= \frac{\partial h}{\partial x}
-\end{equation}
+%and
+%\begin{equation}
+% \displaystyle
+% \frac{\partial}{\partial x} \frac{\partial z}{\partial s}\bigg\vert_{tx}= \frac{\partial h}{\partial x}
+%\end{equation}
 %
 the expression of the divergence in s-coordinates is given by:
 \begin{subequations}
@@ -391,13 +221,15 @@ the expression of the divergence in s-coordinates is given by:
   & && = \frac{\partial v_s}{\partial s}\bigg \rvert_{tx} + \frac{\partial h u}{\partial x} \bigg \rvert_{ts}+ \frac{\partial h}{\partial t}\bigg \rvert_{xs}
   \end{alignat}
 \end{subequations}
-Note that this is a particular case of the formulation of a change of variables with its Jacobian ($J=h$in the present case). This leads to several useful conservative formulations in the following section.
+Note that this is a particular case of the formulation of a change of variables with its Jacobian ($J=h$ in the present case). %This leads to several useful conservative formulations in the following section.
 %
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{(local) Conservative "flux" forms: kinematics \& dynamics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Two general conservative formulations can be obtained combining this with the continuity equation \citep{auclair_woceanfr_2011}\footnote{WOcean.fr Web Site: \url{http://poc.omp.obs-mip.fr/auclair/WOcean.fr/SNH/Restricted/NH-NBQ/Sources/Images/png/Coord_demo.png}}.
+
 $A$ is a property given per unit mass (thermodynamically intensive) (see the demonstration on web site). The first two (conservative) relations are fundamentals to  analytical and numerical modeling.\\
 
 \textbf{\textit{Based on the conservation of mass:}}
@@ -435,339 +267,29 @@ note finally that the conservation of mass $A=1$ can then be rewritten:
 \end{equation}
 
 
-\paragraph{Integrals/global quantities in s-coordinate}
-
-Change of variable in integral : jacobian
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Integral formulation}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsubsection{Formulations of the Reynolds Transport Theorem (\& Leibniz Rule)}
-\paragraph{Demonstration}
-The difficulty to compute:
-\begin{equation}
- \displaystyle
- \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau
-\end{equation}
-is due to the fact that for a general time-varying volume $\mathcal{V}(t)$ the differentiation cannot be taken through the internal sign. To do so, we can however consider a change of coordinates to volume-attached coordinates \citep{hirasaki_chapter_2021}. Let $\mathcal{J}$ be the Jacobian (determinant of the Jacobian matrix) of the change of variables from Cartesian coordinates $(\mathbf{x},t)$ to volume varying coordinates $(\boldsymbol{\xi},t)$. Integrating volume is $\mathcal{V}(t)=\mathcal{V}_{\xi}=\mathcal{V}_{\xi}(t)$.\\
-Kinematic evolution of material particulate ("dilation kinematic theorem") is then nothing but Reynolds'transport theorem (which is equivalent to Leibniz derivation rule to 3D volumes) \citep{hirasaki_chapter_2021}. Caution: the demonstration given in \citep{hirasaki_chapter_2021} is for a material volume $\mathcal{V}_M$. As the demonstration is kinematic, it is generalized here to a general volume moving thought the fluid flow $(\mathcal{V}(t))$. This problem is dealt with in \cite{web_course_web_2021} (and further references are given in there).\\
-As a consequence for a general volume $\mathcal{V}(t)$ moving at a 3D velocity $  \mathbf{v}_{\Sigma}$:
-\begin{equation}
- \displaystyle
- \frac{dJ}{dt}=J \mathbf{\nabla}.\mathbf{v}_{\Sigma}
-\end{equation}
-which is reminiscent of the kinematic evolution of the specific volume of a fluid particle:
-\begin{equation}
- \displaystyle
- \frac{d\tau}{dt}=\tau \mathbf{\nabla}.\mathbf{v}
-\end{equation}
-sometime written:
-\begin{equation}
- \displaystyle
- \frac{d\delta\tau}{dt}=\delta\tau \mathbf{\nabla}.\mathbf{v}
-\end{equation}
-which is noting but the continuity equation written for the specific volume.
-
-With the natural change of variable, the derivation can enter the integral sign and:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=
-  \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\tau\\
-  & &&= \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\mathbf{x}\\
-  & &&=\frac{D}{Dt} \iiint_{\mathcal{V}_{\xi}} \rho A J d\boldsymbol{\xi}\\
-  & &&=\iiint_{\mathcal{V}_{\xi}} \frac{D\rho A}{Dt}  J d\boldsymbol{\xi}
-  +\iiint_{\mathcal{V}_{\xi}} \rho A \frac{DJ}{Dt} d\boldsymbol{\xi}\\
-  & &&=\iiint_{\mathcal{V}_{\xi}} \frac{D\rho A}{Dt}  J d\boldsymbol{\xi}
-  +\iiint_{\mathcal{V}_{\xi}} \rho A \mathbf{\nabla}. \mathbf{v}_{\Sigma}\ J d\boldsymbol{\xi}
-  \end{alignat}
-\end{subequations}
-Following \cite{truesdell_classical_1960}, a more general formulation can thus be recovered for a time-dependant volume $\mathcal{V}(t)$ moving with a velocity $\mathbf{v}_{\Sigma}$:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  &  \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau && =
-  \iiint_{\mathcal{V}(t)} \frac{D\rho A}{Dt}  d\boldsymbol{x}
-  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.\mathbf{v}_{\Sigma}\ d\mathbf{x}\\
- & && =
-  \iiint_{\mathcal{V}(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
-  %+ \varoiint_{\mathcal{V}(t)}\rho A \mathbf{v}.\mathbf{S}\\
-  + \oiint_{\mathcal{S}(t)}\rho A   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}dS_{Sigma}
-  \end{alignat}
-\end{subequations}
-where:
-\begin{equation}
- \displaystyle
- \frac{D\bullet}{Dt}=\frac{\partial \bullet}{\partial t}\bigg\vert_{\boldsymbol{\xi}}
- +  \mathbf{v}_{\Sigma}.\mathbf{\nabla}_{t,\boldsymbol{\xi}}\bullet
-\end{equation}
-This is the generalized (Reynolds) transport theorem or the generalized Leibnitz theorem. Caution: the derivative $D/Dt$ is associated to $  \mathbf{v}_{\Sigma}$.
-
-\paragraph{Closed time-dependent volume $\mathcal{V}(t)$}
-Several formulations of this kinematic theorem can be given:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=
-  \iiint_{\mathcal{V}(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
-  %+ \varoiint_{\mathcal{V}(t)}\rho A \mathbf{v}.\mathbf{S}\\
-  + \oiint_{\mathcal{V}(t)}\rho A   \mathbf{v}_{\Sigma}.d\mathbf{S}\\\\
-  % Line 2:
-  &  &&= \iiint_{\mathcal{V}(t)} \left(\frac{\partial \rho A}{\partial t}\bigg\rvert_{xz}
-  +\mathbf{\nabla}.(\rho A   \mathbf{v}_{\Sigma}) \right) d\tau\\
-  % Line 3:
-  &  &&= \iiint_{\mathcal{V}(t)} \left(\rho \frac{\partial A}{\partial t}\bigg\rvert_{xz}
-  +A \frac{ \partial \rho }{\partial t}\bigg\rvert_{xz}
-  +\rho   \mathbf{v}_{\Sigma}.\mathbf{\nabla}A 
-  +A\mathbf{\nabla}.(\rho   \mathbf{v}_{\Sigma}) \right) d\tau\\
-  % Line 4:
-  & &&=\iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
-  +\iiint_{\mathcal{V}(t)} A \left( \frac{\partial \rho}{\partial t} \bigg\rvert_{xz}
-  +\mathbf{\nabla}.(\rho  \mathbf{v}_{\Sigma})\right) \ d\tau
-  \end{alignat}
-\end{subequations}
-This can also be written:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=
-   \iiint_{\mathcal{V}(t)} \left(\rho \frac{\partial A}{\partial t}\bigg\rvert_{xz}
-  +A \frac{ \partial \rho }{\partial t}\bigg\rvert_{xz}
-  +\rho   \mathbf{v}_{\Sigma}.\mathbf{\nabla}A 
-  +A   \mathbf{v}_{\Sigma}.\mathbf{\nabla}\rho
-  +A\rho\mathbf{\nabla}.  \mathbf{v}_{\Sigma} \right) d\tau\\
-  % Line 2:
-  & &&=\iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
-  +\iiint_{\mathcal{V}(t)} A \frac{D \rho}{D t} d\tau
-  + \iiint_{\mathcal{V}(t)} \rho A\mathbf{\nabla}.  \mathbf{v}_{\Sigma} d\tau
-  \end{alignat}
-\end{subequations}
-or alternatively:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&
-  =\iiint_{\mathcal{V}(t)} \rho \frac{dA}{dt}  d\tau 
-  +\iiint_{\mathcal{V}(t)} \left(A \frac{d \rho}{dt} 
-  +\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right]
-  +\rho A \mathbf{\nabla}.\mathbf{v} \right) d\tau\\
-  & &&
-  =\iiint_{\mathcal{V}(t)} \rho \frac{dA}{dt}  d\tau 
-  + \iiint_{\mathcal{V}(t)}\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right]d\tau
-    \end{alignat}
-\end{subequations}
-where $  \mathbf{v}_{\Sigma}$ is defined as the velocity of the closed surface of $\mathcal{V}(t)$ and is more generally the 3D displacement velocity of the volume $\mathcal{V}(t)$.\\
- Caution: this has nothing to do with the velocity of the fluid in this volume except in the following particular case when considering a material volume, i.e. in the Lagrangian approach.
-These general formulations and demonstrations are useful in s-coordinates.
-
-\subsubsection{Material volume $\mathcal{V}_M(t)$ (kinematics \& dynamics)}
-\paragraph{Formulation of the transport theorem}
-A material volume $\mathcal{V}_M(t)$ is defined as a volume containing exactly the same fluid particles as time goes on.
-Simplifications to obtain the simple expression of the integral variations in the case of a moving material volume are based on the use of the continuity equation or conservation of mass. \\
-As the control volume is advected by mean flow (Lagrangian approach), $  \mathbf{v}_{\Sigma}=\mathbf{v}$ :
-\begin{equation}
-  \displaystyle 
-   \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau =
-  \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
-  +\iiint_{\mathcal{V}_M(t)} A \frac{d \rho}{dt} d\tau
-  +\iiint_{\mathcal{V}_M(t)} \rho A\mathbf{\nabla}.\mathbf{v} d\tau
-\end{equation}
-and thus:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau &&= \iiint_{\mathcal{V_M}(t)} \rho \frac{dA}{dt}  d\tau 
-  +\iiint_{\mathcal{V}_M(t)} A \underbrace{\left( \frac{\partial \rho}{\partial t} \bigg\rvert_{xz}+\mathbf{\nabla}.(\rho\mathbf{v})\right)}_{=0} \ d\tau\\
-  & && = \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
-  \end{alignat}
-\end{subequations}
-This is a generalization to 3D volume of the Leibniz rule. The time dependency of the integral volume $\mathcal{V}_M(t)$ is for a Lagrangian evolution with time-dependent boundaries. The present formulation is to be used for time-dependent boundaries whatever the velocity $  \mathbf{v}_{\Sigma}$ inside the volume.
-
-\paragraph{Material volume $\mathcal{V}_M(t)$ in Lagrangian material coordinates}
-The same exact approach and demonstration can be carried out in the case of a material volume as in the general case.
-Let in this case $\mathcal{J}$ be the Jacobian (determinant of the Jacobian matrix) of the change of variables from Cartesian coordinates $(\mathbf{x},t)$ to material coordinates $(\boldsymbol{\xi},t)$. Integrating volume is $\mathcal{V}(t)=\mathcal{V}_{\xi}$.\\
-Kinematic evolution of material particle ("dilation kinematic theorem") reads \citep{hirasaki_chapter_2021}:
-\begin{equation}
- \displaystyle
- \frac{dJ}{dt}=J \mathbf{\nabla}.\mathbf{v}
-\end{equation}
-which is reminiscent of the kinematic evolution of a control volume:
-\begin{equation}
- \displaystyle
- \frac{d\tau}{dt}=\tau \mathbf{\nabla}.\mathbf{v}
-\end{equation}
-With this kinematic theorem:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau &&=
-  \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\mathbf{x}\\
-  & &&=\frac{d}{dt} \iiint_{\mathcal{V}_{s}} \rho A J d\boldsymbol{\xi}\\
-  & &&=\iiint_{\mathcal{V}_{\xi}} \frac{d\rho A}{dt}  J d\boldsymbol{\xi}
-  +\iiint_{\mathcal{V}_{\xi}} \rho A \frac{dJ}{dt} d\boldsymbol{\xi}\\
-  & &&=\iiint_{\mathcal{V}_{\xi}} \frac{d\rho A}{dt}  J d\boldsymbol{\xi}
-  +\iiint_{\mathcal{V}_{\xi}} \rho A \mathbf{\nabla}.\mathbf{v}\ J d\boldsymbol{\xi}
-  \end{alignat}
-\end{subequations}
-This leads finally to:
-\begin{subequations}
-  \begin{alignat}{2}
-  \label{dintdt_s}
-  \displaystyle 
-  & \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau &&=
-  \iiint_{\mathcal{V}_{\xi}}\left( \frac{\partial \rho A}{\partial t}   
-  +\mathbf{\nabla}.( \rho A \mathbf{v})\right) J d\boldsymbol{\xi} \\
-  & && =\iiint_{\mathcal{V}_M(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
-  + \oiint_{\mathcal{V}_M(t)}\rho A \mathbf{v}.d\mathbf{S}
-  \end{alignat}
-\end{subequations}
-Reynolds transport theorem is recovered for a material volume, understood as a volume containing  the same fluid particles. This last relation can be viewed as the difference between the time variation of the extensive variable inside the domaine and the advective flux through the "control" surface matching at time "t" with material volume.
-
-\paragraph{Time-independant "control" volume $\mathcal{V}_0$}
-In the particular case when the volume (and thus his surface) is independent of time, then $  \mathbf{v}_{\Sigma}=0$ and as a consequence:
-\begin{equation}
- \displaystyle
- 	\frac{d}{dt}\iiint_{\mathcal{V}_0} A d\tau = \iiint_{\mathcal{V}_0}\frac{\partial A}{\partial t} d\tau
-\end{equation}
-
-\subsection{Formulations based on total derivatives (toward Lagrangian relations...)}
-Note that the continuity equation can be written:
-\begin{equation}
-	\displaystyle
-	\frac{d\ \delta \tau}{dt}=\frac{\partial v_{k}}{\partial x_k} \delta\tau= \mathbf{\nabla}.\mathbf{v}\ \delta\tau
-\end{equation}
-
-and so for a closed, moving volume $\mathcal{V}(t)$:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=  
-  \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
-  +\iiint_{\mathcal{V}(t)} A \frac{D(\rho d\tau)}{Dt}\\\\
-  & && =  \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
-  + \iiint_{\mathcal{V}(t)} A \frac{D\rho}{Dt} d\tau
-  +\iiint_{\mathcal{V}(t)} \rho A \frac{Dd\tau}{Dt} \\
-  & && = \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
-  +\iiint_{\mathcal{V}(t)} A \frac{D\rho}{Dt} d\tau
-  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.  \mathbf{v}_{\Sigma}\ d\tau \\
-  & && = \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
-  \end{alignat}
-\end{subequations}
-where $D\bullet/Dt=\partial \bullet/\partial t+  \mathbf{v}_{\Sigma}.\mathbf{\nabla}\bullet$. The last simplification is associated to the conservation of mass when written:
-\begin{equation}
- \displaystyle
- \frac{D\rho}{Dt}=-\rho\mathbf{\nabla}.  \mathbf{v}_{\Sigma}
-\end{equation}
-If the volume is now a material volume and is thus advected by the mean flow (Lagrangian approach), $  \mathbf{v}_{\Sigma}=\mathbf{v}_M$ and $D./Dt =d./dt$ :
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  &  \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau && = 
-  \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
-  +\iiint_{\mathcal{V}_M(t)} A \frac{d\rho}{dt} d\tau
-  +\iiint_{\mathcal{V}_M(t)} \rho A \mathbf{\nabla}.\mathbf{v} d\tau\\
-  & && \left[ =\iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
-  +\iiint_{\mathcal{V}_M(t)} A  \underbrace{\left(\frac{\partial \rho}{\partial t} 
-  +\underbrace{\mathbf{v}.\mathbf{\nabla}\rho+\rho \mathbf{\nabla}.\mathbf{v} }_{=\mathbf{\nabla}.(\rho\mathbf{v})}\right)}_{=0} d\tau \right]\\
-  & && = \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
-  +\iiint_{\mathcal{V}_M(t)} A \underbrace{\left( -\rho \mathbf{\nabla}.\mathbf{v} + \rho \mathbf{\nabla}.\mathbf{v}\right)}_{=0} d\tau\\
-  & && = \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
-  \end{alignat}
-\end{subequations}
-recovering  the results from the Eulerian approach and the previous more general formulation.
-
-\subsubsection{Rate of change of integrals in s-coordinate}
-
-(explique que peut rentrer derive temp et espace parce que en prenant bornes s-coordinate les bornes de l'intergrales ne bougent pas)
+(mettre evol densité forme 'simple' en coord s)
 
 
-In s-coordinates, the ocean column behaves as a material volume in the vertical direction but not in the horizontal direction where it a fixed-in-time control volume. For a volume associated to the s-coordinate grid: $  \mathbf{v}_{\Sigma}=\mathbf{v}_h+\mathbf{v}_z-\mathbf{v}_s$. This is the vertical velocity of the iso-s surfaces. The integration volume in s-coordinates is a sum of "waters columns" and is named $\mathcal{V}_s$. \\
+\subsection{Conservation of an extensive quantity in a free-surface ocean}
 
-\paragraph{Kinematic-Dynamic evolution (Left-Hand-Side)}
-\textbf{\textit{Eulerian approach:}}
-for a depth-to-surface integration using \ref{mass_s} with $J=h(t,\mathbf{x},z)$:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
- 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&
-   =\iiint_{\mathcal{V}_{s}} \frac{d \rho A }{d t}\ d\tau \\
-   & && = \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
-  + \iiint_{\mathcal{V}_{s}}\mathbf{\nabla}.( \rho A   \mathbf{v}_{\Sigma}) d\tau \\
-  & &&
-   =\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
- +\iint_{\mathcal{S}} \rho A\   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}
-  \end{alignat}
-\end{subequations}
-\cite{griffies_fundamentals_2004}, \cite{griffies_elements_2012} and \cite{delhaye_thermohydraulique_2008} provides a reformulation of the latest term in Cartesian coordinates:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
- 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&
-   =\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}\underbrace{d\tau}_{dxdydz}
- +\iint_{\mathcal{S}} \rho A\  \frac{\partial z}{\partial t}\bigg\vert_{s}\ \underbrace{dS}_{dxdy}
-  \end{alignat}
-\end{subequations}
-using the central relation (2.121) of \citep{griffies_elements_2012} and in \S 6 of \citep{griffies_fundamentals_2004}:
-\begin{equation}
- \displaystyle
-  \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}= \frac{\partial z}{\partial t}\bigg\vert_{s}\ dS
-\end{equation}
-Since the ocean bottom boundary is supposed to remain stationary, this leads eventually to:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
- 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&
-   =\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}\underbrace{d\tau}_{dxdydz}
- +\iint_{\mathcal{S}_{surf}} \rho A\  \frac{\partial \zeta}{\partial t}\ \underbrace{dS}_{dxdy}
-  \end{alignat}
-\end{subequations}
 
-\paragraph{Using the kinematic condition}
-Caution: to recover this relation based on the kinematic condition, one has to remember that $\mathbf{v}_{\Sigma}$ is indeterminate \citep{delhaye_thermohydraulique_2008}. Its component tangent to the iso-s surface depends in particular on the parametrization of this surface. The component orthogonal to this surface can however be computed. As a consequence, one has to consider the product $\mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}$ rather than $\mathbf{v}_{\Sigma}$ alone. \\
-The previous relation can then be recovered writing:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  % Line 2:
- &\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&=
- \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
- +\iint_{\mathcal{S}} \rho A\   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}\\
-&  &&=
- \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
- +\iint_{\mathcal{S}_{surf}} \rho A\  ( \mathbf{u}_{\Sigma}-\mathbf{w}_{\Sigma}).\mathbf{n}_{\Sigma}\ dS_{\Sigma}\\
-&  &&=
- \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
- +\iint_{\mathcal{S}_{surf}}  \frac{\rho A}{\norm{\mathbf{\nabla}s}}
- \left( \mathbf{\nabla}_z s.\mathbf{u}-\frac{h}{h}(\frac{\partial s}{\partial t}
- +\mathbf{\nabla}_z s.\mathbf{u})
- \right)\underbrace{\ dS_{\Sigma}}_{=\sqrt{1+S^2} dS}
- \end{alignat}
-\end{subequations}
-Since $h \norm{\mathbf{\nabla}s}=\sqrt{1+S^2}$, we can recover:
-\begin{equation}
- \displaystyle
- \frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau=
-  \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau  
-  +\iint_{\mathcal{S}_{surf}}  \rho A \frac{\partial s}{\partial t} dS
-\end{equation}
-Then knowing that:
-\begin{subequations}
-  \begin{alignat}{2}
- \displaystyle
-&\frac{\partial s}{\partial t}&&=
-\frac{\partial z}{\partial t}-
-\frac{\partial \zeta}{\partial t}\\
-& &&=\frac{\partial \zeta}{\partial t}=\frac{\partial \zeta}{\partial t}\bigg\vert_s
- \end{alignat}
- we can conclude that:
-\end{subequations}
-\begin{equation}
- \displaystyle
- \frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau=
-  \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau  
-  +\iint_{\mathcal{S}_{surf}}  \rho A \frac{\partial \zeta}{\partial t} dS
-\end{equation}
+We want to specify the conservation of an extensive property defined as $\iiint_{\mathcal{V}_M(t)} \rho A d\tau$, in a region of the ocean with a varying free-surface, ie. an area of fluid with a varying volume.
+
+
+The evolution of this quantity.
+
+The Reynolds theorem presented in annexe... treats the case of generalized coordinates for which (donne formulation). In Cartesian coordinates se passe si.... The expression is also easily found in s-coordinates since boundaries remain independant through time.
+
+Can also recover the s-coordinate case from Reynolds transport theorem and the fact that ...vanishes
+
+The choice of s-coordinates makes it easier to put this...
+
+To make evolution of such a quantity, use the Reynolds (transport?) theorem.
+
+
+
+
+
 
 \paragraph{In s-coordinates}
 The derivation of the integral quantity is more easily formulated in s-coordinates and the final expression in s-coordinates can be recovered from the expression in Cartesian coordinates obtained with Reynolds transport theorem:
@@ -942,6 +464,93 @@ This leads to:
 % \frac{dh}{dt}(t,\mathbf{x},z)=\frac{d}{dt}\left( \frac{\partial z}{\partial s}\bigg\vert_{txy}\right)
 % =\frac{\partial }{\partial s}\frac{dz}{dt}=\frac{\partial w}{\partial s}(t,\mathbf{x},z)
 %\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1652,4 +1261,531 @@ Present here two of the parametrisations available in CROCO that are used inthis
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Annexe : formulaire coordinate transformation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Coordinate transformation(formulaire en annexe?)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The transformation matrix of the generalized coordinate transformation is:
+\begin{equation}
+    \displaystyle
+    \Lambda^z_s=
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    \frac{\partial z}{\partial t} & \frac{\partial z}{\partial x}
+    & \frac{\partial z}{\partial y} & h=\frac{\partial z}{\partial s}
+    \end{pmatrix}
+\end{equation}
+The inverse transformation is given by:
+\begin{equation}
+    \displaystyle
+    \Lambda_z^s=
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    \frac{\partial s}{\partial t} & \frac{\partial s}{\partial x}
+    & \frac{\partial s}{\partial y} & \frac{\partial s}{\partial z}
+    \end{pmatrix}
+\end{equation}
+
+The Jacobian of the transformation $J=det(\Lambda^z_s)$ is the (specific) thickness:
+\begin{equation}
+ \displaystyle
+ J=h=\frac{\partial z}{\partial s}=\frac{\partial z}{\partial s}\bigg\vert_{xyt}
+\end{equation}
+\cite{griffies_fundamentals_2004} further define the infinitesimal  thickness for modelling developments:
+\begin{equation}
+ \displaystyle
+ \delta h=\frac{\partial z}{\partial s} \delta s
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Formula and identities(idem annexe?)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Coordinate transformations are given by:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  &\frac{\partial A}{\partial t}\bigg\rvert_{xz} &&=
+   \frac{\partial A}{\partial t}\bigg\rvert_{xs}
+  - \frac{1}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx}
+  \frac{\partial z}{\partial t}\bigg\rvert_{xs}\\
+  &\frac{\partial A}{\partial x}\bigg\rvert_{tz} &&=
+   \frac{\partial A}{\partial x}\bigg\rvert_{ts}
+  - \frac{1}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx}
+  \frac{\partial z}{\partial x}\bigg\rvert_{ts}\\
+  &\frac{\partial A}{\partial z}\bigg\rvert_{tx} &&=
+   \frac{1}{h}
+   \frac{\partial A}{\partial s}\bigg\rvert_{tx}
+  \end{alignat}
+\end{subequations}
+Material derivatives satisfy:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} &&=\frac{\partial}{\partial t}\bigg\vert_z
+  + \mathbf{u}.\mathbf{\nabla}_z
+  + w\frac{\partial }{\partial z}\\
+  & &&=\frac{\partial}{\partial t}\bigg\vert_s
+  + \mathbf{u}.\mathbf{\nabla}_s
+  + \dot{s}\frac{\partial}{\partial s}
+  \end{alignat}
+\end{subequations}
+which leads to:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \dot{z} &&=\frac{dz}{dt}\bigg\vert_s=\frac{\partial z}{\partial t}\bigg\vert_s
+  + \mathbf{u}.\mathbf{\nabla}_s z
+  + \dot{s}\frac{\partial z}{\partial s}\\
+  & \dot{s} &&=\frac{ds}{dt}\bigg\vert_z=\frac{\partial s}{\partial t}\bigg\vert_z
+  + \mathbf{u}.\mathbf{\nabla}_z s
+  + w\frac{\partial s}{\partial z}
+  \end{alignat}
+\end{subequations}
+Using the identities:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle
+  &\frac{\partial s}{\partial t}\bigg\vert_z &&=
+  \left(\frac{\partial t}{\partial s}\bigg\vert_z\right)^{-1}\\
+  &\frac{\partial s}{\partial x}\bigg\vert_z &&=
+  \left(\frac{\partial x}{\partial s}\bigg\vert_z\right)^{-1}\\
+  &\frac{\partial s}{\partial y}\bigg\vert_z &&=
+  \left(\frac{\partial y}{\partial s}\bigg\vert_z\right)^{-1}\\
+  &\frac{\partial s}{\partial z}\bigg\vert_x &&=
+  \left(\frac{\partial z}{\partial s}\bigg\vert_x\right)^{-1}
+  \end{alignat}
+\end{subequations}
+several relations are obtained from the triple product rule:
+Coordinate transformations are given by:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle
+  &\frac{\partial z}{\partial t}\bigg\vert_s &&=
+  -\frac{\partial s}{\partial t}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\
+  &\frac{\partial z}{\partial x}\bigg\vert_s &&=
+  -\frac{\partial s}{\partial x}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\
+  &\frac{\partial z}{\partial y}\bigg\vert_s &&=
+  -\frac{\partial s}{\partial y}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\
+  \end{alignat}
+\end{subequations}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Local orthonormal coordinates (annexe?plus tard...)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cite{griffies_fundamentals_2004} further defines in his chapter (6.4) a system of orthonormal coordinates:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  &\mathbf{e}_{x^*} &&=\frac{\mathbf{y}\wedge{\mathbf{\nabla}s}}
+  {\norm{\mathbf{y}\wedge{\mathbf{\nabla}s}}}\\
+  &\mathbf{e}_{y^*} &&=\mathbf{e}_s\wedge{\mathbf{e}_{x^*}}\\
+  &\mathbf{e}_s &&=\frac{\mathbf{\nabla}s}{\norm{\mathbf{\nabla}s}}
+  \end{alignat}
+\end{subequations}
+In this particular case ($\mathbf{e}_s.\mathbf{z}$ has a unique signe, the basis vectors can be rewritten:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  &\mathbf{e}_{x^*} &&=\frac{\mathbf{x}+S_x\mathbf{z}}{\sqrt{1+S_x^2}}\\
+  &\mathbf{e}_{y^*} &&=\frac{-S_xS_y\mathbf{x}+(1+S_x^2)\mathbf{y}+S_y\mathbf{z}}{\sqrt{1+S^2)(1+S_x^2)}}\\
+  &\mathbf{e}_s &&=\frac{(-\mathbf{S},1)}{\sqrt{1+S^2}}
+  \end{alignat}
+\end{subequations}
+The s-coordinate transformation is a rotation and:
+\begin{equation}
+   \displaystyle
+   \mathbf{e}_{x^*y^*s}=\Lambda_{s}^{z}\mathbf{e}_{xyz}
+\end{equation}
+Note in particular the definition of the slope $\mathbf{S}$ and its norm $S=\norm{\mathbf{S}}$ used to rewrite the orthonormal basis:
+\begin{equation}
+   \displaystyle
+   \mathbf{S}=\mathbf{\nabla}_s z=
+   -\frac{\partial z}{\partial s}\mathbf{\nabla}_z s=\left( S_x,\ S_y,\ 0 \right)
+\end{equation}
+where $\mathbf{\nabla}_s z$ is "the horizontal gradient of the height of a fluid parcel as taken along surfaces of constant generalized vertical coordinate s" \citep{griffies_fundamentals_2004}.\\
+\textbf{Caution:} this orthonormal basis is not used to project the equations of the model. S-coordinates are "only" used as a change of variable whereas equations and vector quantities remain written in the original Cartesian or spherical basis. The present s-coordinate orthonormal basis is presented here to be latter used in the computation of fluxes through s-surfaces.
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Annexe : Reynolds Theorem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Flux through a surface}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Based on \citep{delhaye_thermohydraulique_2008}, let $\mathbf{v}_{\Sigma}$ be the velocity of a material surface in the fluid:
+\begin{equation}
+	\displaystyle
+	\mathbf{v}_{\Sigma}=\frac{\partial \mathbf{x}}{\partial t}\bigg\rvert _{\Sigma}
+\end{equation}
+with $\mathbf{x}$ the position of the current point where the velocity is computed. This velocity is undetermined  since the tangential component is itself undetermined. Only its normal component $(\mathbf{n}_{\Sigma}.\mathbf{v}_{\Sigma})$ can be computed and isolated. This component is different from the vertical component of $\mathbf{v}_{\Sigma}$ of equation \ref{eq_vertvelcomp}.\\
+
+Demonstrations and further expressions of the normal component can be found in \citet{griffies_fundamentals_2004}, \citet{griffies_elements_2012} and \citet{delhaye_thermohydraulique_2008}.
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{\partial z}{\partial t}\bigg\vert_s &&=
+  \frac{\partial s}{\partial t}\bigg\vert_z
+  \frac{\partial z}{\partial s}\bigg\vert_t\\
+  & &&=h\norm{\mathbf{\nabla}s}\mathbf{n}_{\Sigma}.
+  \mathbf{v}_{\Sigma}
+  \end{alignat}
+\end{subequations}
+Metric tensor formulations lead to:
+\begin{subequations}
+  \begin{alignat}{2}
+ & dS_{\Sigma} &&= h\norm{\mathbf{\nabla}s} dS\\
+ & h dS &&=\mathbf{n}_{\Sigma}.\mathbf{v}_{\Sigma}dS_{\Sigma}
+  \end{alignat}
+\end{subequations}
+%See bellow how this formula is used to write Leibniz rule...
+
+\subsubsection{Formulations of the Reynolds Transport Theorem (\& Leibniz Rule)}
+\paragraph{Demonstration}
+The difficulty to compute:
+\begin{equation}
+ \displaystyle
+ \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau
+\end{equation}
+is due to the fact that for a general time-varying volume $\mathcal{V}(t)$ the differentiation cannot be taken through the internal sign. To do so, we can however consider a change of coordinates to volume-attached coordinates \citep{hirasaki_chapter_2021}. Let $\mathcal{J}$ be the Jacobian (determinant of the Jacobian matrix) of the change of variables from Cartesian coordinates $(\mathbf{x},t)$ to volume varying coordinates $(\boldsymbol{\xi},t)$. Integrating volume is $\mathcal{V}(t)=\mathcal{V}_{\xi}=\mathcal{V}_{\xi}(t)$.\\
+Kinematic evolution of material particulate ("dilation kinematic theorem") is then nothing but Reynolds'transport theorem (which is equivalent to Leibniz derivation rule to 3D volumes) \citep{hirasaki_chapter_2021}. Caution: the demonstration given in \citep{hirasaki_chapter_2021} is for a material volume $\mathcal{V}_M$. As the demonstration is kinematic, it is generalized here to a general volume moving thought the fluid flow $(\mathcal{V}(t))$. This problem is dealt with in \cite{web_course_web_2021} (and further references are given in there).\\
+As a consequence for a general volume $\mathcal{V}(t)$ moving at a 3D velocity $  \mathbf{v}_{\Sigma}$:
+\begin{equation}
+ \displaystyle
+ \frac{dJ}{dt}=J \mathbf{\nabla}.\mathbf{v}_{\Sigma}
+\end{equation}
+which is reminiscent of the kinematic evolution of the specific volume of a fluid particle:
+\begin{equation}
+ \displaystyle
+ \frac{d\tau}{dt}=\tau \mathbf{\nabla}.\mathbf{v}
+\end{equation}
+sometime written:
+\begin{equation}
+ \displaystyle
+ \frac{d\delta\tau}{dt}=\delta\tau \mathbf{\nabla}.\mathbf{v}
+\end{equation}
+which is noting but the continuity equation written for the specific volume.
+
+With the natural change of variable, the derivation can enter the integral sign and:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=
+  \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\tau\\
+  & &&= \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\mathbf{x}\\
+  & &&=\frac{D}{Dt} \iiint_{\mathcal{V}_{\xi}} \rho A J d\boldsymbol{\xi}\\
+  & &&=\iiint_{\mathcal{V}_{\xi}} \frac{D\rho A}{Dt}  J d\boldsymbol{\xi}
+  +\iiint_{\mathcal{V}_{\xi}} \rho A \frac{DJ}{Dt} d\boldsymbol{\xi}\\
+  & &&=\iiint_{\mathcal{V}_{\xi}} \frac{D\rho A}{Dt}  J d\boldsymbol{\xi}
+  +\iiint_{\mathcal{V}_{\xi}} \rho A \mathbf{\nabla}. \mathbf{v}_{\Sigma}\ J d\boldsymbol{\xi}
+  \end{alignat}
+\end{subequations}
+Following \cite{truesdell_classical_1960}, a more general formulation can thus be recovered for a time-dependant volume $\mathcal{V}(t)$ moving with a velocity $\mathbf{v}_{\Sigma}$:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  &  \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau && =
+  \iiint_{\mathcal{V}(t)} \frac{D\rho A}{Dt}  d\boldsymbol{x}
+  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.\mathbf{v}_{\Sigma}\ d\mathbf{x}\\
+ & && =
+  \iiint_{\mathcal{V}(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
+  %+ \varoiint_{\mathcal{V}(t)}\rho A \mathbf{v}.\mathbf{S}\\
+  + \oiint_{\mathcal{S}(t)}\rho A   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}dS_{Sigma}
+  \end{alignat}
+\end{subequations}
+where:
+\begin{equation}
+ \displaystyle
+ \frac{D\bullet}{Dt}=\frac{\partial \bullet}{\partial t}\bigg\vert_{\boldsymbol{\xi}}
+ +  \mathbf{v}_{\Sigma}.\mathbf{\nabla}_{t,\boldsymbol{\xi}}\bullet
+\end{equation}
+This is the generalized (Reynolds) transport theorem or the generalized Leibnitz theorem. Caution: the derivative $D/Dt$ is associated to $  \mathbf{v}_{\Sigma}$.
+
+\paragraph{Closed time-dependent volume $\mathcal{V}(t)$}
+Several formulations of this kinematic theorem can be given:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=
+  \iiint_{\mathcal{V}(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
+  %+ \varoiint_{\mathcal{V}(t)}\rho A \mathbf{v}.\mathbf{S}\\
+  + \oiint_{\mathcal{V}(t)}\rho A   \mathbf{v}_{\Sigma}.d\mathbf{S}\\\\
+  % Line 2:
+  &  &&= \iiint_{\mathcal{V}(t)} \left(\frac{\partial \rho A}{\partial t}\bigg\rvert_{xz}
+  +\mathbf{\nabla}.(\rho A   \mathbf{v}_{\Sigma}) \right) d\tau\\
+  % Line 3:
+  &  &&= \iiint_{\mathcal{V}(t)} \left(\rho \frac{\partial A}{\partial t}\bigg\rvert_{xz}
+  +A \frac{ \partial \rho }{\partial t}\bigg\rvert_{xz}
+  +\rho   \mathbf{v}_{\Sigma}.\mathbf{\nabla}A 
+  +A\mathbf{\nabla}.(\rho   \mathbf{v}_{\Sigma}) \right) d\tau\\
+  % Line 4:
+  & &&=\iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
+  +\iiint_{\mathcal{V}(t)} A \left( \frac{\partial \rho}{\partial t} \bigg\rvert_{xz}
+  +\mathbf{\nabla}.(\rho  \mathbf{v}_{\Sigma})\right) \ d\tau
+  \end{alignat}
+\end{subequations}
+This can also be written:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=
+   \iiint_{\mathcal{V}(t)} \left(\rho \frac{\partial A}{\partial t}\bigg\rvert_{xz}
+  +A \frac{ \partial \rho }{\partial t}\bigg\rvert_{xz}
+  +\rho   \mathbf{v}_{\Sigma}.\mathbf{\nabla}A 
+  +A   \mathbf{v}_{\Sigma}.\mathbf{\nabla}\rho
+  +A\rho\mathbf{\nabla}.  \mathbf{v}_{\Sigma} \right) d\tau\\
+  % Line 2:
+  & &&=\iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
+  +\iiint_{\mathcal{V}(t)} A \frac{D \rho}{D t} d\tau
+  + \iiint_{\mathcal{V}(t)} \rho A\mathbf{\nabla}.  \mathbf{v}_{\Sigma} d\tau
+  \end{alignat}
+\end{subequations}
+or alternatively:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&
+  =\iiint_{\mathcal{V}(t)} \rho \frac{dA}{dt}  d\tau 
+  +\iiint_{\mathcal{V}(t)} \left(A \frac{d \rho}{dt} 
+  +\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right]
+  +\rho A \mathbf{\nabla}.\mathbf{v} \right) d\tau\\
+  & &&
+  =\iiint_{\mathcal{V}(t)} \rho \frac{dA}{dt}  d\tau 
+  + \iiint_{\mathcal{V}(t)}\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right]d\tau
+    \end{alignat}
+\end{subequations}
+where $  \mathbf{v}_{\Sigma}$ is defined as the velocity of the closed surface of $\mathcal{V}(t)$ and is more generally the 3D displacement velocity of the volume $\mathcal{V}(t)$.\\
+ Caution: this has nothing to do with the velocity of the fluid in this volume except in the following particular case when considering a material volume, i.e. in the Lagrangian approach.
+These general formulations and demonstrations are useful in s-coordinates.
+
+\subsubsection{Material volume $\mathcal{V}_M(t)$ (kinematics \& dynamics)}
+\paragraph{Formulation of the transport theorem}
+A material volume $\mathcal{V}_M(t)$ is defined as a volume containing exactly the same fluid particles as time goes on.
+Simplifications to obtain the simple expression of the integral variations in the case of a moving material volume are based on the use of the continuity equation or conservation of mass. \\
+As the control volume is advected by mean flow (Lagrangian approach), $  \mathbf{v}_{\Sigma}=\mathbf{v}$ :
+\begin{equation}
+  \displaystyle 
+   \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau =
+  \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
+  +\iiint_{\mathcal{V}_M(t)} A \frac{d \rho}{dt} d\tau
+  +\iiint_{\mathcal{V}_M(t)} \rho A\mathbf{\nabla}.\mathbf{v} d\tau
+\end{equation}
+and thus:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau &&= \iiint_{\mathcal{V_M}(t)} \rho \frac{dA}{dt}  d\tau 
+  +\iiint_{\mathcal{V}_M(t)} A \underbrace{\left( \frac{\partial \rho}{\partial t} \bigg\rvert_{xz}+\mathbf{\nabla}.(\rho\mathbf{v})\right)}_{=0} \ d\tau\\
+  & && = \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
+  \end{alignat}
+\end{subequations}
+This is a generalization to 3D volume of the Leibniz rule. The time dependency of the integral volume $\mathcal{V}_M(t)$ is for a Lagrangian evolution with time-dependent boundaries. The present formulation is to be used for time-dependent boundaries whatever the velocity $  \mathbf{v}_{\Sigma}$ inside the volume.
+
+\paragraph{Material volume $\mathcal{V}_M(t)$ in Lagrangian material coordinates}
+The same exact approach and demonstration can be carried out in the case of a material volume as in the general case.
+Let in this case $\mathcal{J}$ be the Jacobian (determinant of the Jacobian matrix) of the change of variables from Cartesian coordinates $(\mathbf{x},t)$ to material coordinates $(\boldsymbol{\xi},t)$. Integrating volume is $\mathcal{V}(t)=\mathcal{V}_{\xi}$.\\
+Kinematic evolution of material particle ("dilation kinematic theorem") reads \citep{hirasaki_chapter_2021}:
+\begin{equation}
+ \displaystyle
+ \frac{dJ}{dt}=J \mathbf{\nabla}.\mathbf{v}
+\end{equation}
+which is reminiscent of the kinematic evolution of a control volume:
+\begin{equation}
+ \displaystyle
+ \frac{d\tau}{dt}=\tau \mathbf{\nabla}.\mathbf{v}
+\end{equation}
+With this kinematic theorem:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau &&=
+  \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\mathbf{x}\\
+  & &&=\frac{d}{dt} \iiint_{\mathcal{V}_{s}} \rho A J d\boldsymbol{\xi}\\
+  & &&=\iiint_{\mathcal{V}_{\xi}} \frac{d\rho A}{dt}  J d\boldsymbol{\xi}
+  +\iiint_{\mathcal{V}_{\xi}} \rho A \frac{dJ}{dt} d\boldsymbol{\xi}\\
+  & &&=\iiint_{\mathcal{V}_{\xi}} \frac{d\rho A}{dt}  J d\boldsymbol{\xi}
+  +\iiint_{\mathcal{V}_{\xi}} \rho A \mathbf{\nabla}.\mathbf{v}\ J d\boldsymbol{\xi}
+  \end{alignat}
+\end{subequations}
+This leads finally to:
+\begin{subequations}
+  \begin{alignat}{2}
+  \label{dintdt_s}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau &&=
+  \iiint_{\mathcal{V}_{\xi}}\left( \frac{\partial \rho A}{\partial t}   
+  +\mathbf{\nabla}.( \rho A \mathbf{v})\right) J d\boldsymbol{\xi} \\
+  & && =\iiint_{\mathcal{V}_M(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
+  + \oiint_{\mathcal{V}_M(t)}\rho A \mathbf{v}.d\mathbf{S}
+  \end{alignat}
+\end{subequations}
+Reynolds transport theorem is recovered for a material volume, understood as a volume containing  the same fluid particles. This last relation can be viewed as the difference between the time variation of the extensive variable inside the domaine and the advective flux through the "control" surface matching at time "t" with material volume.
+
+\paragraph{Time-independant "control" volume $\mathcal{V}_0$}
+In the particular case when the volume (and thus his surface) is independent of time, then $  \mathbf{v}_{\Sigma}=0$ and as a consequence:
+\begin{equation}
+ \displaystyle
+ 	\frac{d}{dt}\iiint_{\mathcal{V}_0} A d\tau = \iiint_{\mathcal{V}_0}\frac{\partial A}{\partial t} d\tau
+\end{equation}
+
+\subsection{Formulations based on total derivatives (toward Lagrangian relations...)}
+Note that the continuity equation can be written:
+\begin{equation}
+	\displaystyle
+	\frac{d\ \delta \tau}{dt}=\frac{\partial v_{k}}{\partial x_k} \delta\tau= \mathbf{\nabla}.\mathbf{v}\ \delta\tau
+\end{equation}
+
+and so for a closed, moving volume $\mathcal{V}(t)$:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=  
+  \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
+  +\iiint_{\mathcal{V}(t)} A \frac{D(\rho d\tau)}{Dt}\\\\
+  & && =  \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
+  + \iiint_{\mathcal{V}(t)} A \frac{D\rho}{Dt} d\tau
+  +\iiint_{\mathcal{V}(t)} \rho A \frac{Dd\tau}{Dt} \\
+  & && = \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
+  +\iiint_{\mathcal{V}(t)} A \frac{D\rho}{Dt} d\tau
+  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.  \mathbf{v}_{\Sigma}\ d\tau \\
+  & && = \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
+  \end{alignat}
+\end{subequations}
+where $D\bullet/Dt=\partial \bullet/\partial t+  \mathbf{v}_{\Sigma}.\mathbf{\nabla}\bullet$. The last simplification is associated to the conservation of mass when written:
+\begin{equation}
+ \displaystyle
+ \frac{D\rho}{Dt}=-\rho\mathbf{\nabla}.  \mathbf{v}_{\Sigma}
+\end{equation}
+If the volume is now a material volume and is thus advected by the mean flow (Lagrangian approach), $  \mathbf{v}_{\Sigma}=\mathbf{v}_M$ and $D./Dt =d./dt$ :
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  &  \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau && = 
+  \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
+  +\iiint_{\mathcal{V}_M(t)} A \frac{d\rho}{dt} d\tau
+  +\iiint_{\mathcal{V}_M(t)} \rho A \mathbf{\nabla}.\mathbf{v} d\tau\\
+  & && \left[ =\iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
+  +\iiint_{\mathcal{V}_M(t)} A  \underbrace{\left(\frac{\partial \rho}{\partial t} 
+  +\underbrace{\mathbf{v}.\mathbf{\nabla}\rho+\rho \mathbf{\nabla}.\mathbf{v} }_{=\mathbf{\nabla}.(\rho\mathbf{v})}\right)}_{=0} d\tau \right]\\
+  & && = \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
+  +\iiint_{\mathcal{V}_M(t)} A \underbrace{\left( -\rho \mathbf{\nabla}.\mathbf{v} + \rho \mathbf{\nabla}.\mathbf{v}\right)}_{=0} d\tau\\
+  & && = \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
+  \end{alignat}
+\end{subequations}
+recovering  the results from the Eulerian approach and the previous more general formulation.
+
+\subsubsection{Rate of change of integrals in s-coordinate}
+
+(explique que peut rentrer derive temp et espace parce que en prenant bornes s-coordinate les bornes de l'intergrales ne bougent pas)
+
+
+In s-coordinates, the ocean column behaves as a material volume in the vertical direction but not in the horizontal direction where it a fixed-in-time control volume. For a volume associated to the s-coordinate grid: $  \mathbf{v}_{\Sigma}=\mathbf{v}_h+\mathbf{v}_z-\mathbf{v}_s$. This is the vertical velocity of the iso-s surfaces. The integration volume in s-coordinates is a sum of "waters columns" and is named $\mathcal{V}_s$. \\
+
+\paragraph{Kinematic-Dynamic evolution (Left-Hand-Side)}
+\textbf{\textit{Eulerian approach:}}
+for a depth-to-surface integration using \ref{mass_s} with $J=h(t,\mathbf{x},z)$:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+ 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&
+   =\iiint_{\mathcal{V}_{s}} \frac{d \rho A }{d t}\ d\tau \\
+   & && = \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
+  + \iiint_{\mathcal{V}_{s}}\mathbf{\nabla}.( \rho A   \mathbf{v}_{\Sigma}) d\tau \\
+  & &&
+   =\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
+ +\iint_{\mathcal{S}} \rho A\   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}
+  \end{alignat}
+\end{subequations}
+\cite{griffies_fundamentals_2004}, \cite{griffies_elements_2012} and \cite{delhaye_thermohydraulique_2008} provides a reformulation of the latest term in Cartesian coordinates:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+ 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&
+   =\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}\underbrace{d\tau}_{dxdydz}
+ +\iint_{\mathcal{S}} \rho A\  \frac{\partial z}{\partial t}\bigg\vert_{s}\ \underbrace{dS}_{dxdy}
+  \end{alignat}
+\end{subequations}
+using the central relation (2.121) of \citep{griffies_elements_2012} and in \S 6 of \citep{griffies_fundamentals_2004}:
+\begin{equation}
+ \displaystyle
+  \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}= \frac{\partial z}{\partial t}\bigg\vert_{s}\ dS
+\end{equation}
+Since the ocean bottom boundary is supposed to remain stationary, this leads eventually to:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+ 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&
+   =\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}\underbrace{d\tau}_{dxdydz}
+ +\iint_{\mathcal{S}_{surf}} \rho A\  \frac{\partial \zeta}{\partial t}\ \underbrace{dS}_{dxdy}
+  \end{alignat}
+\end{subequations}
+
+\paragraph{Using the kinematic condition}
+Caution: to recover this relation based on the kinematic condition, one has to remember that $\mathbf{v}_{\Sigma}$ is indeterminate \citep{delhaye_thermohydraulique_2008}. Its component tangent to the iso-s surface depends in particular on the parametrization of this surface. The component orthogonal to this surface can however be computed. As a consequence, one has to consider the product $\mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}$ rather than $\mathbf{v}_{\Sigma}$ alone. \\
+The previous relation can then be recovered writing:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  % Line 2:
+ &\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&=
+ \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
+ +\iint_{\mathcal{S}} \rho A\   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}\\
+&  &&=
+ \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
+ +\iint_{\mathcal{S}_{surf}} \rho A\  ( \mathbf{u}_{\Sigma}-\mathbf{w}_{\Sigma}).\mathbf{n}_{\Sigma}\ dS_{\Sigma}\\
+&  &&=
+ \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
+ +\iint_{\mathcal{S}_{surf}}  \frac{\rho A}{\norm{\mathbf{\nabla}s}}
+ \left( \mathbf{\nabla}_z s.\mathbf{u}-\frac{h}{h}(\frac{\partial s}{\partial t}
+ +\mathbf{\nabla}_z s.\mathbf{u})
+ \right)\underbrace{\ dS_{\Sigma}}_{=\sqrt{1+S^2} dS}
+ \end{alignat}
+\end{subequations}
+Since $h \norm{\mathbf{\nabla}s}=\sqrt{1+S^2}$, we can recover:
+\begin{equation}
+ \displaystyle
+ \frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau=
+  \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau  
+  +\iint_{\mathcal{S}_{surf}}  \rho A \frac{\partial s}{\partial t} dS
+\end{equation}
+Then knowing that:
+\begin{subequations}
+  \begin{alignat}{2}
+ \displaystyle
+&\frac{\partial s}{\partial t}&&=
+\frac{\partial z}{\partial t}-
+\frac{\partial \zeta}{\partial t}\\
+& &&=\frac{\partial \zeta}{\partial t}=\frac{\partial \zeta}{\partial t}\bigg\vert_s
+ \end{alignat}
+ we can conclude that:
+\end{subequations}
+\begin{equation}
+ \displaystyle
+ \frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau=
+  \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau  
+  +\iint_{\mathcal{S}_{surf}}  \rho A \frac{\partial \zeta}{\partial t} dS
+\end{equation}
 
