@@ -40,6 +40,19 @@ Assuming that variables are in thermodynamic equilibrium, the equation of state 
  \label{NS_e}
  \rho = \rho_{eos}[\theta,S,p]
 \end{equation}
+
+\color{red}
+In Cartesian coordinates, a simple, incompressible evolution of $\rho$ is given by:
+\begin{equation}
+\displaystyle
+\frac{d \rho}{d t}=
+\frac{\partial}{\partial x} \bigg(\kappa_\rho^h \frac{\partial \rho}{\partial x}\bigg\rvert_{tz}\bigg)_{tz}
++ \frac{\partial}{\partial z} \bigg( \kappa_\rho^v \frac{\partial \rho}{\partial z}\bigg\rvert_{tx}\bigg)_{tx} 
+\label{eq_diff_cart}
+\end{equation}
+where $\kappa_\rho^h$ and $\kappa_\rho^v$ are the (horizontal and vertical) diffusivities of density.
+\color{black}
+
 The position of the interface separating the ocean and the atmosphere must additionally be calculated and is introduced as a boundary condition. This can be achieved by stating that a salty-water particles that is just bellow this interface in the ocean, remains at the interface, leading to the surface kinematic relation:
 \begin{equation}
   \displaystyle
@@ -67,20 +80,13 @@ Formulated thus, the system of Navier-Stokes and conservation equations for a fr
  %----------------------------------------------------------------------------
  
  \subsection{Terrain-following coordinates}
- 
- %Due to topography can shose etrrain following corrdinates,a nd in teh case of the ocean can use sigma coordinate that generalize s coordinate but take also into account the topography of the free surface
- %Especially, the model CROCO prensnted in scetion ... uses terrai-following coordinates/sigma-coordinates that are defined here.
- 
- 
- %Here talk about the coordinate transformation, give the formula for conservation/fluxes in this coordinate system... Establish conservation of a (extensive?) quantity rho A   /// want to express the evolution in s-coordinate of the extensive quantity $\rho$A both local and integral
- 
- 
+
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The capacity of numerical models to portray the evolution of global or regional oceanic circulation relies on horizontal and vertical definition of a grid on which the Navier-Stokes and conservation equations previously defined are solved and integrated in time.
 
-Due to considerations of the representation of bathymetric features, terrain-following coordinates, or S-coordinates, can be choosen for the vertical discretisation. They are generally defined based on "generalized surfaces" $s=cte$ with s given by:
+Due to considerations of the representation of bathymetric features, terrain-following coordinates, or S-coordinates, can be chosen for the vertical discretisation. They are generally defined based on "generalized surfaces" $s=cte$ with s given by:
 \begin{equation}
  \displaystyle
  s=s(x,y,z,t)
@@ -124,7 +130,7 @@ where $s(\sigma)$ can be a non-linear function. Some current definitions are pre
 \subsubsection{Vertical velocities}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Using coordinate transformation presented in (annexe?), the vertical velocity $w \equiv v_z$ is decomposed as :
+Using coordinate transformation presented in \ref{annexe_coordS}, the vertical velocity $w \equiv v_z$ is decomposed as :
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
@@ -153,26 +159,6 @@ where:
 
 In other words, the vertical velocity is the composition of $v_{\Sigma,z}$ the vertical component of the velocity of the moving surface $s=cst$, and $v_s$ the velocity through this same surface.
 
-
-%From \citep{griffies_fundamentals_2004}:
-%\begin{subequations}
-%  \begin{alignat}{2}
-%  \displaystyle 
-%  & w_s &&= h \frac{ds}{dt} \\
-%  & &&= h\left(\frac{\partial s}{\partial t}\bigg\vert
-%  +\mathbf{v}.\mathbf{\nabla}_z s \right) \\
-%  & &&=-\frac{\partial z}{\partial t}\bigg\vert_s
-%  +(\mathbf{v}.\mathbf{n}_{\Sigma})h\norm{\mathbf{\nabla}s}\\
-%  & &&=-\frac{\partial z}{\partial t}\bigg\vert_s
-%  +(\mathbf{v}.\mathbf{n}_{\Sigma})\sqrt{1+S^2}\\
-%  & &&=-\frac{\partial z}{\partial t}\bigg\vert_s+\mathbf{v}.(-S,1)\\
-%  & &&=w-\left(
-%  \frac{\partial z}{\partial t}\bigg\vert_s
-%  +\mathbf{u}.\mathbf{\nabla}_s z
-%  \right)
-%  \end{alignat}
-%\end{subequations}
-%with $\mathbf{S}=\mathbf{\nabla}_s z=-h\mathbf{\nabla}_z s=(S_x,S_y,0)$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsubsection{Vertical velocities in $"\sigma"$-coordinates}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -266,157 +252,79 @@ note finally that the conservation of mass $A=1$ can then be rewritten:
   +\frac{\partial \rho  v_s}{\partial s}\bigg\rvert_{tx}
 \end{equation}
 
+Additionnally, the evolution of $\rho$ in equation \ref{eq_diff_cart} can be rewritten in s-coordinates as:
+\begin{equation}
+\label{eq_diff_s}
+\displaystyle
+h \frac{d \rho }{d t} \approx
+\frac{\partial}{\partial x} \bigg(h \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}\bigg)_{ts}
++ \frac{\partial}{\partial s} \bigg(\frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}\bigg)_{tx} 
+\end{equation}
+with: $\kappa_c^h \approx \kappa^h$ and $\kappa_c^v \approx \kappa^v$.\\
 
-(mettre evol densité forme 'simple' en coord s)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Conservation of an extensive quantity in a free-surface ocean}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+We want to specify the conservation of an extensive property defined as $\mathcal{A}=\iiint_{\mathcal{V}(t)} \rho A d\tau$, in a region of the ocean with a varying free-surface.
 
-\subsection{Conservation of an extensive quantity in a free-surface ocean}
+For a time-dependant volume $\mathcal{V}(t)$ moving with a velocity $\mathbf{v}_{\Sigma}$, a formulation of the Reynolds transport theorem (or Leibnitz theorem) is \citep{truesdell_classical_1960}:
 
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  &  \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau && =
+  \iiint_{\mathcal{V}(t)} \frac{D\rho A}{Dt}  d\boldsymbol{x}
+  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.\mathbf{v}_{\Sigma}\ d\mathbf{x}\\
+ & && =
+  \iiint_{\mathcal{V}(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
+  %+ \varoiint_{\mathcal{V}(t)}\rho A \mathbf{v}.\mathbf{S}\\
+  + \oiint_{\mathcal{S}(t)}\rho A   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}dS_{\Sigma}
+  \end{alignat}
+\end{subequations}
+With the material derivate $D/Dt$ here associated to $  \mathbf{v}_{\Sigma}$:
+\begin{equation}
+ \displaystyle
+ \frac{D\bullet}{Dt}=\frac{\partial \bullet}{\partial t}\bigg\vert_{\boldsymbol{\xi}}
+ +  \mathbf{v}_{\Sigma}.\mathbf{\nabla}_{t,\boldsymbol{\xi}}\bullet
+\end{equation}
 
-We want to specify the conservation of an extensive property defined as $\iiint_{\mathcal{V}_M(t)} \rho A d\tau$, in a region of the ocean with a varying free-surface, ie. an area of fluid with a varying volume.
+In oceanic case, $\mathcal{V}(t)$ is taken as $\mathcal{V}_s$ a sum of water columns. Absant shoaling processes (banc découvrant???), this volume's boundaries only move in the vertical direction with the elevation of the free-surface. It is then possible to express $\mathcal{A}$ in s-coordinates with the Jacobian $\mathcal{J}=h$:
 
-
-The evolution of this quantity.
-
-The Reynolds theorem presented in annexe... treats the case of generalized coordinates for which (donne formulation). In Cartesian coordinates se passe si.... The expression is also easily found in s-coordinates since boundaries remain independant through time.
-
-Can also recover the s-coordinate case from Reynolds transport theorem and the fact that ...vanishes
-
-The choice of s-coordinates makes it easier to put this...
-
-To make evolution of such a quantity, use the Reynolds (transport?) theorem.
-
-
-
-
-
-
-\paragraph{In s-coordinates}
-The derivation of the integral quantity is more easily formulated in s-coordinates and the final expression in s-coordinates can be recovered from the expression in Cartesian coordinates obtained with Reynolds transport theorem:
 \begin{equation}
   \displaystyle 
  	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau  =
  	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ h ds dx_s dy_s
 \end{equation}
-Since the boundary remain independent of time in s-coordinates:
-\begin{equation}
-  \displaystyle 
-   \frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ h ds dx_s dy_s =
-   \iiint_{\mathcal{V}_{s}} \frac{\partial h \rho A}{\partial t}\bigg \vert_s ds dx_s dy_s
-\end{equation}
-This can also be recovered considering Reynolds transport theorem and the fact that $\mathbf{v}_{\Sigma}$ vanishes over both the bottom and surface boundaries.
-This latest formulation can be recovered from the expression in Cartesian coordinates since
-\begin{equation}
-  \displaystyle 
- 	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau  =
- 	\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
- +\iint_{\mathcal{S}} \rho A\  \frac{\partial z}{\partial t}\bigg\vert_s \ dS
-\end{equation}
-The first term on the right hand side can be rewritten:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle
- & \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau &&=
- \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho A}{\partial t}\bigg \vert_s 
- -\frac{1}{h}\frac{\partial \rho A}{\partial s}\frac{\partial z}{\partial t}\bigg\vert_s \right) \color{red}h \ ds dx_s dy_s\color{black}\\
- & &&=
- \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
- -\rho A \frac{\partial h}{\partial t}\bigg\vert_s
- -\frac{1}{h}\frac{\partial}{\partial s}\left(\rho A \frac{\partial z}{\partial t}\right) \bigg\vert_s
- +\rho A \underbrace{\frac{\partial^2 z}{\partial s\partial t}}_{\partial h/\partial t\vert_s}
- \right) h ds dx dy\\
- & &&\color{red}=
- \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
- -\rho A \frac{\partial h}{\partial t}\bigg\vert_s
- -\frac{\partial}{\partial s}\left(\rho A \frac{\partial z}{\partial t}\right) \bigg\vert_s
- +\rho A \underbrace{\frac{\partial^2 z}{\partial s\partial t}}_{\partial h/\partial t\vert_s}
- \right) ds dx dy\color{black}
-  \end{alignat}
-\end{subequations}
-\color{red}(Margaux : 4.33c remplace 4.33b, j'ai l'impression qu'il y a un h en trop qui se ballade, je l'ai aussi enlevé dans 4.34 et 4.38) \color{black}Canceling the second and third\color{red}(fourth?) \color{black} term together and using the Green-Ostrogradsky theorem lead to:
-%\begin{subequations}
-%  \begin{alignat}{2}
-%  \displaystyle 
-% 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau  &&=
-% \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
-% \pm\frac{1}{h}\frac{\partial}{\partial s}\left(\rho A \frac{\partial z}{\partial t}\right) \bigg\vert_s
-% \right) h ds dx dy\\
-% & &&= \iiint_{\mathcal{V}_{s}} \frac{\partial \rho h A}{\partial t}\bigg \vert_s h ds dx dy
-%  \end{alignat}
-%\end{subequations}
+
+In this case, with the definition of surface $s=cst$, the boundaries of volume $\mathcal{V}_s$ are constant and the time-derivative can directly be applied through the integral as :
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
- 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau  &&=
- \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
- \pm \frac{\partial}{\partial s}\left(\rho A \frac{\partial z}{\partial t}\right) \bigg\vert_s
- \right) ds dx dy\\
- & &&= \iiint_{\mathcal{V}_{s}} \frac{\partial \rho h A}{\partial t}\bigg \vert_s ds dx dy
-  \end{alignat}
+   &\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ h ds dx_s dy_s && =
+   \iiint_{\mathcal{V}_{s}} \frac{\partial h \rho A}{\partial t}\bigg \vert_s ds dx_s dy_s\\
+   & &&= \iiint_{\mathcal{V}_{s}} \rho h \frac{\partial A}{\partial t}\bigg \vert_s  ds dx_s dy_s + \iiint_{\mathcal{V}_{s}} A \frac{\partial \rho h}{\partial t}\bigg \vert_s ds dx_s dy_s \\
+   \end{alignat}
 \end{subequations}
 
-\paragraph{Lagrangian approach}
-We can recover the relation for the evolution over a material volume such as a sum of water columns:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & \frac{d}{dt} \iiint_{\mathcal{V}_{s}} \rho A d\tau &&=
-  \iiint_{\mathcal{V}_{s}} \rho \frac{d A}{dt} d\tau
-  + \iiint_{\mathcal{V}_{s}}\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right] d\tau\\
-  & &&=
-  \iiint_{\mathcal{V}_{s}} \rho \frac{d A}{dt} d\tau
-  + \iint_{\mathcal{S}_{surf}} \rho A(\mathbf{v}_{\Sigma}-\mathbf{v}).\mathbf{n}_{\Sigma} dS_{\Sigma}
-    \end{alignat}
-\end{subequations}
-\cite{griffies_fundamentals_2004} (page 140) further shows that, at the surface:
-\begin{equation}
- \displaystyle
- \mathbf{n}_{\Sigma}.(\mathbf{v}_{\Sigma}-\mathbf{v})=\frac{h}{\sqrt{1+S^2}}\underbrace{\frac{d s}{dt}}_{=1/h\ w_s}
-\end{equation}
-and using $w_s=h\dot{s}$ thus:
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
-  & \frac{d}{dt} \iiint_{\mathcal{V}_{s}} \rho A d\tau &&=
-  \iiint_{\mathcal{V}_{s}} \rho \frac{d A}{dt} d\tau
-  +\iint_{\mathcal{S}_{surf}} \rho A  \underbrace{w_s}_{=0} dS
-    \end{alignat}
-\end{subequations}
+This formulation is found following Reynolds transport theorem in annex \ref{annexe_reynolds}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{Thermodynamic irreversibility (Right-Hand-Side)}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Recall the Eulerian formulation in s-coordinates:
-%\begin{equation}
-%  \displaystyle 
-% 	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau =
-% 	\iiint_{\mathcal{V}_{s}} \frac{\partial \rho h A}{\partial t} h dxds
-%\end{equation}
-\begin{equation}
-  \displaystyle 
- 	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau =
- 	\iiint_{\mathcal{V}_{s}} \frac{\partial \rho h A}{\partial t} dxds
-\end{equation}
-and injecting the "simple", adiabatic evolution of the density and writing the diffusion in flux form:
+In which can use the conservation of mass in equation \ref{mass_s} and the formulation of evolution of $\rho$ in equation \ref{eq_diff_s} :
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
-  &\frac{d }{d t} \int_x \int_{-1}^0 \rho h A\ dx ds &&=
- %
- % Begin 3rd line
- %
-\quad  \int_x \int_{-1}^0 \rho h \frac{\partial A}{\partial t}\bigg\rvert_{xs} \ dx ds\\
+   & \frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ h ds dx_s dy_s && = \iiint_{\mathcal{V}_{s}} \frac{\partial A}{\partial t}\bigg \vert_s \rho h ds dx_s dy_s\\
  & && \quad - \int_x \int_{-1}^0 A \frac{\partial \rho h u}{\partial x}\bigg\rvert_{ts} \ dx ds \\ 
  & && \quad - \int_x \int_{-1}^0 A \frac{\partial \rho v_s}{\partial s}\bigg\rvert_{tx} \ dx ds \\
  & && \quad + \int_x \int_{-1}^0 A \frac{\partial}{\partial x} \bigg(h \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}\bigg)_{ts} \ dx ds \\
  & && \quad + \int_x \int_{-1}^0 A \frac{\partial}{\partial s} \bigg(\frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}\bigg)_{tx} \ dx ds 
-  \end{alignat}
+   \end{alignat}
 \end{subequations}
-Simplifying the fluxes:
+
+Simplifying the fluxes \color{red}(revoir alignement, manque des dy( est passé en 2D), Notation bornes dimension vertical (soit de -1 à 0, soit de 0 à 1...))\color{black}:
 \begin{subequations}
   \begin{alignat}{2}
-\quad  \int_x \int_{-1}^0 \rho h \frac{\partial A}{\partial t}\bigg\rvert_{xs} \ dx ds
-& &&= \quad  \int_x \int_{-1}^0 \rho h \frac{\partial A}{\partial t}\bigg\rvert_{xs} \ dx ds\\
+& \frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ h ds dx_s dy_s &&=  \int_x \int_{-1}^0 \rho h \frac{\partial A}{\partial t}\bigg\rvert_{xs} \ dx ds\\
  & && \quad - \int_x \int_{-1}^0 \frac{\partial \rho h A u}{\partial x}\bigg\rvert_{ts} \ dx ds
  + \int_x \int_{-1}^0\rho h u \frac{\partial A}{\partial x}\bigg\rvert_{ts} \ dx ds\\ 
  & && \quad - \int_x \int_{-1}^0 \frac{\partial \rho A v_s}{\partial s}\bigg\rvert_{tx} \ dx ds
@@ -427,7 +335,7 @@ Simplifying the fluxes:
  - \int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds 
   \end{alignat}
 \end{subequations}
-This leads to:
+This leads to :
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
@@ -438,7 +346,7 @@ This leads to:
 \quad  \int_x \int_{-1}^0 \rho h \frac{\partial A}{\partial t}\bigg\rvert_{ts} \ dx ds\\
  & && \quad - \bigg[ \int_{-1}^0 \rho h A u \ ds\bigg]_{x}
  + \int_x \int_{-1}^0\rho h u \frac{\partial A}{\partial x}\bigg\rvert_{ts} \ dx ds\\ 
- & && \quad - 0
+ & && \quad - \bigg[ \int_{x} \rho A v_s \ ds\bigg]_{0}^1
  + \int_x \int_{-1}^0 \rho v_s \frac{\partial A}{\partial s}\bigg\rvert_{ts} \ dx ds \\
  & && \quad + \bigg[ \int_{-1}^0 h A \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
  - \int_x \int_{-1}^0 h \kappa^h \frac{\partial A}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\
@@ -448,13 +356,16 @@ This leads to:
  % Begin 6th line
  %
  & &&= \quad  \int_x \int_{-1}^0 \rho h \frac{d A}{d t} \ dx ds\\
- & && \quad - \bigg[ \int_{-1}^0 \rho h A u \ ds\bigg]_{x}\\ 
+ & && \quad - \bigg[ \int_{-1}^0 \rho h A u \ ds\bigg]_{x} - 0\\ 
  & && \quad + \bigg[ \int_{-1}^0 h A \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
  - \int_x \int_{-1}^0 h \kappa^h \frac{\partial A}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\
  & && \quad + \bigg[ \int_x A \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
  - \int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds 
   \end{alignat}
 \end{subequations}
+
+
+With $\bigg[ \int_{x} \rho A v_s \ ds\bigg]_{0}^1 = 0$ since $v_s$ is void at the bottom and top boundary. 
 
 %\subsection{S-coordinates}
 %Integration over the water column whose surface is varying in time. 
@@ -464,71 +375,6 @@ This leads to:
 % \frac{dh}{dt}(t,\mathbf{x},z)=\frac{d}{dt}\left( \frac{\partial z}{\partial s}\bigg\vert_{txy}\right)
 % =\frac{\partial }{\partial s}\frac{dz}{dt}=\frac{\partial w}{\partial s}(t,\mathbf{x},z)
 %\end{equation}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1280,7 +1126,8 @@ Present here two of the parametrisations available in CROCO that are used inthis
 
 \section{Annexe : formulaire coordinate transformation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Coordinate transformation(formulaire en annexe?)}
+\subsubsection{Coordinate transformation}
+\label{annexe_coordS}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The transformation matrix of the generalized coordinate transformation is:
 \begin{equation}
@@ -1433,6 +1280,7 @@ where $\mathbf{\nabla}_s z$ is "the horizontal gradient of the height of a fluid
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Annexe : Reynolds Theorem}
+\label{annexe_reynolds}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Flux through a surface}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1789,3 +1637,84 @@ Then knowing that:
   +\iint_{\mathcal{S}_{surf}}  \rho A \frac{\partial \zeta}{\partial t} dS
 \end{equation}
 
+
+\paragraph{In s-coordinates}
+
+This can also be recovered considering Reynolds transport theorem and the fact that $\mathbf{v}_{\Sigma}$ vanishes over both the bottom and surface boundaries \color{red}(non? $v_s$ s'annule, $\mathbf{v}_{\Sigma}$ toujours déplacement?)\color{black}.
+This latest formulation can be recovered from the expression in Cartesian coordinates since
+\begin{equation}
+  \displaystyle 
+ 	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau  =
+ 	\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
+ +\iint_{\mathcal{S}} \rho A\  \frac{\partial z}{\partial t}\bigg\vert_s \ dS
+\end{equation}
+The first term on the right hand side can be rewritten:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle
+ & \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau &&=
+ \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho A}{\partial t}\bigg \vert_s 
+ -\frac{1}{h}\frac{\partial \rho A}{\partial s}\frac{\partial z}{\partial t}\bigg\vert_s \right) \color{red}h \ ds dx_s dy_s\color{black}\\
+ & &&=
+ \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
+ -\rho A \frac{\partial h}{\partial t}\bigg\vert_s
+ -\frac{1}{h}\frac{\partial}{\partial s}\left(\rho A \frac{\partial z}{\partial t}\right) \bigg\vert_s
+ +\rho A \underbrace{\frac{\partial^2 z}{\partial s\partial t}}_{\partial h/\partial t\vert_s}
+ \right) h ds dx dy\\
+ & &&\color{red}=
+ \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
+ -\rho A \frac{\partial h}{\partial t}\bigg\vert_s
+ -\frac{\partial}{\partial s}\left(\rho A \frac{\partial z}{\partial t}\right) \bigg\vert_s
+ +\rho A \underbrace{\frac{\partial^2 z}{\partial s\partial t}}_{\partial h/\partial t\vert_s}
+ \right) ds dx dy\color{black}
+  \end{alignat}
+\end{subequations}
+\color{red}(Margaux : 4.33c remplace 4.33b, j'ai l'impression qu'il y a un h en trop qui se ballade, je l'ai aussi enlevé dans 4.34 et 4.38) \color{black}Canceling the second and third\color{red}(fourth?) \color{black} term together and using the Green-Ostrogradsky theorem lead to:
+%\begin{subequations}
+%  \begin{alignat}{2}
+%  \displaystyle 
+% 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau  &&=
+% \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
+% \pm\frac{1}{h}\frac{\partial}{\partial s}\left(\rho A \frac{\partial z}{\partial t}\right) \bigg\vert_s
+% \right) h ds dx dy\\
+% & &&= \iiint_{\mathcal{V}_{s}} \frac{\partial \rho h A}{\partial t}\bigg \vert_s h ds dx dy
+%  \end{alignat}
+%\end{subequations}
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+ 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau  &&=
+ \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
+ \pm \frac{\partial}{\partial s}\left(\rho A \frac{\partial z}{\partial t}\right) \bigg\vert_s
+ \right) ds dx dy\\
+ & &&= \iiint_{\mathcal{V}_{s}} \frac{\partial \rho h A}{\partial t}\bigg \vert_s ds dx dy
+  \end{alignat}
+\end{subequations}
+
+\paragraph{Lagrangian approach}
+We can recover the relation for the evolution over a material volume such as a sum of water columns:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}_{s}} \rho A d\tau &&=
+  \iiint_{\mathcal{V}_{s}} \rho \frac{d A}{dt} d\tau
+  + \iiint_{\mathcal{V}_{s}}\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right] d\tau\\
+  & &&=
+  \iiint_{\mathcal{V}_{s}} \rho \frac{d A}{dt} d\tau
+  + \iint_{\mathcal{S}_{surf}} \rho A(\mathbf{v}_{\Sigma}-\mathbf{v}).\mathbf{n}_{\Sigma} dS_{\Sigma}
+    \end{alignat}
+\end{subequations}
+\cite{griffies_fundamentals_2004} (page 140) further shows that, at the surface:
+\begin{equation}
+ \displaystyle
+ \mathbf{n}_{\Sigma}.(\mathbf{v}_{\Sigma}-\mathbf{v})=\frac{h}{\sqrt{1+S^2}}\underbrace{\frac{d s}{dt}}_{=1/h\ w_s}
+\end{equation}
+and using $w_s=h\dot{s}$ thus:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}_{s}} \rho A d\tau &&=
+  \iiint_{\mathcal{V}_{s}} \rho \frac{d A}{dt} d\tau
+  +\iint_{\mathcal{S}_{surf}} \rho A  \underbrace{w_s}_{=0} dS
+    \end{alignat}
+\end{subequations}
