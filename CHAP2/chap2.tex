@@ -899,47 +899,47 @@ Figure \ref{ModelTS} gives a schematic representation of the predictor-corrector
 \begin{alignat}{3}
  \displaystyle
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- &\nonumber \textbf{I.a Time-interpolation: } t_s-\frac{\Delta t_s}{2}\\[0mm]
+ &\nonumber \textbf{I.a Time-interpolation: } t_s-\Delta t/2\\[0mm]
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \label{TimeSplitIa1}
- &\quad[\Theta] ^{n-\frac{1}{2}}=\alpha_{n-1}\Theta_s^{n-1}
+ &\enspace[\Theta] ^{n-\frac{1}{2}}=\alpha_{n-1}\Theta_s^{n-1}
  +\alpha_{n}\Theta^{n}\\[3mm]
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- &\nonumber \textbf{I.b Predictor step: } t_s+\frac{\Delta t_s}{2}\\[0mm]
+ &\nonumber \textbf{I.b Predictor step: } t_s+\Delta t/2\\[0mm]
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \label{TimeSplitIb1}
- &\quad\rho h_s\mathbf{v}_s^{n+\frac{1}{2}}=
+ &\enspace\rho h_s\mathbf{v}_s^{n+\frac{1}{2}}=
  [\rho h_s\mathbf{v}_s]^{n-\frac{1}{2}}
  +\Delta t_s\left(\Lambda_{s,v}^{n}+<\Lambda_{f,v}>^n\right)\\[3mm]
  %
  \label{TimeSplitIb2}
- &\quad\rho h_s(\theta_s,\ S_s)^{n+\frac{1}{2}}=
+ &\enspace\rho h_s(\theta_s,\ S_s)^{n+\frac{1}{2}}=
  \rho h_s[\theta_s,\ S_s]^{n-\frac{1}{2}}
  +\Delta t_s\Lambda_{s,(\theta,S)}^{n}\\[3mm]
  %
  \label{TimeSplitIb3}
- &\quad\rho_s^{n+\frac{1}{2}}=\rho_{eos}\left(\theta_s^{n+\frac{1}{2}},\ S_s^{n+\frac{1}{2}},\ z_s^{n+\frac{1}{2}}\right)\\[3mm]
+ &\enspace\rho_s^{n+\frac{1}{2}}=\rho_{eos}\left(\theta_s^{n+\frac{1}{2}},\ S_s^{n+\frac{1}{2}},\ z_s^{n+\frac{1}{2}}\right)\\[3mm]
  %
  \label{TimeSplitIb4}
- &\quad\partial_s\omega_s^{n+\frac{1}{2}}=-\partial_t\rho h_s^{n+\frac{1}{2}}
+ &\enspace\partial_s\omega_s^{n+\frac{1}{2}}=-\partial_t\rho h_s^{n+\frac{1}{2}}
  +\mathbf{\nabla}\cdot\rho h_s \mathbf{u}_s^{n+\frac{1}{2}}\\[3mm]
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- &\nonumber \textbf{I.c AB3-extrapolation: } t_s+\frac{\Delta t_s}{2}\\[0mm]
+ &\nonumber \textbf{I.c AB3-extrapolation: } t_s+\Delta t/2\\[0mm]
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \label{TimeSplitIc1}
- &\quad[[\Psi_s]]^{n+\frac{1}{2}}=
+ &\enspace[[\Psi_s]]^{n+\frac{1}{2}}=
   \beta_{n-2}\Psi_s^{n-2}
  +\beta_{n-1}\Psi_s^{n-1}
- +\beta_{n}\Psi_s^{n}\\[3mm]
+ +\beta_{n}\Psi_s^{n}\\[2mm]
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  &\nonumber \textbf{II. Fast-mode steps: } t_f\in(t_s,\ t_s+\Delta t_s] \textit{ or } m\in[0,\ N_f)_\mathcal{N}\\[2mm]
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \label{TimeSplitIIa}
- &\quad\zeta_f^{m+1}=\zeta_f^{m}+\Delta t_f\left(
-  w_{surf}^{m}-\mathbf{u}_{surf}^{m}.\mathbf{\nabla}\zeta^{m}\right)\\[3mm]
+ &\enspace\zeta_f^{m+1}=\zeta_f^{m}+\Delta t_f\left(
+  w_{surf}^{m}-\mathbf{u}_{surf}^{m}.\mathbf{\nabla}\zeta^{m}\right)\\[2mm]
  %
  \label{TimeSplitIIb}
- &\quad\rho h u_f^{m+1}=
+ &\enspace\rho h u_f^{m+1}=
  \rho h u_f^{m}
  +\Delta t_f\left(
   [[\Lambda_{s,u}]]^{n+\frac{1}{2}}
@@ -948,10 +948,10 @@ Figure \ref{ModelTS} gives a schematic representation of the predictor-corrector
 % +\overline{\overline{\Lambda_{f,u}}}^{\ m}
  +\overline{\overline{\Lambda_{f,u}}}^{\ m}
  +\overline{\overline{\Lambda_{f,-\mathbf{\nabla}\zeta}}}^{\ m+1}
- \right)\\[3mm]
+ \right)\\[2mm]
  %
  \label{TimeSplitIIc}
- &\quad\overline{\overline{\rho h U}}_f^{\ m+1}=
+ &\enspace\overline{\overline{\rho h U}}_f^{\ m+1}=
  \overline{\overline{\rho h U}}_f^{\ m}
  +\Delta t_f\left(
  %[[\overline{\Lambda_{s,u}}]]^{n+\frac{1}{2}}+
@@ -961,61 +961,61 @@ Figure \ref{ModelTS} gives a schematic representation of the predictor-corrector
  \right)\\[0mm]
  %
  \label{TimeSplitIId}
- &\quad\rho h w_f^{m+1}=
+ &\enspace\rho h w_f^{m+1}=
  \rho h w_f^{m}
  +\Delta t_f\left([[\Lambda_{s,w}]]^{n+\frac{1}{2}}
- +\Lambda_{f,w}^{m+1*}\right)\\[0mm]
+ +\Lambda_{f,w}^{m+1*}\right)\\[2mm]
  %
  \label{TimeSplitIIe}
- &\quad\rho h_f^{m+1}=\rho h_f^{m}
+ &\enspace\rho h_f^{m+1}=\rho h_f^{m}
  -\Delta t_f\left(
  [[\partial_t\rho h_s]]^{n+\frac{1}{2}}
  +\mathbf{\nabla}\cdot\{\rho h \mathbf{v}\}_f^{m+1}
  \right)\\[0mm]
  %
  \label{TimeSplitIIh}
- &\quad \textit{Last\ fast\ time-step ($m=N_f-1$):}\ \bar{\rho}\zeta_s^{n+1}
+ &\enspace m=N_f-1:\ \bar{\rho}\zeta_s^{n+1}
  =\bar{\rho}(H+\zeta_f)^{m}
  -\bar{\rho}H_s^{m+1}
- -\Delta t_f\mathbf{\nabla}\cdot\overline{\overline{\rho h\mathbf{u}}}^{\ m+1}\\[3mm]
+ -\Delta t_f\mathbf{\nabla}\cdot\overline{\overline{\rho h\mathbf{u}}}^{\ m+1}\\[2mm]
  %
  \label{TimeSplitIIg}
- &\quad \textit{Update\ grid:}\ \rho h_f^{m+1},\ z_f^{m+1}\\[3mm]
+ &\enspace \textit{Update\ grid:}\ \rho h_f^{m+1},\ z_f^{m+1}\\[2mm]
  %
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- &\nonumber \textbf{III.a Filtering: } t_s+\Delta t_s\ \textit{and}\ t_s+\frac{\Delta t_s}{2}\\[0mm]
+ &\nonumber \textbf{III.a Filtering: } t_s+\Delta t_s\ \textit{and}\ t_s+\Delta t/2\\[0mm]
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \label{TimeSplitIIIa1}
- &\quad<\Phi_f>^{n+1}=\Phi_f^{m=n+1}\\[0mm]
+ &\enspace<\Phi_f>^{n+1}=\Phi_f^{m=n+1}\\[0mm]
  \label{TimeSplitIIIa2}
- &\quad\ll\Phi_f\gg^{n+\frac{1}{2}}=\frac{1}{N_f}\sum_{m=1}^{N_f}\Phi_f^{m}\\[3mm]
+ &\enspace\ll\Phi_f\gg^{n+\frac{1}{2}}=\frac{1}{N_f}\sum_{m=1}^{N_f}\Phi_f^{m}\\[2mm]
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  &\nonumber \textbf{III.b Corrector step: } t_s+\Delta t_s\\[0mm]
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %
  \label{TimeSplitIIIb1}
- &\quad\rho h_s\mathbf{v}_s^{n+1}=
+ &\enspace\rho h_s\mathbf{v}_s^{n+1}=
  \rho h_s\mathbf{v}_s^{n}
  +\Delta t_s\left(\Lambda_s^{n+\frac{1}{2}*}
  +\ll\Lambda_f\gg^{n+\frac{1}{2}}\right)\\[0mm]
  %
  \label{TimeSplitIIIb2}
- &\quad\partial_s\omega_s^{n+1}=
+ &\enspace\partial_s\omega_s^{n+1}=
  -\partial_{t\ }\rho h_s^{n+1}
  +\mathbf{\nabla}\cdot\rho h_s \mathbf{u}_s^{\ n+1}
  -\overline{\mathbf{\nabla}\cdot\rho h_s \mathbf{u}_s}^{\ n+1}
- -\overline{<\mathbf{\nabla}\cdot\rho h_s \mathbf{u}_s>}^{\ n+1}\\[3mm]
+ -\overline{<\mathbf{\nabla}\cdot\rho h_s \mathbf{u}_s>}^{\ n+1}\\[2mm]
  %
  \label{TimeSplitIIIb3}
- &\quad\rho h_s(\theta_s,\ S_s)^{n+1}=
+ &\enspace\rho h_s(\theta_s,\ S_s)^{n+1}=
  \rho h_s(\theta_s,\ S_s)^{n}
  +\Delta t_s\Lambda_{s,(\theta,S)}^{n+\frac{1}{2}*}\\[0mm]
  %
  \label{TimeSplitIIIb4}
- &\quad\rho_s^{n+1}=\rho_{eos}\left(\theta_s^{n+1},\ S_s^{n+1},\ z_s^{n+1}\right)\\[0mm]
+ &\enspace\rho_s^{n+1}=\rho_{eos}\left(\theta_s^{n+1},\ S_s^{n+1},\ z_s^{n+1}\right)\\[0mm]
  %
  \label{TimeSplitIIIb5}
- &\quad\rho h_s\mathbf{u}_s^{n+1}=\rho h_s\mathbf{u}_s^{n+1}
+ &\enspace\rho h_s\mathbf{u}_s^{n+1}=\rho h_s\mathbf{u}_s^{n+1}
  -\overline{\rho h_s\mathbf{u}_s}^{\ n+1}
  +\overline{\rho h\mathbf{u}_f}^{\ m=N_f-1}
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
