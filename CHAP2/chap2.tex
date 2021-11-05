@@ -6,7 +6,9 @@ Le présent chapitre présente de façon détaillée le \textit{modèle d'océan
 Ce \textit{modèle d'océan} est suffisamment général pour autoriser la représentation explicite d'une large gamme de processus allant des ondes et modes acoustiques dans un océan compressible aux structures turbulentes fondamentalement non-hydrostatiques de \textit{fine échelle} (associées par exemple à des instabilités de Kelvin-Helmholtz) en passant par des processus ondulatoires internes de grande amplitude (tels que les solitons).\\
 Ce \textit{modèle d'océan} a en outre servi de base au développement communautaire du cœur non-hydrostatique, compressible et à surface libre CROCO, développement auquel j'ai contribué de façon active durant la préparation de ma thèse de doctorat. Sur le plan purement numérique tout d'abord, avec l'implémentation et l'évaluation de nouveaux schémas numériques dans un contexte pleinement réaliste et la mise en œuvre de stratégies originales pour la LES. Sur le plan de la dynamique océanique ensuite, avec la réalisation d'études de processus de fine échelle et l'étude des interactions complexes entre ces processus.\\
 Ce \textit{modèle d'océan} a de plus servi de base au développement dans le cadre de ma thèse de diagnostiques originaux dédiés à la simulation des grandes échelles turbulentes océaniques (LES) dans un contexte réaliste: évaluation quantitative du mélange turbulent (\S \noparref{chapter_bpe}), mise en évidence et caractérisation de ces structures, études de ressauts hydrauliques (\S \noparref{PartDiag3D})...\\
-Dans une première partie, les équations analytiques servant de base à ce \textit{modèle d'océan} sont présentées (\noparref{section_prim_eq}), l'approche numérique choisie et co-développée pour le coeur numérique non-hydrostatique, compressible et à surface libre de CROCO est détaillée en partie \ref{section_croco}. Un certain nombre de développements nécessaires sont enfin présentés dans les annexes (\noparref{section_annexe2}).
+L'implémentation numérique de ce \textit{modèle d'océan} a demandé d'importants développements tant algorithmiques que numériques, développements qui ne peuvent être menés à bien s'ils ne demeurent le reflet direct de la physique de l'océan. Parce qu'il est très général, ce \textit{modèle d'océan} peut réaliser la synthèse de processus dynamique dans une gamme très étendue d'échelles spatio-temporelle depuis la circulation basse fréquence, jusqu'aux ondes acoustiques. Ce sont plus spécifiquement les plus fines échelles et les plus hautes fréquences qui peuvent imposer les plus lourdes restrictions à l'approche numérique envisagée, ce sont donc les processus associés et en particulier les processus ondulatoires acoustiques ou gravitaires qui ont été étudiés en priorité. En parallèle des développements numériques et des travaux sur la dynamique de la région du détroit de Gibraltar menés dans le cadre de la présente thèse de doctorat, a été développé et publié un modèle analytique suffisamment général pour décrire la dispersion des ondes et des modes acoustiques, des ondes et des modes internes de gravité ou encore des ondes de gravité de surface \citep{auclair_modied_2021}. Le modèle analytique de dispersion a de plus été utilisé pour explorer la dynamique ondulatoire dans la région du détroit de Gibraltar.
+J'ai participé et co-signé cette étude en support du développement numérique de CROCO, étude qui n'a pas été incluse dans le présent manuscrit.\\
+Dans une première partie, les équations analytiques servant de base à ce \textit{modèle d'océan} sont présentées (\noparref{section_prim_eq}), l'approche numérique choisie et co-développée pour le coeur numérique non-hydrostatique, compressible et à surface libre de CROCO est détaillée en partie \ref{section_croco}. Un certain nombre de développements sont enfin présentés dans les annexes (\noparref{section_annexe2}).
 
 \color{black}
 
@@ -148,11 +150,11 @@ The definition of such a new vertical coordinate requires the derivation of the 
 	& v_z &&\equiv \frac{d z}{d t}\\
 	& &&=\underbrace{\underbrace{\frac{\partial z}{\partial s}\bigg\rvert_{tx}}_{\equiv h} \frac{d s}{dt}}_{\equiv v_s}
 	+\underbrace{\frac{\partial z}{\partial x}\bigg\rvert_{ts} \underbrace{\frac{d x}{dt}}_{\equiv u}
-	+\frac{\partial z}{\partial t}\bigg\rvert_{xs} \underbrace{\frac{d t}{dt}}_{=1}}_{=\frac{dz}{dt}\big\rvert_{s}}\\
+	+\frac{\partial z}{\partial t}\bigg\rvert_{xs} \underbrace{\frac{d t}{dt}}_{=1}}_{=\frac{dz}{dt}\big\rvert_{s}}\\[4mm]
 	& &&=\frac{\partial z}{\partial s}\bigg\rvert_{tx} \frac{d s}{dt}
-	+\frac{d z}{d t}\bigg\rvert_{s} \\
+	+\frac{d z}{d t}\bigg\rvert_{s} \\[4mm]
 	& &&=\ \ h \frac{d s}{dt}\quad
-	+\frac{d z}{d t}\bigg\rvert_{s}\\
+	+\frac{d z}{d t}\bigg\rvert_{s}\\[4mm]
 	& &&=
 	\ \ v_s 
 	\qquad+\underbrace{\frac{\partial z}{\partial t}\bigg\rvert_{xs}
@@ -202,7 +204,7 @@ To develop diagnostics in a realistic free-surface ocean, the conservation or at
   \displaystyle 
   &  \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau && =
   \iiint_{\mathcal{V}(t)} \frac{D\rho A}{Dt}  d\boldsymbol{x}
-  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.\mathbf{v}_{\Sigma}\ d\mathbf{x}\\
+  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.\mathbf{v}_{\Sigma}\ d\mathbf{x}\\[4mm]
  & && =
   \iiint_{\mathcal{V}(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
   %+ \varoiint_{\mathcal{V}(t)}\rho A \mathbf{v}.\mathbf{S}\\
@@ -226,7 +228,7 @@ In this case, with the definition of constant-$s$ surfaces, the boundaries of vo
   \begin{alignat}{2}
   \displaystyle 
    &\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ h ds dx_s dy_s && =
-   \iiint_{\mathcal{V}_{s}} \frac{\partial h \rho A}{\partial t}\bigg \vert_s ds dx_s dy_s\\
+   \iiint_{\mathcal{V}_{s}} \frac{\partial h \rho A}{\partial t}\bigg \vert_s ds dx_s dy_s\\[4mm]
    & &&= \iiint_{\mathcal{V}_{s}} \rho h \frac{\partial A}{\partial t}\bigg \vert_s  ds dx_s dy_s + \iiint_{\mathcal{V}_{s}} A \frac{\partial \rho h}{\partial t}\bigg \vert_s ds dx_s dy_s
    \end{alignat}
 \end{subequations}
@@ -240,23 +242,23 @@ The conservation of mass in equation \ref{mass_s} and the formulation of evoluti
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
-   & \frac{d }{d t} \int_x\int_{-1}^0\rho A\ hds dx && = \int_x\int_{-1}^0 \frac{\partial A}{\partial t}\bigg \vert_s \rho h ds dx\\
- & && \quad - \int_x \int_{-1}^0 A \frac{\partial \rho h u}{\partial x}\bigg\rvert_{ts} \ dx ds \\ 
- & && \quad - \int_x \int_{-1}^0 A \frac{\partial \rho v_s}{\partial s}\bigg\rvert_{tx} \ dx ds \\
- & && \quad + \int_x \int_{-1}^0 A \frac{\partial}{\partial x} \bigg(h \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}\bigg)_{ts} \ dx ds \\
+   & \frac{d }{d t} \int_x\int_{-1}^0\rho A\ hds dx && = \int_x\int_{-1}^0 \frac{\partial A}{\partial t}\bigg \vert_s \rho h ds dx\\[4mm]
+ & && \quad - \int_x \int_{-1}^0 A \frac{\partial \rho h u}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm] 
+ & && \quad - \int_x \int_{-1}^0 A \frac{\partial \rho v_s}{\partial s}\bigg\rvert_{tx} \ dx ds \\[4mm]
+ & && \quad + \int_x \int_{-1}^0 A \frac{\partial}{\partial x} \bigg(h \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}\bigg)_{ts} \ dx ds \\[4mm]
  & && \quad + \int_x \int_{-1}^0 A \frac{\partial}{\partial s} \bigg(\frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}\bigg)_{tx} \ dx ds 
    \end{alignat}
 \end{subequations}
 Various fluxes can be simplified in this expression:
 \begin{subequations}
   \begin{alignat}{2}
-&\frac{d }{d t}\int_x\int_{-1}^0 \rho A\ h ds dx =&&  \int_x \int_{-1}^0 \rho h \frac{\partial A}{\partial t}\bigg\rvert_{xs} \ dx ds\\
+&\frac{d }{d t}\int_x\int_{-1}^0 \rho A\ h ds dx =&&  \int_x \int_{-1}^0 \rho h \frac{\partial A}{\partial t}\bigg\rvert_{xs} \ dx ds\\[4mm]
  & && \quad - \int_x \int_{-1}^0 \frac{\partial \rho h A u}{\partial x}\bigg\rvert_{ts} \ dx ds
- + \int_x \int_{-1}^0\rho h u \frac{\partial A}{\partial x}\bigg\rvert_{ts} \ dx ds\\ 
+ + \int_x \int_{-1}^0\rho h u \frac{\partial A}{\partial x}\bigg\rvert_{ts} \ dx ds\\[4mm] 
  & && \quad - \int_x \int_{-1}^0 \frac{\partial \rho A v_s}{\partial s}\bigg\rvert_{tx} \ dx ds
- + \int_x \int_{-1}^0 \rho v_s \frac{\partial A}{\partial s}\bigg\rvert_{tx} \ dx ds \\
+ + \int_x \int_{-1}^0 \rho v_s \frac{\partial A}{\partial s}\bigg\rvert_{tx} \ dx ds \\[4mm]
  & && \quad + \int_x \int_{-1}^0 \frac{\partial}{\partial x} \bigg(h A \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}\bigg)_{ts} \ dx ds 
- - \int_x \int_{-1}^0 h \kappa^h \frac{\partial A}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\
+ - \int_x \int_{-1}^0 h \kappa^h \frac{\partial A}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
  & && \quad + \int_x \int_{-1}^0 \frac{\partial}{\partial s} \bigg( A \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}\bigg)_{tx} \ dx ds 
  - \int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds 
   \end{alignat}
@@ -270,13 +272,13 @@ Integrating by parts the advective and diffusive flux integrals in both the vert
  %
  % Begin 5th line
  %
-\quad  \int_x \int_{-1}^0 \rho h \frac{\partial A}{\partial t}\bigg\rvert_{ts} \ dx ds\\
+\quad  \int_x \int_{-1}^0 \rho h \frac{\partial A}{\partial t}\bigg\rvert_{ts} \ dx ds\\[4mm]
  & && \quad - \bigg[ \int_{-1}^0 \rho h A u \ ds\bigg]_{x}
- + \int_x \int_{-1}^0\rho h u \frac{\partial A}{\partial x}\bigg\rvert_{ts} \ dx ds\\ 
+ + \int_x \int_{-1}^0\rho h u \frac{\partial A}{\partial x}\bigg\rvert_{ts} \ dx ds\\[4mm] 
  & && \quad - \bigg[ \int_{x} \rho A v_s \ ds\bigg]_{0}^1
- + \int_x \int_{-1}^0 \rho v_s \frac{\partial A}{\partial s}\bigg\rvert_{ts} \ dx ds \\
+ + \int_x \int_{-1}^0 \rho v_s \frac{\partial A}{\partial s}\bigg\rvert_{ts} \ dx ds \\[4mm]
  & && \quad + \bigg[ \int_{-1}^0 h A \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
- - \int_x \int_{-1}^0 h \kappa^h \frac{\partial A}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\
+ - \int_x \int_{-1}^0 h \kappa^h \frac{\partial A}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
  & && \quad + \bigg[ \int_x A \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
  - \int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds
    \end{alignat}
@@ -287,10 +289,10 @@ This latest relation can be formulated as a function of $dA/dt$:
  %
  % Begin 6th line
  %
- &\frac{d }{d t} \int_x \int_{-1}^0 \rho h A\ dx ds &&= \quad  \int_x \int_{-1}^0 \rho h \frac{d A}{d t} \ dx ds\\
- & && \quad - \bigg[ \int_{-1}^0 \rho h A u \ ds\bigg]_{x} - 0\\ 
+ &\frac{d }{d t} \int_x \int_{-1}^0 \rho h A\ dx ds &&= \quad  \int_x \int_{-1}^0 \rho h \frac{d A}{d t} \ dx ds\\[4mm]
+ & && \quad - \bigg[ \int_{-1}^0 \rho h A u \ ds\bigg]_{x} - 0\\[4mm] 
  & && \quad + \bigg[ \int_{-1}^0 h A \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
- - \int_x \int_{-1}^0 h \kappa^h \frac{\partial A}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\
+ - \int_x \int_{-1}^0 h \kappa^h \frac{\partial A}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
  & && \quad + \bigg[ \int_x A \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
  - \int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds 
   \end{alignat}
@@ -461,14 +463,14 @@ Injecting the evolution equation for density \ref{eq_diff_cart} and using relati
  %
  % Begin 2nd line
  %
- &\frac{d E_p}{d t}   &&= \quad  g\int_x \int_{-1}^0 \rho h \frac{\partial z}{\partial t}\bigg\rvert_{xs} \ dx ds\\
+ &\frac{d E_p}{d t}   &&= \quad  g\int_x \int_{-1}^0 \rho h \frac{\partial z}{\partial t}\bigg\rvert_{xs} \ dx ds\\[4mm]
  %
  & && \quad - g\bigg[ \int_{-1}^0 \rho h z u \ ds\bigg]_{x}
- + g\int_x \int_{-1}^0\rho h u \frac{\partial z}{\partial x}\bigg\rvert_{ts} \ dx ds\\ 
+ + g\int_x \int_{-1}^0\rho h u \frac{\partial z}{\partial x}\bigg\rvert_{ts} \ dx ds\\[4mm] 
  & && \quad - g\bigg[ \int_x \frac{\partial \rho z v_s}{\partial s}\bigg\rvert_{tx} \ dx\bigg]_0^1
- + g\int_x \int_{-1}^0 \rho v_s \frac{\partial z}{\partial s}\bigg\rvert_{tx} \ dx ds \\
+ + g\int_x \int_{-1}^0 \rho v_s \frac{\partial z}{\partial s}\bigg\rvert_{tx} \ dx ds \\[4mm]
  & && \quad + g\bigg[ \int_{-1}^0 h z \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
- - g\int_x \int_{-1}^0 h \kappa^h \frac{\partial z}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\
+ - g\int_x \int_{-1}^0 h \kappa^h \frac{\partial z}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
  & && \quad + g\bigg[ \int_x z \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
  - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial z}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds
   \end{alignat}
@@ -478,14 +480,14 @@ The advective flux of PE (fourth term at the RHS) can be integrated by part lead
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
- 	&\frac{d E_p}{d t}  &&= \quad  \underbrace{g\int_x \int_{-1}^0 \rho h \frac{\partial z}{\partial t}\bigg\rvert_{xs} \ dx ds}_{(1)}\\
+ 	&\frac{d E_p}{d t}  &&= \quad  \underbrace{g\int_x \int_{-1}^0 \rho h \frac{\partial z}{\partial t}\bigg\rvert_{xs} \ dx ds}_{(1)}\\[4mm]
   %
  & && \quad - g\bigg[ \int_{-1}^0 \rho h z u \ ds\bigg]_{x}
- + \underbrace{g\int_x \int_{-1}^0\rho h u \frac{\partial z}{\partial x}\bigg\rvert_{ts} \ dx ds}_{(2)}\\ 
+ + \underbrace{g\int_x \int_{-1}^0\rho h u \frac{\partial z}{\partial x}\bigg\rvert_{ts} \ dx ds}_{(2)}\\[4mm] 
  & && \quad - \underbrace{g\bigg[ \int_x\rho z v_s \ dx\bigg]_0^1}_{=0}
- + \underbrace{g\int_x \int_{-1}^0 \rho h v_s \ dx ds}_{(3)} \\
+ + \underbrace{g\int_x \int_{-1}^0 \rho h v_s \ dx ds}_{(3)} \\[4mm]
  & && \quad + g\bigg[ \int_{-1}^0 h z \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x} 
- - g\int_x \int_{-1}^0 h \kappa^h \frac{\partial z}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\
+ - g\int_x \int_{-1}^0 h \kappa^h \frac{\partial z}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
  & && \quad + g\bigg[ \int_x z \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
  - g\int_x \int_{-1}^0 \kappa^v \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds 
   \end{alignat}
@@ -494,16 +496,15 @@ where the advection of PE at the surface and at the bottom vanishes. At the RHS,
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
- 	&\frac{d E_p}{d t}  &&= \quad  \underbrace{\int_x \int_{-1}^0 \rho g h v_z \ dx ds}_{=(1)+(2)+(3)\equiv\phi_z}\\
+ 	&\frac{d E_p}{d t}  &&= \quad  \underbrace{\int_x \int_{-1}^0 \rho g h v_z \ dx ds}_{=(1)+(2)+(3)\equiv\phi_z}\\[4mm]
  %
- & && \quad - g\bigg[ \int_{-1}^0 \rho h z u \ ds\bigg]_{x}\\ 
+ & && \quad - g\bigg[ \int_{-1}^0 \rho h z u \ ds\bigg]_{x}\\[4mm] 
  & && \quad + g\bigg[ \int_{-1}^0 h z \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
- - g\int_x \int_{-1}^0 h \kappa^h \frac{\partial z}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\
+ - g\int_x \int_{-1}^0 h \kappa^h \frac{\partial z}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
  & && \quad + g\bigg[ \int_x z \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
  - g\int_x \int_{-1}^0 \kappa^v \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds
   \end{alignat}
 \end{subequations}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\paragraph{Background Potential energy}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -525,14 +526,14 @@ and then
  %
  % Begin 2nd line
  %
- & \frac{d E_b}{d t} &&= \quad  g\int_x \int_{-1}^0 \rho h \frac{\partial z^*}{\partial t}\bigg\rvert_{xs} \ dx ds\\
+ & \frac{d E_b}{d t} &&= \quad  g\int_x \int_{-1}^0 \rho h \frac{\partial z^*}{\partial t}\bigg\rvert_{xs} \ dx ds\\[4mm]
   %
  & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x}
- + g\int_x \int_{-1}^0\rho h u \frac{\partial z^*}{\partial x}\bigg\rvert_{ts} \ dx ds\\ 
+ + g\int_x \int_{-1}^0\rho h u \frac{\partial z^*}{\partial x}\bigg\rvert_{ts} \ dx ds\\[4mm] 
  & && \quad - 0
- + g\int_x \int_{-1}^0 \rho v_s \frac{\partial z^*}{\partial s}\bigg\rvert_{tx} \ dx ds \\
+ + g\int_x \int_{-1}^0 \rho v_s \frac{\partial z^*}{\partial s}\bigg\rvert_{tx} \ dx ds \\[4mm]
  & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
- - g\int_x \int_{-1}^0 h \kappa^h \underbrace{\frac{\partial z^*}{\partial x}\bigg\rvert_{ts} }_{=\frac{d z^*}{d\rho}\frac{\partial \rho}{\partial x}\big\rvert_{ts}\color{black}}\frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\
+ - g\int_x \int_{-1}^0 h \kappa^h \underbrace{\frac{\partial z^*}{\partial x}\bigg\rvert_{ts} }_{=\frac{d z^*}{d\rho}\frac{\partial \rho}{\partial x}\big\rvert_{ts}\color{black}}\frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
  & && \quad + g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
  - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial z^*}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds
   \end{alignat}
@@ -543,11 +544,11 @@ The terms associated to the particulate derivative of $z^*$ can be gathered:
   \displaystyle 
  	&\frac{d E_b}{d t}  &&= \quad g\int_x \int_{-1}^0 \rho h \frac{\partial z^*}{\partial t}\bigg\rvert_{xs}
  +\rho v_s \frac{\partial z^*}{\partial s}\bigg\rvert_{tx} 
-+\rho h u \frac{\partial z^*}{\partial x}\bigg\rvert_{ts} \ dx ds \\
- & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x}\\ 
- & && \quad - 0 \\
++\rho h u \frac{\partial z^*}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
+ & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x}\\[4mm] 
+ & && \quad - 0 \\[4mm]
  & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
- - g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds \\
+ - g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds \\[4mm]
  & && \quad + g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
  - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dx ds
   \end{alignat}
@@ -556,10 +557,10 @@ to explicitly express $dE_b/dt$ as a function of $dz^*/dt$:
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
- 	&\frac{d E_b}{d t}  &&= \quad g\int_x \int_{-1}^0 \rho h \frac{d z^*}{d t}\ dx ds \\
- & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x}\\ 
+ 	&\frac{d E_b}{d t}  &&= \quad g\int_x \int_{-1}^0 \rho h \frac{d z^*}{d t}\ dx ds \\[4mm]
+ & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x}\\[4mm] 
  & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
- - g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds \\
+ - g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds \\[4mm]
  & && \quad + g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
  - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dx ds
   \end{alignat}
@@ -573,10 +574,10 @@ Substituting $hdz^*/dt$ by the product of $dz^*/d\rho$ by $hd\rho/dt$ leads to:
  \frac{\partial \rho}{\partial t}\bigg\rvert_{xs} 
  +\rho v_s \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} 
 +\rho h u \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}
-\bigg] \ dx ds}_{(1)}\\
- & && \quad - \underbrace{\bigg[ \int_{-1}^0 \rho g h z^* u \ ds\bigg]_{x}}_{\approx S_{adv}}\\ 
+\bigg] \ dx ds}_{(1)}\\[4mm]
+ & && \quad - \underbrace{\bigg[ \int_{-1}^0 \rho g h z^* u \ ds\bigg]_{x}}_{\approx S_{adv}}\\[4mm] 
  & && \quad + \underbrace{g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}}_{S_{diff}^{(h)}}
- - \underbrace{g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds}_{\phi_d^{(h)}} \\
+ - \underbrace{g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds}_{\phi_d^{(h)}} \\[4mm]
  & && \quad +\underbrace{ g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1}_{S_{diff}^{(v)}}
  - \underbrace{g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dx ds}_{\phi_d^{(v)}}
  %
@@ -674,8 +675,8 @@ Using the s-coordinate formulation of Reynolds transport theorem \ref{annexe_rey
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle
-  & \frac{dz^*}{dt} &&=\bigg ( \frac{d \ v(Z)}{dZ} \bigg )^{-1} \frac{d \ v(\rho)}{dt}\\
-  & &&= \frac{1}{S(Z(\rho))}\frac{d}{dt} \iiint_{V_{\zeta}} H\left(\rho(x',t)-\rho(x,t)\right) d\mathbf{x}'\\
+  & \frac{dz^*}{dt} &&=\bigg ( \frac{d \ v(Z)}{dZ} \bigg )^{-1} \frac{d \ v(\rho)}{dt}\\[4mm]
+  & &&= \frac{1}{S(Z(\rho))}\frac{d}{dt} \iiint_{V_{\zeta}} H\left(\rho(x',t)-\rho(x,t)\right) d\mathbf{x}'\\[4mm]
   & && = \frac{1}{S(Z(\rho))} \iiint_{V_{\zeta}} \frac{\partial}{\partial t} H\left(\rho(x',t)-\rho(x,t)\right) d\mathbf{x}'
   +\frac{1}{S(Z(\rho))}\iint_{\mathcal{S}_{surf}} H\left(\rho(x',t)-\rho(x,t)\right) \frac{\partial\zeta}{\partial t} dS'
   \end{alignat}
@@ -693,7 +694,7 @@ As a consequence:
   \begin{alignat}{2}
   \displaystyle
   & \iiint_{\mathbf{V}_{\zeta}} \rho g \frac{dz^*}{dt} d\mathbf{x} &&=
-\underbrace{ \iiint_{\mathbf{V}_{\zeta}} \frac{\rho g}{S(Z(\rho))} \iiint_{V_{\zeta}} \frac{\partial}{\partial t} H\left(\rho(x',t)-\rho(x,t)\right) d\mathbf{x}' d\mathbf{x}}_{=0}\\
+\underbrace{ \iiint_{\mathbf{V}_{\zeta}} \frac{\rho g}{S(Z(\rho))} \iiint_{V_{\zeta}} \frac{\partial}{\partial t} H\left(\rho(x',t)-\rho(x,t)\right) d\mathbf{x}' d\mathbf{x}}_{=0}\\[4mm]
   & &&+\iiint_{\mathbf{V}_{\zeta}} \frac{\rho g}{S(Z(\rho))}\iint_{\mathcal{S}_{surf}} H\left(\rho(x',t)-\rho(x,t)\right) \frac{\partial\zeta}{\partial t} dS' d\mathbf{x}
   \end{alignat}
 \end{subequations}
@@ -720,10 +721,10 @@ At the RHS now, the time variation of the BPE is the sum of 6 terms:
   \begin{alignat}{2}
   \displaystyle
  & \frac{d}{dt}\iiint_{\mathbf{V}_{\zeta}} \rho g z^* d\tau &&= 
- \quad g\iint_{xy} \int_{-1}^0 \rho h \frac{d z^*}{d t}\ dxdy ds \\
- & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{xy}\\ 
+ \quad g\iint_{xy} \int_{-1}^0 \rho h \frac{d z^*}{d t}\ dxdy ds \\[4mm]
+ & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{xy}\\[4mm] 
  & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{xy}
- - g\iint_{xy}dy \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds \\
+ - g\iint_{xy}dy \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds \\[4mm]
  & && \quad + g\bigg[ \iint_{xy} z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dxdy \bigg]_0^1
  - g\iint_{xy} \int_{-1}^0 \frac{\kappa^v}{h} \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dxdy ds
   \end{alignat}
@@ -739,10 +740,10 @@ Considering now the simpler particular case $\kappa^h=\kappa^v=\kappa$:
   \begin{alignat}{2}
  \displaystyle
   &\frac{d}{dt}\iiint_{\mathbf{V}_{\zeta}} \rho g z^* d\tau &&= 
-  \quad g\iint_{xy} \int_{-1}^0 \rho h \frac{d z^*}{d t}\ dxdy ds \\
- & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{xy}\\
- & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{xy}\\
- & && \quad + g\bigg[ \iint_{xy} z^* \frac{\kappa}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dxdy \bigg]_0^1\\
+  \quad g\iint_{xy} \int_{-1}^0 \rho h \frac{d z^*}{d t}\ dxdy ds \\[4mm]
+ & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{xy}\\[4mm]
+ & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{xy}\\[4mm]
+ & && \quad + g\bigg[ \iint_{xy} z^* \frac{\kappa}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dxdy \bigg]_0^1\\[4mm]
  & && \quad- g\iint_{xy} \int_{-1}^0 \kappa \frac{d z^*}{d \rho} \norm{\mathbf{\nabla}\rho}^2 \ dx dy ds
   \end{alignat}
 \end{subequations}
@@ -750,8 +751,8 @@ We have additionally shown that the material derivative of $z^*$ was a function 
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle
-  & \frac{dz^*}{dt} &&=\bigg ( \frac{d \ v(Z)}{dZ} \bigg )^{-1} \frac{d \ v(\rho)}{dt}\\
-  & &&= \frac{1}{S(Z(\rho))}\frac{d}{dt} \iiint_{V_{\zeta}} H\left(\rho(x',t)-\rho(x,t)\right) d\tau'\\
+  & \frac{dz^*}{dt} &&=\bigg ( \frac{d \ v(Z)}{dZ} \bigg )^{-1} \frac{d \ v(\rho)}{dt}\\[4mm]
+  & &&= \frac{1}{S(Z(\rho))}\frac{d}{dt} \iiint_{V_{\zeta}} H\left(\rho(x',t)-\rho(x,t)\right) d\tau'\\[4mm]
   & && =\frac{1}{S(Z(\rho))}\iint_{\mathcal{S}_{surf}} H\left(\rho(x',t)-\rho(x,t)\right) \frac{\partial\zeta}{\partial t} dS'
   \end{alignat}
 \end{subequations}
@@ -780,7 +781,6 @@ Ocean models whether dedicated to global, regional or even coastal scales are tr
 The computing cost of such a non-hydrostatic, compressible, free-surface approach can quickly become prohibitive especially because the explicit modeling of fine scales requires high-resolution grids. Following the conclusions of the COMODO french community\footnote{COMODO gathered the french ocean modeling community. It was sponsored by the French ANR eponymous project (2011-2016).}, the compressible and free-surface algorithm developed by \cite{auclair_non-hydrostatic_2018} has been implemented in the ROMS-AGRIF branch of the ROMS ocean models \citep{shchepetkin_regional_2005}. This choice was justified by the great efficiency of Shchepelkin's time-splitting and time-stepping and more generally by the experience accumulated in ROMS community during the last decade.\\
 The simulation of the strait of Gibraltar is the very first realistic implementation of the non-hydrostatic, compressible, free-surface kernel of CROCO \citep{hilt_numerical_2020}.
 \color{black}
-
 %----------------------------------------------------------------------------  
 \subsection{Time-splitting}
 %----------------------------------------------------------------------------
@@ -1051,29 +1051,18 @@ Present here two of the parametrisations available in CROCO that are used inthis
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Appendix of the \textit{ocean model}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Appendix}
-
-\subsection{Coordinate transformation}
+\subsection{$s$-coordinate transformation}
 \label{section_annexe2}
+\color{blue}The present appendix gathers several formula and relations essential to the development of the numerical implementation of the \textit{ocean model} used to simulation explicitly the large turbulent eddies in the region of Gibraltar strait.\color{black}
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Transformation matrices}
 \label{annexe_coordS}
@@ -1116,18 +1105,18 @@ The Jacobian of the transformation $J=det(\Lambda^z_s)$ is the (specific) thickn
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Formula and identities}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Coordinate transformations are given by:
+Base on the transformation matrices, the $s$-coordinate transformations can be rewritten:
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
   &\frac{\partial A}{\partial t}\bigg\rvert_{xz} &&=
    \frac{\partial A}{\partial t}\bigg\rvert_{xs}
   - \frac{1}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx}
-  \frac{\partial z}{\partial t}\bigg\rvert_{xs}\\
+  \frac{\partial z}{\partial t}\bigg\rvert_{xs}\\[4mm]
   &\frac{\partial A}{\partial x}\bigg\rvert_{tz} &&=
    \frac{\partial A}{\partial x}\bigg\rvert_{ts}
   - \frac{1}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx}
-  \frac{\partial z}{\partial x}\bigg\rvert_{ts}\\
+  \frac{\partial z}{\partial x}\bigg\rvert_{ts}\\[4mm]
   &\frac{\partial A}{\partial z}\bigg\rvert_{tx} &&=
    \frac{1}{h}
    \frac{\partial A}{\partial s}\bigg\rvert_{tx}
@@ -1139,7 +1128,7 @@ whereas material derivatives satisfy:
   \displaystyle 
   & \frac{d}{dt} &&=\frac{\partial}{\partial t}\bigg\vert_z
   + \mathbf{u}.\mathbf{\nabla}_z
-  + w\frac{\partial }{\partial z}\\
+  + w\frac{\partial }{\partial z}\\[4mm]
   & &&=\frac{\partial}{\partial t}\bigg\vert_s
   + \mathbf{u}.\mathbf{\nabla}_s
   + \dot{s}\frac{\partial}{\partial s}
@@ -1151,7 +1140,7 @@ This leads to:
   \displaystyle 
   & \dot{z} &&=\frac{dz}{dt}\bigg\vert_s=\frac{\partial z}{\partial t}\bigg\vert_s
   + \mathbf{u}.\mathbf{\nabla}_s z
-  + \dot{s}\frac{\partial z}{\partial s}\\
+  + \dot{s}\frac{\partial z}{\partial s}\\[4mm]
   & \dot{s} &&=\frac{ds}{dt}\bigg\vert_z=\frac{\partial s}{\partial t}\bigg\vert_z
   + \mathbf{u}.\mathbf{\nabla}_z s
   + w\frac{\partial s}{\partial z}
@@ -1162,23 +1151,23 @@ Using the identities:
   \begin{alignat}{2}
   \displaystyle
   &\frac{\partial s}{\partial t}\bigg\vert_z &&=
-  \left(\frac{\partial t}{\partial s}\bigg\vert_z\right)^{-1}\\
+  \left(\frac{\partial t}{\partial s}\bigg\vert_z\right)^{-1}\\[4mm]
   &\frac{\partial s}{\partial x}\bigg\vert_z &&=
-  \left(\frac{\partial x}{\partial s}\bigg\vert_z\right)^{-1}\\
+  \left(\frac{\partial x}{\partial s}\bigg\vert_z\right)^{-1}\\[4mm]
   &\frac{\partial s}{\partial y}\bigg\vert_z &&=
-  \left(\frac{\partial y}{\partial s}\bigg\vert_z\right)^{-1}\\
+  \left(\frac{\partial y}{\partial s}\bigg\vert_z\right)^{-1}\\[4mm]
   &\frac{\partial s}{\partial z}\bigg\vert_x &&=
   \left(\frac{\partial z}{\partial s}\bigg\vert_x\right)^{-1}
   \end{alignat}
 \end{subequations}
-Several relations can be obtained from the triple product rule and the coordinate transformations are given by:
+several relations can be obtained from the triple product rule and the coordinate transformations are given by:
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle
   &\frac{\partial z}{\partial t}\bigg\vert_s &&=
-  -\frac{\partial s}{\partial t}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\
+  -\frac{\partial s}{\partial t}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\[4mm]
   &\frac{\partial z}{\partial x}\bigg\vert_s &&=
-  -\frac{\partial s}{\partial x}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\
+  -\frac{\partial s}{\partial x}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\[4mm]
   &\frac{\partial z}{\partial y}\bigg\vert_s &&=
   -\frac{\partial s}{\partial y}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\
   \end{alignat}
@@ -1192,17 +1181,17 @@ Several relations can be obtained from the triple product rule and the coordinat
   \begin{alignat}{2}
   \displaystyle 
   &\mathbf{e}_{x^*} &&=\frac{\mathbf{y}\wedge{\mathbf{\nabla}s}}
-  {\norm{\mathbf{y}\wedge{\mathbf{\nabla}s}}}\\
-  &\mathbf{e}_{y^*} &&=\mathbf{e}_s\wedge{\mathbf{e}_{x^*}}\\
+  {\norm{\mathbf{y}\wedge{\mathbf{\nabla}s}}}\\[4mm]
+  &\mathbf{e}_{y^*} &&=\mathbf{e}_s\wedge{\mathbf{e}_{x^*}}\\[4mm]
   &\mathbf{e}_s &&=\frac{\mathbf{\nabla}s}{\norm{\mathbf{\nabla}s}}
   \end{alignat}
 \end{subequations}
-In this particular case ($\mathbf{e}_s.\mathbf{z}$ has a unique signe, the basis vectors can be rewritten:
+In this particular case ($\mathbf{e}_s.\mathbf{z}$) has a unique sign, the basis vectors can be rewritten:
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
-  &\mathbf{e}_{x^*} &&=\frac{\mathbf{x}+S_x\mathbf{z}}{\sqrt{1+S_x^2}}\\
-  &\mathbf{e}_{y^*} &&=\frac{-S_xS_y\mathbf{x}+(1+S_x^2)\mathbf{y}+S_y\mathbf{z}}{\sqrt{1+S^2)(1+S_x^2)}}\\
+  &\mathbf{e}_{x^*} &&=\frac{\mathbf{x}+S_x\mathbf{z}}{\sqrt{1+S_x^2}}\\[4mm]
+  &\mathbf{e}_{y^*} &&=\frac{-S_xS_y\mathbf{x}+(1+S_x^2)\mathbf{y}+S_y\mathbf{z}}{\sqrt{1+S^2)(1+S_x^2)}}\\[4mm]
   &\mathbf{e}_s &&=\frac{(-\mathbf{S},1)}{\sqrt{1+S^2}}
   \end{alignat}
 \end{subequations}
@@ -1218,11 +1207,11 @@ Note in particular the definition of the slope $\mathbf{S}$ and its norm $S=\nor
    -\frac{\partial z}{\partial s}\mathbf{\nabla}_z s=\left( S_x,\ S_y,\ 0 \right)
 \end{equation}
 where $\mathbf{\nabla}_s z$ is "the horizontal gradient of the height of a fluid parcel as taken along surfaces of constant generalized vertical coordinate s" \citep{griffies_fundamentals_2004}.\\
-\textbf{Caution:} this orthonormal basis is not used to project the equations of the model. S-coordinates are "only" used as a change of variable whereas equations and vector quantities remain written in the original Cartesian or spherical basis. The present s-coordinate orthonormal basis is presented here to be latter used in the computation of fluxes through s-surfaces.
+Note that this orthonormal basis is not used to project the equations of the model. S-coordinates are "only" used as a change of variable whereas equations and vector quantities remain written in the original Cartesian or spherical basis. The present s-coordinate orthonormal basis is presented here to be latter used in the computation of fluxes through s-surfaces.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{s-coordinates}
+\subsection{Operators \& relations in s-coordinates}
 \label{annexe_s-coord}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1240,14 +1229,14 @@ Using :
 % \frac{\partial}{\partial x} \frac{\partial z}{\partial s}\bigg\vert_{tx}= \frac{\partial h}{\partial x}
 %\end{equation}
 %
-the expression of the divergence in s-coordinates is given by:
+the expression of the divergence of the velocity field in s-coordinates can be written:
 \begin{subequations}
   \begin{alignat}{2}
-  & h \ \mathbf{\nabla}.( \mathbf v) &&= h \frac{\partial u}{\partial x} \bigg \rvert_{zt} +h \frac{\partial v_z}{\partial z} \bigg \rvert_{xt}\\ 
-  & && = h \frac{\partial u}{\partial x} \bigg \rvert_{st} - \frac{h}{h} \frac{\partial u}{\partial s}\bigg \rvert_{tx} \frac{\partial z}{\partial x}\bigg \rvert_{ts} \\
-  & && \quad + \frac{h}{h}  \frac{\partial}{\partial s} \bigg ( v_s + \frac{\partial z }{\partial t}\bigg \rvert_{xs} + u \frac{\partial z}{\partial x}\bigg \rvert_{ts} \bigg )\\
-  & && = h \frac{\partial u}{\partial x} \bigg \rvert_{st} -  \frac{\partial u}{\partial s}\bigg \rvert_{tx} \frac{\partial z}{\partial x}\bigg \rvert_{ts} \\
-  & && \quad +  \frac{\partial v_s}{\partial s} +  \frac{\partial h}{\partial t} + u \frac{\partial h}{\partial x} + \frac{\partial u}{\partial s}\bigg \rvert_{tx} \frac{\partial z}{\partial x}\bigg \rvert_{ts}\\
+  & h \ \mathbf{\nabla}.( \mathbf v) &&= h \frac{\partial u}{\partial x} \bigg \rvert_{zt} +h \frac{\partial v_z}{\partial z} \bigg \rvert_{xt}\\[4mm]
+  & && = h \frac{\partial u}{\partial x} \bigg \rvert_{st} - \frac{h}{h} \frac{\partial u}{\partial s}\bigg \rvert_{tx} \frac{\partial z}{\partial x}\bigg \rvert_{ts} \\[4mm]
+  & && \quad + \frac{h}{h}  \frac{\partial}{\partial s} \bigg ( v_s + \frac{\partial z }{\partial t}\bigg \rvert_{xs} + u \frac{\partial z}{\partial x}\bigg \rvert_{ts} \bigg )\\[4mm]
+  & && = h \frac{\partial u}{\partial x} \bigg \rvert_{st} -  \frac{\partial u}{\partial s}\bigg \rvert_{tx} \frac{\partial z}{\partial x}\bigg \rvert_{ts} \\[4mm]
+  & && \quad +  \frac{\partial v_s}{\partial s} +  \frac{\partial h}{\partial t} + u \frac{\partial h}{\partial x} + \frac{\partial u}{\partial s}\bigg \rvert_{tx} \frac{\partial z}{\partial x}\bigg \rvert_{ts}\\[4mm]
   & && = \frac{\partial v_s}{\partial s}\bigg \rvert_{tx} + \frac{\partial h u}{\partial x} \bigg \rvert_{ts}+ \frac{\partial h}{\partial t}\bigg \rvert_{xs}
   \end{alignat}
 \end{subequations}
@@ -1256,9 +1245,9 @@ Note that this is a particular case of the formulation of a change of variables 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Conservative "flux" forms: kinematics \& dynamics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Two general conservative formulations can be obtained combining this with the continuity equation \citep{auclair_woceanfr_2011}\footnote{WOcean.fr Web Site: \url{http://poc.omp.obs-mip.fr/auclair/WOcean.fr/SNH/Restricted/NH-NBQ/Sources/Images/png/Coord_demo.png}}.
+Two general conservative formulations can be obtained combining this with the continuity equation \citep{auclair_woceanfr_2011}\footnote{WOcean.fr Web Site: \url{http://poc.omp.obs-mip.fr/auclair/WOcean.fr/SNH/Restricted/NH-NBQ/Sources/Images/png/Coord_demo.png}\label{WOcean_scoord}}.
 
-$A$ is a property given per unit mass (thermodynamically intensive) (see the demonstration on web site). The first two (conservative) relations are fundamentals to  analytical and numerical modeling.\\
+$A$ is a property given per unit mass (thermodynamically intensive) (see the demonstration on web site). The first two (conservative) relations are fundamentals to analytical and numerical modeling.\\
 
 \textbf{\textit{Based on the conservation of mass:}}
 \begin{equation}
@@ -1281,7 +1270,7 @@ $A$ is a property given per unit mass (thermodynamically intensive) (see the dem
 \begin{equation}
 \frac{d A}{d t} = \frac{\partial A}{\partial t} \bigg\rvert_{xs} + u \frac{\partial A}{\partial x} \bigg\rvert_{ts} + \frac{v_s}{h}\frac{\partial A}{\partial s}\bigg\rvert_{tx}
 \end{equation}
-The demonstration is given in \citep{auclair_woceanfr_2011}\footnote{WOcean.fr Web Site: \url{http://poc.omp.obs-mip.fr/auclair/WOcean.fr/SNH/Restricted/NH-NBQ/Sources/Images/png/Coord_demo.png}}.\\
+The demonstration is given in \citep{auclair_woceanfr_2011}$^{\noparref{WOcean_scoord}}$.\\
 
 \textbf{\textit{Conservation of mass:}}
 note finally that the conservation of mass $A=1$ can then be rewritten:
@@ -1363,18 +1352,16 @@ sometime written:
  \displaystyle
  \frac{d\delta\tau}{dt}=\delta\tau \mathbf{\nabla}.\mathbf{v}
 \end{equation}
-which is noting but the continuity equation written for the specific volume.
-
-With the natural change of variable, the derivation can enter the integral sign and:
+which is noting but the continuity equation written for the specific volume. With the natural change of variable, the derivation can enter the integral sign and:
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
   & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=
-  \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\tau\\
-  & &&= \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\mathbf{x}\\
-  & &&=\frac{D}{Dt} \iiint_{\mathcal{V}_{\xi}} \rho A J d\boldsymbol{\xi}\\
+  \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\tau\\[4mm]
+  & &&= \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\mathbf{x}\\[4mm]
+  & &&=\frac{D}{Dt} \iiint_{\mathcal{V}_{\xi}} \rho A J d\boldsymbol{\xi}\\[4mm]
   & &&=\iiint_{\mathcal{V}_{\xi}} \frac{D\rho A}{Dt}  J d\boldsymbol{\xi}
-  +\iiint_{\mathcal{V}_{\xi}} \rho A \frac{DJ}{Dt} d\boldsymbol{\xi}\\
+  +\iiint_{\mathcal{V}_{\xi}} \rho A \frac{DJ}{Dt} d\boldsymbol{\xi}\\[4mm]
   & &&=\iiint_{\mathcal{V}_{\xi}} \frac{D\rho A}{Dt}  J d\boldsymbol{\xi}
   +\iiint_{\mathcal{V}_{\xi}} \rho A \mathbf{\nabla}. \mathbf{v}_{\Sigma}\ J d\boldsymbol{\xi}
   \end{alignat}
@@ -1385,7 +1372,7 @@ Following \cite{truesdell_classical_1960}, a more general formulation can thus b
   \displaystyle 
   &  \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau && =
   \iiint_{\mathcal{V}(t)} \frac{D\rho A}{Dt}  d\boldsymbol{x}
-  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.\mathbf{v}_{\Sigma}\ d\mathbf{x}\\
+  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.\mathbf{v}_{\Sigma}\ d\mathbf{x}\\[4mm]
  & && =
   \iiint_{\mathcal{V}(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
   %+ \varoiint_{\mathcal{V}(t)}\rho A \mathbf{v}.\mathbf{S}\\
@@ -1408,15 +1395,15 @@ Several formulations of this kinematic theorem can be given:
   & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=
   \iiint_{\mathcal{V}(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
   %+ \varoiint_{\mathcal{V}(t)}\rho A \mathbf{v}.\mathbf{S}\\
-  + \oiint_{\mathcal{V}(t)}\rho A   \mathbf{v}_{\Sigma}.d\mathbf{S}\\\\
+  + \oiint_{\mathcal{V}(t)}\rho A   \mathbf{v}_{\Sigma}.d\mathbf{S}\\[4mm]
   % Line 2:
   &  &&= \iiint_{\mathcal{V}(t)} \left(\frac{\partial \rho A}{\partial t}\bigg\rvert_{xz}
-  +\mathbf{\nabla}.(\rho A   \mathbf{v}_{\Sigma}) \right) d\tau\\
+  +\mathbf{\nabla}.(\rho A   \mathbf{v}_{\Sigma}) \right) d\tau\\[4mm]
   % Line 3:
   &  &&= \iiint_{\mathcal{V}(t)} \left(\rho \frac{\partial A}{\partial t}\bigg\rvert_{xz}
   +A \frac{ \partial \rho }{\partial t}\bigg\rvert_{xz}
   +\rho   \mathbf{v}_{\Sigma}.\mathbf{\nabla}A 
-  +A\mathbf{\nabla}.(\rho   \mathbf{v}_{\Sigma}) \right) d\tau\\
+  +A\mathbf{\nabla}.(\rho   \mathbf{v}_{\Sigma}) \right) d\tau\\[4mm]
   % Line 4:
   & &&=\iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
   +\iiint_{\mathcal{V}(t)} A \left( \frac{\partial \rho}{\partial t} \bigg\rvert_{xz}
@@ -1432,7 +1419,7 @@ This can also be written:
   +A \frac{ \partial \rho }{\partial t}\bigg\rvert_{xz}
   +\rho   \mathbf{v}_{\Sigma}.\mathbf{\nabla}A 
   +A   \mathbf{v}_{\Sigma}.\mathbf{\nabla}\rho
-  +A\rho\mathbf{\nabla}.  \mathbf{v}_{\Sigma} \right) d\tau\\
+  +A\rho\mathbf{\nabla}.  \mathbf{v}_{\Sigma} \right) d\tau\\[4mm]
   % Line 2:
   & &&=\iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
   +\iiint_{\mathcal{V}(t)} A \frac{D \rho}{D t} d\tau
@@ -1447,7 +1434,7 @@ or alternatively:
   =\iiint_{\mathcal{V}(t)} \rho \frac{dA}{dt}  d\tau 
   +\iiint_{\mathcal{V}(t)} \left(A \frac{d \rho}{dt} 
   +\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right]
-  +\rho A \mathbf{\nabla}.\mathbf{v} \right) d\tau\\
+  +\rho A \mathbf{\nabla}.\mathbf{v} \right) d\tau\\[4mm]
   & &&
   =\iiint_{\mathcal{V}(t)} \rho \frac{dA}{dt}  d\tau 
   + \iiint_{\mathcal{V}(t)}\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right]d\tau
@@ -1474,7 +1461,7 @@ and thus:
   \begin{alignat}{2}
   \displaystyle 
   & \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau &&= \iiint_{\mathcal{V_M}(t)} \rho \frac{dA}{dt}  d\tau 
-  +\iiint_{\mathcal{V}_M(t)} A \underbrace{\left( \frac{\partial \rho}{\partial t} \bigg\rvert_{xz}+\mathbf{\nabla}.(\rho\mathbf{v})\right)}_{=0} \ d\tau\\
+  +\iiint_{\mathcal{V}_M(t)} A \underbrace{\left( \frac{\partial \rho}{\partial t} \bigg\rvert_{xz}+\mathbf{\nabla}.(\rho\mathbf{v})\right)}_{=0} \ d\tau\\[4mm]
   & && = \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
   \end{alignat}
 \end{subequations}
@@ -1498,10 +1485,10 @@ With this kinematic theorem:
   \begin{alignat}{2}
   \displaystyle 
   & \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau &&=
-  \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\mathbf{x}\\
-  & &&=\frac{d}{dt} \iiint_{\mathcal{V}_{s}} \rho A J d\boldsymbol{\xi}\\
+  \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\mathbf{x}\\[4mm]
+  & &&=\frac{d}{dt} \iiint_{\mathcal{V}_{s}} \rho A J d\boldsymbol{\xi}\\[4mm]
   & &&=\iiint_{\mathcal{V}_{\xi}} \frac{d\rho A}{dt}  J d\boldsymbol{\xi}
-  +\iiint_{\mathcal{V}_{\xi}} \rho A \frac{dJ}{dt} d\boldsymbol{\xi}\\
+  +\iiint_{\mathcal{V}_{\xi}} \rho A \frac{dJ}{dt} d\boldsymbol{\xi}\\[4mm]
   & &&=\iiint_{\mathcal{V}_{\xi}} \frac{d\rho A}{dt}  J d\boldsymbol{\xi}
   +\iiint_{\mathcal{V}_{\xi}} \rho A \mathbf{\nabla}.\mathbf{v}\ J d\boldsymbol{\xi}
   \end{alignat}
@@ -1513,7 +1500,7 @@ This leads finally to:
   \displaystyle 
   & \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau &&=
   \iiint_{\mathcal{V}_{\xi}}\left( \frac{\partial \rho A}{\partial t}   
-  +\mathbf{\nabla}.( \rho A \mathbf{v})\right) J d\boldsymbol{\xi} \\
+  +\mathbf{\nabla}.( \rho A \mathbf{v})\right) J d\boldsymbol{\xi} \\[4mm]
   & && =\iiint_{\mathcal{V}_M(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
   + \oiint_{\mathcal{V}_M(t)}\rho A \mathbf{v}.d\mathbf{S}
   \end{alignat}
@@ -1540,13 +1527,13 @@ and so for a closed, moving volume $\mathcal{V}(t)$:
   \displaystyle 
   & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=  
   \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
-  +\iiint_{\mathcal{V}(t)} A \frac{D(\rho d\tau)}{Dt}\\\\
+  +\iiint_{\mathcal{V}(t)} A \frac{D(\rho d\tau)}{Dt}\\[4mm]
   & && =  \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
   + \iiint_{\mathcal{V}(t)} A \frac{D\rho}{Dt} d\tau
-  +\iiint_{\mathcal{V}(t)} \rho A \frac{Dd\tau}{Dt} \\
+  +\iiint_{\mathcal{V}(t)} \rho A \frac{Dd\tau}{Dt}\\[4mm]
   & && = \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
   +\iiint_{\mathcal{V}(t)} A \frac{D\rho}{Dt} d\tau
-  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.  \mathbf{v}_{\Sigma}\ d\tau \\
+  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.  \mathbf{v}_{\Sigma}\ d\tau \\[4mm]
   & && = \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
   \end{alignat}
 \end{subequations}
@@ -1562,12 +1549,12 @@ If the volume is now a material volume and is thus advected by the mean flow (La
   &  \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau && = 
   \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
   +\iiint_{\mathcal{V}_M(t)} A \frac{d\rho}{dt} d\tau
-  +\iiint_{\mathcal{V}_M(t)} \rho A \mathbf{\nabla}.\mathbf{v} d\tau\\
+  +\iiint_{\mathcal{V}_M(t)} \rho A \mathbf{\nabla}.\mathbf{v} d\tau\\[4mm]
   & && \left[ =\iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
   +\iiint_{\mathcal{V}_M(t)} A  \underbrace{\left(\frac{\partial \rho}{\partial t} 
-  +\underbrace{\mathbf{v}.\mathbf{\nabla}\rho+\rho \mathbf{\nabla}.\mathbf{v} }_{=\mathbf{\nabla}.(\rho\mathbf{v})}\right)}_{=0} d\tau \right]\\
+  +\underbrace{\mathbf{v}.\mathbf{\nabla}\rho+\rho \mathbf{\nabla}.\mathbf{v} }_{=\mathbf{\nabla}.(\rho\mathbf{v})}\right)}_{=0} d\tau \right]\\[4mm]
   & && = \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
-  +\iiint_{\mathcal{V}_M(t)} A \underbrace{\left( -\rho \mathbf{\nabla}.\mathbf{v} + \rho \mathbf{\nabla}.\mathbf{v}\right)}_{=0} d\tau\\
+  +\iiint_{\mathcal{V}_M(t)} A \underbrace{\left( -\rho \mathbf{\nabla}.\mathbf{v} + \rho \mathbf{\nabla}.\mathbf{v}\right)}_{=0} d\tau\\[4mm]
   & && = \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
   \end{alignat}
 \end{subequations}
@@ -1586,9 +1573,9 @@ In an Eulerian approach, the depth-to-surface integration can be carried out usi
   \begin{alignat}{2}
   \displaystyle 
  	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&
-   =\iiint_{\mathcal{V}_{s}} \frac{d \rho A }{d t}\ d\tau \\
+   =\iiint_{\mathcal{V}_{s}} \frac{d \rho A }{d t}\ d\tau \\[4mm]
    & && = \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
-  + \iiint_{\mathcal{V}_{s}}\mathbf{\nabla}.( \rho A   \mathbf{v}_{\Sigma}) d\tau \\
+  + \iiint_{\mathcal{V}_{s}}\mathbf{\nabla}.( \rho A   \mathbf{v}_{\Sigma}) d\tau \\[4mm]
   & &&
    =\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
  +\iint_{\mathcal{S}} \rho A\   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}
@@ -1627,10 +1614,10 @@ The previous relation can then be recovered writing:
   % Line 2:
  &\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&=
  \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
- +\iint_{\mathcal{S}} \rho A\   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}\\
+ +\iint_{\mathcal{S}} \rho A\   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}\\[4mm]
 &  &&=
  \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
- +\iint_{\mathcal{S}_{surf}} \rho A\  ( \mathbf{u}_{\Sigma}-\mathbf{w}_{\Sigma}).\mathbf{n}_{\Sigma}\ dS_{\Sigma}\\
+ +\iint_{\mathcal{S}_{surf}} \rho A\  ( \mathbf{u}_{\Sigma}-\mathbf{w}_{\Sigma}).\mathbf{n}_{\Sigma}\ dS_{\Sigma}\\[4mm]
 &  &&=
  \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
  +\iint_{\mathcal{S}_{surf}}  \frac{\rho A}{\norm{\mathbf{\nabla}s}}
@@ -1652,7 +1639,7 @@ Then knowing that:
  \displaystyle
 &\frac{\partial s}{\partial t}&&=
 \frac{\partial z}{\partial t}-
-\frac{\partial \zeta}{\partial t}\\
+\frac{\partial \zeta}{\partial t}\\[4mm]
 & &&=\frac{\partial \zeta}{\partial t}=\frac{\partial \zeta}{\partial t}\bigg\vert_s
  \end{alignat}
  we can conclude that:
@@ -1680,7 +1667,7 @@ The first term on the right hand side can be rewritten:
   \displaystyle
  & \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau &&=
  \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho A}{\partial t}\bigg \vert_s 
- -\frac{1}{h}\frac{\partial \rho A}{\partial s}\frac{\partial z}{\partial t}\bigg\vert_s \right) h \ ds dx dy\\
+ -\frac{1}{h}\frac{\partial \rho A}{\partial s}\frac{\partial z}{\partial t}\bigg\vert_s \right) h \ ds dx dy\\[4mm]
  & &&=
  \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
  -\rho A \frac{\partial h}{\partial t}\bigg\vert_s
@@ -1706,7 +1693,7 @@ Canceling the second, third and fourth terms together and using the Green-Ostrog
  	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau  &&=
  \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
  \pm \frac{\partial}{\partial s}\left(\rho A \frac{\partial z}{\partial t}\right) \bigg\vert_s
- \right) ds dx dy\\
+ \right) ds dx dy\\[4mm]
  & &&= \iiint_{\mathcal{V}_{s}} \frac{\partial \rho h A}{\partial t}\bigg \vert_s ds dx dy
   \end{alignat}
 \end{subequations}
@@ -1718,7 +1705,7 @@ We can recover the relation for the evolution over a material volume such as a s
   \displaystyle 
   & \frac{d}{dt} \iiint_{\mathcal{V}_{s}} \rho A d\tau &&=
   \iiint_{\mathcal{V}_{s}} \rho \frac{d A}{dt} d\tau
-  + \iiint_{\mathcal{V}_{s}}\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right] d\tau\\
+  + \iiint_{\mathcal{V}_{s}}\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right] d\tau\\[4mm]
   & &&=
   \iiint_{\mathcal{V}_{s}} \rho \frac{d A}{dt} d\tau
   + \iint_{\mathcal{S}_{surf}} \rho A(\mathbf{v}_{\Sigma}-\mathbf{v}).\mathbf{n}_{\Sigma} dS_{\Sigma}
