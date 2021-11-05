@@ -12,6 +12,7 @@
 
 \usepackage[a4paper,top=1.5cm,bottom=2cm,left=2.5cm,right=2.5cm,marginparwidth=1.75cm]{geometry}
 \usepackage[ED=SDU2E-Oc, Ets=UT3]{tlsflyleaf}%page de garde
+\usepackage{microtype}
 \usepackage{graphicx} 
 \usepackage[hidelinks]{hyperref} 
 \usepackage{multirow} 
@@ -58,6 +59,7 @@
 \usepackage{cancel}
 %\usepackage{pdfpages}
 \usepackage{fancyhdr}
+%\usepackage{footmisc}
 %----------------------------------------------------------------------------
 % Packages: uncomment to debug
 %----------------------------------------------------------------------------
@@ -124,11 +126,16 @@
 % Taille des chapitres, sections...
 %----------------------------------------------------------------------------
 \titleformat{\chapter}
-{\Large\bfseries}
+{\large\bfseries}
 {\thechapter}{1em}{}
 \titleformat{\section}
 {\large\bfseries}
 {\thesection}{1em}{}
+%
+%\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\normalsize\bfseries}
+\titleformat{\subsubsection}{}{\thesubsubsection}{1em}{\bfseries\itshape}
+\titleformat*{\paragraph}{\normalsize\bfseries\itshape}
 
 %----------------------------------------------------------------------------
 % Page de garde
@@ -252,21 +259,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\chapter{Simulation (explicite) \& modélisation numérique de l'oc\'ean et de son m\'elange}
+\chapter[Toward Large Eddy Simulation of the ocean]{Toward Large Eddy Simulation of the ocean (LES\footnote{LES: Large Eddy Simulation.\label{LES}})}
 \label{chap2}
-\begin{itemize}
-\item conservation masses/qdm, discretisation numérique, échelles (RANS/LES(/DNS)), paramétrisation du mélange, fermeture turb (Smago/GLS...)
-\item contenu en PV
-\item definition BPE, eq d'évolution 'générale'
-\item code CROCO (ou code CROCO en premisce de chap 3 GBR2D????(sinon parait cours?)GBR2D parle passage hydro a NBQ...)
-\end{itemize}
+%\begin{itemize}
+%\item conservation masses/qdm, discretisation numérique, échelles (RANS/LES(/DNS)), paramétrisation du mélange, fermeture turb (Smago/GLS...)
+%\item contenu en PV
+%\item definition BPE, eq d'évolution 'générale'
+%\item code CROCO (ou code CROCO en premisce de chap 3 GBR2D????(sinon parait cours?)GBR2D parle passage hydro a NBQ...)
+%\end{itemize}
 
 
 \input{./CHAP2/chap2.tex}
-
-
-
-
 
 \chapter{Fine scales in Gibraltar strait: a high-resolution, vertical section based on Gibraltar Experiment.}
 \label{chapGBR2D}
@@ -342,7 +345,7 @@ La modulation des phénomènes observés par divers paramètres (bathymétrie, i
 \item papier
 \end{itemize}
 
-\input{./CHAP_BPE/chap5.tex}
+\color{blue}\input{./CHAP_BPE/chap5.tex}
 
 
 \chapter*{Discussion Conclusion}
