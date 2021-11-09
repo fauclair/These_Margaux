@@ -111,13 +111,13 @@ requiring thus that $s$ be a monotonic function of the vertical coordinate $z$:
  \displaystyle
  \frac{\partial s}{\partial z}\bigg\vert_{xyt}\ne 0
 \end{equation}
-$\partial s / \partial z$ be continuous and single-signed (either strictly positive or negative).
+$\partial s / \partial z$ is continuous and single-signed (either strictly positive or negative).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Examples}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Several examples and comparisons on the choice of $s(\mathbf{x},t)$ are given in chapter 6 of \citet{griffies_fundamentals_2004}.
-Following  \citep{shchepetkin_regional_2005},  less general $\sigma$-coordinates can for instance be defined by:
+Following  \citet{shchepetkin_regional_2005},  less general $\sigma$-coordinates can be defined by:
 \begin{equation}
  \displaystyle
  z(\mathbf{x},\sigma,t)=\sigma H(\mathbf{x_h})\quad or\quad z(\mathbf{x},\sigma,t)=\sigma(H(\mathbf{x_h})+\zeta(\mathbf{x_h},t))+\zeta(\mathbf{x_h},t)
@@ -198,7 +198,7 @@ v_{\sigma}=(H+\zeta)\frac{d\sigma}{dt}
 \subsubsection{Conservation of an extensive quantity in a free-surface ocean}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-To develop diagnostics in a realistic free-surface ocean, the conservation or at least the evolution of a given property defined as $\mathcal{A}=\iiint_{\mathcal{V}(t)} \rho A d\tau$ where a $A$ is a given specific\footnote{Specific: per unit mass of the flow.} property must be calculated in a region of the ocean with a varying upper surface. For a general time-dependent volume $\mathcal{V}(t)$ moving with a velocity $\mathbf{v}_{\Sigma}$, a formulation of the Reynolds transport theorem (or Leibnitz theorem) is given by \citep{truesdell_classical_1960} and reformulated in Appendix \ref{annexe_reynolds}:
+To develop diagnostics in a realistic free-surface ocean, the conservation or at least the evolution of a given property defined as $\mathcal{A}=\iiint_{\mathcal{V}(t)} \rho A d\tau$ where $A$ is a given specific\footnote{Specific: per unit mass of the flow.} property must be calculated in a region of the ocean with a varying upper surface. For a general time-dependent volume $\mathcal{V}(t)$ moving with a velocity $\mathbf{v}_{\Sigma}$, a formulation of the Reynolds transport theorem (or Leibnitz theorem) is given by \citet{truesdell_classical_1960} and reformulated in Appendix \ref{annexe_reynolds}:
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
@@ -313,7 +313,7 @@ with $\bigg[ \int_{x} \rho A v_s \ ds\bigg]_{0}^1 = 0$ since $v_s$ is void at th
 
 \color{blue}
 The \textit{ocean model} proposed and detailed so far is self-consistent and can lead to the description of numerous dynamical processes over a wide range of space-time scales. To proceed, one needs to develop dedicated diagnostics and to focus on the mechanisms of particular interest. In this context, a central objective of the present study is to explicitly simulate large turbulent eddies in order to improve the representation of the transformation of water masses. In other words, the (implicit) modeling or the (explicit) simulation of \textit{mixing} is at stake.\\
-The most rigorous approach of the \textit{mixing}-related issues has undoubtedly been proposed by \cite{lorenz_available_1955}. It is based on the concept of Background and Available gravitational Potential Energy (hereafter BPE and APE) and the author defines first APE as the potential energy released when reorganizing adiabatically the flow so that it reaches its state of minimal potential energy. This provided a definition of the BPE as the difference between the (total) Potential Energy (hereafter PE) and the APE. The BPE compartment, thus defined, grows monotonically under diabatic mixing, offering a well-defined tool to evaluate this mixing.\\
+The most rigorous approach of the \textit{mixing}-related issues has undoubtedly been proposed by \cite{lorenz_available_1955}. It is based on the concept of Background and Available gravitational Potential Energy (hereafter BPE and APE)\color{red}APE et BPE a ajouter dans tebles des acronymes\color{blue} and the author defines first APE as the potential energy released when reorganizing adiabatically the flow so that it reaches its state of minimal potential energy. This provided a definition of the BPE as the difference between the (total) Potential Energy (hereafter PE) and the APE.\color{red}definition dans l'autre sens??? BPE c'est state minimum energy??\color{blue} The BPE compartment, thus defined, grows monotonically under diabatic mixing, offering a well-defined tool to evaluate this mixing.\\
 Lorenz' approach, popularized by \cite{winters_available_1995}, remains challenging when applied in a realistic context, for instance over a limited area of a free-surface, varying-bathymetry ocean. It is even more challenging if applied in a numerical context with a s-coordinate model. A "limited area" raises indeed many questions on the resulting validity of the state of minimal energy whereas a free surface or a varying bathymetry both complicate the computation of this state in particular when s-coordinates are used.\\
 As a consequence, a localization and an evaluation of hot spots of enhanced mixing in the context of the \textit{ocean model} presented so far remain a challenge and a general formulation of the evolution equation of both the PE and BPE is now proposed for a given volume made of free-surface water columns. The relations thus obtained are then used to characterize the mixing in various configurations of ocean regions in chapter \ref{chapter_bpe}.
 
@@ -565,7 +565,7 @@ to explicitly express $dE_b/dt$ as a function of $dz^*/dt$:
  - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dx ds
   \end{alignat}
 \end{subequations}
-Substituting $hdz^*/dt$ by the product of $dz^*/d\rho$ by $hd\rho/dt$ leads to:
+Substituting $hdz^*/dt$ by the product of $dz^*/d\rho$ by $hd\rho/dt$ leads to\color{red}(en a besoin?)\color{black}:
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
@@ -594,7 +594,7 @@ Substituting $hdz^*/dt$ by the product of $dz^*/d\rho$ by $hd\rho/dt$ leads to:
   \end{alignat}
 \end{subequations}
 where $S_{adv}$ is the lateral (horizontal) advective flux, $S^{(v)}_{diff}$ and $S^{(h)}_{diff}$ are the vertical and horizontal diffusive fluxes, $\phi^{(v)}_d$ and $\phi^{(h)}_d$ are the diapycnal vertical and horizontal fluxes.
-Note that for a volume of integration with fixed-in-time boundaries, term (1) vanishes (\cite{winters_available_1995}, \cite{huang_mixing_1998} and many others...). 
+Note that for a volume of integration with fixed-in-time boundaries, term (1) vanishes (\cite{winters_available_1995}, \cite{huang_mixing_1998} and many others...). \color{red}\S d'après...\color{black}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\paragraph{Other formulations}
@@ -653,7 +653,7 @@ Following \cite{huang_mixing_1998}, $z^*$ can yet be expressed as a function of 
 \begin{equation}
 v(\rho)=\int_x\int_z H(\rho(x',z',t)-\rho(x,z,t))dz'dx' = \int_x\int_{-1}^0 H(\rho(x',s',t)-\rho(x,s,t))h ds'dx'
 \end{equation}
-where $H$ is the Heaviside function. $v(z^*)$, the volume of water between the bottom and the $z^*$ level in the water column is given by:
+where $H$ is the Heaviside function\color{red}(définir, 0,1/2 et 1!!!)\color{black}. $v(z^*)$, the volume of water between the bottom and the $z^*$ level in the water column is given by\color{red}(Ici S surafce a profondeur z, only function oz z)\color{black}:
 %H fonction Heaviside. Aussi $v$ est le volume de la colonne d'eau depuis le fond jusqu'au niveau $z^*$ avec $S(z)$ l'aire horizontale à la profondeur z :
 \begin{equation}
 v(z^*)=\int^{z^*}_{bottom} S(z')dz'
@@ -671,7 +671,7 @@ v(z^*)=\int^{z^*}_{bottom} S(z')dz'
 %\end{alignat}
 %\end{subequations}
 
-Using the s-coordinate formulation of Reynolds transport theorem \ref{annexe_reynolds}:
+Using the s-coordinate formulation of Reynolds transport theorem \color{red}(dans ce cas mets h explicitement non???)\color{black} \ref{annexe_reynolds}:
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle
@@ -698,7 +698,7 @@ As a consequence:
   & &&+\iiint_{\mathbf{V}_{\zeta}} \frac{\rho g}{S(Z(\rho))}\iint_{\mathcal{S}_{surf}} H\left(\rho(x',t)-\rho(x,t)\right) \frac{\partial\zeta}{\partial t} dS' d\mathbf{x}
   \end{alignat}
 \end{subequations}
-The first term at the RHS vanishes as shown for instance by \cite{huang_mixing_1998}. Note that in this latest formulation, $S(Z(\rho))$ is not necessarily equal to $S_{surf}$, it is rather the area occupied by fluid parcels of vertical position $z^*(\rho)=Z(\rho)$ in the total ocean volume which has been considered.
+The first term at the RHS vanishes as shown for instance by \cite{huang_mixing_1998}.\color{red}The second term, however, is non-zero as long as moving free-surface...(l'expliquer...) It will be linked with the dilatation of the reference profile with varying sea-level\color{black} Note that in this latest formulation, $S(Z(\rho))$ is not necessarily equal to $S_{surf}$, it is rather the area occupied by fluid parcels of vertical position $z^*(\rho)=Z(\rho)$ in the total ocean volume which has been considered.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Conclusion} 
