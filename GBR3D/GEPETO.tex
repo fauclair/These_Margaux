@@ -48,6 +48,8 @@ The field of standard deviation of parameter Q and the localization of the hydra
 Figure \ref{fig_SARIES} features a comparison between a SAR image of the strait of Gibraltar with the surface signature of a propagating ISW between CS and the longitude of Tarifa, and the corresponding field of norm of the gradient of surface currents in SimIT showing a traveling wave in the neighborhood. Whereas the shape of the train itself differs in the model and observed fields, the simulation gives an accurate idea of the propagation speed of ISWs in the strait of Gibraltar. This was used to predict position of ISW in relation to the tidal cycle predicted by harmonic prediction (not shown). It was accurate at least in the strait of Gibraltar itself. In the Alboran Sea, where the influence of the gyre on the form of the wave packet is important, prediction was not as accurate. 
 Beyond the propagation speed, the high resolution of the model means that the shape itself of the train of ISWs is accurate \color{blue}Ne vient-on pas de dire le contraire juste avant pour ce qui est de la forme ? \color{black}. This is used in the following section \ref{section_obs_moor} to help in the interpretation of mooring data from M4 and M5.
 
+\color{red}Progapation of ISW was anticipated prediction from Puertos del Estado\footnote{http://www.puertos.es/} \color{black}
+
 \begin{figure}[!h]
 % \centering
  \includegraphics[width=\textwidth]{./GBR3D/Comp_SAR_IES.png}
@@ -169,6 +171,13 @@ It was seen in section \ref{section_sim3D_ISW} that even if no hydraulic jump oc
 \color{blue}
 \subsection{Discussion \& perspectives}
 
+\begin{figure}[!h]
+% \centering
+ \includegraphics[width=\textwidth]{./GBR3D/SAR_OBS_GEPETO.png}
+ \caption {Sentinel-1 Synthetic Aperture Radar (SAR) images from 09/10/2020 - 6h18am UTC (A), and 14/10/2020 - 6h27am UTC (B).}
+ \label{fig_SAROBS}
+\end{figure}
+
 A first confrontation between LES and observations has been carried out showing at least a qualitative agreement.  \color{green}Je te laisse compléter en reprenant une ou deux comparaisons que tu penses encourageantes. En particulier le lien avec les structures o, S etc...\\
 \color{blue}This confrontation also clearly showed the limits of the modelling strategy used so far. Several improvements have already been made but are still been evaluated and, as a consequence, have not been included in the present section. 
 \begin{itemize}
@@ -181,3 +190,21 @@ A first confrontation between LES and observations has been carried out showing 
 \section{Conclusion}
 
 \color{green} Rappel méthode, bilan développement LES, bilan maquette...\color{black}
+
+
+
+
+\section{Annexe : Singular Value Decomposition (SVD)}
+Singular Value Decomposition (SVD) consists in finding a basis of singular values and orthonormal singular vectors for a G x T matrix A (complex or real), so that :
+\begin{equation}
+A = U \Sigma V^* 
+\end{equation}
+Where the G x k matrix $U$ and k x T matrix $V$ (and its conjugate $V^*$) are the left and right singular vectors respectively, and $\Sigma$ is the diagonal k x k matrix of singular values associated to each couple of singular vectors.
+
+To analyze a time-varryinig signal of variable $\psi$ on a 3D grid (or 2D as in section ..), the spatial field of each of the T timestep is appended into one column of length G to create the GxT matrix A, where T are the number of iterations of the 3D field. 
+
+After proceeding with the SVD of this matrix A, the column number i of U is reformed into a 3D field that gives the spatial structure of the field of $\psi$ associated with the i singular value, that has a time-variation in the i row of the singular right vector V.
+
+In section ..., SVD was applied to the complex field of $\psi=w+iu$. consecutive vectors of the basis with close singular value and that exhibited similar time-variations were combined to 
+
+In section ...

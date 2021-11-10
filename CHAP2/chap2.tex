@@ -2,10 +2,14 @@
 
 \color{blue}
 \section{Résumé en français}
-Le présent chapitre présente de façon détaillée le \textit{modèle d'océan} utilisé dans le cadre de ma thèse pour simuler numériquement les grandes échelles turbulentes (ou LES$^{\noparref{LES}}$) dans la région du détroit de Gibraltar mais aussi, plus généralement, pour développer des modèles analytiques simplifiés de processus au service de cette approche numérique. Plusieurs sections du chapitre ont été intégrées à des publications acceptées  \citep{hilt_numerical_2020}, \citep{auclair_modied_2021} ou en cours de rédaction en parallèle du présent manuscrit \citep{auclair_NBQ1_2021} mais aussi à au rapport du contrat SHOM Gibraltar \citep{auclair_modelisation_2019}. L'ensemble du chapitre a par conséquent été rédigé en anglais.\\
-Ce \textit{modèle d'océan} est suffisamment général pour autoriser la représentation explicite d'une large gamme de processus allant des ondes et modes acoustiques dans un océan compressible aux structures turbulentes fondamentalement non-hydrostatiques de \textit{fine échelle} (associées par exemple à des instabilités de Kelvin-Helmholtz) en passant par des processus ondulatoires internes de grande amplitude (tels que les solitons).\\
-Ce \textit{modèle d'océan} a en outre servi de base au développement communautaire du cœur non-hydrostatique, compressible et à surface libre CROCO, développement auquel j'ai contribué de façon active durant la préparation de ma thèse de doctorat. Sur le plan purement numérique tout d'abord, avec l'implémentation et l'évaluation de nouveaux schémas numériques dans un contexte pleinement réaliste et la mise en œuvre de stratégies originales pour la LES. Sur le plan de la dynamique océanique ensuite, avec la réalisation d'études de processus de fine échelle et l'étude des interactions complexes entre ces processus.\\
-Ce \textit{modèle d'océan} a de plus servi de base au développement dans le cadre de ma thèse de diagnostiques originaux dédiés à la simulation des grandes échelles turbulentes océaniques (LES) dans un contexte réaliste: évaluation quantitative du mélange turbulent (\S \noparref{chapter_bpe}), mise en évidence et caractérisation de ces structures, études de ressauts hydrauliques (\S \noparref{PartDiag3D})...\\
+Le présent chapitre présente de façon détaillée le \textit{modèle d'océan} utilisé dans le cadre de ma thèse pour simuler numériquement les grandes échelles turbulentes (ou LES$^{\noparref{LES}}$) dans la région du détroit de Gibraltar mais aussi, plus généralement, pour développer des modèles analytiques simplifiés de processus au service de cette approche numérique. Plusieurs sections du chapitre ont été intégrées à des publications acceptées  \citep{hilt_numerical_2020}, \citep{auclair_modied_2021} ou en cours de rédaction en parallèle du présent manuscrit \citep{auclair_NBQ1_2021} mais aussi à au rapport du contrat SHOM Gibraltar \citep{auclair_modelisation_2019}. L'ensemble du chapitre a par conséquent été rédigé en anglais.
+
+Ce \textit{modèle d'océan} est suffisamment général pour autoriser la représentation explicite d'une large gamme de processus allant des ondes et modes acoustiques dans un océan compressible aux structures turbulentes fondamentalement non-hydrostatiques de \textit{fine échelle} (associées par exemple à des instabilités de Kelvin-Helmholtz) en passant par des processus ondulatoires internes de grande amplitude (tels que les solitons).
+
+Ce \textit{modèle d'océan} a en outre servi de base au développement communautaire du cœur non-hydrostatique, compressible et à surface libre CROCO, développement auquel j'ai contribué de façon active durant la préparation de ma thèse de doctorat. Sur le plan purement numérique tout d'abord, avec l'implémentation et l'évaluation de nouveaux schémas numériques dans un contexte pleinement réaliste et la mise en œuvre de stratégies originales pour la LES. Sur le plan de la dynamique océanique ensuite, avec la réalisation d'études de processus de fine échelle et l'étude des interactions complexes entre ces processus.
+
+Ce \textit{modèle d'océan} a de plus servi de base au développement dans le cadre de ma thèse de diagnostiques originaux dédiés à la simulation des grandes échelles turbulentes océaniques (LES) dans un contexte réaliste: évaluation quantitative du mélange turbulent (\S \noparref{chapter_bpe}), mise en évidence et caractérisation de ces structures, études de ressauts hydrauliques (\S \noparref{PartDiag3D})...
+
 L'implémentation numérique de ce \textit{modèle d'océan} a demandé d'importants développements tant algorithmiques que numériques, développements qui ne peuvent être menés à bien s'ils ne demeurent le reflet direct de la physique de l'océan. Parce qu'il est très général, ce \textit{modèle d'océan} peut réaliser la synthèse de processus dynamique dans une gamme très étendue d'échelles spatio-temporelle depuis la circulation basse fréquence, jusqu'aux ondes acoustiques. Ce sont plus spécifiquement les plus fines échelles et les plus hautes fréquences qui peuvent imposer les plus lourdes restrictions à l'approche numérique envisagée, ce sont donc les processus associés et en particulier les processus ondulatoires acoustiques ou gravitaires qui ont été étudiés en priorité. En parallèle des développements numériques et des travaux sur la dynamique de la région du détroit de Gibraltar menés dans le cadre de la présente thèse de doctorat, a été développé et publié un modèle analytique suffisamment général pour décrire la dispersion des ondes et des modes acoustiques, des ondes et des modes internes de gravité ou encore des ondes de gravité de surface \citep{auclair_modied_2021}. Le modèle analytique de dispersion a de plus été utilisé pour explorer la dynamique ondulatoire dans la région du détroit de Gibraltar.
 J'ai participé et co-signé cette étude en support du développement numérique de CROCO, étude qui n'a pas été incluse dans le présent manuscrit.\\
 Dans une première partie, les équations analytiques servant de base à ce \textit{modèle d'océan} sont présentées (\noparref{section_prim_eq}), l'approche numérique choisie et co-développée pour le coeur numérique non-hydrostatique, compressible et à surface libre de CROCO est détaillée en partie \ref{section_croco}. Un certain nombre de développements sont enfin présentés dans les annexes (\noparref{section_annexe2}).
@@ -74,7 +78,8 @@ Neglecting surface-tension pressure drop, the boundary condition for pressure at
   p(\mathbf{x}_{\scriptscriptstyle H},z=\zeta,t)= p_{atm}
 \end{equation}
 with $p_{atm}$ the atmospheric pressure above the surface of the ocean.
-The resulting system of prognostic equations, diagnostic relations and boundary conditions leads to a non-linear problem whose main characteristics is the wild spectrum of dynamic processes involved (see for instance \cite{gill_atmosphere-ocean_1982} or \cite{vallis_atmospheric_2006}). Periodic processes such as ocean waves can give a comprehensive overview of the extension of space-time spectrum of transient processes which can propagate in the ocean and \cite{auclair_modied_2021} derive a compressible, free-surface, stratified model of two dispersion relations for wave-numbers and pulsation gathering acoustic, surface and internal waves and insisting on the modification of the dispersion of gravity (acoustic) waves by compressibility (gravity and stratification).\\
+The resulting system of prognostic equations, diagnostic relations and boundary conditions leads to a non-linear problem whose main characteristics is the wild spectrum of dynamic processes involved (see for instance \cite{gill_atmosphere-ocean_1982} or \cite{vallis_atmospheric_2006}). Periodic processes such as ocean waves can give a comprehensive overview of the extension of space-time spectrum of transient processes which can propagate in the ocean and \cite{auclair_modied_2021} derive a compressible, free-surface, stratified model of two dispersion relations for wave-numbers and pulsation gathering acoustic, surface and internal waves and insisting on the modification of the dispersion of gravity (acoustic) waves by compressibility (gravity and stratification).
+
 Formulated thus, the system of Navier-Stokes and conservation equations for a free-surface ocean can, at least in theory, be integrated straightforwardly. All variables but the pressure have their own prognostic equation and pressure can be diagnosed from the EOS \ref{NS_e}. Note that the system can be reformulated so that pressure is also given by a prognostic equation.
 
 \subsubsection{Evolution of the density field}
@@ -137,7 +142,7 @@ which is currently written:
  \displaystyle
  z(\mathbf{x},\sigma,t)=\mathcal{S}(\sigma) H(\mathbf{x_h})
 \end{equation}
-and $S(\sigma)$ can be a non-linear function. Some current definitions are presented on the Wiki-Roms web-site \footnote{\url{https://www.myroms.org/wiki/Vertical_S-coordinate}}.\\
+and $S(\sigma)$ can be a non-linear function. Some current definitions are presented on the Wiki-Roms web-site \footnote{\url{https://www.myroms.org/wiki/Vertical_S-coordinate}}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -170,7 +175,8 @@ where:
 	v_s\equiv h\frac{d s}{d t}
 \end{equation}
 
-In other words, the vertical velocity is the composition of $v_{\Sigma,z}$ (the vertical component of the velocity of the constant-$s$ moving surface), and $v_s$ (the velocity through this same surface). An important aspect of this computation is that $v_s$ remains a velocity along the vertical axes since no change of direction of the axes is made.\\
+In other words, the vertical velocity is the composition of $v_{\Sigma,z}$ (the vertical component of the velocity of the constant-$s$ moving surface), and $v_s$ (the velocity through this same surface). An important aspect of this computation is that $v_s$ remains a velocity along the vertical axes since no change of direction of the axes is made.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsubsection{Vertical velocities in $"\sigma"$-coordinates}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -232,7 +238,8 @@ In this case, with the definition of constant-$s$ surfaces, the boundaries of vo
    & &&= \iiint_{\mathcal{V}_{s}} \rho h \frac{\partial A}{\partial t}\bigg \vert_s  ds dx_s dy_s + \iiint_{\mathcal{V}_{s}} A \frac{\partial \rho h}{\partial t}\bigg \vert_s ds dx_s dy_s
    \end{alignat}
 \end{subequations}
-This formulation is based on Reynolds transport theorem (see appendix \noparref{annexe_reynolds}).\\ 
+This formulation is based on Reynolds transport theorem (see appendix \noparref{annexe_reynolds}).
+
 To simplify notations and without any loss of generality, integrals should in the following be restricted to the $(x,z)$ vertical plane and subscript $s$ should be abandoned:
 \begin{equation}
 \displaystyle
@@ -312,22 +319,27 @@ with $\bigg[ \int_{x} \rho A v_s \ ds\bigg]_{0}^1 = 0$ since $v_s$ is void at th
 \subsection{Decomposition of potential energy balance in a free-surface ocean}
 
 \color{blue}
-The \textit{ocean model} proposed and detailed so far is self-consistent and can lead to the description of numerous dynamical processes over a wide range of space-time scales. To proceed, one needs to develop dedicated diagnostics and to focus on the mechanisms of particular interest. In this context, a central objective of the present study is to explicitly simulate large turbulent eddies in order to improve the representation of the transformation of water masses. In other words, the (implicit) modeling or the (explicit) simulation of \textit{mixing} is at stake.\\
-The most rigorous approach of the \textit{mixing}-related issues has undoubtedly been proposed by \cite{lorenz_available_1955}. It is based on the concept of Background and Available gravitational Potential Energy (hereafter BPE and APE)\color{red}APE et BPE a ajouter dans tebles des acronymes\color{blue} and the author defines first APE as the potential energy released when reorganizing adiabatically the flow so that it reaches its state of minimal potential energy. This provided a definition of the BPE as the difference between the (total) Potential Energy (hereafter PE) and the APE.\color{red}definition dans l'autre sens??? BPE c'est state minimum energy??\color{blue} The BPE compartment, thus defined, grows monotonically under diabatic mixing, offering a well-defined tool to evaluate this mixing.\\
-Lorenz' approach, popularized by \cite{winters_available_1995}, remains challenging when applied in a realistic context, for instance over a limited area of a free-surface, varying-bathymetry ocean. It is even more challenging if applied in a numerical context with a s-coordinate model. A "limited area" raises indeed many questions on the resulting validity of the state of minimal energy whereas a free surface or a varying bathymetry both complicate the computation of this state in particular when s-coordinates are used.\\
+The \textit{ocean model} proposed and detailed so far is self-consistent and can lead to the description of numerous dynamical processes over a wide range of space-time scales. To proceed, one needs to develop dedicated diagnostics and to focus on the mechanisms of particular interest. In this context, a central objective of the present study is to explicitly simulate large turbulent eddies in order to improve the representation of the transformation of water masses. In other words, the (implicit) modeling or the (explicit) simulation of \textit{mixing} is at stake.
+
+The most rigorous approach of the \textit{mixing}-related issues has undoubtedly been proposed by \cite{lorenz_available_1955}. It is based on the concept of Background and Available gravitational Potential Energy (hereafter BPE and APE)\color{red}APE et BPE a ajouter dans tebles des acronymes\color{blue} and the author defines first APE as the potential energy released when reorganizing adiabatically the flow so that it reaches its state of minimal potential energy. This provided a definition of the BPE as the difference between the (total) Potential Energy (hereafter PE) and the APE.\color{red}definition dans l'autre sens??? BPE c'est state minimum energy??\color{blue} The BPE compartment, thus defined, grows monotonically under diabatic mixing, offering a well-defined tool to evaluate this mixing.
+
+Lorenz' approach, popularized by \cite{winters_available_1995}, remains challenging when applied in a realistic context, for instance over a limited area of a free-surface, varying-bathymetry ocean. It is even more challenging if applied in a numerical context with a s-coordinate model. A "limited area" raises indeed many questions on the resulting validity of the state of minimal energy whereas a free surface or a varying bathymetry both complicate the computation of this state in particular when s-coordinates are used.
+
 As a consequence, a localization and an evaluation of hot spots of enhanced mixing in the context of the \textit{ocean model} presented so far remain a challenge and a general formulation of the evolution equation of both the PE and BPE is now proposed for a given volume made of free-surface water columns. The relations thus obtained are then used to characterize the mixing in various configurations of ocean regions in chapter \ref{chapter_bpe}.
 
 
 \color{black}
 \subsubsection{Reference state(s)}
-Both \cite{saenz_estimating_2015} and Tailleux in his latest publications \citep{tailleux_local_2018} insist on the fact that Lorenz reference state is difficult to define and compute. As a consequence, these studies are dedicated to the evaluation of the errors and discrepancies when simpler and easier-to-obtain reference states are defined (horizontal averaged...). \cite{saenz_estimating_2015} additionally describes in detail an algorithm to compute Lorenz' reference state in an efficient way. They associate the computation of $Z_r(\rho)$ from the computation of the Level of Neutral Buoyancy (their LNB) and they separate it from the computation of Lorenz' reference state that is obtained first by inverting a non-linear relation. This algorithm is claimed to be much more efficient than classical redistribution adiabatic algorithms based on \citep{winters_available_1995}.\\
-Beyond the definition of a reference state and more precisely beyond the definition of a reference profile, several underlying ideas can be found:\\
+
+Both \cite{saenz_estimating_2015} and Tailleux in his latest publications \citep{tailleux_local_2018} insist on the fact that Lorenz reference state is difficult to define and compute. As a consequence, these studies are dedicated to the evaluation of the errors and discrepancies when simpler and easier-to-obtain reference states are defined (horizontal averaged...). \cite{saenz_estimating_2015} additionally describes in detail an algorithm to compute Lorenz' reference state in an efficient way. They associate the computation of $Z_r(\rho)$ from the computation of the Level of Neutral Buoyancy (their LNB) and they separate it from the computation of Lorenz' reference state that is obtained first by inverting a non-linear relation. This algorithm is claimed to be much more efficient than classical redistribution adiabatic algorithms based on \citep{winters_available_1995}.
+
+Beyond the definition of a reference state and more precisely beyond the definition of a reference profile, several underlying ideas can be found:
 \begin{itemize}
 \setlength\itemsep{0pt}
 	\item The reference state is a basic (not necessarily resting but possibly balanced) state to which full dynamics is to be compared.
 	\item The Boussinesq assumption is itself based on the choice of a reference (constant) density (usually named here $\tilde{\rho}_{0}$) that is subtracted from the 3D total density. An hydrostatic pressure $p_{00}$ is defined by $\partial p_{00}/ \partial z=-\tilde{\rho}_{0} g$. Subtracting directly a vertically-varying reference density $\tilde{\rho}_{0}(z)$ leads to the less restrictive anelastic assumption. Interestingly enough, this Boussinesq reference state $(\tilde{\rho}_{0},\ p_{00})$ can be associated to the thermodynamic equilibrium state. \cite{tailleux_energetics_2009,tailleux_thermodynamicsdynamics_2012} associates this reference state to the \textit{internal dead energy} compartment (named $IE0$) concluding that "the viscous dissipation of kinetic energy (hereafter KE) and the diffusive dissipation of APE" increase the reference temperature $T_{00}$ (decreasing $\tilde{\rho}_{0}$) by increasing the IE0 (page 9 of the latter publication).
 	\item The reference profile (named here $\rho_0$) with both time and space (vertical) dependencies is then defined by $\rho(t,\mathbf{x})=\tilde{\rho}_{0}+\rho_0(t,z)+\rho'(t,\mathbf{x})$.  \cite{tailleux_thermodynamicsdynamics_2012} (still page 9) further claims that "turbulent mixing smooths out the vertical gradient of $\rho_0(t,z)$ after defining the exergy compartment of the internal energy. An hydrostatic pressure component $p_0$ can then be defined in association with $\rho_0$.
-	\item The reference state $\rho_0(t,z)$ is additionally used by \citep{andrews_note_1981} and \citep{tailleux_local_2018} to decompose the available energy into its elastic and potential compartments. This is done by defining two states. A transformation can be applied to a given fluid volume in such a way that its entropy, salinity and pressure $(\eta,S,p)$ themselves transformed (i) into $(\eta,S,\tilde{p}_0(t,z))$ (changing his pressure the reference pressure at $(t,z)$ while keeping $\eta$ and $s$ constant) and (ii) into $(\eta,S,p_0(z_r))$ (transferring the particulate to its "Level of Neutral Buoyancy" (LNB) given by $z=z_r$ while keeping $\eta$ and $S$ constant. \\
+	\item The reference state $\rho_0(t,z)$ is additionally used by \citep{andrews_note_1981} and \citep{tailleux_local_2018} to decompose the available energy into its elastic and potential compartments. This is done by defining two states. A transformation can be applied to a given fluid volume in such a way that its entropy, salinity and pressure $(\eta,S,p)$ themselves transformed (i) into $(\eta,S,\tilde{p}_0(t,z))$ (changing his pressure the reference pressure at $(t,z)$ while keeping $\eta$ and $s$ constant) and (ii) into $(\eta,S,p_0(z_r))$ (transferring the particulate to its "Level of Neutral Buoyancy" (LNB) given by $z=z_r$ while keeping $\eta$ and $S$ constant. 
 %\textit{Link to be studied with \cite{mcdougall_potential_2003}'s conservation of potential enthalpy}.
 \end{itemize}
 
@@ -382,7 +394,7 @@ Beyond the definition of a reference state and more precisely beyond the definit
 %%& && = \underbrace{\frac{1}{2}\hat{\rho}_{0} g S (\bar{\zeta^2}-H^2)}_{E_{b,0}} + \underbrace{ \int_x \int_0^1 \rho' g z h ds dx}_{E_b'}
 %\end{alignat}
 %\end{subequations}
-
+%
 %\subsubsection{Potiential Energy subdivision V2 }
 %$\rightarrow$  $z=0$ is taken at the bottom so that $\zeta$ is the total %water column height (not anomaly)$\leftarrow$ 
 %\begin{subequations}
@@ -393,7 +405,7 @@ Beyond the definition of a reference state and more precisely beyond the definit
 %& && = \underbrace{\frac{1}{2} \hat{\rho}_{0} g \int_x \zeta^2 dx}_{U} + %\underbrace{ \int_x \int_0^1 \rho' g z h ds dx}_{PE'}
 %\end{alignat}
 %\end{subequations}
-
+%
 %The first right hand term denoted U (analogous to term S of Howland %2020(ref)) can further be decomposed as :
 %\begin{subequations}
 %\begin{alignat}{2}
@@ -401,7 +413,7 @@ Beyond the definition of a reference state and more precisely beyond the definit
 %& && =\frac{1}{2} \hat{\rho}_{0} g \int_x \zeta^2 dx \ge 0
 %\end{alignat}
 %\end{subequations}
-
+%
 %This term can further be decomposed into
 %\begin{subequations}
 %\begin{alignat}{2}
@@ -432,9 +444,9 @@ Beyond the definition of a reference state and more precisely beyond the definit
 %\end{alignat}
 %\end{subequations}
 \color{black}
-  
+  %
 %Potential energies are given by:
-
+%
 %\begin{subequations}
 %  \begin{alignat}{2}
 %  \displaystyle 
@@ -444,7 +456,7 @@ Beyond the definition of a reference state and more precisely beyond the definit
 %  &E_b &&=\int_x \int_{-1}^0 \rho h \tilde{E}_b \ dx ds
 %  \end{alignat}
 %\end{subequations}
-
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Balance of PE in s-coordinates}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -777,8 +789,10 @@ We have additionally shown that the material derivative of $z^*$ was a function 
 %----------------------------------------------------------------------------  
 \subsection{Numerical implementation of the \textit{ocean model}}
 %----------------------------------------------------------------------------
-Ocean models whether dedicated to global, regional or even coastal scales are traditionally based the Boussinesq and hydrostatic assumption \citep{griffies_elements_2012,shchepetkin_regional_2005}. The present study is a step toward the explicit simulation of at least the larger turbulent eddies in a realistic context and, as a consequence, a non-hydrostatic numerical approach is required. \cite{auclair_non-hydrostatic_2018} concluded that an efficient non-hydrostatic, free-surface, mode-splitting numerical model of the ocean could be designed relaxing also the Boussinesq approximation. Doing so, the authors chose to work with local equations and not to solve for a 3D Poisson equation to diagnose total pressure. Doing so they follow the choices made in meso-scale atmospheric modeling by \cite{skamarock_prototypes_2001}. The compressible (non-Boussinesq) approach is original in ocean modeling and in particular in free-surface, ocean modeling. Indeed \cite{marshall_finite-volume_1997} or \cite{auclair_non-hydrostatic_2011} chose to retain the Boussinesq assumption. A consequence is that the complete \textit{ocean model} presented in \S\ref{section_prim_eq} can be solved numerically.\\
-The computing cost of such a non-hydrostatic, compressible, free-surface approach can quickly become prohibitive especially because the explicit modeling of fine scales requires high-resolution grids. Following the conclusions of the COMODO french community\footnote{COMODO gathered the french ocean modeling community. It was sponsored by the French ANR eponymous project (2011-2016).}, the compressible and free-surface algorithm developed by \cite{auclair_non-hydrostatic_2018} has been implemented in the ROMS-AGRIF branch of the ROMS ocean models \citep{shchepetkin_regional_2005}. This choice was justified by the great efficiency of Shchepelkin's time-splitting and time-stepping and more generally by the experience accumulated in ROMS community during the last decade.\\
+Ocean models whether dedicated to global, regional or even coastal scales are traditionally based the Boussinesq and hydrostatic assumption \citep{griffies_elements_2012,shchepetkin_regional_2005}. The present study is a step toward the explicit simulation of at least the larger turbulent eddies in a realistic context and, as a consequence, a non-hydrostatic numerical approach is required. \cite{auclair_non-hydrostatic_2018} concluded that an efficient non-hydrostatic, free-surface, mode-splitting numerical model of the ocean could be designed relaxing also the Boussinesq approximation. Doing so, the authors chose to work with local equations and not to solve for a 3D Poisson equation to diagnose total pressure. Doing so they follow the choices made in meso-scale atmospheric modeling by \cite{skamarock_prototypes_2001}. The compressible (non-Boussinesq) approach is original in ocean modeling and in particular in free-surface, ocean modeling. Indeed \cite{marshall_finite-volume_1997} or \cite{auclair_non-hydrostatic_2011} chose to retain the Boussinesq assumption. A consequence is that the complete \textit{ocean model} presented in \S\ref{section_prim_eq} can be solved numerically.
+
+The computing cost of such a non-hydrostatic, compressible, free-surface approach can quickly become prohibitive especially because the explicit modeling of fine scales requires high-resolution grids. Following the conclusions of the COMODO french community\footnote{COMODO gathered the french ocean modeling community. It was sponsored by the French ANR eponymous project (2011-2016).}, the compressible and free-surface algorithm developed by \cite{auclair_non-hydrostatic_2018} has been implemented in the ROMS-AGRIF branch of the ROMS ocean models \citep{shchepetkin_regional_2005}. This choice was justified by the great efficiency of Shchepelkin's time-splitting and time-stepping and more generally by the experience accumulated in ROMS community during the last decade.
+
 The simulation of the strait of Gibraltar is the very first realistic implementation of the non-hydrostatic, compressible, free-surface kernel of CROCO \citep{hilt_numerical_2020}.
 \color{black}
 %----------------------------------------------------------------------------  
@@ -797,7 +811,8 @@ with $p_h(\mathbf{x},t)$ the hydrostatic pressure component and $\delta p(\mathb
 	\label{decompor_0}
   \rho(T,S,p)=\rho_{\theta S}(T,S,p_0)+\frac{p_h+\delta p-p_0}{c_s^2}+\mathcal{O}(\delta p^2)
 \end{equation}
-for a reference, slow component of pressure $p_0$ which is most often chosen different from the hydrostatic pressure in numerical models.\\
+for a reference, slow component of pressure $p_0$ which is most often chosen different from the hydrostatic pressure in numerical models.
+
 Numerical constraints associated to the various transfers of anomalies can basically be classified into three categories depending if they are associated to compressibility (acoustic waves..), surface-induced processes (surface gravity waves...) or internal-ocean (incompressible) processes (internal gravity waves, advection, diffusion, buoyancy-induced processes...). Orders of magnitude of maximum velocities in a deep ocean of each category are respectively given by $v[\delta p]\approx \mathcal{O}(1500\ m/s)$, $v[p_\zeta]\approx\sqrt{g H}\approx \mathcal{O}(100\ m/s)$ and $v[p_{int},\ ...]\approx \mathcal{O}(1\ m/s)$ leading to at least two spectral gaps in terms of velocities in the ocean:
 \begin{equation}
 	\displaystyle
@@ -805,8 +820,9 @@ Numerical constraints associated to the various transfers of anomalies can basic
 	v[p_{int},\ ...] \ll v[p_\zeta] \ll v[\delta p]
 \end{equation} 
 This hierarchy of velocity (and thus time) scales and the associated gaps constitute the basis to develop time-splitting approaches for numerical models of the ocean.
-Under free-surface, Boussinesq and hydrostatic assumptions, the time-splitting procedure implemented in ROMS model \citep{shchepetkin_regional_2005} filters for instance acoustic and non-hydrostatic processes and takes advantage of the gap $v[p_{int},\ ...] \ll v[p_\zeta]$. It can be formulated as a decomposition of the pressure between a 2D surface-induced pressure-component (named external or barotropic-like component) $\bar{p}_h(\mathbf{x},t)$ and a 3D density-induced (internal or baroclinic-like) pressure-component $p_h'(\mathbf{x},t)$. \\
-The time-splitting approach for a more general free-surface, non-hydrostatic and compressible ocean can also be based on \ref{velocityscales}. The procedure is yet different from that used for hydrostatic ocean models. In the latter, coupling is based on the separation of the velocity field between a "barotropic-like", depth-averaged component and a "baroclinic-like" anomaly. Faster, surface-induced component of the pressure force is integrated with a small time-step and after each integration sequence of the external mode, the depth-averaged component of the internal-mode velocity is forced to fit to the external-mode, depth-averaged velocity. Separating the "fast" and "slow" components of momentum in a compressible model to integrate them separately is not that simple and more importantly, it is not even necessary. The time-splitting procedure proposed here is indeed based on the splitting of the terms on the RHS of the prognostic and diagnostic equations of the ocean model. Two coupled models (hereafter called the slow and fast numerical kernel) are then integrated in turn. The slow (respectively fast) kernel is advanced with a larger (smaller) time-step computing explicitly slowly-varying (rapidly-varying) terms at the RHS and implicitely the remaining terms which are given by the other kernel. A time-filtering procedure is implemented to force both the slow and fast mode in a similar way to \cite{shchepetkin_regional_2005}.
+Under free-surface, Boussinesq and hydrostatic assumptions, the time-splitting procedure implemented in ROMS model \citep{shchepetkin_regional_2005} filters for instance acoustic and non-hydrostatic processes and takes advantage of the gap $v[p_{int},\ ...] \ll v[p_\zeta]$. It can be formulated as a decomposition of the pressure between a 2D surface-induced pressure-component (named external or barotropic-like component) $\bar{p}_h(\mathbf{x},t)$ and a 3D density-induced (internal or baroclinic-like) pressure-component $p_h'(\mathbf{x},t)$. 
+
+The time-splitting approach for a more general free-surface, non-hydrostatic and compressible ocean can also be based on \ref{velocityscales}. The procedure is yet different from that used for hydrostatic ocean models. In the latter, coupling is based on the separation of the velocity field between a "barotropic-like", depth-averaged component and a "baroclinic-like" anomaly. Faster, surface-induced component of the pressure force is integrated with a small time-step and after each integration sequence of the external mode, the depth-averaged component of the internal-mode velocity is forced to fit to the external-mode, depth-averaged velocity. Separating the "fast" and "slow" components of momentum in a compressible model to integrate them separately is not that simple and more importantly, it is not even necessary. The time-splitting procedure proposed here is indeed based on the splitting of the terms on the RHS of the prognostic and diagnostic equations of the ocean model. Two coupled models (hereafter called the slow and fast numerical kernel) are then integrated in turn. The slow (respectively fast) kernel is advanced with a larger (smaller) time-step computing explicitly slowly-varying (rapidly-varying) terms at the RHS and implicitely the remaining terms which are given by the other kernel. A time-filtering procedure is implemented to force both the slow and fast mode in a similar way to \citet{shchepetkin_regional_2005}.
 
 \subsubsection{Pressure and density decompositions}
 The splitting of the processes depending on the magnitude of their time-scale relies essentialy on a decomposition of the pressure and density fields. Following \cite{auclair_modied_2021}, the pressure decomposition \ref{decompoP_0} can be further developed for a free-surface ocean:
@@ -881,7 +897,8 @@ This splitting conserves basically the formulation of the horizontal momentum eq
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Time-stepping}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The time-splitting and time-stepping proposed in the following build both on \cite{shchepetkin_regional_2005} and on \cite{auclair_non-hydrostatic_2018}.   \cite{shchepetkin_regional_2005}'s LFAM3, predictor-corrector time-stepping is indeed implemented in the slow kernel while a Forward-Backward (FB) scheme is used to integrate the fast-mode. The introduction of a compressible, non-hydrotatic kernel is taken from \cite{auclair_non-hydrostatic_2018}.\\
+The time-splitting and time-stepping proposed in the following build both on \cite{shchepetkin_regional_2005} and on \cite{auclair_non-hydrostatic_2018}.   \cite{shchepetkin_regional_2005}'s LFAM3, predictor-corrector time-stepping is indeed implemented in the slow kernel while a Forward-Backward (FB) scheme is used to integrate the fast-mode. The introduction of a compressible, non-hydrotatic kernel is taken from \cite{auclair_non-hydrostatic_2018}.
+
 Figure \ref{ModelTS} gives a schematic representation of the predictor-corrector implementation of the slow and fast kernels based on ROMS baroytropic/baroclinic time-splitting and both the time-splitting and the various time-stepping are summarized in Equations \ref{TimeSplit}.
 \begin{figure}[!h]
 	\centering		
@@ -1206,7 +1223,8 @@ Note in particular the definition of the slope $\mathbf{S}$ and its norm $S=\nor
    \mathbf{S}=\mathbf{\nabla}_s z=
    -\frac{\partial z}{\partial s}\mathbf{\nabla}_z s=\left( S_x,\ S_y,\ 0 \right)
 \end{equation}
-where $\mathbf{\nabla}_s z$ is "the horizontal gradient of the height of a fluid parcel as taken along surfaces of constant generalized vertical coordinate s" \citep{griffies_fundamentals_2004}.\\
+where $\mathbf{\nabla}_s z$ is "the horizontal gradient of the height of a fluid parcel as taken along surfaces of constant generalized vertical coordinate s" \citep{griffies_fundamentals_2004}.
+
 Note that this orthonormal basis is not used to project the equations of the model. S-coordinates are "only" used as a change of variable whereas equations and vector quantities remain written in the original Cartesian or spherical basis. The present s-coordinate orthonormal basis is presented here to be latter used in the computation of fluxes through s-surfaces.
 
 
@@ -1247,7 +1265,8 @@ Note that this is a particular case of the formulation of a change of variables 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Two general conservative formulations can be obtained combining this with the continuity equation \citep{auclair_woceanfr_2011}\footnote{WOcean.fr Web Site: \url{http://poc.omp.obs-mip.fr/auclair/WOcean.fr/SNH/Restricted/NH-NBQ/Sources/Images/png/Coord_demo.png}\label{WOcean_scoord}}.
 
-$A$ is a property given per unit mass (thermodynamically intensive) (see the demonstration on web site). The first two (conservative) relations are fundamentals to analytical and numerical modeling.\\
+$A$ is a property given per unit mass (thermodynamically intensive) (see the demonstration on web site). The first two (conservative) relations are fundamentals to analytical and numerical modeling.
+
 
 \textbf{\textit{Based on the conservation of mass:}}
 \begin{equation}
@@ -1306,7 +1325,7 @@ Based on \citep{delhaye_thermohydraulique_2008}, let $\mathbf{v}_{\Sigma}$ be th
 	\displaystyle
 	\mathbf{v}_{\Sigma}=\frac{\partial \mathbf{x}}{\partial t}\bigg\rvert _{\Sigma}
 \end{equation}
-with $\mathbf{x}$ the position of the current point where the velocity is computed. This velocity is undetermined  since the tangential component is itself undetermined. Only its normal component $(\mathbf{n}_{\Sigma}.\mathbf{v}_{\Sigma})$ can be computed and isolated. This component is different from the vertical component of $\mathbf{v}_{\Sigma}$ of equation \ref{eq_vertvelcomp}.\\
+with $\mathbf{x}$ the position of the current point where the velocity is computed. This velocity is undetermined  since the tangential component is itself undetermined. Only its normal component $(\mathbf{n}_{\Sigma}.\mathbf{v}_{\Sigma})$ can be computed and isolated. This component is different from the vertical component of $\mathbf{v}_{\Sigma}$ of equation \ref{eq_vertvelcomp}.
 
 Demonstrations and further expressions of the normal component can be found in \citet{griffies_fundamentals_2004}, \citet{griffies_elements_2012} and \citet{delhaye_thermohydraulique_2008}.
 \begin{subequations}
@@ -1335,8 +1354,10 @@ The difficulty to compute:
  \displaystyle
  \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau
 \end{equation}
-is due to the fact that for a general time-varying volume $\mathcal{V}(t)$ the differentiation cannot be taken through the internal sign. To do so, we can however consider a change of coordinates to volume-attached coordinates \citep{hirasaki_chapter_2021}. Let $\mathcal{J}$ be the Jacobian (determinant of the Jacobian matrix) of the change of variables from Cartesian coordinates $(\mathbf{x},t)$ to volume varying coordinates $(\boldsymbol{\xi},t)$. Integrating volume is $\mathcal{V}(t)=\mathcal{V}_{\xi}=\mathcal{V}_{\xi}(t)$.\\
-Kinematic evolution of material particulate ("dilation kinematic theorem") is then nothing but Reynolds'transport theorem (which is equivalent to Leibniz derivation rule to 3D volumes) \citep{hirasaki_chapter_2021}. Caution: the demonstration given in \citep{hirasaki_chapter_2021} is for a material volume $\mathcal{V}_M$. As the demonstration is kinematic, it is generalized here to a general volume moving thought the fluid flow $(\mathcal{V}(t))$. This problem is dealt with in \cite{web_course_web_2021} (and further references are given in there).\\
+is due to the fact that for a general time-varying volume $\mathcal{V}(t)$ the differentiation cannot be taken through the internal sign. To do so, we can however consider a change of coordinates to volume-attached coordinates \citep{hirasaki_chapter_2021}. Let $\mathcal{J}$ be the Jacobian (determinant of the Jacobian matrix) of the change of variables from Cartesian coordinates $(\mathbf{x},t)$ to volume varying coordinates $(\boldsymbol{\xi},t)$. Integrating volume is $\mathcal{V}(t)=\mathcal{V}_{\xi}=\mathcal{V}_{\xi}(t)$.
+
+Kinematic evolution of material particulate ("dilation kinematic theorem") is then nothing but Reynolds'transport theorem (which is equivalent to Leibniz derivation rule to 3D volumes) \citep{hirasaki_chapter_2021}. Caution: the demonstration given in \citep{hirasaki_chapter_2021} is for a material volume $\mathcal{V}_M$. As the demonstration is kinematic, it is generalized here to a general volume moving thought the fluid flow $(\mathcal{V}(t))$. This problem is dealt with in \cite{web_course_web_2021} (and further references are given in there).
+
 As a consequence for a general volume $\mathcal{V}(t)$ moving at a 3D velocity $  \mathbf{v}_{\Sigma}$:
 \begin{equation}
  \displaystyle
@@ -1440,14 +1461,16 @@ or alternatively:
   + \iiint_{\mathcal{V}(t)}\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right]d\tau
     \end{alignat}
 \end{subequations}
-where $  \mathbf{v}_{\Sigma}$ is defined as the velocity of the closed surface of $\mathcal{V}(t)$ and is more generally the 3D displacement velocity of the volume $\mathcal{V}(t)$.\\
+where $  \mathbf{v}_{\Sigma}$ is defined as the velocity of the closed surface of $\mathcal{V}(t)$ and is more generally the 3D displacement velocity of the volume $\mathcal{V}(t)$.
+
  Caution: this has nothing to do with the velocity of the fluid in this volume except in the following particular case when considering a material volume, i.e. in the Lagrangian approach.
 These general formulations and demonstrations are useful in s-coordinates.
 
 \subsubsection{Material volume $\mathcal{V}_M(t)$ (kinematics \& dynamics)}
 \paragraph{Formulation of the transport theorem.} 
 A material volume $\mathcal{V}_M(t)$ is defined as a volume containing exactly the same fluid particles as time goes on.
-Simplifications to obtain the simple expression of the integral variations in the case of a moving material volume are based on the use of the continuity equation or conservation of mass. \\
+Simplifications to obtain the simple expression of the integral variations in the case of a moving material volume are based on the use of the continuity equation or conservation of mass. 
+
 As the control volume is advected by mean flow (Lagrangian approach), $  \mathbf{v}_{\Sigma}=\mathbf{v}$ :
 \begin{equation}
   \displaystyle 
@@ -1565,7 +1588,7 @@ recovering  the results from the Eulerian approach and the previous more general
 (explique que peut rentrer derive temp et espace parce que en prenant bornes s-coordinate les bornes de l'intergrales ne bougent pas)
 
 
-In s-coordinates, the ocean column behaves as a material volume in the vertical direction but not in the horizontal direction where it a fixed-in-time control volume. For a volume associated to the s-coordinate grid: $  \mathbf{v}_{\Sigma}=\mathbf{v}_h+\mathbf{v}_z-\mathbf{v}_s$. This is the vertical velocity of the iso-s surfaces. The integration volume in s-coordinates is a sum of "waters columns" and is named $\mathcal{V}_s$. \\
+In s-coordinates, the ocean column behaves as a material volume in the vertical direction but not in the horizontal direction where it a fixed-in-time control volume. For a volume associated to the s-coordinate grid: $  \mathbf{v}_{\Sigma}=\mathbf{v}_h+\mathbf{v}_z-\mathbf{v}_s$. This is the vertical velocity of the iso-s surfaces. The integration volume in s-coordinates is a sum of "waters columns" and is named $\mathcal{V}_s$. 
 
 \paragraph{Kinematic-Dynamic evolution (Left-Hand-Side).}
 In an Eulerian approach, the depth-to-surface integration can be carried out using \ref{mass_s} with $J=h(t,\mathbf{x},z)$:
@@ -1606,7 +1629,8 @@ Since the ocean bottom boundary is supposed to remain stationary, this leads eve
 \end{subequations}
 
 \paragraph{Using the kinematic condition.}
-Caution: to recover this relation based on the kinematic condition, one has to remember that $\mathbf{v}_{\Sigma}$ is indeterminate \citep{delhaye_thermohydraulique_2008}. Its component tangent to the iso-s surface depends in particular on the parametrization of this surface. The component orthogonal to this surface can however be computed. As a consequence, one has to consider the product $\mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}$ rather than $\mathbf{v}_{\Sigma}$ alone. \\
+Caution: to recover this relation based on the kinematic condition, one has to remember that $\mathbf{v}_{\Sigma}$ is indeterminate \citep{delhaye_thermohydraulique_2008}. Its component tangent to the iso-s surface depends in particular on the parametrization of this surface. The component orthogonal to this surface can however be computed. As a consequence, one has to consider the product $\mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}$ rather than $\mathbf{v}_{\Sigma}$ alone. 
+
 The previous relation can then be recovered writing:
 \begin{subequations}
   \begin{alignat}{2}
