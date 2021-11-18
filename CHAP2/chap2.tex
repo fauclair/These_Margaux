@@ -1,20 +1,25 @@
-\hypersetup{pdfborder=0 0 0}
 
-\color{blue}
-\section{Résumé de l'article}
-Le présent chapitre présente de façon détaillée le \textit{modèle d'océan} utilisé dans le cadre de ma thèse pour simuler numériquement les grandes échelles turbulentes (ou LES$^{\noparref{LES}}$) dans la région du détroit de Gibraltar mais aussi, plus généralement, pour développer des modèles analytiques simplifiés de processus au service de cette approche numérique. Plusieurs sections du chapitre ont été intégrées à des publications acceptées \citep{hilt_numerical_2020}, \citep{auclair_modied_2021} ou en cours de rédaction en parallèle du présent manuscrit \citep{auclair_NBQ1_2021} mais aussi à au rapport du contrat SHOM Gibraltar \citep{auclair_modelisation_2019}. L'ensemble du chapitre a par conséquent été rédigé en anglais.
+\section{Résumé du chapitre en français}
+Le présent chapitre présente de façon détaillée le \textit{modèle d'océan} utilisé dans le cadre de ma thèse pour simuler numériquement les grandes échelles turbulentes (ou LES$^{\noparref{LES}}$) dans la région du détroit de Gibraltar mais aussi, plus généralement, pour développer des modèles analytiques simplifiés de processus au service de cette approche numérique. Plusieurs sections du chapitre ont été intégrées à des publications acceptées \citep{hilt_numerical_2020}, \citep{auclair_modied_2021} ou en cours de rédaction en parallèle du présent manuscrit \citep{auclair_NBQ1_2021} mais aussi au rapport du contrat SHOM Gibraltar \citep{auclair_modelisation_2019}. L'ensemble du chapitre a par conséquent été rédigé en anglais.
 
-Ce \textit{modèle d'océan} est suffisamment général pour autoriser la représentation explicite d'une large gamme de processus allant des ondes et modes acoustiques dans un océan compressible aux structures turbulentes fondamentalement non-hydrostatiques de \textit{fine échelle} (associées par exemple à des instabilités de Kelvin-Helmholtz) en passant par des processus ondulatoires internes de grande amplitude (tels que les solitons).
+Dans une première partie (\S \ref{section_prim_eq}) sont introduites les équations de conservations usuelle de l'océanographie physique, dont l'équation de Navier-Stokes, point de départ du développement du \textit{modèle d'océan}. Le choix est ensuite fait de se placer dans le contexte d'une grille verticale curviligne qui permet d'épouser la forme des fonds marins et de suivre le déplacement de la surface libre de l'océan (dont un certain nombres de développements ont aussi présentés en annexe (\noparref{section_annexe2})). Dans ce cadre, l'expression de l'évolution de l'énergie potentielle gravitationnelle (PE) et de ses sous-compartiments, énergie disponible (APE) et énergie de fond (BPE), est développée dans un volume local d'océan dans la section \ref{section_PE_chap2}.
 
-Ce \textit{modèle d'océan} a en outre servi de base au développement communautaire du cœur non-hydrostatique, compressible et à surface libre CROCO, développement auquel j'ai contribué de façon active durant la préparation de ma thèse de doctorat. Sur le plan purement numérique tout d'abord, avec l'implémentation et l'évaluation de nouveaux schémas numériques dans un contexte pleinement réaliste et la mise en œuvre de stratégies originales pour la LES. Sur le plan de la dynamique océanique ensuite, avec la réalisation d'études de processus de fine échelle et l'étude des interactions complexes entre ces processus.
+En particulier, l'évolution de la BPE fait apparaître un terme source lié aux mouvements de la surface libre. Comme l'évolution de la BPE est lié au mélange diapycnale, la bonne expression de son bilan est impérative afin de développer des diagnostiques de quantifications de mélange se basant sur cette méthode.
 
-Ce \textit{modèle d'océan} a de plus servi de base au développement dans le cadre de ma thèse de diagnostiques originaux dédiés à la simulation des grandes échelles turbulentes océaniques (LES) dans un contexte réaliste: évaluation quantitative du mélange turbulent (\S \noparref{chapter_bpe}), mise en évidence et caractérisation de ces structures, études de ressauts hydrauliques (\S \noparref{PartDiag3D})...
+Dans la deuxième partie du chapitre (section \ref{section_croco}), est présenté le fonctionnement du code communautaire à cœur non-hydrostatique, compressible et à surface libre CROCO, basé sur le \textit{modèle d'océan} de la première partie. 
+L'implémentation numérique de ce \textit{modèle d'océan} a demandé d'importants développements tant algorithmiques que numériques, développements qui ne peuvent être menés à bien s'ils ne demeurent le reflet direct de la physique de l'océan. Parce qu'il est très général, ce \textit{modèle d'océan} peut réaliser la synthèse de processus dynamique dans une gamme très étendue d'échelles spatio-temporelle depuis la circulation basse fréquence, jusqu'aux ondes acoustiques. Ce sont plus spécifiquement les plus fines échelles et les plus hautes fréquences qui peuvent imposer les plus lourdes restrictions à l'approche numérique envisagée, ce sont donc les processus associés et en particulier les processus ondulatoires acoustiques ou gravitaires qui ont été étudiés en priorité. 
 
-L'implémentation numérique de ce \textit{modèle d'océan} a demandé d'importants développements tant algorithmiques que numériques, développements qui ne peuvent être menés à bien s'ils ne demeurent le reflet direct de la physique de l'océan. Parce qu'il est très général, ce \textit{modèle d'océan} peut réaliser la synthèse de processus dynamique dans une gamme très étendue d'échelles spatio-temporelle depuis la circulation basse fréquence, jusqu'aux ondes acoustiques. Ce sont plus spécifiquement les plus fines échelles et les plus hautes fréquences qui peuvent imposer les plus lourdes restrictions à l'approche numérique envisagée, ce sont donc les processus associés et en particulier les processus ondulatoires acoustiques ou gravitaires qui ont été étudiés en priorité. En parallèle des développements numériques et des travaux sur la dynamique de la région du détroit de Gibraltar menés dans le cadre de la présente thèse de doctorat, a été développé et publié un modèle analytique suffisamment général pour décrire la dispersion des ondes et des modes acoustiques, des ondes et des modes internes de gravité ou encore des ondes de gravité de surface \citep{auclair_modied_2021}. Le modèle analytique de dispersion a de plus été utilisé pour explorer la dynamique ondulatoire dans la région du détroit de Gibraltar.
-J'ai participé et co-signé cette étude en support du développement numérique de CROCO, étude qui n'a pas été incluse dans le présent manuscrit.\\
-Dans une première partie, les équations analytiques servant de base à ce \textit{modèle d'océan} sont présentées (\noparref{section_prim_eq}), l'approche numérique choisie et co-développée pour le coeur numérique non-hydrostatique, compressible et à surface libre de CROCO est détaillée en partie \ref{section_croco}. Un certain nombre de développements sont enfin présentés dans les annexes (\noparref{section_annexe2}).
+%Ce \textit{modèle d'océan} est suffisamment général pour autoriser la représentation explicite d'une large gamme de processus allant des ondes et modes acoustiques dans un océan compressible aux structures turbulentes fondamentalement non-hydrostatiques de \textit{fine échelle} (associées par exemple à des instabilités de Kelvin-Helmholtz) en passant par des processus ondulatoires internes de grande amplitude (tels que les solitons).
 
-\color{black}
+J'ai participé à une partie des développements de CROCO durant ma thèse, sur le plan purement numérique tout d'abord, avec l'implémentation et l'évaluation de nouveaux schémas numériques dans un contexte pleinement réaliste et la mise en œuvre de stratégies originales pour la LES. Sur le plan de la dynamique océanique ensuite, avec la réalisation d'études de processus de fine échelle et l'étude des interactions complexes entre ces processus.
+
+%Ce \textit{modèle d'océan} a de plus servi de base au développement dans le cadre de ma thèse de diagnostiques originaux dédiés à la simulation des grandes échelles turbulentes océaniques (LES) dans un contexte réaliste: évaluation quantitative du mélange turbulent (\S \noparref{chapter_bpe}), mise en évidence et caractérisation de ces structures, études de ressauts hydrauliques (\S \noparref{PartDiag3D})...
+
+En parallèle des développements numériques et des travaux sur la dynamique de la région du détroit de Gibraltar menés dans le cadre de la présente thèse de doctorat, a été développé et publié un modèle analytique suffisamment général pour décrire la dispersion des ondes et des modes acoustiques, des ondes et des modes internes de gravité ou encore des ondes de gravité de surface \citep{auclair_modied_2021}. Le modèle analytique de dispersion a de plus été utilisé pour explorer la dynamique ondulatoire dans la région du détroit de Gibraltar.
+J'ai participé et co-signé cette étude en support du développement numérique de CROCO, étude qui n'a pas été incluse dans le présent manuscrit.
+
+%Dans une première partie, les équations analytiques servant de base à ce \textit{modèle d'océan} sont présentées (\noparref{section_prim_eq}), l'approche numérique choisie et co-développée pour le coeur numérique non-hydrostatique, compressible et à surface libre de CROCO est détaillée en partie \ref{section_croco}. Un certain nombre de développements sont enfin présentés dans les annexes (\noparref{section_annexe2}).
+
 
 \section{A non-hydrostatic, compressible, free-surface ocean model}
 \label{section_prim_eq}
@@ -317,6 +322,7 @@ with $\bigg[ \int_{x} \rho A v_s \ ds\bigg]_{0}^1 = 0$ since $v_s$ is void at th
 
 
 \subsection{Decomposition of potential energy balance in a free-surface ocean}
+\label{section_PE_chap2}
 
 The \textit{ocean model} proposed and detailed so far is self-consistent and can lead to the description of numerous dynamical processes over a wide range of space-time scales. To proceed, one needs to develop dedicated diagnostics and to focus on the mechanisms of particular interest. In this context, a central objective of the present study is to explicitly simulate large turbulent eddies in order to improve the representation of the transformation of water masses. In other words, the (implicit) modeling or the (explicit) simulation of \textit{mixing} is at stake.
 
@@ -335,18 +341,18 @@ The state of the stratification after the adiabatical reorganization of \citet{l
 \end{equation}
 The evolution of BPE, through the evolution of the stratification profile $z^*$, reflects the adiabatic mixing processes that can then be quantified.
 
-However, both \cite{saenz_estimating_2015} and Tailleux in his latest publications \citep{tailleux_local_2018} insist on the fact that this Lorenz reference state of absolute minimum potential energy is difficult to define and compute \color{red}(due to numerical cost of sorting algorithm and non-linearity of the EOS)\color{black}. As a consequence, these studies are dedicated to the evaluation of the errors and discrepancies when simpler and easier-to-obtain reference states are defined (horizontal averaged, etc.). \cite{saenz_estimating_2015} additionally describes in detail an algorithm to compute Lorenz' reference state in an efficient way. They associate the computation of $Z^*(\rho)$ from the computation of the Level of Neutral Buoyancy (their LNB) and they separate it from the computation of Lorenz' reference state that is obtained first by inverting a non-linear relation. This algorithm is claimed to be much more efficient than classical adiabatic redistribution algorithms based on \citet{winters_available_1995}.
+However, both \cite{saenz_estimating_2015} and Tailleux in his latest publications \citep{tailleux_local_2018} insist on the fact that this Lorenz reference state of absolute minimum potential energy is difficult to define and compute (due to numerical cost of sorting algorithm, non-linearity of the EOS, etc.). As a consequence, these studies are dedicated to the evaluation of the errors and discrepancies when simpler and easier-to-obtain reference states are defined (horizontal averaged, etc.). \cite{saenz_estimating_2015} additionally describes in detail an algorithm to compute Lorenz' reference state in an efficient way. They associate the computation of $Z^*(\rho)$ from the computation of the Level of Neutral Buoyancy (their LNB) and they separate it from the computation of Lorenz' reference state that is obtained first by inverting a non-linear relation. This algorithm is claimed to be much more efficient than classical adiabatic redistribution algorithms based on \citet{winters_available_1995}.
 
-Beyond the definition of a reference state and more precisely beyond the definition of a reference profile, several underlying ideas can be found:
-\begin{itemize}
-\setlength\itemsep{0pt}
-	\item The reference state is a basic (not necessarily resting but possibly balanced) state to which full dynamics is to be compared.
-	\item The Boussinesq assumption is itself based on the choice of a reference (constant) density (usually named here $\tilde{\rho}_{0}$) that is subtracted from the 3D total density. An hydrostatic pressure $p_{00}$ is defined by $\partial p_{00}/ \partial z=-\tilde{\rho}_{0} g$. Subtracting directly a vertically-varying reference density $\tilde{\rho}_{0}(z)$ leads to the less restrictive anelastic assumption. Interestingly enough, this Boussinesq reference state $(\tilde{\rho}_{0},\ p_{00})$ can be associated to the thermodynamic equilibrium state. \cite{tailleux_energetics_2009,tailleux_thermodynamicsdynamics_2012} associates this reference state to the \textit{internal dead energy} compartment (named $IE0$) concluding that "the viscous dissipation of kinetic energy (hereafter KE) and the diffusive dissipation of APE" increase the reference temperature $T_{00}$ (decreasing $\tilde{\rho}_{0}$) by increasing the IE0 (page 9 of the latter publication).
-	\item The reference profile (named here $\rho_0$) with both time and space (vertical) dependencies is then defined by $\rho(t,\mathbf{x})=\tilde{\rho}_{0}+\rho_0(t,z)+\rho'(t,\mathbf{x})$.  \cite{tailleux_thermodynamicsdynamics_2012} (still page 9) further claims that "turbulent mixing smooths out the vertical gradient of $\rho_0(t,z)$ after defining the exergy compartment of the internal energy. An hydrostatic pressure component $p_0$ can then be defined in association with $\rho_0$.
-	\item The reference state $\rho_0(t,z)$ is additionally used by \citet{andrews_note_1981} and \citet{tailleux_local_2018} to decompose the available potential energy into its elastic and potential compartments. This is done by defining two states. A transformation can be applied to a given fluid volume in such a way that its entropy, salinity and pressure $(\eta,S,p)$ themselves transformed (i) into $(\eta,S,\tilde{p}_0(t,z))$ (changing the reference pressure at $(t,z)$ while keeping $\eta$ and $s$ constant) and (ii) into $(\eta,S,p_0(z_r))$ (transferring the particulate to its "Level of Neutral Buoyancy" (LNB) given by $z=z_r$ while keeping $\eta$ and $S$ constant. 
-%\textit{Link to be studied with \cite{mcdougall_potential_2003}'s conservation of potential enthalpy}.
-\end{itemize}
-How the reference profile is defined, and what each definition relates to, is crucial to work within the BPE framework. 
+%Beyond the definition of a reference state and more precisely beyond the definition of a reference profile, several underlying ideas can be found:
+%\begin{itemize}
+%\setlength\itemsep{0pt}
+%	\item The reference state is a basic (not necessarily resting but possibly balanced) state to which full dynamics is to be compared.
+%	\item The Boussinesq assumption is itself based on the choice of a reference (constant) density (usually named here $\tilde{\rho}_{0}$) that is subtracted from the 3D total density. An hydrostatic pressure $p_{00}$ is defined by $\partial p_{00}/ \partial z=-\tilde{\rho}_{0} g$. Subtracting directly a vertically-varying reference density $\tilde{\rho}_{0}(z)$ leads to the less restrictive anelastic assumption. Interestingly enough, this Boussinesq reference state $(\tilde{\rho}_{0},\ p_{00})$ can be associated to the thermodynamic equilibrium state. \cite{tailleux_energetics_2009,tailleux_thermodynamicsdynamics_2012} associates this reference state to the \textit{internal dead energy} compartment (named $IE0$) concluding that "the viscous dissipation of kinetic energy (hereafter KE) and the diffusive dissipation of APE" increase the reference temperature $T_{00}$ (decreasing $\tilde{\rho}_{0}$) by increasing the IE0 (page 9 of the latter publication).
+%	\item The reference profile (named here $\rho_0$) with both time and space (vertical) dependencies is then defined by $\rho(t,\mathbf{x})=\tilde{\rho}_{0}+\rho_0(t,z)+\rho'(t,\mathbf{x})$.  \cite{tailleux_thermodynamicsdynamics_2012} (still page 9) further claims that "turbulent mixing smooths out the vertical gradient of $\rho_0(t,z)$ after defining the exergy compartment of the internal energy. An hydrostatic pressure component $p_0$ can then be defined in association with $\rho_0$.
+%	\item The reference state $\rho_0(t,z)$ is additionally used by \citet{andrews_note_1981} and \citet{tailleux_local_2018} to decompose the available potential energy into its elastic and potential compartments. This is done by defining two states. A transformation can be applied to a given fluid volume in such a way that its entropy, salinity and pressure $(\eta,S,p)$ themselves transformed (i) into $(\eta,S,\tilde{p}_0(t,z))$ (changing the reference pressure at $(t,z)$ while keeping $\eta$ and $s$ constant) and (ii) into $(\eta,S,p_0(z_r))$ (transferring the particulate to its "Level of Neutral Buoyancy" (LNB) given by $z=z_r$ while keeping $\eta$ and $S$ constant. 
+%%\textit{Link to be studied with \cite{mcdougall_potential_2003}'s conservation of potential enthalpy}.
+%\end{itemize}
+It is crucial to know what state of the ocean a given reference state relates to in order to work within the BPE framework. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Balance of PE in s-coordinates}
@@ -509,7 +515,7 @@ The first RHS term of equation \ref{eq_evolBPE},
 g\int_{x} \int_{-1}^0 \rho h \frac{d z^*}{d t}\ dx ds \\
 \end{equation}
 
-is akin to a vertical buoyancy-flux term for the $z^*$ reference state. It vanishes for a volume of integration with fixed-in-time boundaries (\cite{winters_available_1995}, \cite{huang_mixing_1998} and many others...). But it has no particular reason to vanish when movements of the free-surface are taken into account.
+is akin to a vertical buoyancy-flux term for the $z^*$ reference state. It vanishes for a volume of integration with fixed-in-time boundaries (\cite{winters_available_1995}, \cite{huang_mixing_1998} and many others...). But it has no particular reason to vanish when movements of the free-surface are taken into account. This paragraph constitutes a proposition for its development in this case.
 
 Going back to a more general notation of our integral volume $V_{\zeta}$ and following \citet{huang_mixing_1998}, $z^*$ can be expressed as a function of the volume $v(\rho)$ of fluid with a density larger than $\rho$ :
 %En annexe de \citep{huang_mixing_1998}, on peut exprimer $z^*$ fonction de $v(\rho)$ le volume des parcelles de densité supérieures ou égales à $\rho$ :
@@ -536,7 +542,7 @@ with $S(z)$ the area at depth $z$.
 %\end{alignat}
 %\end{subequations}
 
-Using the s-coordinate formulation of Reynolds transport theorem of equation \color{red}(numéro equation utilisée...)\color{black} in the appendix's section \ref{annexe_reynolds}:
+Using the s-coordinate formulation of Reynolds transport theorem of equation \ref{eq_reyn_zeta} in the appendix's section \ref{annexe_reynolds}:
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle
@@ -566,7 +572,7 @@ As a consequence, the first RHS term expressed by \ref{RHS_BPE_1} can be rewritt
 \end{subequations}
 The first term at the RHS vanishes as shown for instance by \cite{huang_mixing_1998}. The second term, however, will be \textit{a priori} non-zero for any case of with moving free-surface.
 
-Note that with the definition of the Heaviside function, a way to interpret this term is that the contribution of the evolution of the free-surface elevation is only taken into account in the evolution of BPE for fluid parcels as light as the ones at the surface (ie, the parcels at the free-surface themselves), or lighter than them. This contribution for each parcel is then spread over $S(z^*(\rho))$, which in most cases should be the area at the level of the free-surface (but not the area of the deformed free-surface itself).
+Note that with the definition of the Heaviside function, a way to interpret this term is that the contribution of the evolution of the free-surface elevation is only taken into account in the evolution of BPE for fluid parcels as light as the ones at the surface (ie, the parcels at the free-surface themselves), or lighter than them. Those parcels are placed near the top of the reference state's profile, so that $S(z^*(\rho))$ is in most cases the area at the level of the free-surface (but not the area of the deformed free-surface itself).
 
 
  
@@ -834,31 +840,6 @@ A major difference with the hydrostatic time-splitting is that the surface eleva
 
 Note that the 2D depth-average, barotropic-like, horizontal momentum equations \ref{TimeSplitIIc} are advanced in the same way as in \cite{shchepetkin_regional_2005}. The result of this 2D integration is indeed used to correct both the horizontal momentum itself and the RHS of the horizontal momentum equation at Corrector step. It can also be used to require a perfect coherence of the surface elevation displacement and the depth-average transport (at machine precision) during slow-mode integration. 
 
-\subsection{Sub-grid mixing and parametrisation}
-
-\subsubsection{From LES to RANS}
-Numerical models are discretized and have a treshold resolution under which phyisical pehomenons cannot be represented explicitely. Particularly, diffusion and ... processes,  among other parametrisations of processes like surface exchanges, radiation that occur at molecular or submolecular scales. Diffusion and dissipation are molecular in nature as a , energy flux, but more broadly speaking, dissipation is the transfer of energy from great scales to small scales. In a stratified fluid, this dissipation is accompagnied by mixing , ie a lewoering of potential energy, or more accurately and explained i paragraph ..., of the background potential energy.
-
-Broadly for oceanic (or more generally geophyisic?) models classification on DNS, LES, and RANS. DNS has molecular dissipation
-
-
-For the discussions simply coining as LES is not sufficient but need to precise LES in regard to which phenomenon. For exemplein chapoter ... of this manuscript, coined LES because primary instabilities of the flow. However, the primary instabilities that are known to exist at upper and lower boundaries of teh water column are not represented and are parametrized, so in regard to the dissipation those process not LES. 
-
-
-
-To this considerations, one must also not forget that the discretisation itself introduces numerical dissipation unless using centered schemes (computationnally impossible).
-
-\subsubsection{Two parametrisation in this manuscript}
-Present here two of the parametrisations available in CROCO that are used in this manuscript.
-
-\paragraph{Smagorinsky.}
-\citep{smagorinky_1963}
-
-
-\paragraph{GLS k-$\epsilon$.}
-\citep{umlauf_2003}
-Solving of two equations...
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -871,7 +852,7 @@ Solving of two equations...
 
 \subsection{$s$-coordinate transformation}
 \label{section_annexe2}
-\color{blue}The present appendix gathers several formula and relations essential to the development of the numerical implementation of the \textit{ocean model} used to simulate explicitly the large turbulent eddies in the region of Gibraltar strait.\color{black}
+The present appendix gathers several formula and relations essential to the development of the numerical implementation of the \textit{ocean model}.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Transformation matrices}
@@ -1378,9 +1359,6 @@ recovering  the results from the Eulerian approach and the previous more general
 
 \subsubsection{Rate of change of integrals in s-coordinate}
 
-(explique que peut rentrer derive temp et espace parce que en prenant bornes s-coordinate les bornes de l'intergrales ne bougent pas)
-
-
 In s-coordinates, the ocean column behaves as a material volume in the vertical direction but not in the horizontal direction where it a fixed-in-time control volume. For a volume associated to the s-coordinate grid: $  \mathbf{v}_{\Sigma}=\mathbf{v}_h+\mathbf{v}_z-\mathbf{v}_s$. This is the vertical velocity of the iso-s surfaces. The integration volume in s-coordinates is a sum of "waters columns" and is named $\mathcal{V}_s$. 
 
 \paragraph{Kinematic-Dynamic evolution (Left-Hand-Side).}
@@ -1398,28 +1376,29 @@ In an Eulerian approach, the depth-to-surface integration can be carried out usi
   \end{alignat}
 \end{subequations}
 \cite{griffies_fundamentals_2004}, \cite{griffies_elements_2012} and \cite{delhaye_thermohydraulique_2008} provides a reformulation of the latest term in Cartesian coordinates:
-\begin{subequations}
-  \begin{alignat}{2}
+\begin{equation}
+%  \begin{alignat}{2}
   \displaystyle 
- 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&
+ 	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau
    =\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}\underbrace{d\tau}_{dxdydz}
  +\iint_{\mathcal{S}} \rho A\  \frac{\partial z}{\partial t}\bigg\vert_{s}\ \underbrace{dS}_{dxdy}
-  \end{alignat}
-\end{subequations}
+%  \end{alignat}
+\end{equation}
 using the central relation (2.121) of \citep{griffies_elements_2012} and in \S 6 of \citep{griffies_fundamentals_2004}:
 \begin{equation}
  \displaystyle
   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}= \frac{\partial z}{\partial t}\bigg\vert_{s}\ dS
 \end{equation}
 Since the ocean bottom boundary is supposed to remain stationary, this leads eventually to:
-\begin{subequations}
-  \begin{alignat}{2}
+\begin{equation}
+\label{eq_reyn_zeta}
+%  \begin{alignat}{2}
   \displaystyle 
- 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&
+ 	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau 
    =\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}\underbrace{d\tau}_{dxdydz}
  +\iint_{\mathcal{S}_{surf}} \rho A\  \frac{\partial \zeta}{\partial t}\ \underbrace{dS}_{dxdy}
-  \end{alignat}
-\end{subequations}
+%  \end{alignat}
+\end{equation}
 
 \paragraph{Using the kinematic condition.}
 Caution: to recover this relation based on the kinematic condition, one has to remember that $\mathbf{v}_{\Sigma}$ is indeterminate \citep{delhaye_thermohydraulique_2008}. Its component tangent to the iso-s surface depends in particular on the parametrization of this surface. The component orthogonal to this surface can however be computed. As a consequence, one has to consider the product $\mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}$ rather than $\mathbf{v}_{\Sigma}$ alone. 

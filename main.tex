@@ -155,13 +155,15 @@
 %% Referee
 \nreferee{2}
 \makesomeone{referee}{1}{Xavier CARTON}{AA}{AA}
-\makesomeone{referee}{2}{Jesus GARCIA-LAFUENTE}{AA}{AA}
+\makesomeone{referee}{2}{Jes\'us GARC\'IA-LAFUENTE}{AA}{AA}
 %% Jury
 \njudge{3}
-\makesomeone{judge}{1}{Premier MEMBRE}{Professeur d'Université}{Président du Jury}
-\makesomeone{judge}{2}{Second MEMBRE}{Astronome Adjoint}{Membre du Jury}
-\makesomeone{judge}{3}{Troisième MEMBRE}{Chargé de Recherche}{Membre du Jury}
-
+%\makesomeone{judge}{1}{Premier MEMBRE}{Professeur d'Université}{Président du Jury}
+%\makesomeone{judge}{2}{Second MEMBRE}{Astronome Adjoint}{Membre du Jury}
+%\makesomeone{judge}{3}{Troisième MEMBRE}{Chargé de Recherche}{Membre du Jury}
+\makesomeone{judge}{1}{ }{ }{ }
+\makesomeone{judge}{2}{ }{ }{ }
+\makesomeone{judge}{3}{ }{ }{ }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -211,13 +213,23 @@
                  \multicolumn{3}{|c|} {Table des Acronymes} \\ 
                  \hline
                  \hline
+                 ADCP& Acoustic Doppler Current Profiler &   \\
+                \hline
                 AJ & Atlantic Jet & Jet Atlantique \\
+                \hline
+                APE & Available Potential Energy & Énergie potentielle disponible \\
+                \hline
+                BPE & Background Potential Energy & Énergie potentielle de fond \\
                 \hline
                 CROCO & \multicolumn{2}{l|}{Coastal and Regional Ocean Community MOdel}\\
                 \hline
                 CS & Camarinal Sill & Seuil de Camarinal\\
                 \hline
+                CTD & Conductivity, Temperature, and Depth &   \\
+                \hline
                 EAG & East Alboran Gyre & Gyre est de la mer d'Alboran\\
+                \hline
+                EOS & Equation Of State & Équation d'état \\
                 \hline
                 ES & Espartel Sill & Seuil d'Espartel\\
                 \hline
@@ -232,9 +244,15 @@
                 \hline
                 NACW & North Atlantic Central Water & Eau centrale Nord-Atlantique\\
                 \hline
+                PE & (gravitational) Potential Energy & Énergie Potentielle (de gravité)\\
+                \hline
+                RHS & Right-Hand Side (term of an equation) & Terme de droite dans une équation \\
+                \hline
                 SAR & Synthetic Aperture Radar & \\
                 \hline
                 SAW & Surface Atlantic Water & Eau de surafce Atlantique\\
+                \hline
+                SVD & Singular Value Decomposition & Décomposition en Valeurs Singulières  \\
                 \hline
                 WAG & West Alboran Gyre & Gyre ouest de la mer d'Alboran\\
                 \hline
@@ -259,8 +277,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-\chapter[Toward Large Eddy Simulation of the ocean]{Toward Large Eddy Simulation of the ocean (LES\footnote{LES: Large Eddy Simulation.\label{LES}})}
+\chapter[Vers une simulation des grandes structures turbulentes]{Vers une simulation des grandes structures turbulentes (LES\footnote{LES: Large Eddy Simulation.\label{LES}})}
+%\chapter[Toward Large Eddy Simulation of the ocean]{Toward Large Eddy Simulation of the ocean (LES\footnote{LES: Large Eddy Simulation.\label{LES}})}
 \label{chap2}
 %\begin{itemize}
 %\item conservation masses/qdm, discretisation numérique, échelles (RANS/LES(/DNS)), paramétrisation du mélange, fermeture turb (Smago/GLS...)
@@ -272,30 +290,9 @@
 
 \input{./CHAP2/chap2.tex}
 
-\chapter{Fine scales in Gibraltar strait: a high-resolution, vertical section based on Gibraltar Experiment.}
+\chapter{Fines échelles dans le détroit de Gibraltar: simulation numérique et analyse de la dynamique dans une section verticale 2D.}
+%\chapter{Fine scales in Gibraltar strait: a high-resolution, vertical section based on Gibraltar Experiment.}
 \label{chapGBR2D}
-
-
-\section{Résumé en français}
-
-Ce chapitre est consitué de l'artcile "Numerical Medeling of Hydraulic Control, Solitary Waves and Primary Instabilities in the Strait of Gibraltar" \citep{hilt_2020} publié dans la revue \textit{Ocean Modelling}. Si la démarche de simulation présentée dans cette article avait été mise au point d'un stage de fin détude réalisé par l'autrice de ce manuscrit, la rédaction même de l'article ainsi qu'une majorité des éléments d'analyses présentés ont été réalisés entièrement (décomposition en vecteur singuliers) ou au moins améliorés (tests de sensibilités) durant la première année de doctorat. Les traveaux effectués forment un socle pour le reste de l'étude du doctorat, et sont référencés dans le reste du manuscrit, d'où leur inclusion.
-
-Une configuration numérique simple 2D est implémentée dans le détroit de Gibraltar avec le code communautaire CROCO dans sa version non-hydrostatique, non-Boussinesq (CROCO-NBQ) (voir section \ref{section_croco}). Cette configuration est peu coûteuse en temps de calcul malgré sa haute résolution (environ 45 m à l'horizontale) et incorpore la bathymétrie le long de l'axe du détroit avec sa configuration de seuils ( \citet{armi_1988}, programme \textit{Gibraltar Experiment}). Dans l'élaboration de cette configuration, une attention toute particulière a été apportée au rôle de la pseudo-force de Coriolis sur l'échange moyen simulé lors de l'initialisation.
-
-La simulation est initialisée par \textit{lock-exchange}, c'est-à-dire par un profil type 'nord Atlantique' et 'Méditerranéen' de part et d'autre du Seuil de Camarinal, point central du passage du détroit. A l'initialisation, le front au-dessus du seuil évolue instantanément en un écoulement bicouche avec des eaux méditerranéennes s'écoulant en courant de gravité dans la moitié ouest du domaine et une intrusion en surface des eaux Atlantiques sur la partie est. 
-
-Après une période de simulation de 3 jours, la marée semi-dirune est simulée par un courant barotrope à la frontière ouest. Dans une simulation où la rotation de la terre n'est pas prise en compte, le mélange induit par les courants de marée détruit la stratification obtenue apres relâchement du \textit{lock exhange}, en particulier la profondeur de l'interface où se propagent les solitons. Pour y remédier, la force de Coriolis est introduite en même temps que le forçage par la marée pour retenir la stratification attainte par le \textit{lock-exchange}, au détriment de la valeur moyennée dans le temps de l'échange au niveau du seuil de Camarinal.
-
-Cette simulation permet néanmoins de représenter les variations du flot à l'échelle temporelle de la marée, et les processus de fine échelle (spatiale) : propagation des deux premiers modes d'ondes internes, contrôles hydrauliques aux seuils, ressaut hydraulique, et mélange turbulent avec la simulation explicite d'instabilités priamires de cisaillement qui ont un effet local sur la stratification. 
-
-Ainsi les ondes internes de grande amplitude de mode 1 se propageant dans l'est du détroit sont caractérisées comme ondes solitaires (ou solitons) par comparaison avec le modèle analytique non-linéaire de Korteweig de Vries. 
-
-La modulation des phénomènes observés par divers paramètres (bathymétrie, intensité des courants de marée, hypothèse hydrostatique, résolution spatiale) est étudiée en détail. A haute résolution (environ 45 m), la relaxation de l'hypothèse non-hydrostatique est indispensable pour représenter les instabilités de cisaillement qui apparaissent dans le jet Méditerranéen, et qui constituent l'amorce de la cascade turbulente directe.
-
-Malgré les défauts inhérents à une représentation 2D-verticale (nécessairement limitée dynamiquement et non représentative des effets longitudinaux comme le contrôle dans le détroit de Tarifa), la configuration proposée permet de représenter de façon réaliste les mécanismes de \textit{fine échelle} dans le détroit à la fréquence de la marée barotrope : 
-
-
-
 
 
 %%%%PAPIER 2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -313,15 +310,10 @@ Malgré les défauts inhérents à une représentation 2D-verticale (nécessaire
 \input{./GBR2D/PapierGBR2D.tex}
 
 
-\section{ccl français}
-\begin{itemize}
-\item Limitation de la simulations 2D, transition partie 3D
-\end{itemize}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Fines scales \& Large Eddy Simulation in Gibraltar Strait}
+\chapter{Simulation des grandes structures turbulentes (LES, 3D) dans le détroit de Gibraltar}
+%\chapter{Fines scales \& Large Eddy Simulation in Gibraltar Strait}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \label{chapGBR3D}
@@ -335,7 +327,8 @@ Malgré les défauts inhérents à une représentation 2D-verticale (nécessaire
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Background Potential Energy: an essential \& pertinent tool to diagnose mixing.}
+\chapter{Énergie potentielle disponible: un outil adapté au diagnostique du mélange turbulent}
+%\chapter{Background Potential Energy: an essential \& pertinent tool to diagnose mixing.}
 \label{chapBPE}
 
 \begin{itemize}
