@@ -274,31 +274,27 @@
 
 \chapter{Fine scales in Gibraltar strait: a high-resolution, vertical section based on Gibraltar Experiment.}
 \label{chapGBR2D}
-\begin{itemize}
-\item R\'esum\'e en français
-\item Papier 2D (! Changer numero de page pour debut pdf !, et retirer biblio (avec en fin these....), mise en page verifier...(problème tableau 2))
-\item Recap/clsion/transition français
-\end{itemize}
+
 
 \section{Résumé en français}
-\begin{itemize}
-\item blabla détroit Gibraltar, pourquoi choisi cette zone, résumé intro papier
-\item mise en place configuration, résolution, non hydrostatique...
-\item résultats : a bien solitons (aspect, KdV), controle hydraulique, voit des rouleaux = instabilités primaires (confirmation)
-\end{itemize}
 
-CE chapitre contient l'artcile "..." publié dans ... .CErtains des éléments de cet article, l'élaboration du processus de 
-certaisn éléments d'analyse de cette configuration ont été ralisés entière ment ou au moins améliorés dans la première année de thèse, c'ets le cas de l'analyse en composante principake des instabilités primaire sdéveloppées...etc.
+Ce chapitre est consitué de l'artcile "Numerical Medeling of Hydraulic Control, Solitary Waves and Primary Instabilities in the Strait of Gibraltar" \citep{hilt_2020} publié dans la revue \textit{Ocean Modelling}. Si la démarche de simulation présentée dans cette article avait été mise au point d'un stage de fin détude réalisé par l'autrice de ce manuscrit, la rédaction même de l'article ainsi qu'une majorité des éléments d'analyses présentés ont été réalisés entièrement (décomposition en vecteur singuliers) ou au moins améliorés (tests de sensibilités) durant la première année de doctorat. Les traveaux effectués forment un socle pour le reste de l'étude du doctorat, et sont référencés dans le reste du manuscrit, d'où leur inclusion.
 
+Une configuration numérique simple 2D est implémentée dans le détroit de Gibraltar avec le code communautaire CROCO dans sa version non-hydrostatique, non-Boussinesq (CROCO-NBQ) (voir section \ref{section_croco}). Cette configuration est peu coûteuse en temps de calcul malgré sa haute résolution (environ 45 m à l'horizontale) et incorpore la bathymétrie le long de l'axe du détroit avec sa configuration de seuils ( \citet{armi_1988}, programme \textit{Gibraltar Experiment}). Dans l'élaboration de cette configuration, une attention toute particulière a été apportée au rôle de la pseudo-force de Coriolis sur l'échange moyen simulé lors de l'initialisation.
 
-Une configuration numérique simple 2D est implémentée dans le détroit de Gibraltar avec le code communautaire CROCO dans sa version non-hydrostatique, non-Boussinesq (CROCO-NBQ). Cette configuration est peu coûteuse en temps de calcul et incorpore la bathymétrie le long de l'axe du détroit avec sa configuration de seuils (Farmer et Armi, 1988, programme \textit{Gibraltar Experiment}). Dans l'élaboration de cette configuration, une attention toute particulière a été apportée au rôle de la pseudo-force de Coriolis sur l'échange moyen simulé lors de l'initialisation par \textit{lock-exchange}.\\
+La simulation est initialisée par \textit{lock-exchange}, c'est-à-dire par un profil type 'nord Atlantique' et 'Méditerranéen' de part et d'autre du Seuil de Camarinal, point central du passage du détroit. A l'initialisation, le front au-dessus du seuil évolue instantanément en un écoulement bicouche avec des eaux méditerranéennes s'écoulant en courant de gravité dans la moitié ouest du domaine et une intrusion en surface des eaux Atlantiques sur la partie est. 
 
-LA simulation est initialisée par lock exhange, c'est à dire un profil type atl et med de part et d'autre du seuil de camarinal, point central du passage.LA marée est simulée par un courant barotrope à la frontière ouest. Dans une simulation où la rotation de la terre n'est pas rise en compte, mélange détruit stratification obtenue apres relâchement du lock exhange, en particulier la profondeur de l'interface où se propagent les solitons, suite au mélange intense par la marée interne.
+Après une période de simulation de 3 jours, la marée semi-dirune est simulée par un courant barotrope à la frontière ouest. Dans une simulation où la rotation de la terre n'est pas prise en compte, le mélange induit par les courants de marée détruit la stratification obtenue apres relâchement du \textit{lock exhange}, en particulier la profondeur de l'interface où se propagent les solitons. Pour y remédier, la force de Coriolis est introduite en même temps que le forçage par la marée pour retenir la stratification attainte par le \textit{lock-exchange}, au détriment de la valeur moyennée dans le temps de l'échange au niveau du seuil de Camarinal.
 
+Cette simulation permet néanmoins de représenter les variations du flot à l'échelle temporelle de la marée, et les processus de fine échelle (spatiale) : propagation des deux premiers modes d'ondes internes, contrôles hydrauliques aux seuils, ressaut hydraulique, et mélange turbulent avec la simulation explicite d'instabilités priamires de cisaillement qui ont un effet local sur la stratification. 
 
-Malgré les défauts inhérents à une représentation 2D-verticale (nécessairement limitée dynamiquement et non représentative des effets longitudinaux comme le contrôle dans le détroit de Tarifa), la configuration proposée permet de représenter de façon réaliste les mécanismes de \textit{fine échelle} dans le détroit à la fréquence de la marée barotrope : propagation des deux premiers modes d'ondes internes, contrôles hydrauliques aux seuils, ressaut hydraulique, et mélange turbulent. En particulier, les ondes internes de grande amplitude de mode 1 se propageant dans l'est du détroit sont caractérisées comme ondes solitaires (ou solitons) par comparaison avec le modèle analytique non-linéaire de Korteweig de Vries.\\
+Ainsi les ondes internes de grande amplitude de mode 1 se propageant dans l'est du détroit sont caractérisées comme ondes solitaires (ou solitons) par comparaison avec le modèle analytique non-linéaire de Korteweig de Vries. 
 
 La modulation des phénomènes observés par divers paramètres (bathymétrie, intensité des courants de marée, hypothèse hydrostatique, résolution spatiale) est étudiée en détail. A haute résolution (environ 45 m), la relaxation de l'hypothèse non-hydrostatique est indispensable pour représenter les instabilités de cisaillement qui apparaissent dans le jet Méditerranéen, et qui constituent l'amorce de la cascade turbulente directe.
+
+Malgré les défauts inhérents à une représentation 2D-verticale (nécessairement limitée dynamiquement et non représentative des effets longitudinaux comme le contrôle dans le détroit de Tarifa), la configuration proposée permet de représenter de façon réaliste les mécanismes de \textit{fine échelle} dans le détroit à la fréquence de la marée barotrope : 
+
+
 
 
 
@@ -341,6 +337,7 @@ La modulation des phénomènes observés par divers paramètres (bathymétrie, i
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Background Potential Energy: an essential \& pertinent tool to diagnose mixing.}
 \label{chapBPE}
+
 \begin{itemize}
 \item Résumé en français
 \item papier

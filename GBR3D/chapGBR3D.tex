@@ -2,10 +2,12 @@
 %\vspace{10\baselineskip}
 
 %\selectlanguage{french}
+
 %----------------------------------------------------------------------
-\section{Introduction du chapitre}
+\section{Résumé de l'article...}
 %----------------------------------------------------------------------
 
+\subparagraph{Présentation.}
 Ce chapitre détaille l'étude de la dynamique de fine échelle du détroit de Gibraltar, d'une part par l'intermédiaire des résultats d'une maquette numérique dite à "haute résolution" (section \ref{sectionSim3D}), d'autre part par l'analyse de quelques observations \textit{in situ} effectuées au cours de la campagne de mesures \textit{Gibraltar 2020} (section \ref{sectionCampagne}).
 
 Les simulations analysées dans la section \ref{sectionSim3D} s'inscrivent dans la continuité de celles présentées dans le chapitre \ref{chapGBR2D}: aucun forçage atmosphérique n'est intégré, cependant l'écoulement est tri-dimensionnel et prend en compte des forçages réalistes. Une initialisation et des forçages aux frontières issus du modèle opérationnel de l'ENEA ainsi qu'une bathymétrie à haute résolution sont en effet désormais spécifiés. La stratification des masses d'eaux et les ondes de marées sont ainsi représentées de façon réaliste.
@@ -18,39 +20,30 @@ L'étude détaillée de la dynamique de la région du détroit à partir de ces 
 
 Les observations présentées dans la section \ref{sectionCampagne} sont essentiellement des données issues de trois mouillages, un positionné au seuil de Camarinal (mouillage M2), deux juste à l'est afin d'intercepter le soliton se propageant après relaxation du ressaut hydrauliques (mouillages M4 et M5). Dans la présente analyse, seule une première partie des séries de données est présentée, elle correspond à la période durant laquelle tous les types de mouillages sont présents sur zone. Comparaison est faite avec les "pseudo-observations" modélisant des données de mouillage dans les simulations de la première partie du chapitre.
 
+\subparagraph{Principaux résultats.}
+La simulation numérique des grandes structures turbulentes dans la région du détroit de Gilbraltar a débouché sur plusieurs résultats originaux. Trois configurations dynamiques de l'écoulement au dessus du seuil de Camarinal ont été proposées et analysées. Elles correspondent à trois configurations typiques des forçages par la marée dans cette région. Les périodes choisies se distinguent par la présence (ou l'absence) de ressauts hydrauliques ainsi que par leur localisation spatiale. Les ressauts sont associés aux transitions surcritiques / subcritiques des eaux atlantiques et méditerranéennes. Ces configurations sont qualifiées de \textit{no-jump} (pas de ressaut détecté), \textit{s-jump} (ressaut à l'aplomb de la partie la moins profonde du seuil) et \textit{w-jump} (ressaut placé au-dessus de la pente ouest du seuil).
 
+La distinction des situations \textit{s-jump} et \textit{w-jump} avait déjà été proposée dans une étude antérieure \citep{sanchez-garrido_2011}. En situation \textit{w-jump}, les 2 ressauts restent toutefois distincts de part et d'autre du seuil dans la présente étude, alors que ces deux mêmes ressauts sont balayés sur l'ouest du seuil dans l'étude proposée par\citet{sanchez-garrido_2011}.
 
-\subparagraph{Résultats numériques}
-(CCL partie num:)
+Les marées de plus faible amplitude en périodes de mortes-eaux correspondent à une situation \textit{no-jump}, les plus fortes en périodes de vives-eaux à la situation \textit{w-jump}. La situation \textit{s-jump} est un cas intermédiaire. Les simulations réalisées montrent que la relaxation du ressaut hydraulique débouche bien sur la propagation d'un train d'ondes solitaires. Cependant, elles montrant aussi clairement que la propagation de l'onde longue de marée barocline à travers le détroit sans présence préalable de ressaut (situation  \textit{no-jump}) peut aboutir à un comportement non-linéaire qui dégénère en un soliton. Dans ce cas, le nombre de solitons du train se propageant en Mer d'Alboran est réduit, l'amplitude de l'anomalie de profondeur de l'interface initiale étant elle-même plus faible.
 
-Plusieurs résultats sont mis en évidence dans ces simulations. Tout d'abord, trois configurations de l'écoulement au Seuil de Camarinal sont repérées pour les périodes dites d'\textit{outflow}, selon la présence ou non, et la position de ressauts hydrauliques établis lors des transitions entre écoulement supercritique et subcritique des eaux Atlantique. Ces configurations sont no-jump (pas de ressaut détecté), s-jump (ressaut à l'aplomb de la partie la moins profonde du Seuil) et w-jump (ressaut placé au-dessus de la pente ouest du seuil).
+Outre la propagation du soliton, la simulation à haute résolution permet (comme au chapitre \ref{chapGBR2D}) de simuler des instabilités de cisaillement dans le courant de densité à l'ouest du seuil de Camarinal durant les périodes d'\textit{outflow}. Leurs zones probables de génération ne changent pas entre les situations \textit{no-jump} et \textit{s-jump} et sont centrées sur les deux sillons nord et sud de part et d'autre du point culminant du seuil de Camarinal. En situation \textit{w-jump}, cette génération se fait à toutes les latitudes.
 
-La différence entre s-jump et w-jump avait été noté dans une étude antérieure de \citet{sanchez-garrido_2011}, avec pour différence que dans notre cas w-jump, les 2 ressauts restent distincts de part et d'autre du seuil, là où pour \citet{sanchez-garrido_2011} les 2 sont balayés sur l'ouest du seuil.
+Une étude de sensibilité de la simulation de ces instabilités aux schémas de fermeture turbulente (Smagorinsky avec ajustement du coefficient ou GLS) a permis de mettre en exergue l'impact de ces schémas de fermeture sur la composition hydrologique de l'outflow méditerranéen via le mélange avec les eaux atlantiques.
 
-Les marées à plus faible amplitude de mortes-eaux correspondent à une situaion no-jump, les plus fortes de vives-eaux à la situation w-jump. La situation s-jump est un cas intermédiaire. On repère sur les simulations que la relaxation du ressaut hydraulique r"sulte bien en la propagation d'un train d'onde solitaires. Cependant, il est aussi vu que la propagation de l'onde longue de marée barocline à travers le détroit sans présence préalable de ressaut (cas no-jump) peut aboutir à un comportement non-linéaire qui dégénère en un soliton. Dans ce cas, le nombre de solitons du train se propageant en Mer d'Alboran est réduit, l'amplitude de l'anomalie de profondeur de l'interafce initiale étant réduite.
+\subparagraph{Campagne Gibraltar 2020.}
+Les simulations numériques à haute résolution ont été confrontées aux observations réalisées dans le cadre de la campagne d'observation Gibraltar 2020 à la laquelle j'ai activement participé à l'automne 2020. Même si cette analyse demeure préliminaire (cette campagne s'est tenue durant ma dernière année de thèse), un certain nombre de résultats très encourageants ont pu être mis en évidence:
+\begin{itemize}
+    \item Sur les cinq types de signaux observés aux mouillages M4 et M5, quatre trouvent leur pendant dans les simulations numériques proposées. Seul un signal ressemblant à un bore interne est absent des simulations numériques.
+    \item Deux des signaux correctement reproduits correspondent à des trains de solitons directement associés à la relaxation des ressauts hydrauliques, confirmant ainsi la qualité des simulations numériques proposées.
+    \item L'analyse d'une image SAR correspondant à la période de la campagne Gibraltar 2020, montre la présence d'une onde solitaire en mer d'Alboran alors que le passage de cette onde n'est pas détecté par les mouillages M4 et M5. Cette observation sur l'image SAR confirme les résultats des simulations numériques et tendrait à accréditer l'idée d'un second mécanisme de génération dans le détroit. L'onde solitaire pourrait en effet être générée lors de la propagation non-linéaire de l'onde de marée barocline dans le détroit.
+\end{itemize}
 
-Outre la propagation du soliton, la haute résolution permet tout comme c'était le cas au chapitre \ref{chapGBR2D} de simuler des instabilités de cisaillement dans le courant de densité à l'ouest du Seuil de Camarinal durant les périodes d'outflow. Leurs zones probables de génération ne changent pas entre les cas no-jump et s-jump et sont centrées sur les deux sillons nord et sud de parte t d'autre du point culminant du seuil de camarinal. Dans le cas w-jump, cette genération se fait à toutes les latitudes.
-
-La comparaison de la simulation de ces instabilités par divers schémas de fermeture turbulente (Smagorinsky avec ajustement du coefficent, GLS) met en exergue leur rôle dans la composition hydraulogique de l'outflow méditerranéen en pilotant l'injection de'aux atlantiques.
-
-\subparagraph{Résultats campagne Gibraltar 2020}
-(CCL obs::)
-
-On retrouve pour la plupart les mêmes types de signauw que blablablabla, sauf pour le cas d'un bore observé aux mouillages M4 et M5. 
-
-
-ce resultat semble conforme auw simulations, ou sur des outflow sans ressaut, pouvaitbtout de meme avoir des ... ce qui indiquerait que le ressaut n’est pas le seul mecanisme de generation pourbles solitons observes en mervd’alboran.
-
-Enfin, il est noté que ce travail s eplace dans l'élaboration de simulations à triple imbrication du détroit de Gibraltar er de ses environs proches (allant de 900m, 180 m a 60m de résolution)  pour rejouer la campagne Gibraltar 2020 et préparer la campgane Gibralter 2022.
-
-\subparagraph{Conclusion générale/dans le manuscrit}
-Les simulations ... sont première LES maisblablablablabla (trad ce que avait dit...). Besoin outil diagnostique du mélange, chapitre prochain...
-
-
+Cette première confrontation entre observations et simulations numériques a aussi permis de mettre en évidence et de confirmer les limites de l'approche proposée pour la modélisation. Les forçages atmosphériques ont par exemple été volontairement négligés afin de simplifier la dynamique dans la région du détroit, ouvrant ainsi la porte à une analyse approfondis des mécanismes impliqués. Une configuration numérique de seconde génération, plus réaliste, basée sur un raffinement de la dynamique simulée dans la région du détroit de Gibraltar a dors et déjà mise en place. Ce raffinement s'appuie sur des grilles de résolution 900 m, 180 m puis 60 m. Cette nouvelle configuration numérique a pour double vocation de raffiner l'analyse de la campagne Gibraltar 2020 et de préparer la campagne Gibraltar 2022, second volet centré en particulier sur les grandes structures turbulentes dans la région du détroit.
 
 
 %----------------------------------------------------------------------
-\section{3D LES in the Strait of Gibraltar}
+\section{3D LES in the strait of Gibraltar}
 %----------------------------------------------------------------------
 \label{sectionSim3D}
 \subsection{Introduction}
@@ -122,8 +115,6 @@ When the tidal flow reverses toward the Mediterranean basin, the depressed anoma
 ISWs are generated during each tidal cycle except when westward current are not strong enough for the hydraulic control to set up. This can be the case during the neap tide part of the fortnightly cycle\citep{watson_1990,garcialafuente_2000}.
 
 The hydraulic control, the hydraulic jump and the generation mechanism of large internal tides can be simulated numerically by hydrostatic models but a non-hydrostatic model is required to simulate the propagation of ISWs or the large turbulent eddies and primary instabilities induced by the baroclinic exchange flow \citep{brandt_1996,vlasenko_2009}.
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Toward Large Eddy Simulation (LES)}
@@ -576,7 +567,7 @@ To our knowledge, the present study is the first 3D Large Eddy Simulation in the
 
 As a consequence the numerical configurations of this study can be  classified as Large Eddy Simulation of the inner water column, for which a resolution of a few tenths of meters both in the horizontal and vertical directions is sufficient in Gibraltar strait for to simulate explicitly primary instabilities.
 
-In the real ocean, such primary instabilities devolve into secondary (then tertiary, etc.) instabilities that break there structure in various ways \citep{mashayek_2012}. How fast the transition between primary and secondary instabilities occurs will command the characteristics of the water masses in the Strait of Gibraltar. It is suspected that since secondary instabilities do not occur with a still too coarse grid, the 'lifespan' of the primary instabilities is exaggerated.\color{blue} remarque intéressante... es-tu toutefois certaine de cela ? C'est normalement la diffispation turbulente qui prend le relais, non ?\color{blakc}
+In the real ocean, such primary instabilities devolve into secondary (then tertiary, etc.) instabilities that break there structure in various ways \citep{mashayek_2012}. How fast the transition between primary and secondary instabilities occurs will command the characteristics of the water masses in the Strait of Gibraltar. It is suspected that since secondary instabilities do not occur with a still too coarse grid, the 'lifespan' of the primary instabilities is exaggerated.\color{blue} remarque intéressante... es-tu toutefois certaine de cela ? C'est normalement la dissipation turbulente qui prend le relais, non ? Même si tu le fais dans les lignes qui suivent je tempérerai un peu...\color{black}
 
 Moreover, the tools employed here to examine the rise of those instabilities in LES are limited and somewhat rudimentary in reflecting the stochastical nature of the turbulent process. It as been shown that the choice of subgrid dissipation parametrization generaly influences the primary instabilities dynamics, and it is crucial to develop accurate, dedicated tools to evaluate the diapycnal mixing provoked by those structures. Investigation of such a tool makes up the last chapter (chapter \ref{chapter_bpe}) of the present manuscript.
 
