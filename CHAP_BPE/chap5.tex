@@ -1,35 +1,56 @@
 
-\newpage
+\section{Résumé en français}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerical Test Cases}
 
 \subsection{Algorithm and determination of global diffusion coefficient}
-Following Winters 1995, first is determined available volume at each depth V(z), then for each time-step build the reference profile by filling V(z) from the bottom up starting with the densest parcels.
+\begin{enumerate}
+\setlength\itemsep{0pt}
+\item Following Winters 1995, first is determined available volume at each depth V(z), then for each time-step build the reference profile by filling V(z) from the bottom up starting with the densest parcels to create $z^*(\rho,t)$ also expressed as $z^*(\mathbf{x},t)$.
+\item BPE(t) is computed then its evolution for the volume considered
+\item RHS terms of equation XXX are computed, with some specifities:
+\begin{itemize}
+\setlength\itemsep{0pt}
+\item the term in $dz^*/dt$ is not directly evaluated as such but computed as the sum of terms (1),(2) and (3) for accuracy (the expression in XXX with $\partial \zeta / \partial t$ and Heaviside bigger computation cost too)
+\item in the first cases discussed, that are cyclic in both horizontal and vertical direction, advection and diffusion through the vertical boundaries is possible and those terms are computed to have the complete balance between right hand side and left hand side.
+\item $\kappa_h$ and $\kappa_v$ are the unknown variable of the problem. considered homogeneous for the volume considered, and in most cases consider $\kappa_h=\kappa_v=\kappa$ (isotropic diffusion) hypthesis of isotropic diffusion, because impossibility except when know there is no diffusion in one direction (as is the case in ...) to differentiate between the two contributions.(can be considered accurate in realistic oceanic cases as long as resolution of gradients is the same).
+\item In this case $\kappa_{eff}$ expressed as equation \ref{eq_kappaEff}
+\end{itemize}
+\item The aim of this chapter is to evaluate the efficiency of this method and where it needs to be further refined.
+\item First use a simple advection - harmonic explicit diffusion model with constant volume. In a second time apply to CROCO test cases for which free surface. Finally, applied to the simulation of chapter \ref{chapGBR2D}.
+\end{enumerate}
 
-Background Potential Energy and its evolution is computed from resulting z*(rho). This is compared to the computed terms of right-hand side of eq (...) to estimate the diffusive coefficient, in the algorithm assumed to be spatially homogeneous and isotropic $\kappa_h=\kappa_v=\kappa$ (can be considered accurate in realistic oceanic cases as long as resolution of gradients is the same) but can evolve through time.
+Ccl :
+\begin{itemize}
+\item Not sufficient to separate contribution of , in cases of fine enough resolution the approximation $\kappa_h=\kappa_v=\kappa$ may be correct, however if use this method to evaluate implicit numerical diffusion of advection scheme diffusion will occur only along the advection direction (not isotropic diffusion).
+\item Timescales vs instantaneous diffusion coefficient (what does it mean when diffusion is a 'long-term' process)
+\item Due to reference profile $z^*$ being local, in two consecutive domains, the boundary fluxes exiting one are not equal to the one entering the other. 
+\item $F_a$ through the open boundary often the bigger term, here computation offline must have high sampling frequency to carry out calculations of $\kappa_{eff}$
+\item contribution from free surface not negligible in the test cases here
+\end{itemize}
 
+%Garder que Une des equations... Voir notations...
+
+%\begin{subequations}
+%  \begin{alignat}{2}
+%  \displaystyle 
+% 	&\frac{d E_b}{d t} &&= \quad g\int_x \int_{-1}^0 \rho h \frac{\partial z^*}{\partial t}\bigg\rvert_{xs} \ dx ds\\
+% 	& &&\quad +g\int_x \int_{-1}^0\rho v_s \frac{\partial z^*}{\partial s}\bigg\rvert_{tx} \ dx ds
+%+g\int_x \int_{-1}^0 \rho h u \frac{\partial z^*}{\partial x}\bigg\rvert_{ts} \ dx ds \\
+% & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x} - g\bigg[ \int_x\rho z^* v_s \ dx\bigg]_0^1 \\
+% & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
+% - g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds \\
+% & && \quad + g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
+% - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dx ds
+%\end{alignat}
+%\end{subequations}
 
 
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
- 	&\frac{d E_b}{d t} &&= \quad g\int_x \int_{-1}^0 \rho h \frac{\partial z^*}{\partial t}\bigg\rvert_{xs} \ dx ds\\
- 	& &&\quad +g\int_x \int_{-1}^0\rho v_s \frac{\partial z^*}{\partial s}\bigg\rvert_{tx} \ dx ds
-+g\int_x \int_{-1}^0 \rho h u \frac{\partial z^*}{\partial x}\bigg\rvert_{ts} \ dx ds \\
- & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x} - g\bigg[ \int_x\rho z^* v_s \ dx\bigg]_0^1 \\
- & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
- - g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds \\
- & && \quad + g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
- - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dx ds
-\end{alignat}
-\end{subequations}
-
-
-\begin{subequations}
-  \begin{alignat}{2}
-  \displaystyle 
- 	&\frac{d E_b}{d t} &&= \quad \underbrace{g\int_x \int_{-1}^0 \rho h \frac{d z^*}{d t}\bigg\rvert_{xs} \ dx ds}_{?\phi_S? ou F_S?}\\
+ 	&\frac{d E_b}{d t} &&= \quad \underbrace{g\int_x \int_{-1}^0 \rho h \frac{d z^*}{d t}\bigg\rvert_{xs} \ dx ds}_{\phi_{\zeta}}\\
  %	& &&\quad +g\int_x \int_{-1}^0\rho v_s \frac{\partial z^*}{\partial s}\bigg\rvert_{tx} \ dx ds
 %+g\int_x \int_{-1}^0 \rho h u \frac{\partial z^*}{\partial x}\bigg\rvert_{ts} \ dx ds \\
  & && \quad \underbrace{- g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x} - g\bigg[ \int_x\rho z^* v_s \ dx\bigg]_0^1}_{F_A} \\
@@ -41,16 +62,15 @@ Background Potential Energy and its evolution is computed from resulting z*(rho)
 \label{bilanBPEal}
 \end{subequations}
 
-Note $D=F_D+\phi_D$
-
-Therefore with eq \ref{bilanBPEal}a and b  as non-diffusive terms and c and d as diffusive terms :
+An instantaneous evaluation of diffusivity is :
 \begin{equation}
-\kappa = \frac{\frac{dE_b}{dt} \ - \ \text{non-diffusive terms}}{\text{diffusive terms}}=\frac{\frac{dE_b}{dt}-(\phi_S+F_A)}{D}
+\kappa_{eff} = \frac{\frac{dE_b}{dt}-(\phi_{\zeta}+F_A)}{F_D+\phi_D}
+\label{eq_kappaEff}
 \end{equation}
 
-Another way is to search recursively for the best coefficient $\kappa$ that will minimize error over time-interval 2n
+%But diffusion being an ongoing process, sliding averages or other evaluation may be interesting to look into. Here another diffusivity is computed by searching recursively for the best coefficient $\kappa_g$ that will minimize quadratic error over time-interval 2n
 
-$ \sum\limits_{i_0-n}^{i_0+n} (\frac{dE_b^i}{dt}-(\text{non-diffusive terms}^i + \kappa^{i_0} * \text{diffusive terms}^i))^2$
+%$ \sum\limits_{i_0-n}^{i_0+n} (\frac{dE_b^i}{dt}-(\phi_{\zeta}^i+F_A^i + \kappa_g * (F_D^i+\phi_D^i) ))^2$
 
 
 \subsection{NUMLAB experiment}
@@ -78,42 +98,44 @@ ADV & $\psi(x)$ & Impl & $4.10^{-5}$\\
 \caption{Parameters of simulation}
 \end{table}
 
-\subsubsection{Homogeneous diffusion case : diffVH}
-Basic reference test case without horizontal velocity
 
-possibility of flux through the horizontal boundary so first term of \ref{bilanBPEal}.e can be be non-zero.
+%\subsubsection{Homogeneous diffusion case : diffVH}
+%Basic reference test case without horizontal velocity
 
-\begin{figure}[h!]
-\centering
-\includegraphics[width=1\textwidth]{./CHAP_BPE/AGBPE_numlab1.png}
-\caption{blablabla}
-\label{fig1numlab}
-\end{figure}
+%possibility of flux through the horizontal boundary so first term of \ref{bilanBPEal}.e can be be non-zero.
 
-Figure \ref{fig1numlab} (c) is sum of right-hand terms of eq. \ref{bilanBPEal}a and \ref{bilanBPEal}b. (d) and (e) are diffusive terms respectively terms \ref{bilanBPEal}d and \ref{bilanBPEal}e separated in vertical and horizontal gradient contribution, without factoring $\kappa$.
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=1\textwidth]{./CHAP_BPE/AGBPE_numlab1.png}
+%\caption{blablabla}
+%\label{fig1numlab}
+%\end{figure}
 
-Figure \ref{fig1numlab} (f) is value of diffusion coefficient, in blue for $\kappa_v=\kappa_h=\kappa$ and find expected value, red if $\kappa_h=0$ in equation, yellow if $\kappa_v=0$, ie. the observed diffusion can also be explained by purely horizontal or vertical diffusion but coefficient would be stronger.
+%Figure \ref{fig1numlab} (c) is sum of right-hand terms of eq. \ref{bilanBPEal}a and \ref{bilanBPEal}b. (d) and (e) are diffusive terms respectively terms \ref{bilanBPEal}d and \ref{bilanBPEal}e separated in vertical and horizontal gradient contribution, without factoring $\kappa$.
 
-\subsubsection{Local diffusion case : diffVHx}
+%Figure \ref{fig1numlab} (f) is value of diffusion coefficient, in blue for $\kappa_v=\kappa_h=\kappa$ and find expected value, red if $\kappa_h=0$ in equation, yellow if $\kappa_v=0$, ie. the observed diffusion can also be explained by purely horizontal or vertical diffusion but coefficient would be stronger.
+
+\subsubsection{Local diffusion case}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./CHAP_BPE/AGBPE_numlab2.png}
-\caption{(c) is \ref{bilanBPEal}e}
+\caption{(c) is \ref{bilanBPEal}e... Ajouter champ initial?}
 \label{fig2numlab}
 \end{figure}
 
-Initial tracer field same as in fig \ref{fig1numlab}.
-
-For x$<$15 m, $\kappa = 10^{-3}$, otherwise $\kappa = 10^{-2}$ m$^2$/s.
-
-Diffusion coefficient has different value along the horizontal axis, effect of using algorithm on each half-domain or entire domain. The value z*(rho) of a given density is dependant on the breadth of the domain where the reference profile is constructed. (only takes into account the densities in this domain). So the right-hand sides term of the BPE evolution equation will change. Particularly this enables to take into account spatial variabiity of $\kappa$.
-
-Coefficient computed over all the domain is an average.
-
-The diffusion terms do not cancel each other since z* is different on each half.
+%Initial tracer field same as in fig \ref{fig1numlab}.
+\begin{itemize}
+\item Figure \ref{fig2numlab}
+\item For x$<$15 m, $\kappa = 10^{-3}$, otherwise $\kappa = 10^{-2}$ m$^2$/s.
+\item compute $\kappa$ either for each half or the whole domain. Three different reference profiles $z^*$ : $z^*_{left}$,$z^*_{right}$,$z^*_{all}$, so making sum of the termes du bilan of right and left part does not give terms for computatin made on the whole domain. In the same way, the diffusive fluxes do not cancel each other.
+\item When $\kappa$ evaluated on each half domain, find the good values. When on whole domain, start at average value but decreases. It will tend to the lowest value since the higher coefficient dissipates the gradients that have less poids in the bilan.
+\item only able to differentiate for $\kappa(x)$. If diffusion coefficient varies along vertical direction, same way that for the whole domain, integrates all contributions to the change in $z^*$ in the water column
+\end{itemize}
 
 \subsubsection{Implicit diffusion case : IMP}
+
+\color{red}Valeurs de U??? 0.1$m/s$\color{black}
 
 With $\psi(x,t=0)=cos(2\pi x/L_x)$, solution of advection-diffusion problem is : $\psi(x,t)=e^{-\kappa k_x^2 t}cos(k(x-Ut))$ with $k_x=2\pi/L_x$
 
@@ -132,7 +154,7 @@ U \frac{\partial \psi}{\partial x} +\frac{\partial \psi}{\partial t} = \frac{1}{
 \end{equation}
 $dx=0.5$ m then $dx=1.5$ m, gives values of $\kappa_{h,i}$ of 0.025m$^2$/s and 0.075m$^2$/s
 
-Find the good value if don't take into account term of vertical diffusion, only along current.\\
+Figure \ref{fig3numlab}. Find the good value if don't take into account term of vertical diffusion, only along current.
 
 \underline{\textit{4th order scheme : UP3}}
 
@@ -166,51 +188,75 @@ $\kappa_{imp}$&\multicolumn{6}{c|}{$4.65.10^{-5}$}\\
 \label{fig5numlab}
 \end{figure}
 
-Take case where $\kappa_{exp}=0$ and compare $k_4 \frac{\partial^4 \psi}{\partial x^4}$ at random point in the domain with second order diffusion with coefficient $2.2 . 10^{-4} m^2/s$ (facteur 5...)
+Take case where $\kappa_{exp}=0$ and compare $k_4 \frac{\partial^4 \psi}{\partial x^4}$ at random point in the domain with second order diffusion with coefficient $2.2 . 10^{-4} m^2/s$ (figure \noparref{fig5numlab}.d)
 
-\subsubsection{Local advection and diffusion case : ADV}
+%\subsubsection{Local advection and diffusion case : ADV}
 
+%\begin{figure}[h!]
+%\centering
+%\includegraphics[width=1\textwidth]{./CHAP_BPE/AGBPE_numlab4.png}
+%\caption{}
+%\label{fig4numlab}
+%\end{figure}
+
+%Tracer field is $\psi(x)$ as in previous subsection, no vertical gradients contribution. RK3-UP1, no explicit diffusion, only implicit, parameters : dx $=$ 0.5 m, $u=4.10^{-5} m/s$ (dt $=$ 250s) so $\kappa_{imp} = 10^{-5} m^2/s$.
+
+
+% Look at determination of $\kappa_{eff}$ in left half-domain when both diffusion and advection contribution.
+ 
+% Now have boundary fluxes for both advection (majoritary contribution to right-hand side term in balance) and diffusion. Particularly diffusion fluxes can be negative as entering tracer can act as a source of 'restratification' for the tracer in the volume. Here diffusion in the volume and at the boundary have same size which leads to total diffusion term to sometime be equal to zero and divergence of the balance equation (and so of the value of $\kappa_{eff}$). 
+ 
+% Diffusion term inside the volume however is always strictly positive, can separate the contribution by chosing two different diffusion coefficients for the boundary ($\kappa_{eff}^{bound}$) and the volume ($\kappa_{eff}^{V}$). In figure ... .b $\kappa_{eff}^{bound}$ is taken as the result of the determination of $\kappa_{eff}$ (ie. value for both terms) through the minimization of error method with time interval of 1 advection period (this value is close to the result of the balance equation for the whole domain). Then $\kappa_{eff}^{V}$ is determined by the balance equation with the boundary term put with the non-diffusive terms. This give a non-divergent solution that oscillate around the expected value. (aussi oscillation eval domaine entier mais moins amplitude....)
+ 
+ 
+
+%%Termes non-diffusifs prépondérants dans le bilan, décalage dû termes diffusifs, pour calcul sur domaine entier retrouve bien $\kappa=10^{-2}$. Quand regarde demi-domaine, moment où signe des termes non-diffusifs devient négatif et plus ce décalage entre évolution BPE et termes non-diffusifs. Si cherche $\kappa$ avec bilan marche plus bien, divergence de la solution, retrouve à peu près en essayant de minimiser l'erreur. 
+
+\subsubsection{Diffusion and advection timescales}
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\textwidth]{./CHAP_BPE/AGBPE_numlab4.png}
-\caption{}
+\includegraphics[width=1\textwidth]{./CHAP_BPE/Fig_numlab_advdiff2.png}
+\caption{\color{red}Remplacer U1 par U3\color{black}}
 \label{fig4numlab}
 \end{figure}
+\begin{itemize}
+\item RK3 C2 scheme. $\Delta x = \Delta z = 0.5m$, $L = H = 30m$, $dt=10s$
+\item $\kappa(x)$ avec $\kappa = 10^{-5} \ m^2/s$ for left half of domain and $\kappa = 10^{-3} \ m^2/s$ for right half. 
+\item Horizontal advection, two cases, either $U_1=6.6 \ 10^{-5} m/s $ or $U_2=2 \ 10^{-3} m/s $
+\item Can estimate timescales for advection, $T_{adv}=L_{adv}/U$, and for diffusion $T_{\kappa}=L_{\kappa}^2/{\kappa}$. With L the characteristic length/size of the structure affected by each process. Here diffusion on each half domain so $L_{\kappa}=15m$. Advection same value for all domain, $L_{adv}=30m$.
+\item So $T_{\kappa}^{left}=2.25 \ 10^7 \ s$, $T_{\kappa}^{right}=2.25 \ 10^5 \ s$, and depending on the value of $U$ $T_{adv}^{U_1}=4.54 \ 10^5 \ s$ or $T_{adv}^{U_2}=1.5 \ 10^4 \ s$
+\item $T_{adv}^{U_2}<<T_{\kappa}^{right}<T_{adv}^{U_1}<<T_{\kappa}^{left}$
+\item Figure \ref{fig4numlab} . See appearance of the field after t=$1.35 \ 10^5 \ s$ for each advection value. With $U_1$ (left) $t<T_{adv}^{U_1}$ the displacement of the structure is minimal compared to the initial field, but $t$ is close to $T_{\kappa}^{right}$ and see that there structure is far more dissipated than on the left. With $U_2$ however, $t>>T_{adv}^{U_2}$ several advection periods have occured and field is symetric but overall if look at values of colorbar have had more dissipation (faire apparaitre les gradients)
+\item  Look at the $\kappa_{eff}$ computed for each velocity for the whole domain. the median of the two values of diffusivity in the domain is $5 \ 10^{-4} \ m^2/s$. This value is initially taken in case $U_1$, but after $t=3.86 \ 10^4 s$ , reach a minimum of $\kappa_{eff}=3.24 \ 10^{-5} m^2/s$. This value then increases again slowly then stabilizes at $\kappa_{eff}=2.2 \ 10^{-4} \ m^2/s$ after $t=2.785 \ 10^5 s$ approx half $T_{adv}^{U_1}$ at this point all original fluid parcels have been advected through the high dissipation area.
+\item case $U_2$, see centered around the median value but with oscillations HF at $T_{adv}^{U_2}$ and a modulation at lower frequency
+\item When compute on each half domain, find the expected values with lesser oscillations at the timescales discussed above. But on the whole domain, lagrangian evolution of gradients (ie following advection through areas of varying dissipation) can make interpretation of $\kappa_{eff}$ if advection and diffusion timescales are close. 
+\end{itemize}
 
-Tracer field is $\psi(x)$ as in previous subsection, no vertical gradients contribution. RK3-UP1, no explicit diffusion, only implicit, parameters : dx $=$ 0.5 m, $u=4.10^{-5} m/s$ (dt $=$ 250s) so $\kappa_{imp} = 10^{-5} m^2/s$.
 
-
- Look at determination of $\kappa_{eff}$ in left half-domain when both diffusion and advection contribution.
- 
- Now have boundary fluxes for both advection (majoritary contribution to right-hand side term in balance) and diffusion. Particularly diffusion fluxes can be negative as entering tracer can act as a source of 'restratification' for the tracer in the volume. Here diffusion in the volume and at the boundary have same size which leads to total diffusion term to sometime be equal to zero and divergence of the balance equation (and so of the value of $\kappa_{eff}$). 
- 
- Diffusion term inside the volume however is always strictly positive, can separate the contribution by chosing two different diffusion coefficients for the boundary ($\kappa_{eff}^{bound}$) and the volume ($\kappa_{eff}^{V}$). In figure ... .b $\kappa_{eff}^{bound}$ is taken as the result of the determination of $\kappa_{eff}$ (ie. value for both terms) through the minimization of error method with time interval of 1 advection period (this value is close to the result of the balance equation for the whole domain). Then $\kappa_{eff}^{V}$ is determined by the balance equation with the boundary term put with the non-diffusive terms. This give a non-divergent solution that oscillate around the expected value. (aussi oscillation eval domaine entier mais moins amplitude....)
- 
- 
-
-%Termes non-diffusifs prépondérants dans le bilan, décalage dû termes diffusifs, pour calcul sur domaine entier retrouve bien $\kappa=10^{-2}$. Quand regarde demi-domaine, moment où signe des termes non-diffusifs devient négatif et plus ce décalage entre évolution BPE et termes non-diffusifs. Si cherche $\kappa$ avec bilan marche plus bien, divergence de la solution, retrouve à peu près en essayant de minimiser l'erreur. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{CROCO experiments}
+\subsection{CROCO experiments : TANK}
+
+Now apply determination of $\kappa_{eff}$ to numerical cases that evolve through the complete system of equation for ocean
+An explicit diffusion coefficient is given...
 
 \subsubsection{Linear vertical stratification and free surface : role of $dz*/dt$}
-Based on TANK experiment. Closed domain, 2D. No initial velocity. Movement comes from evolution of initially non-flat free surface. Initial linear stratification $\rho(z)$ (ie, constant N).
-
-L$=$25m, H$=$10m, dx$=$0.2m$\approx$dz, amplitude oscillation initiale de la surface libre de 2mm. Explicit diffusion coefficient put at $10^{-4}$m$^2$/s.
-
-
-Fluctuations of APE are several order less than of BPE and are associated with movement of the free surface in the term $E_{a,0}$. In complete domain $E_{b,0}$ is null since the total volume will not change and the average level of the free surface remains constant. This will not be the case when looking at part of the domain. See fig \ref{figClin}
-
-
-Fig \ref{figClin}. Here term of BPE balance in $dz^*/dt$ is non zero with low frequency fluctuation of $2*T_{\text{surface}}$ whether look at complete domain (but in this case small compared to signal noise) or half of domain (in which case it is preponderent/same order as advection in the balance of $dBPE/dt$ and not taking it into account results in erroneous evaluation of $\kappa_{eff}$).
-
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\textwidth]{./CHAP_BPE/AGBPE_numlab6.png}
+\includegraphics[width=1\textwidth]{./CHAP_BPE/Fig_TANK_linS.png}
 \caption{Cas strat lineaire}
 \label{figClin}
 \end{figure}
+
+\begin{itemize}
+\item Based on TANK experiment. Closed domain, 2D. No initial velocity. Movement comes from evolution of initially non-flat free surface. Initial linear stratification $\rho(z)$ (ie, constant N).
+\item L$=$50m, H$=$10m, dx$=$0.2m$\approx$dz, amplitude oscillation initiale de la surface libre de 2mm. Explicit diffusion coefficient put at $10^{-4}$m$^2$/s.
+\item fig \ref{figClin} : initial field and computation of $\Phi_{\zeta}$ and other terms. Computation on the whole domain, see amplitude of oscillation of $dPE_B/dt$ is due to $\Phi_{\zeta}$.
+\item $u=\sqrt(gH)=9.9 m/s$ the speed of surface waves, so a timescale associated with an anomaly of the free surafce travelling from one border to the order $T_{\zeta}=L/u=5s$. See that the oscillations of $dPE_b/dt$ are in $2*T_{\zeta}$.
+\item If make computation on a half domain $\Phi_{\zeta}$ is of the same amplitude as $F_a$ the advective fluxes. All terms are bigger.
+\item find $\kappa_{eff}$ of the explicit value that was given. Without taking into account $\Phi_{\zeta}$ would have leftover oscillations.
+\end{itemize}
 
 \subsubsection{Pycnocline and free surface}
 
@@ -241,7 +287,7 @@ Since compare instantaneous terms with temporal derivates in the balance of eq.(
 \includegraphics[width=1\textwidth]{./CHAP_BPE/figcompKAPPA_dt-out_psinL.png}
 \caption{In left half domain (ie, with open boundary)}
 \end{subfigure}
-\caption{Pycno case, $\kappa$ for different time sampling/output frequency}
+\caption{Pycno case, $\kappa$ for different time sampling/output frequency\color{red}Enleve ici!!!\color{black}}
 \end{figure}
 
 \subsubsection{Pycnocline, free surface and bottom bathymetry}
@@ -264,7 +310,8 @@ Depth varies from 10m (dz$=$dx) at left boundary to 8.5m (dz$<$dx) at the right 
 \caption{Bottom bathy case}
 \end{figure}
 
-\subsubsection{Kelvin-Helmoltz Instability : local estimation and mixing event}
+\subsection{CROCO experiments : Kelvin-Helmoltz Instability}
+%\subsubsection{Kelvin-Helmoltz Instability : local estimation and mixing event}
 
 dx$=$dz$=$2m, amplitude cisaillement courant initial 2m/s, cyclic in x. Here $\kappa_{eff}$!$= \kappa_{exp}$, implicit diffusion $\kappa_{imp}$ from advection scheme as instability grows.
 
@@ -281,8 +328,9 @@ Can recreate estimate of coeff for the whole billow by averaging the two estimat
 \label{figCkh}
 \end{figure}
 
+\subsection{CROCO experiments : GBR2D}
 
-\newpage
+\subsection{Conclusion}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
