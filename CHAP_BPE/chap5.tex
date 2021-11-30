@@ -173,7 +173,6 @@ Since this value is for harmonic diffusion, the diffusion terms based on the eff
 %\end{itemize}
 
 \begin{table}[h!]
-\label{table_kappa}
 \centering
 \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|}
 \hline
@@ -185,6 +184,7 @@ $\kappa_{imp}$&\multicolumn{6}{c|}{$4.65.10^{-5}$}\\
 \hline
 \end{tabular}
 \caption{Explicit coefficient given to simulation, effective coefficient computed from BPE analysis and implicit coefficient by deducting one from the other}
+\label{table_kappa}
 \end{table}
 
 \begin{figure}[h!]
@@ -421,16 +421,14 @@ The evolution in time of the effective diffusivity $\kappa_{eff}$ is in contrast
 In the western part of the domain (W) and in it sub-domain (CSw), this semi-diurnal periodicity is readily apparent, not as regular oscillations this time but rather as intermittent episodes (bursts) of higher (positive) effective diffusivity $\kappa_{eff}$ during outflows (when the barotropic component of the current is this time negative).
 
 \section{Discussion and conclusion}
-A complete analysis of the Background Potential Energy (BPE) evolution equation has been carried out in several test-configuration of increasing complexity ending with an application to the real ocean in the region of Gibraltar strait.\\
-This analysis is based on original analytical developments (to our knowledge at least) to derive an as-complete-as-possible balance for free-surface water columns (\S  \noparref{section_PE_chap2}). Original developments have also been proposed to evaluate numerically this balance in non-flat regions of the ocean simulated with terrain-following, s-coordinate numerical models (chapter \noparref{chapBPE}). The efficiency of the proposed implementation of the BPE algorithm remains affordable in terms of computing costs and memory storage in the hierarchy of configurations proposed, but new approaches need to be implemented to compute the reference state \cite{saenz_estimating_2015} for 3D LES of more extended regions.\\
-Several assumptions could additionally need to be reconsidered or at least evaluated with care:
-\begin{itemize}
-\item The isotropy of the effective diffusivity $(\kappa_h=\kappa_v=\kappa)$ must be reconsidered when the implicit numerical diffusion of the advection schemes is at stake: implicit diffusion is indeed added along the advection direction (diffusivity is not isotropic anymore).
-\item When the reference profile $z^*$ is computed locally, the lateral boundary fluxes exchanged through the vertical boundary separating two neighboring domains do not balance each other.
-\item The evaluations of the effective diffusivity was made offline which leads to an additional limitation. Indeed if an open-boundary configuration is studied, the sampling frequency must be chosen with care and must in particular remain large enough.
-\item In a free-surface open domain, advection and motion of the free surface make $PE_B=\iiint_V \rho g z^* d\tau$ evolve with the reorganisation of the mass field (through $F_a$) and with the change of the water column volume (through $\phi_{zeta}$). In most studied configurations, those two terms are of the same order of magnitude and are the largest contribution to $dPE_B/dt$. The effective diffusivity $\kappa_{eff}$ is found to complete the balance and reflect diapycnal mixing. As a consequence, this effective diffusivity reflects the averaged turbulent mixing occurring over the domain of integration (a sum of water columns) and over a period long enough for the main underlying dynamical adjustments leading to the evolution equation to be achieved (i.e. at least larger than the time-scale of the diapycnal fluxes).
+A complete analysis of the Background Potential Energy (BPE) evolution equation has been carried out in several test-configurations of increasing complexity, ending with an application to the real ocean in the region of Gibraltar strait.\\
+This analysis is based on original analytical developments (to our knowledge at least) to derive an as-complete-as-possible evolution equation of the Background Potential Energy for free-surface water columns (\S \noparref{section_PE_chap2}). Original developments have also been proposed to evaluate numerically this evolution in non-flat regions of the ocean simulated with terrain-following, s-coordinate numerical models (chapter \noparref{chapBPE}). The efficiency of the proposed implementation of the BPE algorithm remains affordable in terms of computing costs and memory storage for the hierarchy of configurations proposed, but new approaches need to be implemented to compute the reference state \cite{saenz_estimating_2015} for 3D LES of more extended regions.\\
+Several assumptions could additionally need to be reconsidered or at least evaluated with care.\\
+The isotropy of the effective diffusivity $(\kappa_h=\kappa_v=\kappa)$ should be reconsidered when the implicit numerical diffusion of the advection schemes is at stake: implicit diffusion is indeed added moez specifically along the advection direction and diffusivity is not isotropic anymore.\\
+When the reference profile $z^*$ is computed locally, the lateral boundary fluxes exchanged through the vertical boundary separating two neighboring domains do not balance each other. 
+The evaluations of the effective diffusivity have been made offline which leads to an additional limitation. Indeed, if an open-boundary configuration is studied, the sampling frequency must be chosen with care and must in particular remain large enough not to induce numerical truncatures or artefacts.\\
+In a free-surface domain with opened lateral boundaries, advection and motion of the free surface make $PE_B=\iiint_V \rho g z^* d\tau$ evolve with the reorganisation of the mass field (through $F_a$) and with the change of the water-column volume (through $\phi_{zeta}$). In most studied configurations, those two terms are of the same order of magnitude and are the largest contributions to $dPE_B/dt$. The effective diffusivity $\kappa_{eff}$ is found to complete the balance and thus reflects diapycnal mixing: it quantifies and localizes the averaged turbulent mixing occurring over the domain of integration (a sum of water columns) and over a period which must be long enough for the main underlying dynamical adjustments to be achieved (i.e. at least larger than the time-scale of the diapycnal fluxes).
 %\color{red} Here however can see that often find . In open boundary cases especially will have time-evolution appear.\color{black}
 %\item The effective diffusivity $\kappa_{eff}$ as an instantaneous, homogeneous, isotropic quantity but mixing can be seen \color{red} plutôt comme gradual process?\color{black}
 
-\end{itemize}
 
