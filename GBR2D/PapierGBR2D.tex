@@ -128,7 +128,7 @@ This rather simple configuration is thus of weak computational cost and reduces 
 In Section 2, we present an overview of CROCO equations and the implementation for the 2D lock-exchange experiment. We describe the implementation of the bathymetry profile, water masses, and the exchange and tidal flows. In Section \ref{sRef}, we analyse the physics of the 2D configuration, comparing the model solution to already published data  (e.g., in \citet{FA1988}). Emphasis is then made on the hydraulic control (Section \ref{tide_hyd}), the hydraulic jump (Section \ref{section_insta2D}) and the mode-1 and mode-2 ISW (non-linear internal trains of solitary waves) propagation (Section \ref{sisw}). Last, the sensitivity to the tidal forcing amplitude and to the numerical choices are analysed respectively in sections \ref{TestAmp} and \ref{TestNum}, with a focus on the fine-scales dynamics listed in Figure \ref{scheme_GBR}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Model Description and Configuration}
+\subsection{Model Description and Configuration}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %----------------------------------------------------------------------------
@@ -678,7 +678,7 @@ Only the ``onset'' of turbulence cascade could be simulated showing complex dyna
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\appendix
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Appendix : evaluation of the first internal Rossby radius}
+\subsection{Appendix : evaluation of the first internal Rossby radius}
 \label{app_Rossby}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -702,7 +702,7 @@ $\sqrt{g'h}$ can be replaced by the mode-1 internal waves speed($c_1$), which is
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Appendix : computation of a Froude number}
+\subsection{Appendix : computation of a Froude number}
 \label{app_Froude}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 A single value of mode-n linear internal wave phase speed ($c_n$) can be computed for a flat-bottom and a linear stratification. This velocity can then be compared at each depth with the magnitude of local horizontal currents ($u$) to estimate when and where internal waves can propagate against currents. A diagnostic tool is the ratio of velocities, i.e. a Froude number $(F_n)$ defined as $F_n= u /c_n$. $c_n=\omega / k_n $ where $\omega$ is the wave frequency, here the M2-tidal frequency, and
@@ -726,7 +726,7 @@ with bottom and surface boundary conditions $W_n(0) = 0$ and $W_n(-H) = 0$. $W_n
  The value of the first mode phase speed $c_1(x)$  is indicated in the lower panel of Figure \ref{fig_annexeF} and compared to the longitudinal velocity $u(x,z)$ at $t = 8.5\ T$ plotted in the upper panel. The areas where $u(x,z) > c_1 (x)$ (equivalent to Froude number $F_1$ larger than 1) are presented in the upper panel as well. The flow inside those contours is called supercritical.
  
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- \section{Appendix : computation of Okubo-Weiss parameter}
+ \subsection{Appendix : computation of Okubo-Weiss parameter}
  \label{annexeOW}
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The Okubo-Weiss parameter (OW) is defined as
@@ -743,7 +743,7 @@ s_s = \frac{\partial u}{\partial z} + \frac{\partial w}{\partial x} \quad , \qua
 Negative values of OW indicate a greater role of rotation over deformation, and thus the presence of coherent vortices.
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Appendix : a Korteweg-de Vries (KdV) model}
+\subsection{Appendix : a Korteweg-de Vries (KdV) model}
 \label{KdVpart}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[!h]

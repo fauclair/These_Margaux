@@ -1,38 +1,51 @@
 \section{Résumé en français}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Après avoir développé et analysé une simulation originale des grandes structures turbulentes dans le détroit de Gibraltar, dans le cinquième et dernier chapitre de ce manuscrit nous abordons la problématique de l'évaluation du mélange turbulent dans une simulation numérique des grandes structures turbulentes. La quantification et la localisation de ce mélange turbulent via celle des flux diapycnaux dans l'océan est un problème délicat. Les premières pierres d'un cadre théorique rigoureux ont en effet été posées il y a maintenant plus d'un demi-siècle par E. Lorenz \citep{lorenz_available_1955} avant qu'un algorithme simple ne soit proposé à la fin du siècle précédent par \cite{winters_available_1995} à partir d'une analyse appuyée sur une raisonnement très physique. La simplicité de cette application algorithmique en fait la force mais aussi d'une certaine façon la faiblesse, en particulier à cause des hypothèses très fortes sur lesquelles elle est fondée. Une hypothèse simplificatrice centrale est celle de la constance du volume de fluide considéré, hypothèse qui devient problématique lorsque le domaine considéré pour le bilan d'énergie potentielle est constitué de colonnes d'eau de mer dont la surface libre et donc la hauteur évoluent au cours du temps.\\
-Une équation d'évolution complète a été proposée dans le cadre du chapitre \ref{chap2}, cette équation intègre en particulier la somme des contributions de la variation de surface en $dz^*/dt$ ($z^*(\rho)$ représentant ici la cote d'une particule de masse volumique $\rho$ dans le profil de référence réarrangé. A partir de cette équation d'évolution, l'algorithme classique proposé par \cite{winters_available_1995} est généralisé à une somme de colonnes océaniques: une diffusivité efficace est ainsi calculée à partir d'un bilan complet d'énergie potentielle (plus spécifiquement d'énergie potentielle de référence ou BPE en anglais) via la relation \ref{eq_kappaEff}.\\
-Cet algorithme généralisé est ensuite appliqué à un ensemble de configurations de complexité croissante, chaque configuration permettant d'analyser et d'évaluer la pertinence de la quantification et de la localisation du mélange turbulent. Une équation d'advection-diffusion d'un traceur passif est tout d'abord étudiée dans le cadre de stratifications linéaires puis "bi-couche". Le mélange induit par les oscillations libres d'une cuve stratifiée ou le mélange induit dans un écoulement bi-couche instable ou par un écoulement dans la région du détroit de Gibraltar est lui-aussi analysé. Ces trois dernières configurations sont simulées numériquement avec le code océanique à toit libre CROCO dans sa version compressible et non-hydrostatique.\\
+Après avoir développé et analysé une simulation originale des grandes structures turbulentes dans le détroit de Gibraltar, dans le cinquième et dernier chapitre de ce manuscrit nous abordons la problématique de l'évaluation du mélange turbulent dans une simulation numérique des grandes structures turbulentes. La quantification et la localisation de ce mélange turbulent via celle des flux diapycnaux dans l'océan est un problème délicat. Les premières pierres d'un cadre théorique rigoureux ont en effet été posées il y a maintenant plus d'un demi-siècle par E. Lorenz \citep{lorenz_available_1955} avant qu'un algorithme simple ne soit proposé à la fin du siècle précédent par \cite{winters_available_1995} à partir d'une analyse appuyée sur une raisonnement très physique. La simplicité de cette application algorithmique en fait la force mais aussi d'une certaine façon la faiblesse, en particulier à cause des hypothèses très fortes sur lesquelles elle est fondée. Une hypothèse simplificatrice centrale est celle de la constance du volume de fluide considéré, hypothèse qui devient problématique lorsque le domaine considéré pour le bilan d'énergie potentielle est constitué de colonnes d'eau de mer dont la surface libre et donc la hauteur évoluent au cours du temps.
+
+Une équation d'évolution complète a été proposée dans le cadre du chapitre \ref{chap2}, cette équation intègre en particulier la somme des contributions de la variation de surface en $dz^*/dt$ ($z^*(\rho)$ représentant ici la cote d'une particule de masse volumique $\rho$ dans le profil de référence réarrangé. A partir de cette équation d'évolution, l'algorithme classique proposé par \cite{winters_available_1995} est généralisé à une somme de colonnes océaniques: une diffusivité efficace est ainsi calculée à partir d'un bilan complet d'énergie potentielle (plus spécifiquement d'énergie potentielle de référence ou BPE en anglais) via la relation \ref{eq_kappaEff}.
+
+Cet algorithme généralisé est ensuite appliqué à un ensemble de configurations de complexité croissante, chaque configuration permettant d'analyser et d'évaluer la pertinence de la quantification et de la localisation du mélange turbulent. Une équation d'advection-diffusion d'un traceur passif est tout d'abord étudiée dans le cadre de stratifications linéaires puis "bi-couche". Le mélange induit par les oscillations libres d'une cuve stratifiée ou le mélange induit dans un écoulement bi-couche instable ou par un écoulement dans la région du détroit de Gibraltar est lui-aussi analysé. Ces trois dernières configurations sont simulées numériquement avec le code océanique à toit libre CROCO dans sa version compressible et non-hydrostatique.
+
 Une première conclusion est que la généralisation de l'algorithme de \cite{winters_available_1995} permet une évaluation rigoureuse et "suffisamment" précise du mélange turbulent (comparé aux erreurs induites par son évaluation). L'efficacité de l'algorithme doit toutefois encore être optimisée avant que ce dernier ne soit appliqué à très haute résolution à des régions océaniques d'extension conséquente.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In the present chapter \ref{chapBPE}, a substantial step is made toward the quantification of mixing in realistic ocean configurations. In the frame of our general presentation of our \textit{ocean model}, we derived a general evolution equation for the Background Potential Energy (BPE) (\noparref{eq_evolBPE}). This evolution equation can be applied to a region of the ocean made of free-surface water columns. The objective is now to generalize \cite{winters_available_1995}'s algorithm so that it could be applied to this evolution equation leading herein to an original tool to evaluate the turbulent mixing in the real ocean. In addition to the evaluation of several new terms in the evolution equation, the generalisation of their algorithm to realistic numerical ocean configurations induces additional difficulties to take into account (i) bathymetry variations and (ii) variations of grid-cell volume in terrain-following s-coordinates. These difficulties need to be dealt with preserving a high accuracy since diapycnal fluxes associated in fine to mixing are known to be several orders of magnitude smaller than advective fluxes associated for instance to ocean tides...
-Propositions are made to overcome such algorithmic difficulties and a step is made toward an original evaluation of mixing in realistic ocean configurations.\\
-The generalized algorithm we propose consequently takes root in the "milestone" publication by \citep{winters_available_1995}. Lately \cite{saenz_estimating_2015} and \cite{tailleux_local_2018} proposed more efficient algorithms (see \S \ref{section_PE_chap2} of the manuscript for a review). These modifications have not yet been implemented because (i) the cases studied do not require so far too large computations and (ii) \cite{winters_available_1995} approach is to be used as a reference and, as a consequence, needs to be first implemented.
-In the present chapter, we first propose an extension of \cite{winters_available_1995}'s algorithm to a free-surface, non-flat ocean. With this original algorithm, we investigate, quantify and localize the turbulent mixing induced when a simple passive tracer is (numerically) advected by a constant current and diffused at a constant (known) rate. In the last section, the turbulent mixing induced in an oscillating tank, in an area of ocean submitted to Kelvin-Helmholtz instabilities and in the region of the strait of Gibraltar is studied.
+In the present chapter \ref{chapBPE}, a substantial step is made toward the quantification of mixing in realistic ocean configurations. In the general presentation of the \textit{ocean model} of chapter \ref{chap2}, a general evolution equation for the Background Potential Energy (BPE) was derived in equation (\noparref{eq_evolBPE}) of section \ref{section_PE_chap2}. This evolution equation can be applied to a region of the ocean made of free-surface water columns, with apparition of a source term of BPE linked to movement of this free-surface. The objective is now to apply \citet{winters_available_1995}'s algorithm for the determination of the reference profile $z^*(\rho)$ to this evolution equation, as a tool to evaluate the turbulent mixing in realistic ocean configurations.
+
+%In addition to the evaluation of several new terms in the evolution equation, 
+The generalisation of this algorithm to realistic numerical ocean configurations introduces additional difficulties to take into account : (i) bathymetry variations, (ii) variations of grid-cell volume in terrain-following s-coordinates, and (iii) diffusive and advective fluxes through open boundaries. In particular for this last point, diapycnal fluxes associated in fine to mixing are known to be several orders of magnitude smaller than advective fluxes associated for instance to ocean tides, and computation of the term of the balance equation must be carried out while preserving a high accuracy.
+
+%Propositions are made to overcome such algorithmic difficulties and a step is made toward an original evaluation of mixing in realistic ocean configurations.
+
+The generalized algorithm proposed here consequently takes root in the "milestone" publication by \citet{winters_available_1995}. Lately \citet{saenz_estimating_2015} and \citet{tailleux_local_2018} proposed more efficient algorithms for the determination of the reference profile (see \S \ref{section_PE_chap2} of the manuscript for a review). These modifications have not yet been implemented because (i) the cases studied so far do not require too large computations, and (ii) \citet{winters_available_1995}'s approach is to be used as a reference and, as a consequence, needs to be first implemented. The aim of this chapter is not only to evaluate the relevance and efficiency of the method but also to point where the approach needs to be further refined.
+
+In the present chapter, we first propose an extension of \cite{winters_available_1995}'s algorithm to a free-surface, non-flat ocean in section \ref{BPE_algo}. It is applied first in section \ref{section_numlab} to a simple advection - diffusion equation using homogeneous grid cells. In a second step, CROCO ocean model is implemented in test-case configurations of section \ref{section_CROCO_BPE}. Those configurations are of increasing complexity in term of bathymetry and dynamics; the last, more realistic configuration being the vertical section of Gibraltar Experiment (SimRef) studied in chapter \ref{chapGBR2D}.
+
+%With this original algorithm, we investigate, quantify and localize the turbulent mixing induced when a simple passive tracer is (numerically) advected by a constant current and diffused at a constant (known) rate. In the last section, the turbulent mixing induced in an oscillating tank, in an area of ocean submitted to Kelvin-Helmholtz instabilities and in the region of the strait of Gibraltar is studied.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Generalized algorithm to evaluate effective diffusivity}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \label{BPE_algo}
-\cite{winters_available_1995}'s algorithm to quantify turbulent mixing includes several steps:
+%\cite{winters_available_1995}'s algorithm to quantify turbulent mixing includes several steps:
+The framework applied reflexively to each configuration of this chapter is comprised of the following steps : 
 \begin{enumerate}
 \setlength\itemsep{0pt}
-\item The volume of ocean water located at a given depth $V(z)$ is evaluated. 
-\item At a given time, the \textit{reference} density profile is obtained by "re-arranging" the stratification, filling from bottom to top the total ocean volume with water cells of increasing density. In a non-flat ocean region and a fortiori when using a terrain-following s-coordinates, this re-arrangement has to be carried out with care since the surface of the ocean at a given depth depends itself on the depth.
-\item The depth of a given density $z^*(\rho,t)=z^*(\mathbf{x},t)$ can in turn be obtained as the inverse function of the reference, re-arranged density profile $\rho^*(z)$. To avoid too large computations (and waiting for more efficient implementations), this "reorganisation" is restricted to "small"-extend configurations (such as 2D vertical sections).
-\item The Background Potential Energy $BPE(t)$ together with its evolution in time can then be computed based on its evolution for the ocean region considered.
-\item An "effective" diffusivity can finally be evaluated in a chosen area based on the generalized evolution equation of BPE \ref{eq_evolBPE}.
+\item The volume of available ocean water located below a given depth $V(z)$ is evaluated at all depths. For non-moving bathymetry cases, this step is carried out only once. 
+\item At a given time, the \textit{reference} density profile $\rho^*(z)$ is obtained following \citet{winters_available_1995} by "re-arranging" the stratification, filling from bottom to top the total available ocean volume as determined in the previous step with water parcels of increasing density. In "small"-extend configurations (such as the 2D vertical sections of this chapter), this "rearrangement" does not incur too large computations.%To avoid too large computations (and waiting for more efficient implementations), this "reorganisation" is restricted to "small"-extend configurations (such as 2D vertical sections).% In a non-flat ocean region and a fortiori when using a terrain-following s-coordinates, this re-arrangement has to be carried out with care since the surface of the ocean at a given depth depends itself on the depth.
+\item The depth of a given density $z^*(\rho,t)=z^*(\mathbf{x},t)$ can in turn be obtained as the inverse function of the reference, re-arranged density profile $\rho^*(z)$. 
+\item The Background Potential Energy $BPE(t)$, together with its evolution in time and the RHS terms of equation \ref{eq_evolBPE}, can then be computed based on $z^*(\rho,t)$ for the ocean region considered.
+\item An "effective" diffusivity $\kappa_{eff}$ can finally be evaluated in a chosen area based on the generalized evolution equation of BPE \ref{eq_evolBPE}.
 \end{enumerate}
-The horizontal and vertical diffusivities, respectively $\kappa_h$ and $\kappa_v$, are thus the two unknowns of the problem. They are considered as homogeneous for the volume considered, and in most cases studied hereafter, diffusivity has to be chosen isotropic, leading to $\kappa_h=\kappa_v=\kappa$. Indeed, the balance equation only provides one equation and, as a consequence, it can only lead to the determination of one unknown diffusivity.
-In this case, an effective diffusivity $(\kappa_{eff})$ can be obtained by reformulating the evolution equation \ref{eq_evolBPE}:
+
+Indeed, in equation \ref{eq_evolBPE}, the horizontal and vertical diffusivities (respectively $\kappa_h$ and $\kappa_v$) are the two unknowns of the problem. Here they are considered as homogeneous for the volume of ocean to which the algorithm is applied. Furthermore, in most cases studied hereafter, diffusivity has to be chosen isotropic, leading to $\kappa_h=\kappa_v=\kappa$. Indeed, the balance equation only provides one equation and, as a consequence, it can only lead to the determination of one unknown diffusivity.
+In this case, the effective diffusivity $(\kappa_{eff})$ can be obtained by reformulating the evolution equation \ref{eq_evolBPE} as :
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
- 	&\frac{d E_b}{d t} &&= \quad \underbrace{g\int_x \int_{-1}^0 \rho h \frac{d z^*}{d t}\bigg\rvert_{xs} \ dx ds}_{\phi_{\zeta}}\\
+ 	&\frac{d PE_B}{d t} &&= \quad \underbrace{g\int_x \int_{-1}^0 \rho h \frac{d z^*}{d t}\bigg\rvert_{xs} \ dx ds}_{\phi_{\zeta}}\\
  & && \quad \underbrace{ -g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x} - g\bigg[ \int_x\rho z^* v_s \ dx\bigg]_0^1}_{F_A} \\
  & && \quad +\kappa_{eff}\underbrace{\bigg[+ g \ \bigg[ \int_{-1}^0 h z^*  \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
  + g  \ \bigg[ \int_x z^* \frac{1}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1\bigg] }_{F_D}\\
@@ -41,29 +54,40 @@ In this case, an effective diffusivity $(\kappa_{eff})$ can be obtained by refor
 \end{alignat}
 \label{bilanBPEal}
 \end{subequations}
-An instantaneous evaluation of diffusivity is then given by:
+In essence, the balance is first computed with $\kappa_{eff}=1 kg/m^3$ and both diffusive terms $\phi_D$ and $F_D$ have high values. An instantaneous evaluation of diffusivity is then given by:
 \begin{equation}
-\kappa_{eff} = \frac{\frac{dE_b}{dt}-(\phi_{\zeta}+F_A)}{F_D+\phi_D}
+\kappa_{eff} = \frac{\frac{dPE_B}{dt}-(\phi_{\zeta}+F_A)}{F_D+\phi_D}
 \label{eq_kappaEff}
 \end{equation}
-The treatment of this evolution equation needs to be achieved with a particular care. Indeed, the term $(\phi_\zeta)$ associated to $dz^*/dt$ can hardly be evaluated directly. It must be computed as the sum of terms (1), (2) and (3) in relation \ref{eq_evolBPE0} in order to maintain the required accuracy. Indeed the expression in equation \ref{buoyancyzstar} with $\partial \zeta / \partial t$ and the Heaviside function is otherwise associated to large relative errors requiring large computing resources.\\
-The aim of this chapter is not only to evaluate the relevance and efficiency of the method but also to point where the approach needs to be further refined.
-First a simple advection - diffusion equation is studied numerically using homogeneous grid cells. In a second step, CROCO ocean model is implemented in test-case configurations of increasing complexity, the last, more realistic configuration being the vertical section of Gibraltar Experiment (SimRef) studied in chapter \ref{chapGBR2D}.
-At the opposite, in the first test-cases presented and discussed hereafter, configurations are cyclic in both horizontal and vertical directions. As a consequence, both advective and diffusive fluxes through the vertical boundaries are possible and those fluxes are obviously computed to verify the exact balance of the RHS and LHS of relation \ref{eq_evolBPE}.\\
 
+The treatment of this evolution equation needs to be achieved with a particular care. Indeed, the term $(\phi_\zeta)$ associated to $dz^*/dt$ can hardly be evaluated directly. It is computed as the sum of terms (1), (2) and (3) in relation \ref{eq_evolBPE0} in order to maintain the required accuracy without adding to the computational cost.% Indeed the expression in equation \ref{buoyancyzstar} with $\partial \zeta / \partial t$ and the Heaviside function is otherwise associated to large relative errors requiring large computing resources.
+%The aim of this chapter is not only to evaluate the relevance and efficiency of the method but also to point where the approach needs to be further refined.
+%First a simple advection - diffusion equation is studied numerically using homogeneous grid cells. In a second step, CROCO ocean model is implemented in test-case configurations of increasing complexity, the last, more realistic configuration being the vertical section of Gibraltar Experiment (SimRef) studied in chapter \ref{chapGBR2D}.
+
+Additionally, in the first test-cases presented and discussed in section \ref{section_numlab}, configurations are cyclic in both horizontal and vertical directions, so the formulation of equation \ref{bilanBPEal} retains advective and diffusive fluxes through the top and bottom boundaries.
+
+%At the opposite, in the first test-cases presented and discussed hereafter, configurations are cyclic in both horizontal and vertical directions. As a consequence, both advective and diffusive fluxes through the vertical boundaries are possible and those fluxes are obviously computed to verify the exact balance of the RHS and LHS of relation \ref{eq_evolBPE}.\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Explicit and implicit mixing in an advection-diffusion equation}
-The evolution of the explicit (physical) and (numerically induced) implicit mixing is first tackled in the 2D vertical section of a flow governed by an advection - diffusion 
-equation. To avoid the treatment of fluxes through lateral boundaries, the configuration is chosen cyclic in both directions.\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{section_numlab}
+The evolution of the explicit (physical) and (numerically induced) implicit mixing is first tackled in the 2D vertical section of a flow governed by an advection - diffusion equation. As indicated previously, to avoid the heavy numerical treatment of tracer fluxes through lateral boundaries, the configuration is chosen cyclic in both directions.
+
 The advection - diffusion governing equation of a passive tracer field $\psi$ is given by:
 \begin{equation}
-\frac{\partial \psi}{\partial t} = -u\frac{\partial \psi}{\partial x} - w\frac{\partial \psi}{\partial z} + \kappa_{exp}^x \frac{\partial^2 \Psi}{\partial x^2} + \kappa_{exp}^z \frac{\partial^2 \psi}{\partial z^2}
+\frac{\partial \psi}{\partial t} = -u\frac{\partial \psi}{\partial x} - w\frac{\partial \psi}{\partial z} + \kappa_{exp}^h \frac{\partial^2 \Psi}{\partial x^2} + \kappa_{exp}^v \frac{\partial^2 \psi}{\partial z^2}
+\label{eqAdvDiff}
 \end{equation}
-with $\kappa_{exp}^{x,z}$ a given explicit (known) diffusion coefficient.
-Total volume is supposed to remain constant so that $\phi_{\zeta}$ integrates to zero. Vertical velocity is supposed to vanish so $w\ =\ 0$ and the second term of both $F_a$ and $\phi_D$ in \ref{bilanBPEal} is zero.
+with $\kappa_{exp}^{h,v}$ the given explicit (known) diffusion coefficient (for most cases $\kappa_{exp}^{h}=\kappa_{exp}^{v}$).
+Total volume is supposed to remain constant so that the RHS term $\phi_{\zeta}$ integrates to zero. No cases with vertical velocity are presented ($v_s\ =\ 0$) so the second term of $F_a$ in \ref{bilanBPEal} is also zero.
 Depending on the test-case considered, the initial field of passive tracer is either equal to $\psi_1(x)=cos(2\pi x/L_x)$ or to $\psi_2(x,z)=Re(e^{i2\pi x/L_x}e^{i 2 \pi z/L_z})$.
 
 \subsection{Local diffusion test configuration $(BPE_{exp})$}
-The first implementation is that of a diffusive but advection-free flow. The main numerical parameters are given in table \ref{tab_NUMLAB_exp}.\\
+\color{red} Intervertir section advection et diffusion???\color{black}
+
+The first implementation is that of a diffusive but advection-free flow ($u=0m/s$). The main numerical parameters are given in table \ref{tab_NUMLAB_exp}.
+
 \begin{table}[h]
         %\begin{minipage}{.6\textwidth}
         \centering
@@ -73,14 +97,14 @@ The first implementation is that of a diffusive but advection-free flow. The mai
                 \hline 
                 Numerical Model & Advection-diffusion equation of passive tracers\\
                 $L_x$ & 30 m\\
-                $L_z$ & 20 m\\
+                $L_z$ & 30 m\\
                 $\Delta x$ & 0.5 m\\
                 $\Delta z$ & 0.5 m\\
-                $\Delta t$ & 0.1 s\\
+                $\Delta t$ & 10 s\\
                 Time stepping & RK3 \\
-                Diffusivity & $Left: \kappa_{exp}^x=\kappa_{exp}^z=10^{-3}\ m^2/s$. Right: no diffusion. \\
+                Diffusivity & $Left: \kappa_{exp}^h=\kappa_{exp}^v=10^{-5}\ m^2/s$. $Right: \kappa_{exp}^h=\kappa_{exp}^v=10^{-3}\ m^2/s$. \\
                 Advection & none\\
-                Initial field & $\psi(x,\ 0)=\psi_1(x)$\\
+                Initial field & $\psi(x, z,\ 0)=\psi_2(x,z)$\\
                 \hline
         \end{tabular}
         \captionof{table}{ $BPE_{exp}$ configuration: numerical parameters.}
@@ -89,27 +113,40 @@ The first implementation is that of a diffusive but advection-free flow. The mai
 \end{table}
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1\textwidth]{./CHAP_BPE/AGBPE_numlab2.png}
-\caption{(c) is \ref{bilanBPEal}e... Ajouter champ initial?}
+\includegraphics[width=1\textwidth]{./CHAP_BPE/AGBPE_numlab2_2.png}
+\caption{(A1 and A2) Initial field of tracer $\psi$, and tracer field after $t=100s$ of simulation. (B1 and B2) Reference profiles $z^*(\psi)$ at $t=9.10^3s$ and $t=9.10^4s$ of simulation computed either with the fluid parcels of the left half sub-domain (blue), the right half sub-domain (red), or the complete domain (black). (C, D and E) RHS (C and D) and LHS (E) terms of equation \ref{bilanBPEal} computed on the different (sub-)domains. $F_D^{right}$ is indicated with a factor $-1$ in (D). (F) $\kappa_{eff}$ as evaluated in equation \ref{eq_kappaEff} with the previous terms on the different (sub-)domains.}
 \label{fig2numlab}
 \end{figure}
 %Initial tracer field same as in fig \ref{fig1numlab}.
 %\item Figure \ref{fig2numlab}. $dx=0.5$ m, $dz=0.5$ m, $L_x=30$ m, $L_z=20$ m, $dt=0.1s$. $\kappa_{exp}^x=\kappa_{exp}^z=\kappa_{exp}$ and $u=0$, no advection. RK3 timestepping scheme.
 %\item For x$<$15 m, $\kappa_{exp} = 10^{-3}$, otherwise $\kappa_{exp} = 10^{-2}$ m$^2$/s.
-To evaluate the capacity of the algorithm to deal with local variations of mixing (i.e. when the intensity of turbulent mixing is varying in space), the explicit diffusivity $\kappa_{exp}$ is chosen to be non-zero only in the left part of the domain, meaning that the right part is mixing free. The effective diffusivity $\kappa_{eff}$ is then evaluated either for each half domain or for the whole domain. The initial passive tracer field is given by $\psi_1$.\\
-Three $z^*(\rho)$ reference profiles (respectively $z^*_{left}$, $z^*_{right}$ and $z^*_{all}$) are consequently computed with the "re-arrangement" algorithm considering only fluid parcels in the left or right parts of the domain or in the whole domain.
-In turn, the amplitude of the term $\phi_D$ varies depending if it is calculated for the latest $z^*_{all}$ reference profile or if it is obtained as the sum  $\phi_D^{left}+\phi_D^{right}$. The diapycnal fluxes $\phi_D^{left}$ and $\phi_D^{right}$ in this sum are themselves calculated respectively with the reference profiles $z^*_{left}$ or $z^*_{right}$. These fluxes do not cancel each other in so far as they are computed locally based on the local reference profiles of each sub-domain.\\
-If the effective diffusivity $(\kappa_{eff})$ is evaluated over each half domain, figure \ref{fig2numlab} shows that the algorithm provides the correct value of the diffusivity with: $\kappa_{eff}\approx\kappa_{exp}$. If $\kappa_{eff}$ is now evaluated over the whole domain, it is initially a little larger than to the overall explicit mean diffusivity $(\kappa_{left}+\kappa_{right})/2$ but it decreases afterwards with time. This can be explained by the differences in the re-arranged reference profiles. When this reference profile is computed "locally" (this is the case when the effective diffusivity is evaluated locally to compute $\kappa_{right}$, it is smoothed out quicker. As a consequence, the evaluated diapycnal flux decreases.
+
+The chosen initial passive tracer field is given by $\psi_2 (x,z)$ and is shown in figure (\noparref{fig2numlab}.A1).
+
+To evaluate the capacity of the algorithm to deal with local variations of mixing (i.e. when the intensity of turbulent mixing is varying in space), the explicit diffusivity $\kappa_{exp}$ of equation \ref{eqAdvDiff} is non-homogeneous over the domain. It is one order of magnitude greater over the right half of the domain ($10^{-2}$ vs. $10^{-3} \ kg/m^3$ in the left half), so that as can be seen in figure (\noparref{fig2numlab}.A2) gradients are smoothed faster in this part of the grid.
+
+The evaluation of $\kappa_{eff}$ presented in the previous section is carried out either for each half domain or for the whole domain. Three $z^*(\rho)$ reference profiles (respectively $z^*_{left}$, $z^*_{right}$ and $z^*_{all}$) are consequently computed with the "re-arrangement" algorithm considering only the fluid parcels in the left sub-domain, the right sub-domain, or the whole domain. Exemple of those profiles are presented in figures (\noparref{fig2numlab}.B1 and B2).
+
+Figures (\noparref{fig2numlab}.C to F) present the terms of equation \ref{bilanBPEal} computed from each reference profiles. It must be noted that neither the diffusive term $\phi_D$ nor the evolution of BPE $dPE_B/dt$ computed for the whole domain are equal to the sum of those terms computed on each half domain (for exemple $\phi_D^{all} \ne \phi_D^{left}+\phi_D^{right}$). This is due to the different definition of $z^*(\psi)$ depending of the domain extension chosen for the rearrangement. In the same way, the diffusive fluxes $F_D$ of figure (\noparref{fig2numlab}.D) do not cancel each other from one half domain to the other past the initialization as $z^*_{left}$ and $z^*_{right}$ diverge.
+
+%In turn, the amplitude of the term $\phi_D$ varies depending if it is calculated for the latest $z^*_{all}$ reference profile or if it is obtained as the sum  $\phi_D^{left}+\phi_D^{right}$. The diapycnal fluxes $\phi_D^{left}$ and $\phi_D^{right}$ in this sum are themselves calculated respectively with the reference profiles $z^*_{left}$ or $z^*_{right}$. These fluxes do not cancel each other in so far as they are computed locally based on the local reference profiles of each sub-domain.
+
+If the effective diffusivity $(\kappa_{eff})$ is evaluated over each half domain, figure (\noparref{fig2numlab}.E) shows that the algorithm provides the correct value of the diffusivity with: $\kappa_{eff}\approx\kappa_{exp}$. If $\kappa_{eff}$ is now evaluated over the whole domain, it is initially equivalent to the overall explicit mean diffusivity $(\kappa_{left}+\kappa_{right})/2$ but it decreases afterwards with time \color{red}, nearing asymptotically the value of $\kappa_{exp}^{left}$ after $t \approx 3.10^4s$. That is to say the global effective diffusion tends to assume the value associated with the evolution in the area of 'lesser mixing' where gradients of the tracer field are the less affected.(difficile à expliquer avec les termes du bilan...J'ai changé la figure pour voir mais je ne sais toujours pas si c'est plus clair.)\color{black}
+
+
+%, as diffusion is 'more efficient' on the right half of the domain,
+
+%Because $\kappa_{eff}$ is computed as homogeneous, it must reflect the global diffusion process, however as time goes by in the simulation, diffusion is more efficient over the right half domain, for greater and greater $t$ the gradients of $\psi$ there will be smoothed out before   NON This can be explained by the differences in the re-arranged reference profiles. When this reference profile is computed "locally" (this is the case when the effective diffusivity is evaluated locally to compute $\kappa_{right}$, it is smoothed out quicker. As a consequence, the evaluated diapycnal flux decreases.\color{black}
 %As time goes on, the effective diffusivity 
 %\color{red} $\kappa_{eff}$ tends to the lowest value of diffusivity since in the right half (left or right ?),
 %the vertical gradient of $\psi$ will be deteriorated quicker, hence the term of the integrand is smaller and the higher value of the gradient of $\psi$ in the left half will... (je n'arrive pas à formuler : l'évolution pilotée par là où le coef est le plus bas une fois que les gradients à droite sont résorbés)
 %\item only able to differentiate for $\kappa(x)$.
 %If diffusion coefficient was made to vary along the vertical direction, in the same way that when evaluate $\kappa_{eff}$ for the whole domain, integrates all contributions to the change in $z^*$ in the water column
 %Explique plus simplement en français... cette étude est un peu loin maintenant... Au pire, on le rédige ensemble lundi matin.
-\color{black}
+
 
 \subsection{Implicit diffusion case $(BPE_{imp})$}
-The same flow configuration is now investigated when advection is not neglected anymore (table \ref{tab_NUMLAB_imp}).
+The same flow configuration is now investigated with homogeneous $\kappa_{exp}$ when advection is not neglected anymore ($u \ne 0$, table \ref{tab_NUMLAB_imp}).
 \begin{table}[h]
         %\begin{minipage}{.6\textwidth}
         \centering
@@ -124,9 +161,10 @@ The same flow configuration is now investigated when advection is not neglected 
                 $\Delta z$ & 0.5 m\\
                 $\Delta t$ & 0.1 s\\
                 Time stepping & RK3 \\
-                Diffusivity & none \\
+                Diffusivity & see text \\
                 Advection & $U\ = 0.1\ m/s$ with UP1 or UP3 advective schemes.\\
-                Initial field & With UP1 scheme: $\psi(x,\ 0)=\psi_1(x)$. With UP3 scheme: $\psi(x,\ 0)=\psi_2(x)$\\
+                Initial field & With UP1 scheme: $\psi(x, z,\ 0)=\psi_2(x,z)$. \\
+                 & With UP3 scheme: $\psi(x, z,\ 0)=\psi_1(x)$\\
                 \hline
         \end{tabular}
         \captionof{table}{ $BPE_{imp}$ configuration: numerical parameters.}
@@ -137,14 +175,14 @@ The same flow configuration is now investigated when advection is not neglected 
 The objective with this new implementation is to evaluate the implicit diffusion $\kappa_{imp}$ due to upstream (UP1 or UP3) advective schemes. The effective diffusivity can be compared to the value obtained analytically for each upstream scheme. 
 
 \subsubsection{First order upstream scheme (UP1)}
-Figure \ref{fig3numlab} shows the evolution of the implicit diffusivity obtained in the $BPE_{imp}$ configuration.
+%Figure \ref{fig3numlab} shows the evolution of the implicit diffusivity obtained in the $BPE_{imp}$ configuration.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.5\textwidth]{./CHAP_BPE/AGBPE_numlab3.png}
-\caption{Diffusion coefficient for implicit diffusion case RK3-UP1. Either assume $\kappa_z=\kappa_x$(horizontal) or that $\kappa_z=0$ (global)\color{red}(Il faudra que je repasse sur certaines figures)\color{black}}
+\caption{$\kappa_{eff}$ computed in the case of implicit diffusion with RK3-UP1 scheme for $\Delta x=0.5m$ (red) or $\Delta x=0.1m$ (blue). In the computation of $\kappa_{eff}$, either isotropic diffusion is assumed ($\kappa_v=\kappa_h$, lines) or that diffusion is only applied in the horizontal direction ($\kappa_v=0$, dashed lines)}
 \label{fig3numlab}
 \end{figure}
-The initial field is the same as in the previous $BPE_{exp}$ configuration. Advective fluxes are now based on a first-order upstream scheme (UP1) and no explicit harmonic diffusion ($\kappa_{exp}=0$) is specified.
+The initial field is the same as in the previous $BPE_{exp}$ configuration ($\psi_2(x,z)$). Advective fluxes are now based on a first-order upstream scheme (UP1) and no explicit harmonic diffusion ($\kappa_{exp}=0$) is specified.
 The modified equation for this discrete advection equation can be derived analytically:
 \begin{equation}
 \frac{\partial \psi}{\partial t}+U \frac{\partial \psi}{\partial x} = \frac{1}{2} U \Delta x  \frac{\partial^2 \psi}{\partial x^2} + \mathcal{O}(\frac{\partial^3 \psi}{\partial x^3})
@@ -152,25 +190,38 @@ The modified equation for this discrete advection equation can be derived analyt
 This leads to an analytical formulation of the implicit diffusion coefficient for the UP1 advective scheme: 
 \begin{equation}
     \displaystyle
-    \kappa_{h,i}\approx\frac{1}{2}U \Delta x
+    \kappa_{h,imp}\approx\frac{1}{2}U \Delta x
 \end{equation}
-The implicit diffusivity consequently varies linearly with the grid scale and for $\Delta x\ =\ 0.5\ m$ (respectively $\Delta x\ =\ 1.5\ m$), it can reach $\kappa_{h,i}\ =\ 0.025\ m^2/s$  (respectively $0.075\ m^2/s$).\\
-Figure \ref{fig3numlab} shows that the correct value of this analytically-computed implicit diffusivity $(\kappa_{eff}=\kappa_{imp})$ can be recovered with the BPE algorithm only if the vertical component of the diffusion is not taken into account, i.e. only when along flow fluxes are considered. Otherwise, the value of $\kappa_{eff}$ is less than the analytically-computed implicit diffusivity. In this later case, the effective diffusivity is indeed supposed to be applied to both the horizontal and vertical components of the flow in equation \ref{bilanBPEal}.
+The implicit diffusivity consequently varies linearly with the grid scale and for $\Delta x\ =\ 0.5\ m$ (respectively $\Delta x\ =\ 1.5\ m$), it can reach $\kappa_{h,imp}\ =\ 0.025\ m^2/s$  (respectively $0.075\ m^2/s$).
+
+\color{red}Figure \ref{fig3numlab} shows that the correct value of this analytically-computed implicit diffusivity $(\kappa_{eff}=\kappa_{imp})$ can be recovered with the BPE algorithm only if the vertical component of the diffusion is not taken into account, i.e. only when along flow diffusion is considered. Otherwise, the simulated evolution of the tracer field is assumed to come from isotropic diffusion in both vertical and horizontal direction, consequently $\kappa_{eff}$ is evaluated as lesser since there is this added contribution of vertical diffusion of equation \ref{bilanBPEal}. Note that it is possible to know that this latter hypothesis is wrong only because the model is specified to have no explicit diffusivity and only horizontal advection that induces numerical diffusion along this direction. \color{black}
+
+%the value of $\kappa_{eff}$ is less than the analytically-computed implicit diffusivity. In this later case, the effective diffusivity is indeed supposed to be applied to both the horizontal and vertical components of the flow in equation \ref{bilanBPEal}.
 
 \subsubsection{Third order upstream scheme (UP3)}
-In this third configuration, the initial tracer field is now $\psi(x,\ 0)=\psi_2(x)$ (see figure \noparref{fig5numlab}.a) in such a way that the solution of advection-diffusion problem can be computed analytically: $\psi(x,t)=e^{-\kappa k_x^2 t}cos(k(x-Ut))$ with $k_x=2\pi/L_x$.
+In this third configuration, the initial tracer field is now $\psi(x,\ 0)=\psi_1(x)$ (see figure \noparref{fig5numlab}.A).% in such a way that the solution of advection-diffusion problem can be computed analytically: $\psi(x,t)=e^{-\kappa k_x^2 t}cos(k(x-Ut))$ with $k_x=2\pi/L_x$.
 A third-order upstream advective scheme (UP3) is now associated to the RK3 time-stepping with a non-vanishing horizontal velocity. The modified equation leads this time to a 4th-order diffusion term:
 \begin{equation}
 \frac{\partial \psi}{\partial t}+U \frac{\partial \psi}{\partial x} = \underbrace{\frac{1}{120}(5 C^3-10) U \Delta x^3}_{k_4}  \frac{\partial^4 \psi}{\partial x^4} + \mathcal{O}(\frac{\partial^5 \psi}{\partial x^5})
 \end{equation}
-where $C\ =\ U\Delta t/\Delta x$ is the advection Courant number, $C=2 . 10^{-2}$ in the present configuration. The fourth order diffusivity reaches $k_4\ =\ -1.10^{-3} m^4/s$. Note that the BPE algorithm conducted so far gives an implicit diffusion in form of a second-order diffusivity $k_2=\kappa_{eff}$.
-Several experiments are carried out with the configuration of schemes: in addition to the implicit diffusion induced by the upstream advection scheme, an explicit harmonic diffusion is also specified. \\
+where $C\ =\ U\Delta t/\Delta x$ is the advection Courant number. With $C=2 . 10^{-2}$ in the present configuration, the fourth order diffusivity takes the value $k_4\ =\ -1.10^{-3} m^4/s$. Note that the BPE algorithm conducted so far gives an implicit diffusion in form of a second-order diffusivity $k_2=\kappa_{eff}$.
+
+\color{red}This effective diffusivity is evaluated for several experiments of this configuration presented in table \ref{table_kappa}. In those experiments, in addition to the effect of the implicit diffusivity from the $UP3$ scheme, explicit harmonic diffusion is added, so that the effective diffusivity should be the sum of both contributions $\kappa_{eff} \approx \kappa_{exp} + \kappa{imp}$.
+
+Figure (\noparref{fig5numlab}.B) presents the $\kappa_{eff}$ thus evaluated for the experiment with $\kappa_{exp}=0 \ m^2/s$. It presents high-frequency oscillations with a non-negligible relative amplitude. Those oscillations are found regardless of the value of $\kappa_{exp}$, and the value of $\kappa_{eff}$ indicated in table \ref{table_kappa} is averaged over the whole simulation time. Once $\kappa_{exp}$ is removed from $\kappa_{eff}$, an unique value of $\kappa_{imp,2}$ is recovered at $4.65.10^{-5}\ m^2/s$ for all experiments.
+
+%Several experiments are carried out with the configuration of schemes: in addition to the implicit diffusion induced by the upstream advection scheme, an explicit harmonic diffusion is also specified. 
+
 %The effective coefficient found by BPE analysis consequently builds up to $\kappa_{eff} = \kappa_{exp} + \kappa_{imp}$.
-Figure \ref{fig5numlab}.b and table \ref{table_kappa} compare the effective diffusivity obtained with the BPE algorithm for several values of $\kappa_{exp}$. This diffusivity presents high-frequency oscillations with a non-negligible relative amplitude.\\
+%Figure \ref{fig5numlab}.b and table \ref{table_kappa} compare the effective diffusivity obtained with the BPE algorithm for several values of $\kappa_{exp}$. This diffusivity presents high-frequency oscillations with a non-negligible relative amplitude.
+
 %\color{red}(correspond temps d'advection d'une cellule??? à vérifier (ou vient calcul des termes du bilan pas en RK3?))\color{black}. \\
-When averaged in time over the whole simulation, the effective diffusivity reaches approximately $4.65.10^{-5} m^2/s$ when $\kappa_{exp}\ =\ 0$. It is then evaluated for a series of configurations with non-zero explicit diffusivity and the (effective) implicit diffusivity $\kappa_{imp}$ is computed as the time-averaged effective diffusivity over the period minus the explicit diffusivity. The same  value of $4.65.10^{-5}\ m^2/s$ is recovered in all experiments.\\
-Since this value is for harmonic diffusion, the diffusion terms based on the effective second order diffusivity $(k_2\ =\ \kappa_{eff})$ and on the analytical fourth-order diffusivity $k_4$ computed above can be compared in figure (\noparref{fig5numlab}.d). They are both averaged over \color{red} ??? \color{black}. These terms are close to each other. Note that the second-order and fourth order advection terms do operate in a similar way in wave-number space. Indeed, the fourth order is a more selective filter, smoothing more specifically small-scale gradients of passive tracer. This might be sufficient to explain the differences observed in figure (\noparref{fig5numlab}.d).
+%When averaged in time over the whole simulation, the effective diffusivity reaches approximately $4.65.10^{-5} m^2/s$ when $\kappa_{exp}\ =\ 0$. It is then evaluated for a series of configurations with non-zero explicit diffusivity and the (effective) implicit diffusivity $\kappa_{imp}$ is computed as the time-averaged effective diffusivity over the period minus the explicit diffusivity. The same  value of $4.65.10^{-5}\ m^2/s$ is recovered in all experiments.
+
+Since this value is for harmonic diffusion, the diffusion terms based on the effective second order diffusivity $(k_{imp,2}\ =\ \kappa_{eff}-\kappa_{exp})$ and on the analytical fourth-order diffusivity $k_4$ computed above can be compared in figure (\noparref{fig5numlab}.C) as factors of either the second or fourth order spatial derivate of $\psi$ taken at a random grid point. These terms are close to each other. Note that the second-order and fourth order advection terms do operate in a similar way in wave-number space. Indeed, the fourth order is a more selective filter, smoothing more specifically small-scale gradients of passive tracer. This might be sufficient to explain the differences observed in figure (\noparref{fig5numlab}.C).
 %\end{itemize}
+
+\color{black}
 
 \begin{table}[h!]
 \centering
@@ -190,11 +241,14 @@ $\kappa_{imp}$&\multicolumn{6}{c|}{$4.65.10^{-5}$}\\
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./CHAP_BPE/AGBPE_numlab5.png}
-\caption{(a) initial field  (b) maximum value of $\psi$ in the field  (c) value of $\kappa{eff}$ by instantaneous balance for case with no explicit diffusion $\kappa{exp}=0$ (d) comparison fourth order and second order formulation\color{red}(Enlever figure avec les max de $\psi$)\color{black}}
+\caption{(A) Initial tracer field. (B) Evolution of $\kappa{eff}$ for the case with no explicit diffusion $\kappa{exp}=0$. (C) Comparison of the fourth-order (with analytical value of the coefficient $k_4$) and second-order (with value of $k_2$ deduced from $\kappa{eff}$ in table \ref{table_kappa}) formulation of diffusion at a random grid point.}
 \label{fig5numlab}
 \end{figure}
 
-\subsubsection{Diffusion and advection timescales ($BPE_{ts}$)}
+\subsection{Diffusion and advection timescales ($BPE_{ts}$)}
+
+\color{red}(Same case as $BPE_{exp}$ but with advection too)\color{black}
+
 A third and last experiment ($BPE_{ts}$) based on the advection-diffusion equation of a passive tracer field is now presented to better understand the limitation of the BPE algorithm in terms of characteristic time and length scales. The idea is that the BPE algorithm can only give an accurate, valuable value of the effective diffusivity if (i) this diffusivity can be considered as homogeneous and can thus be extracted from the integral of the diapycnal flux in equation \ref{bilanBPEal} and (ii) diapycnal fluxes can be evaluated over time-scales (much) larger than the time-scale of the diapycnal fluxes at stake but also larger than the remaining dynamical time-scales in the studied ocean region.
 Table \ref{tab_NUMLAB_ts} shows the physical and numerical parameters chosen for this experiment. Both advection and diffusion are active and the advection scheme is a second-order centered scheme (C2) known to lead to a vanishing implicit dissipation.\\
 \begin{table}[h]
@@ -248,12 +302,13 @@ As time goes on, this effective velocity shows oscillations over a period close 
 With a much larger advective velocity fields $U_2$ now, the effective diffusivity oscillates around the averaged explicit advective velocity. The time-scale of the oscillations is now smaller: it remains closer to the advective time-scale $T_{adv}^{U_2}$.
 When the effective velocity is computed over each sub-domain, the expected values are recovered and this diffusivity oscillates over the same advective time-scale but with a much smaller amplitude. 
 
-\subsubsection{Partial conclusion}
+\subsection{Partial conclusion}
 The various experiments carried out in the frame of this simple but rather complete advection-diffusion configuration confirms that \cite{winters_available_1995}'s BPE algorithm can lead to a quantification but also to a localization of the turbulent mixing coefficient in regional ocean configurations. Large variations of the effective diffusivity can yet be observed when it is evaluated over a period smaller than or close to time-scales of active process (such as the advective time-scale in the proposed experiments). To be accurate, this effective diffusivity must in any event be carried out over time-scale larger than the estimated time-scale of the diapycnal fluxes in the region of interest. The effective diffusivity thus calculated is to be viewed as an average for the region (viewed as a sum of water-columns) over which the evolution equation \ref{bilanBPEal} has been evaluated. It has also been confirmed that this algorithm can conveniently be used to evaluate the implicit dissipation induced by advective schemes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Toward an evaluation of mixing in real ocean}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{section_CROCO_BPE}
 Several additional test configurations of increasing complexity are now presented to progress toward an evaluation of mixing in a "real ocean" with the "generalized" BPE algorithm presented in \S \ref{BPE_algo}. The consequences of the variations of the ocean free-surface are thus first explored in the case of the free oscillations of a stratified tank. Mixing is then finally evaluated with the BPE algorithm when Kelvin-Helmholtz instabilities are developing and in the region of Gibraltar strait.
 
 \subsection{Free oscillations of a stratified tank ($BPE_{tank}$)}
