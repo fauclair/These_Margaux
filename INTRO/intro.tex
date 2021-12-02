@@ -91,7 +91,7 @@ Le choix du détroit de Gibraltar comme région d'étude privilégiée pour mes 
 \section{Une exploration des fines échelles océaniques}
 %\color{red}
 %(verrous puis objectif)
-\subsection{Définir cette région du spectre océanique}
+\subsection{Définir les fines échelles océaniques}
 Objet central de mes travaux de doctorat, les \textit{fines échelles} océaniques doivent en premier lieu être clairement définies. Jusqu'ici, ces fines échelles ont plus spécifiquement été associées dans notre introduction (\S \noparref{subsection_intro1}) à la région du spectre océanique identifiée comme \textit{Terra Incognita}.\\
 
 \color{black}
@@ -101,7 +101,7 @@ Objet central de mes travaux de doctorat, les \textit{fines échelles} océaniqu
 \end{minipage}}
 \color{black}
 
-\subsection{Se donner les outils et les moyens d'une telle exploration}
+\subsection{Les verrous dynamiques \& numériques}
 \label{subsection_verrous}
 \color{blue}
 Toute entrée dans un territoire inconnu tel que la \textit{Terra Incognita} est associée à la reconnaissance et à la levée d'un certain nombre de difficultés. Dans le cas présent, ces "difficultés" prennent la forme de véritables \textit{verrous} d'ordres dynamiques et numériques.
@@ -129,7 +129,7 @@ Les modèles océaniques n’ont pas été immédiatement en mesure de franchir 
 Plusieurs pré-requis ont donc dû être satisfaits avant de lancer une exploration numérique des grandes structures turbulentes dans un contexte réaliste aussi complexe que celui par exemple du détroit de Gibraltar.
 Pour ce faire, dans la foulée de l’ANR COMMODO rassemblant au milieu des années 2010 l’ensemble des équipes françaises travaillant sur la modélisation de l’océan, les équipes de recherche en océanographie physique et en mathématiques se sont associées au sein du projet CROCO. Un Groupement de Recherche éponyme est né associant les principaux organismes de recherche en informatique et en océanographie français (l’IRD, INRIA, le CNRS-INSU, l’IFREMER et le SHOM) avec l'Université de Toulouse Paul Sabatier. En 2021, l’IRD a entériné la constitution du GdRi (international) CROCO tourné vers les partenaires du projet au Sud. L'hypothèse hydrostatique, elle-aussi héritée du code ROMS, devait à minima être remise en cause dans le contexte d'un océan à surface libre. Ceci fut chose faite en relaxant aussi l'hypothèse de Boussinesq comme préconisé par \cite{Auclair2018}.\\
 L'héritage reçu du code américain ROMS \citep{shchepetkin_regional_2005} avait fait de CROCO un code particulièrement efficace dont le coeur numérique (time-splitting, schémas numériques...) a été spécifiquement conçu pour limiter les coûts de calcul et l'utilisation de l'espace mémoire. Ce niveau de performance numérique a pu être maintenu pour le noyau numérique compressible et non-hydrostatique dans un contexte massivement parallèle.\\
-Afin de d'attaquer finalement à l'ensemble des verrous dynamiques et numériques identifiés, de nouvelles recherches ont été entamées en parallèle de mes travaux de thèse pour (i) porter le code sur une nouvelle génération de processeurs dits hétérogènes (associant proceurs CPU et GPU), (ii) permettre le raffinement local de la dynamique océanique par imbrication de configurations LES dans des maquettes numériques régionales très étendues et (iii) repenser la simulation des grandes structures turbulentes dans un contexte "stochastique" \cite{memin_fluid_2014}. Les maquettes que j'ai développées ou co-développées dans le cadre de mes travaux de thèse ont servi durant ces trois années et servent actuellement de configurations-tests pour l'ensemble de ces développements transformant le détroit de Gibraltar en une véritable région de démonstration. \\
+Afin de d'attaquer finalement à l'ensemble des verrous dynamiques et numériques identifiés, de nouvelles recherches ont été entamées en parallèle de mes travaux de thèse pour (i) porter le code sur une nouvelle génération de processeurs dits hétérogènes (associant proceurs CPU et GPU), (ii) permettre le raffinement local de la dynamique océanique par imbrication de configurations LES dans des maquettes numériques régionales très étendues et (iii) repenser la simulation des grandes structures turbulentes dans un contexte "stochastique" \cite{memin_fluid_2014}. Les maquettes que j'ai développées ou co-développées dans le cadre de mes travaux de thèse ont servi durant ces trois années et servent actuellement de configurations-tests pour l'ensemble de ces développements transformant le détroit de Gibraltar en une véritable région de démonstration. 
 \color{blue}
 
 \subsection{Où l'on justifie une démarche scientifique pour cette exploration...}
@@ -153,11 +153,7 @@ Mes travaux de thèse s'inscrivent par conséquent dans une démarche scientifiq
     \item le tout dans le contexte d'un travail d'équipe s'inscrivant en particulier dans le cadre du Groupement de Recherche CROCO.
 \end{itemize}
 %Confrontation aux obs... ... Volet 2022 plus sur la fine échelle(ou conclusoion?)....
-
-
-\color{red}...\color{black}
-
-
+\color{black}
 \section{Plan du manuscrit}
 
 Le chapitre \ref{chap2} présente le \textit{modèle d'océan} étudié pendant ma thèse en établissant le système d'équations de conservation de l'océan. En particulier, le passage à un système de coordonnées curvilignes est adressé pour trouver l'expression de l'évolution de l'énergie potentielle de background. Le modèle CROCO pour la simulation numérique de l'océan régional et/ou côtier est aussi présenté dans ce chapitre.
@@ -167,18 +163,12 @@ Les simulations numériques des fines échelles du détroit de Gibraltar sont pr
 Enfin, dans un dernier chapitre \ref{chapBPE}, sont présentés les derniers travaux menés à bien pendant ma thèse avec plusieurs applications d'un algorithme dédié à la quantification et à la localisation du mélange turbulent. Ces applications se font graduellement vers des cas de plus en plus réalistes, jusqu'à celui de la simulation 2D du détroit de Gibraltar présentée au chapitre \ref{chapGBR2D}.
 
 %\color{red}CONCLUSION, caser le mot climat\color{black}
-
 %Morceaux de intro GBR3D : 
 %The amplitude of the exchange varies over timescales larger than the semi-diurnal tide. The lower frequencies (whether seasonal or inter-annual) are usually linked to atmospheric forcing over the MediTerranean \citep{sanchez-roman_2012}. The tidal eddy-fluxes have their own variability associated to the spring-tide cycle and to the monthly tides, with for example a greater depth and stronger shear during neap tides, but more intense mixing during spring tide \citep{naranjo_2014,vargas_2006}.\color{red}(enlever? sert à rien? que dans intro plus générale???)\color{black}
-
-
 %Numerical models are discretized and have a treshold resolution under which phyisical pehomenons cannot be represented explicitely. Particularly, diffusion and ... processes,  among other parametrisations of processes like surface exchanges, radiation that occur at molecular or submolecular scales. Diffusion and dissipation are molecular in nature as a , energy flux, but more broadly speaking, dissipation is the transfer of energy from great scales to small scales. In a stratified fluid, this dissipation is accompagnied by mixing , ie a lewoering of potential energy, or more accurately and explained i paragraph ..., of the background potential energy.
 %Broadly for oceanic (or more generally geophyisic?) models classification on DNS, LES, and RANS. DNS has molecular dissipation
 %For the discussions simply coining as LES is not sufficient but need to precise LES in regard to which phenomenon. For exemplein chapoter ... of this manuscript, coined LES because primary instabilities of the flow. However, the primary instabilities that are known to exist at upper and lower boundaries of teh water column are not represented and are parametrized, so in regard to the dissipation those process not LES. 
 %To this considerations, one must also not forget that the discretisation itself introduces numerical dissipation unless using centered schemes (computationnally impossible).
-
-
-
 %\subparagraph{Conclusion générale/dans le manuscrit}
 %Les simulations ... sont première LES maisblablablablabla (trad ce que avait dit...). Besoin outil diagnostique du mélange, chapitre prochain...
 
