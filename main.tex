@@ -135,8 +135,9 @@
 % Taille des chapitres, sections...
 %----------------------------------------------------------------------------
 \titleformat{\chapter}
-{\large\bfseries}
-{\thechapter}{1em}{}
+{\huge\bfseries}
+{-\thechapter-}{1em}{}
+%{Chapitre \thechapter}{\baselineskip}{}
 \titleformat{\section}
 {\large\bfseries}
 {\thesection}{1em}{}
@@ -150,7 +151,8 @@
 % Page de garde
 %----------------------------------------------------------------------------
 %% Titre, auteur, date, laboratoire, cotutelle
-\title{Exploration des fines échelles océaniques dans le détroit de Gibraltar: simulation numérique, observation et mélange induit.}
+\title{Exploration des fines échelles océaniques dans le détroit de Gibraltar: simulation numérique, observation et mélange induit}
+% en anglais : An exploration of oceanic small-scale dynamics in the Strait of Gibraltar : numerical simulation, observation, and mixing
 \author{Margaux HILT}
 \defencedate{(JJ/MM/AAAA)}%date de défense
 \lab{Laboratoire d'Aérologie}
@@ -184,7 +186,7 @@
 \let\noparref\ref
 \renewcommand{\ref}[1]{(\noparref{#1})}
 
-\setcounter{tocdepth}{3}%1 juste 1 niveau sous-partie de chapitre
+\setcounter{tocdepth}{2}%1 juste 1 niveau sous-partie de chapitre
 
 
 %Page de garde
@@ -210,6 +212,7 @@
 \addcontentsline{toc}{section}{Avant-propos et remerciements}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addcontentsline{toc}{section}{Table des matières}
 \tableofcontents
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -230,7 +233,7 @@
                 \hline
                 BPE & Background Potential Energy & Énergie potentielle de fond \\
                 \hline
-                CROCO & \multicolumn{2}{l|}{Coastal and Regional Ocean Community MOdel}\\
+                CROCO & \multicolumn{2}{l|}{Coastal and Regional Ocean Community mOdel}\\
                 \hline
                 CS & Camarinal Sill & Seuil de Camarinal\\
                 \hline
@@ -246,8 +249,8 @@
                 \hline
                 LAIW & Large Amplitude Internal Wave & Onde Interne de Grande Amplitude \\
                 \hline
-                LES & Large Eddy Simulation & Simulation (numérique) des grandes structures\\ 
-                & & turbulentes \\
+                LES & Large Eddy Simulation & Simulation (numérique) des grandes\\ 
+                & & structures turbulentes \\
                 \hline
                 LIW & Levantine Intermediate Water & Eau Intermédiaire Lévantine \\
                 \hline
@@ -296,7 +299,7 @@
 
 \input{./CHAP2/chap2.tex}
 
-\chapter[Fines échelles dans le détroit de Gibraltar: section verticale 2D]{Fines échelles dans le détroit de Gibraltar: simulation numérique et analyse de la dynamique dans une section verticale 2D.}
+\chapter[Fines échelles dans le détroit de Gibraltar: section verticale 2D]{Fines échelles dans le détroit de Gibraltar: simulation numérique et analyse de la dynamique dans une section verticale 2D}
 %\chapter{Fine scales in Gibraltar strait: a high-resolution, vertical section based on Gibraltar Experiment.}
 \label{chapGBR2D}
 
@@ -340,10 +343,9 @@
 \input{./CHAP_BPE/chap5.tex}
 
 
-\chapter*{Discussion Conclusion}
-
-%\chapter*{Annexes}
-
+\chapter{Conclusion et Perspectives}
+%\addcontentsline{toc}{chapter}{Conclusion et Perspectives}
+\input{./Conclusion.tex}
 
 \listoffigures
 
