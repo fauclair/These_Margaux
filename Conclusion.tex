@@ -2,46 +2,104 @@
 \color{blue}
 \section{Première incursion en \textit{Terra Incognita} dans le détroit de Gibraltar}
 Durant mes trois années de thèse de doctorat, je me suis attachée à mener à bien une première \textit{exploration des fines échelles} dans la région du détroit de Gibraltar. Les objectifs de cette première incursion en \textit{Terra Incognita} étaient de deux ordres:
-objectifs sur les dynamiques des fines échelles tout d'abord, avec l'idée de mieux comprendre les processus de fine échelle dans la région du détroit (ressaut, ondes internes solitaires, grandes structures turbulentes...) d'une part, mais aussi objectifs numériques, avec la mise en place, la réalisation et l'évaluation de simulations numériques explicites (dite \textit{LES zonale}) de ces grandes structures turbulentes.\\
-Je me suis par conséquent appuyée sur une simulation numérique explicite et originale des \textit{grandes structures turbulentes} à très haute résolution (seulement quelques dizaines de mètres) dans la région du détroit. La simulation numérique ne pouvant évidemment en aucun cas répondre à l'ensemble des questions qui se posaient, j'ai effectué des allers-retours entre mes outils numériques et l'observation de l'océan réel. J'ai en effet eu la chance de pouvoir interagir étroitement avec mes collègues du SHOM lors de la préparation, la conduite et l'exploitation d'une campagne de mesures dédiée à la problématique des fines échelles dans la région du détroit de Gibraltar durant ma dernière année de thèse.\\
-Plusieurs \textit{verrous}, tant dynamiques que numériques ont été pour certains confirmés pour d'autres identifiés. 
-\color{red} résumé rapide des verrous cités en introduction... \color{blue}\\
+objectifs sur les dynamiques des fines échelles tout d'abord, avec l'idée de mieux comprendre les processus de fine échelle dans la région du détroit (ressaut, ondes internes solitaires, grandes structures turbulentes...), mais aussi objectifs numériques, avec la mise en place, la réalisation et l'évaluation de simulations numériques explicites (dite \textit{LES zonale}) de ces grandes structures turbulentes.
+
+Je me suis par conséquent appuyée sur une simulation numérique explicite et originale des \textit{grandes structures turbulentes} à très haute résolution (seulement quelques dizaines de mètres) dans la région du détroit. La simulation numérique ne pouvant évidemment en aucun cas répondre à l'ensemble des questions qui se posaient, j'ai effectué des allers-retours entre mes outils numériques et l'observation de l'océan réel. 
+
+Si la majeure partie de mon travail de thèse a été consacrée a l'élaboration et à la description d'un écoulement océanographique local au moyen d'un outil numérique, j'ai eu l'occasion de toucher à d'autres aspects de l'océanographie physique.
+En plus de développements plus conceptuels sur l'évaluation du mélange,  j'ai en effet eu la chance de pouvoir interagir étroitement avec mes collègues du SHOM lors de la préparation, de la conduite et de l'exploitation d'une campagne de mesures dédiée à la problématique des fines échelles dans la région du détroit de Gibraltar.
 
 \section{Des avancées de plusieurs ordres}
-Avec le soutien du Groupement de Recherche CROCO, j'ai mis en place une hiérarchie de maquettes numériques à très haute résolution dans la région du détroit de Gibraltar, maquettes bi-dimentionnelles (\S ) puis tri-dimentionnelles (\S ). Le choix assumé avec cette démarche de modélisation était de proposer des maquettes de plus en plus réalistes sans pour autant "brûler les étapes" en complexifiant trop rapidement la dynamique simulée au détriment de la compréhension des processus et autres mécanismes complexes rencontrés dans cette région océanique très particulière. \color{red} Ici, résultats numériques...\\
-De point de vue de la dynamique des fines échelles, nos allers-retours entre simulation numérique et observation nous ont permis de...\\
-La campagne de mesures Gibraltar 2020 a en particulier été l'occasion de ...\\
+Avec le soutien du Groupement de Recherche CROCO, j'ai mis en place une hiérarchie de maquettes numériques à très haute résolution dans la région du détroit de Gibraltar, maquettes bi-dimentionnelles (chapitre \ref{chapGBR2D}) puis tri-dimentionnelles (chapitre \ref{chapGBR3D}). Le choix assumé avec cette démarche de modélisation a été de proposer des maquettes de plus en plus réalistes sans pour autant "brûler les étapes" en complexifiant trop rapidement la dynamique simulée au détriment de la compréhension des processus et autres mécanismes complexes rencontrés dans cette région océanique très particulière. 
+
+L'abandon de l'hypothèse hydrostatique ou de paramétrisations non-hydrostatiques est un préalable à la modélisation des fines échelles océaniques. Elle est évidemment essentielle pour la simulation explicite de processus tels que les ondes solitaires pour lesquelles la dispersion non-hydrostatique est un mécanisme clé aux côtés de l'advection non-linéaire. Elle l'est aussi de façon tout aussi évidente pour une représentation explicite de l'accélération des courants gravitaires ou des cheminées convectives. Tous ces exemples sont fondamentalement non-hydrostatiques, l'éloignement géographique de leur zone de génération avec la zone dans laquelle ils sont dissipés et participent donc de façon active au mélange diabatique rend complexe leur représentation implicite dans les modèles de circulation générale. La représentation explicite des processus de méso-échelle n'est toutefois peut-être pas encore la
+%Entre le passage de la 2D a la 3D, voit que relaxation de l'hypothèse hydrostatique et plus raffinement d'échelle permet mieux simuler les solitons. A l'occasion de la campagne gib2020, voit que même si période différente, cette génération toujours en place et trouve résultat proches aspect train d'ondes solitaires. DE plus, pense posibiloité régime secodnaire de générationd e solitons au détroit autre que ressaut hydraulique.
+
+Il faut cependant souligner que l'implémentation d'une grille haute résoluation a gibraltar en ayant a dispositoion code non-hydro ne suffit pas a avoir bonne dynamique. Role tres important avoir une bonne bathymétrie, et en plus d'une bonne initialisation des masses d'eaux,  a vu que à Gibraltar fine échelle suit la marée. En particulier cette dynamique de fine échelle va avoir transition d'un régime à l'autre abrupte lié à la mise en place contrôle hydraulique. Prise en compte de la marée nécessite simulation parent/grande emprise pour avoir propagation onde de marée dans cette région jouxtant deux bassins océaniques.
+
+%Cependant , avoir ce code à disposition ne suffit pas pour être appliqué a une grille fine et avoir une dynamique correcte,. E(avec des transitions abruptes liés au controle hydraulique présent ou non entre régimes de généartion des solitons) et la prise en compte de ce forçage nécessite une simulation parent pour sa bonne propagation dans cette zone enter deux bassins. (ou plus tard cette dernière phrase:)D'autres développements en cours sur le raffinement d'échelle, avec en plus intégration du forçage atmosphérique
 \color{black}
+Cette simulation non-hydrostatiques a haute résolution s'accompagnait aussi dans les deux cas (2D et 3D) de la simulation explicite des grandes structures turbulentes qui marquent l'entrée de la cascade directe, est bien en terre inconnue...
+
+
+
+%\color{red} Ici, résultats numériques...\\
+%De point de vue de la dynamique des fines échelles, nos allers-retours entre simulation numérique et observation nous ont permis de...\\
+%La campagne de mesures Gibraltar 2020 a en particulier été l'occasion de ...\\
+%\color{black}
+
+
+%\color{red}(Margaux : Bof je ne sais pas trop comment les placer ici, les verrous sont adressés après avec les perspectives pour moi...)
+\color{blue}
+%Plusieurs \textit{verrous}, tant dynamiques que numériques ont été pour certains confirmés pour d'autres identifiés au cours de mes travaux. 
+% résumé rapide des verrous cités en introduction...\\
+ \color{black}
+
 
 \section{Le mélange turbulent en \textit{Terra Incognita}?}
-Quelques éléments des chapitres précédents :
 
-Modèle d'océan capable de simuler les fines échelles en représentant leur dynamique de manière correcte. Avec la simulation des grandes structures turbulentes à l'entrée de la cascade directe, choix de la fermeture turbulente. Comment choisir ? Se poser la question de ce que représente le mélange / comment il est représenté, un diagnostique, et surtout qui pourra être confronté à des observations de terrains pour affiner la démarche.
-Simulations physiques peuvent apporter une part de réponse, et besoin d'observations in situ.
+Premiere exploration des grandes structures turbulentes à Gibraltar, voit liés a un mélange localisé et intermittent. Voit surtout que sensibe au forçage à la marée de manière non-linéaire puisque va être lié a la mise en plcace du ressaut hydraulique. Voit aussi sensible a fermeture turbulente sous-maille. 
 
-\color{red} Tu as raison... un petit point plus spécifiquement sur le mélange semble être une bonne idée ici... Tu peux expliquer le retour à théorie que tu as opéré (cas volume évoluant au cours du temps), ce que tu as proposé et ce qu'il reste d'après toi à faire pour parvenir une localisation et quantification précise du mélange.\\
-Je suis d'accord sur le fait que simulation physique et campagnes dédiées seront absolument essentielles! Un mot peut-être aussi effectivement sur ce que ton approche peut et doit apporter pour l'amélioration des fermetures turbulentes (avec quoiqu'il arrive des limitations liées à la modélisation (implicite) ces processus. Gibraltar est un bon exemple... tu ne pourras jamais paramétrer par exemple le mélange induit à des dizaines de kilomètres par un soliton que tu ne représentes pas... Idem pour les marées internes générées par exemple sur une dorsale océanique et mélangeant à des centaines de kilomètres de leur lieu de génération lors de leur déferlement (expérience américaine HOME autour de la dorsale d'Hawaï).\\
-\color{black}
+Besoin de se demander comment quantifier le mélange....
+BPE d'apres idées de lorenz, et en suivant winters , introduction d'un terme dans le bilan lié aux mouvement de la surface libre. Premiers résultats semblent montrer que ce terme ne peut en effet pas être ignoré pour des études de processus si locaux sur des temps si réduits où surface libre av beaucoup bouger. Cette approche reste une première implémentation, et choix doivent être affinés pour espérer avoir une quantification réaliste (meaningful? qui a sens physique.../besoin travail d'interprétation...)
+En particulier le choix d'une quantité homogène et instantannée pour représenter le mélange qui fait intervenir une cascade d'échelles spatiales mais aussi temporelles, ne semble pas adapté.  Le mélange $=$ phénomène progressif à plus d'un titre?
+
+Un autre verrou conceptuel pour la quantification du mélange est l'éventualité de vouloir comparer des mesures faites dans des contexts différents (ob/labo/simu). Encore plus loin, on peut se demander si retour de ces études sur les paramétrisations des modèles globaux, y compris climatiques, qui ne peuvent pas se permetter de tels raffinement d'échelles. Pour phénomène localisé comme l'écoulement autour du seuil de camarinal (aussi localisé avec réponse au forçage de marée plus ou moins prévisible), encore possible, mais quid des déferlements d'ondes internes de gravité?
 
 
-En particulier le choix d'une quantité homogène et instantanné pour représenter un mélange qui va provenir de progressifs et localisés dans la colonne d'eau et dans régions particulières 
+%qui va provenir de progressifs et localisés dans la colonne d'eau et dans régions particulières 
+
+%Quelques éléments des chapitres précédents :
+
+%Modèle d'océan capable de simuler les fines échelles en représentant leur dynamique de manière correcte. Avec la simulation des grandes structures turbulentes à l'entrée de la cascade directe, choix de la fermeture turbulente. Comment choisir ? Se poser la question de ce que représente le mélange / comment il est représenté, un diagnostique, et surtout qui pourra être confronté à des observations de terrains pour affiner la démarche.
+%Simulations physiques peuvent apporter une part de réponse, et besoin d'observations in situ.
+
+%\color{red} Tu as raison... un petit point plus spécifiquement sur le mélange semble être une bonne idée ici... Tu peux expliquer le retour à théorie que tu as opéré (cas volume évoluant au cours du temps), ce que tu as proposé et ce qu'il reste d'après toi à faire pour parvenir une localisation et quantification précise du mélange.\\
+%Je suis d'accord sur le fait que simulation physique et campagnes dédiées seront absolument essentielles! Un mot peut-être aussi effectivement sur ce que ton approche peut et doit apporter pour l'amélioration des fermetures turbulentes (avec quoiqu'il arrive des limitations liées à la modélisation (implicite) ces processus. Gibraltar est un bon exemple... tu ne pourras jamais paramétrer par exemple le mélange induit à des dizaines de kilomètres par un soliton que tu ne représentes pas... Idem pour les marées internes générées par exemple sur une dorsale océanique et mélangeant à des centaines de kilomètres de leur lieu de génération lors de leur déferlement (expérience américaine HOME autour de la dorsale d'Hawaï).\\
+%\color{black}
+
+
+
+
+
 
 \section{Perspectives}
 
-\color{blue}
-raffinement de la dynamique (imbrication numérique...)\\
-perspectives pour la partie numérique: efficacité, techniques numériques, processeurs hétérogènes (CPU-GPU)...\\
-application à d'autres régions...\\
-\color{black}
-Thèse s'inscrit dans les développements numériques, si de tels avaient déjà été entamé dans les études atmosphériques, les plus petites échelles impliquées dans l'océan et le besoin de code non-hydrostatique capables de représenter cette dynamique couplet au problème de la surface libre ont été un frein. Les puissances de calcul de plus en plus développées ont permis avec cette thèse 
+Comme a été rappelé, dynamqiue a Gib besoin info grande échelle, travaux sur raffinement d'échelle qui intègre forçage atmosphérique et qui permettra aussi voir rétroaction sur les grandes échelles.
 
-D'autres offres de calcul plus performant avec les GPUs
-
-Avec ces nouvelles capacités de calcul, l'intérêt a été d'explorer ce que peut donner ce code, avec l'exploration de l'écoulement dans le détroit de gibraltar. 
+A vu dynamique sensible a facteur physiques et numériques (phénomène stochastique).... tests de sensibilité ont un coût de calcul, même si peut être réduit par avancés comme hétérogènes GPU/CPUs, sorties de grandes grilles, est bien dans le Big Data, en parallèle de l'avancée vers des diagnostiques du mélange plus poussé(cf paragraphe précédent), sera peut-être accompagné de méthodologie issue de l'IA.
 
 
-Ici seul l'effet de la fine échelle sur la composition des masses d'eaux a été abordé, mais turbulence effet sur traceurs géochimiques, et autre effet dynamique non négligeable est la modification du contenu en PV.
 
 
-D'autres zones d'intérêt, comme les zones de convection profonde, d'autres détroit, des régions d'upwelling côtier, etc. En particulier, un intérêt de ces études. Le fait que la zone est peu étendue et la dynamique est prévisible en suivant le régime de marée en fait un bon endroit pour des observation, ce ne sera pas le cas de toutes les zones, surtout pour l'océan profond difficile d'accès, et l'évaluation du réalisme de tels configurations peut être plus indirect.
+Ici seul l'effet de la fine échelle sur la composition des masses d'eaux a été abordé, mais turbulence effet sur districution traceurs passifs tels que traceurs géochimiques \citep{penney_2020} %ont montré que le mélange était finalement capable de structurer les plus grandes échelles. Ces auteurs ont en effet mis en évidence l'apparition à plus grande échelle de relations linéaires entre la masse volumique et les traceurs passifs qu'ils simulaient.\color{black}
+Aussi effet sur PV, et lien avec intéraction avec le fond, qui dans LES ici encore LES zonale reste paramétrisée.
+
+
+Démarche d'exploration des fines échelles dans ma thèse se rapporte à l'application au détroit de Gibraltar, qui s'apparente a un écoulement bicouche dans une zone a bathymétrie accidentée. D'autres zones d'intérêt, comme les zones de convection profonde, d'autres détroit, des régions d'upwelling côtier, etc. 
+
+
+
+%En particulier, un intérêt de ces études. Le fait que la zone est peu étendue et la dynamique est prévisible en suivant le régime de marée en fait un bon endroit pour des observation, ce ne sera pas le cas de toutes les zones, surtout pour l'océan profond difficile d'accès, et l'évaluation du réalisme de tels configurations peut être plus indirect.
+
+%\color{blue}
+%raffinement de la dynamique (imbrication numérique...)\\
+%perspectives pour la partie numérique: efficacité, techniques numériques, processeurs hétérogènes (CPU-GPU)...\\
+%application à d'autres régions...\\
+%\color{black}
+%Thèse s'inscrit dans les développements numériques, si de tels avaient déjà été entamé dans les études atmosphériques, les plus petites échelles impliquées dans l'océan et le besoin de code non-hydrostatique capables de représenter cette dynamique couplet au problème de la surface libre ont été un frein. Les puissances de calcul de plus en plus développées ont permis avec cette thèse 
+
+%D'autres offres de calcul plus performant avec les GPUs
+
+%Avec ces nouvelles capacités de calcul, l'intérêt a été d'explorer ce que peut donner ce code, avec l'exploration de l'écoulement dans le détroit de gibraltar. 
+
+
+
+
+
+
+
+
+
+
 
