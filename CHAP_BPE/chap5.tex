@@ -2,8 +2,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Après avoir développé et analysé une simulation originale des grandes structures turbulentes dans le détroit de Gibraltar, dans le cinquième et dernier chapitre de ce manuscrit nous abordons la problématique de l'évaluation du mélange turbulent dans une simulation numérique des grandes structures turbulentes. La quantification et la localisation de ce mélange turbulent via celle des flux diapycnaux dans l'océan est un problème délicat. Les premières pierres d'un cadre théorique rigoureux ont en effet été posées il y a maintenant plus d'un demi-siècle par E. Lorenz \citep{lorenz_available_1955} avant qu'un algorithme simple ne soit proposé à la fin du siècle précédent par \cite{winters_available_1995} à partir d'une analyse appuyée sur une raisonnement très physique. La simplicité de cette application algorithmique en fait la force mais aussi d'une certaine façon la faiblesse, en particulier à cause des hypothèses très fortes sur lesquelles elle est fondée. Une hypothèse simplificatrice centrale est celle de la constance du volume de fluide considéré, hypothèse qui devient problématique lorsque le domaine considéré pour le bilan d'énergie potentielle est constitué de colonnes d'eau de mer dont la surface libre et donc la hauteur évoluent au cours du temps.
-
-Une équation d'évolution complète a été proposée dans le cadre du chapitre \ref{chap2}, cette équation intègre en particulier la somme des contributions de la variation de surface en $dz^*/dt$ ($z^*(\rho)$ représentant ici la cote d'une particule de masse volumique $\rho$ dans le profil de référence réarrangé. A partir de cette équation d'évolution, l'algorithme classique proposé par \cite{winters_available_1995} est généralisé à une somme de colonnes océaniques: une diffusivité efficace est ainsi calculée à partir d'un bilan complet d'énergie potentielle (plus spécifiquement d'énergie potentielle de référence ou BPE en anglais) via la relation \ref{eq_kappaEff}.
+\color{blue}
+Une équation d'évolution complète est tout d'abord proposée, l'équation proposée intègre en particulier la somme des contributions de la variation de surface en $dz^*/dt$ ($z^*(\rho)$ représentant ici la cote d'une particule de masse volumique $\rho$ dans le profil de référence réarrangé. A partir de cette équation d'évolution, l'algorithme classique proposé par \cite{winters_available_1995} est généralisé à une somme de colonnes océaniques: une diffusivité efficace est ainsi calculée à partir d'un bilan complet d'énergie potentielle (plus spécifiquement d'énergie potentielle de référence ou BPE en anglais) via la relation \ref{eq_kappaEff}.
 
 Cet algorithme généralisé est ensuite appliqué à un ensemble de configurations de complexité croissante, chaque configuration permettant d'analyser et d'évaluer la pertinence de la quantification et de la localisation du mélange turbulent. Une équation d'advection-diffusion d'un traceur passif est tout d'abord étudiée dans le cadre de stratifications linéaires puis "bi-couche". Le mélange induit par les oscillations libres d'une cuve stratifiée ou le mélange induit dans un écoulement bi-couche instable ou par un écoulement dans la région du détroit de Gibraltar est lui-aussi analysé. Ces trois dernières configurations sont simulées numériquement avec le code océanique à toit libre CROCO dans sa version compressible et non-hydrostatique.
 
@@ -12,23 +12,279 @@ Une première conclusion est que la généralisation de l'algorithme de \cite{wi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In the present chapter \ref{chapBPE}, a substantial step is made toward the quantification of mixing in realistic ocean configurations. In the general presentation of the \textit{ocean model} of chapter \ref{chap2}, a general evolution equation for the Background Potential Energy (BPE) was derived in equation (\noparref{eq_evolBPE}) of section \ref{section_PE_chap2}. This evolution equation can be applied to a region of the ocean made of free-surface water columns, with apparition of a source term of BPE linked to movement of this free-surface. The objective is now to apply \citet{winters_available_1995}'s algorithm for the determination of the reference profile $z^*(\rho)$ to this evolution equation, as a tool to evaluate the turbulent mixing in realistic ocean configurations.
-
+In the present chapter \ref{chapBPE}, a substantial step is made toward the quantification of mixing in realistic ocean configurations. The objective is to generalize \citet{winters_available_1995} framework to real ocean made of volume-varying ocean water columns.\\
+%the determination of the reference profile $z^*(\rho)$ to this evolution equation, as a tool to evaluate the turbulent mixing in realistic ocean configurations.
 \color{blue} In a fully compressible context, \cite{tailleux_energetics_2009} and lately \cite{tailleux_irreversible_2013} derived a rigorous (conceptual) thermodynamic framework to study the available potential energy (APE), defined as the difference between the potential energy (PE) and the potential potential energy (BPE). Under a Boussinesq approximation, local expressions of the available potential energy have ever since been derived \citep{winters_available_2013}. Lately \cite{howland_mixing_2020,howland_quantifying_2020} quantifyed both mixing and available potential energy in vertically periodic simulations of a stratified flow, making a first step toward domains with varying vertical boundaries. However \cite{saenz_estimating_2015} and, more recently, Tailleux in his latest publications \citep{tailleux_local_2018} insist on the fact that Lorenz reference state is difficult to define and compute. As a consequence, their studies are dedicated to the evaluation of the errors and discrepancies when simpler and easier-to-obtain reference states are defined (horizontal averaged).\color{black}
 
+\color{blue}A general evolution equation for the Background Potential Energy (BPE) is first derived (\noparref{eq_evolBPE}) for a region of the ocean made of free-surface water columns.
 %In addition to the evaluation of several new terms in the evolution equation, 
-The generalisation of this algorithm to realistic numerical ocean configurations introduces additional difficulties to take into account : (i) bathymetry variations, (ii) variations of grid-cell volume in terrain-following s-coordinates, and (iii) diffusive and advective fluxes through open boundaries. In particular for this last point, diapycnal fluxes associated in fine to mixing are known to be several orders of magnitude smaller than advective fluxes associated for instance to ocean tides, and computation of the term of the balance equation must be carried out while preserving a high accuracy.
-
+The generalisation of this algorithm to realistic numerical ocean configurations introduces additional difficulties to take into account : (i) bathymetry variations, (ii) variations of grid-cell volume in terrain-following s-coordinates, and (iii) diffusive and advective fluxes through open boundaries. In particular for this last point, diapycnal fluxes associated in fine to mixing are known to be several orders of magnitude smaller than advective fluxes associated for instance to ocean tides, and computation of the term of the balance equation must be carried out while preserving a high accuracy.\\
 %Propositions are made to overcome such algorithmic difficulties and a step is made toward an original evaluation of mixing in realistic ocean configurations.
+The generalized algorithm proposed hereafter consequently takes root in the "milestone" publication by \citet{winters_available_1995}. Lately \citet{saenz_estimating_2015} and \citet{tailleux_local_2018} proposed more efficient algorithms for the determination of the reference profile (see \S \ref{section_PE_chap2} of the manuscript for a review). These modifications have not yet been implemented because (i) the cases studied so far do not require too large computations, and (ii) \citet{winters_available_1995}'s approach is to be used as a reference and, as a consequence, needs to be first implemented. The aim of this chapter is not only to evaluate the relevance and efficiency of the method but also to point where the approach needs to be further refined.
 
-The generalized algorithm proposed here consequently takes root in the "milestone" publication by \citet{winters_available_1995}. Lately \citet{saenz_estimating_2015} and \citet{tailleux_local_2018} proposed more efficient algorithms for the determination of the reference profile (see \S \ref{section_PE_chap2} of the manuscript for a review). These modifications have not yet been implemented because (i) the cases studied so far do not require too large computations, and (ii) \citet{winters_available_1995}'s approach is to be used as a reference and, as a consequence, needs to be first implemented. The aim of this chapter is not only to evaluate the relevance and efficiency of the method but also to point where the approach needs to be further refined.
-
-In the present chapter, we first propose an extension of \cite{winters_available_1995}'s algorithm to a free-surface, non-flat ocean in section \ref{BPE_algo}. It is applied first in section \ref{section_numlab} to a simple advection - diffusion equation using homogeneous grid cells. In a second step, CROCO ocean model is implemented in test-case configurations of section \ref{section_CROCO_BPE}. Those configurations are of increasing complexity in term of bathymetry and dynamics; the last, more realistic configuration being the vertical section of Gibraltar Experiment (SimRef) studied in chapter \ref{chapGBR2D}.
+In this chapter, we first propose an extension of \cite{winters_available_1995}'s algorithm to a free-surface, non-flat ocean in section \ref{BPE_algo}. It is applied first in section \ref{section_numlab} to a simple advection - diffusion equation using homogeneous grid cells. In a second step, CROCO ocean model is implemented in test-case configurations of section \ref{section_CROCO_BPE}. Those configurations are of increasing complexity in term of bathymetry and dynamics; the last, more realistic configuration being the vertical section of Gibraltar Experiment (SimRef) studied in chapter \ref{chapGBR2D}.
 
 %With this original algorithm, we investigate, quantify and localize the turbulent mixing induced when a simple passive tracer is (numerically) advected by a constant current and diffused at a constant (known) rate. In the last section, the turbulent mixing induced in an oscillating tank, in an area of ocean submitted to Kelvin-Helmholtz instabilities and in the region of the strait of Gibraltar is studied.
+\color{blue}
+\section{Mixing in a general volume-varying ocean region}
+\subsection{Decomposition of potential energy balance in a free-surface ocean}
+\label{section_PE_chap2}
 
+The \textit{ocean model} proposed and detailed so far is self-consistent and can lead to the description of numerous dynamical processes over a wide range of space-time scales. To proceed, one needs to develop dedicated diagnostics and to focus on the mechanisms of particular interest. In this context, a central objective of the present study is to explicitly simulate large turbulent eddies in order to improve the representation of the transformation of water masses. In other words, the (implicit) modeling or the (explicit) simulation of \textit{mixing} is at stake.
+
+The most rigorous approach of the \textit{mixing}-related issues has undoubtedly been proposed by \cite{lorenz_available_1955}. It is based on the concept of Background and Available gravitational Potential Energy (hereafter respectively BPE and APE) as a decomposition of the total gravitational Potential Energy (PE). The author defines first APE as the potential energy released when reorganizing adiabatically the flow so that it reaches its state of minimal potential energy. This minimal value corresponds to the BPE, that can also be expressed as the difference between the PE and the APE. The BPE compartment, thus defined, grows monotonically under diabatic mixing, offering a well-defined tool to evaluate this mixing.
+
+Lorenz' approach, popularized by \cite{winters_available_1995}, remains challenging when applied in a realistic context, for instance over a limited area of a free-surface, varying-bathymetry ocean. It is even more challenging if applied in a numerical context with a s-coordinate model. A "limited area" raises indeed many questions on boundary fluxes and the validity of the state of minimal energy, whereas a free surface or a varying bathymetry both complicate the computation of this state in particular when s-coordinates are used.
+
+As a consequence, localization and furthermore the accurate evaluation of hot spots of enhanced mixing in the context of the \textit{ocean model} presented so far remain a challenge. A general formulation of the evolution equation of both the PE and BPE is now proposed for a given volume made of water columns that expand vertically with the movements of the free-surface. The relations thus obtained are then used to characterize the mixing in various configurations of ocean regions in chapter \ref{chapBPE}.
+
+
+\subsubsection{Reference state(s)}
+
+The state of the stratification after the adiabatical reorganization of \citet{lorenz_available_1955} is called the Lorenz reference state. It consists in attributing a reference depth $z^*$ to each fluid parcel, the potential energy of this state, the BPE, can then be expressed as :
+\begin{equation}
+    E_b = \int_x \int_{-1}^0 g \rho z^* dx ds
+\end{equation}
+The evolution of BPE, through the evolution of the stratification profile $z^*$, reflects the adiabatic mixing processes that can then be quantified.
+
+However, both \cite{saenz_estimating_2015} and Tailleux in his latest publication \citep{tailleux_local_2018} insist on the fact that this Lorenz reference state of absolute minimum potential energy is difficult to define and compute (due to numerical cost of sorting algorithm, non-linearity of the EOS, etc.). As a consequence, these studies are dedicated to the evaluation of the errors and discrepancies when simpler and easier-to-obtain reference states are defined (horizontal averaged, etc.). \cite{saenz_estimating_2015} additionally describes in detail an algorithm to compute Lorenz' reference state in an efficient way. They associate the computation of $Z^*(\rho)$ from the computation of the Level of Neutral Buoyancy (their LNB) and they separate it from the computation of Lorenz' reference state that is obtained first by inverting a non-linear relation. This algorithm is claimed to be much more efficient than classical adiabatic redistribution algorithms based on \citet{winters_available_1995}.
+
+%Beyond the definition of a reference state and more precisely beyond the definition of a reference profile, several underlying ideas can be found:
+%\begin{itemize}
+%\setlength\itemsep{0pt}
+%	\item The reference state is a basic (not necessarily resting but possibly balanced) state to which full dynamics is to be compared.
+%	\item The Boussinesq assumption is itself based on the choice of a reference (constant) density (usually named here $\tilde{\rho}_{0}$) that is subtracted from the 3D total density. An hydrostatic pressure $p_{00}$ is defined by $\partial p_{00}/ \partial z=-\tilde{\rho}_{0} g$. Subtracting directly a vertically-varying reference density $\tilde{\rho}_{0}(z)$ leads to the less restrictive anelastic assumption. Interestingly enough, this Boussinesq reference state $(\tilde{\rho}_{0},\ p_{00})$ can be associated to the thermodynamic equilibrium state. \cite{tailleux_energetics_2009,tailleux_thermodynamicsdynamics_2012} associates this reference state to the \textit{internal dead energy} compartment (named $IE0$) concluding that "the viscous dissipation of kinetic energy (hereafter KE) and the diffusive dissipation of APE" increase the reference temperature $T_{00}$ (decreasing $\tilde{\rho}_{0}$) by increasing the IE0 (page 9 of the latter publication).
+%	\item The reference profile (named here $\rho_0$) with both time and space (vertical) dependencies is then defined by $\rho(t,\mathbf{x})=\tilde{\rho}_{0}+\rho_0(t,z)+\rho'(t,\mathbf{x})$.  \cite{tailleux_thermodynamicsdynamics_2012} (still page 9) further claims that "turbulent mixing smooths out the vertical gradient of $\rho_0(t,z)$ after defining the exergy compartment of the internal energy. An hydrostatic pressure component $p_0$ can then be defined in association with $\rho_0$.
+%	\item The reference state $\rho_0(t,z)$ is additionally used by \citet{andrews_note_1981} and \citet{tailleux_local_2018} to decompose the available potential energy into its elastic and potential compartments. This is done by defining two states. A transformation can be applied to a given fluid volume in such a way that its entropy, salinity and pressure $(\eta,S,p)$ themselves transformed (i) into $(\eta,S,\tilde{p}_0(t,z))$ (changing the reference pressure at $(t,z)$ while keeping $\eta$ and $s$ constant) and (ii) into $(\eta,S,p_0(z_r))$ (transferring the particulate to its "Level of Neutral Buoyancy" (LNB) given by $z=z_r$ while keeping $\eta$ and $S$ constant. 
+%%\textit{Link to be studied with \cite{mcdougall_potential_2003}'s conservation of potential enthalpy}.
+%\end{itemize}
+It is crucial to know what state of the ocean a given reference state relates to in order to work within the BPE framework. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Balance of PE in s-coordinates}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The evolution of the specific PE can be obtained from the general evolution equation in s-coordinates derived in Appendix \ref{sub_conservation_ins} 
+by setting $A=gz$ :
+%\paragraph{Potential energy}
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+ 	&\frac{d E_p}{d t}  &&=g\int_x \int_{-1}^0 \frac{\partial \rho h z}{\partial t}\bigg\rvert_{s} dx ds 
+  \end{alignat}
+\end{subequations}
+Replacing $A$ in expression \ref{Aint}, that uses the evolution equation for density \ref{eq_diff_cart} :
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+ %
+ % Begin 2nd line
+ %
+ &\frac{d E_p}{d t}   &&= \quad  g\int_x \int_{-1}^0 \rho h \frac{\partial z}{\partial t}\bigg\rvert_{xs} \ dx ds\\[4mm]
+ %
+ & && \quad - g\bigg[ \int_{-1}^0 \rho h z u \ ds\bigg]_{x}
+ + g\int_x \int_{-1}^0\rho h u \frac{\partial z}{\partial x}\bigg\rvert_{ts} \ dx ds\\[4mm] 
+ & && \quad - g\bigg[ \int_x \frac{\partial \rho z v_s}{\partial s}\bigg\rvert_{tx} \ dx\bigg]_0^1
+ + g\int_x \int_{-1}^0 \rho v_s \frac{\partial z}{\partial s}\bigg\rvert_{tx} \ dx ds \\[4mm]
+ & && \quad + g\bigg[ \int_{-1}^0 h z \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
+ - g\int_x \int_{-1}^0 h \kappa^h \frac{\partial z}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
+ & && \quad + g\bigg[ \int_x z \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
+ - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial z}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds
+  \end{alignat}
+\end{subequations}
+The advective flux of PE (fourth term at the RHS) can be integrated by part leading to:
+
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+ 	&\frac{d E_p}{d t}  &&= \quad  \underbrace{g\int_x \int_{-1}^0 \rho h \frac{\partial z}{\partial t}\bigg\rvert_{xs} \ dx ds}_{(1)}\\[4mm]
+  %
+ & && \quad - g\bigg[ \int_{-1}^0 \rho h z u \ ds\bigg]_{x}
+ + \underbrace{g\int_x \int_{-1}^0\rho h u \frac{\partial z}{\partial x}\bigg\rvert_{ts} \ dx ds}_{(2)}\\[4mm] 
+ & && \quad - \underbrace{g\bigg[ \int_x\rho z v_s \ dx\bigg]_0^1}_{=0}
+ + \underbrace{g\int_x \int_{-1}^0 \rho h v_s \ dx ds}_{(3)} \\[4mm]
+ & && \quad + g\bigg[ \int_{-1}^0 h z \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x} 
+ - g\int_x \int_{-1}^0 h \kappa^h \frac{\partial z}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
+ & && \quad + g\bigg[ \int_x z \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
+ - g\int_x \int_{-1}^0 \kappa^v \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds 
+  \end{alignat}
+\end{subequations}
+where the advection of PE at the surface and at the bottom vanishes. At the RHS, terms (1), (2) and (3) can be gathered to recover the buoyancy flux component $(\phi_z)$ of \citet{winters_available_1995}.
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+ 	&\frac{d E_p}{d t}  &&= \quad  \underbrace{\int_x \int_{-1}^0 \rho g h v_z \ dx ds}_{=(1)+(2)+(3)\equiv\phi_z}\\[4mm]
+ %
+ & && \quad - g\bigg[ \int_{-1}^0 \rho h z u \ ds\bigg]_{x}\\[4mm] 
+ & && \quad + g\bigg[ \int_{-1}^0 h z \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
+ - g\int_x \int_{-1}^0 h \kappa^h \frac{\partial z}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
+ & && \quad + g\bigg[ \int_x z \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
+ - g\int_x \int_{-1}^0 \kappa^v \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds
+  \end{alignat}
+\end{subequations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\paragraph{Background Potential energy}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Balance of BPE in s-coordinates}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The same relation \ref{Aint} derived in Appendix \ref{sub_conservation_ins} can alternatively be used for $A=gz^*$, the specific BPE, leading to:
+\begin{subequations}
+\label{eq_evolBPE0}
+  \begin{alignat}{2}
+  \displaystyle 
+ 	&\frac{d E_b}{d t} &&=
+ 	g\int_x \int_{-1}^0 \frac{\partial \rho h z^*}{\partial t}\bigg\rvert_{s} \ dx ds
+  \end{alignat}
+\end{subequations}
+and then 	
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+ %
+ % Begin 2nd line
+ %
+ & \frac{d E_b}{d t} &&= \quad  {g\int_x \int_{-1}^0 \rho h \frac{\partial z^*}{\partial t}\bigg\rvert_{xs} \ dx ds}_{(1)}\\[4mm]
+  %
+ & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x}
+ + {g\int_x \int_{-1}^0\rho h u \frac{\partial z^*}{\partial x}\bigg\rvert_{ts} \ dx ds}_{(2)}\\[4mm] 
+ & && \quad - 0
+ + {g\int_x \int_{-1}^0 \rho v_s \frac{\partial z^*}{\partial s}\bigg\rvert_{tx} \ dx ds}_{(3)} \\[4mm]
+ & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
+ - g\int_x \int_{-1}^0 h \kappa^h \underbrace{\frac{\partial z^*}{\partial x}\bigg\rvert_{ts} }_{=\frac{d z^*}{d\rho}\frac{\partial \rho}{\partial x}\big\rvert_{ts}\color{black}}\frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
+ & && \quad + g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
+ - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial z^*}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds
+  \end{alignat}
+\end{subequations}
+The terms associated to the particulate derivative of $z^*$ can be gathered from terms (1), (2) and (3):
+%\begin{subequations}
+%  \begin{alignat}{2}
+%  \displaystyle 
+% 	&\frac{d E_b}{d t}  &&= \quad g\int_x \int_{-1}^0 \rho h \frac{\partial z^*}{\partial t}\bigg\rvert_{xs}
+% +\rho v_s \frac{\partial z^*}{\partial s}\bigg\rvert_{tx} 
+%+\rho h u \frac{\partial z^*}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
+% & && \quad - g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x}\\[4mm] 
+% & && \quad - 0 \\[4mm]
+% & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
+% - g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds \\[4mm]
+% & && \quad + g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
+% - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dx ds
+%  \end{alignat}
+%\end{subequations}
+%to explicitly express $dE_b/dt$ as a function of $dz^*/dt$:
+\begin{subequations}
+\label{eq_evolBPE}
+  \begin{alignat}{2}
+  \displaystyle 
+ 	&\frac{d E_b}{d t}  &&= \quad \underbrace{g\int_x \int_{-1}^0 \rho h \frac{d z^*}{d t}\ dx ds }_{(1)+(2)+(3)}\\[4mm]
+ & && \quad - \underbrace{g\bigg[ \int_{-1}^0 \rho h z^* u \ ds\bigg]_{x}}_{\approx S_{adv}}\\[4mm] 
+ & && \quad + \underbrace{g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}}_{S_{diff}^{(h)}}
+ \underbrace{- g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds}_{\phi_d^{(h)}} \\[4mm]
+ & && \quad + \underbrace{g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1}_{S_{diff}^{(v)}}
+ \underbrace{- g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dx ds}_{\phi_d^{(v)}}
+  \end{alignat}
+\end{subequations}
+%Substituting $hdz^*/dt$ by the product of $dz^*/d\rho$ by $hd\rho/dt$ leads to\color{red}(en a besoin?)\color{black}:
+%\begin{subequations}
+%  \begin{alignat}{2}
+%  \displaystyle 
+% 	&\frac{d E_b}{d t}  &&= \quad \underbrace{g\int_x \int_{-1}^0  
+% \rho  \frac{d z^*}{d\rho} \bigg[h \color{black}
+% \frac{\partial \rho}{\partial t}\bigg\rvert_{xs} 
+% +\rho v_s \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} 
+%+\rho h u \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}
+%\bigg] \ dx ds}_{(1)}\\[4mm]
+% & && \quad - \underbrace{\bigg[ \int_{-1}^0 \rho g h z^* u \ ds\bigg]_{x}}_{\approx S_{adv}}\\[4mm] 
+% & && \quad + \underbrace{g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}}_{S_{diff}^{(h)}}
+% - \underbrace{g\int_x \int_{-1}^0 h \kappa^h \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds}_{\phi_d^{(h)}} \\[4mm]
+% & && \quad +\underbrace{ g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1}_{S_{diff}^{(v)}}
+% - \underbrace{g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{d z^*}{d \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dx ds}_{\phi_d^{(v)}}
+% %
+% % Begin 5th line
+% %
+%% & &&= \quad g\int_x \int_{-1}^0 \rho h \frac{\partial z^*}{\partial t}\bigg\rvert_{xz}
+% %+\rho v_z \frac{\partial z^*}{\partial z}\bigg\rvert_{tx} 
+%%+\rho h u \frac{\partial z^*}{\partial x}\bigg\rvert_{tz} \ dx ds \\
+% %& && \quad - \bigg[ \int_{-1}^0 \rho g h z^* u \ ds\bigg]_{x}\\ 
+%% & && \quad + g\bigg[ \int_{-1}^0 h z^* \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
+%% - g\int_x \int_{-1}^0 h \kappa^h \frac{\partial z^*}{\partial \rho} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}^2 \ dx ds \\
+%% & && \quad + g\bigg[ \int_x z^* \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
+%% - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial z^*}{\partial \rho} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}^2 \ dx ds 
+%  \end{alignat}
+%\end{subequations}
+where $S_{adv}$ is the lateral (horizontal) advective flux of BPE, $S^{(v)}_{diff}$ and $S^{(h)}_{diff}$ are the vertical and horizontal diffusive fluxes, $\phi^{(v)}_d$ and $\phi^{(h)}_d$ are the diapycnal vertical and horizontal fluxes.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Time variations of $z^*$}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The first RHS term of equation \ref{eq_evolBPE}, 
+
+\begin{equation}
+\label{RHS_BPE_1}
+g\int_{x} \int_{-1}^0 \rho h \frac{d z^*}{d t}\ dx ds \\
+\end{equation}
+
+is akin to a vertical buoyancy-flux term for the $z^*$ reference state. It vanishes for a volume of integration with fixed-in-time boundaries (\cite{winters_available_1995}, \cite{huang_mixing_1998} and many others...). But it has no particular reason to vanish when movements of the free-surface are taken into account. This paragraph constitutes a proposition for its development in this case.
+
+Going back to a more general notation of our integral volume $V_{\zeta}$ and following \citet{huang_mixing_1998}, $z^*$ can be expressed as a function of the volume $v(\rho)$ of fluid with a density larger than $\rho$ :
+%En annexe de \citep{huang_mixing_1998}, on peut exprimer $z^*$ fonction de $v(\rho)$ le volume des parcelles de densité supérieures ou égales à $\rho$ :
+\begin{equation}
+v(\rho)=\iiint_{\zeta} H(\rho(\mathbf{x}',t)-\rho(\mathbf{x},t))d\mathbf{x}' %= \int_x\int_{-1}^0 H(\rho(x',s',t)-\rho(x,s,t))h ds'dx'
+\end{equation}
+where $H$ is the Heaviside function, equals to 0 for $\rho(\mathbf{x}',t)<\rho(\mathbf{x},t)$, $1/2$ for $\rho(\mathbf{x}',t)=\rho(\mathbf{x},t)$ , and 1 for $\rho(\mathbf{x}',t)>\rho(\mathbf{x},t)$.
+
+In the reference profile, a given density is associated to a reference depth. This volume can then be expressed as $v(z^*)$, the volume of water between the bottom and the $z^*$ level in the water column :
+\begin{equation}
+v(z^*)=\int^{z^*}_{bottom} S(z')dz'
+\end{equation}
+with $S(z)$ the area at depth $z$.
+
+%\textbf{\textit{Derivative of $z^*(t,\rho)$}}
+%\begin{subequations}
+%\begin{alignat}{2}
+%&\frac{d z^*}{d t} &&= \frac{d z^*}{d v}\frac{d v}{d t}\\
+%& && = \quad \bigg(\frac{d v}{d z^*}\bigg)^{-1}\bigg[\frac{\partial v}{\partial t}+u\frac{\partial v}{\partial x}+\frac{v_s}{h}\frac{\partial v}{\partial z}\bigg] \\
+%%& && = \quad \frac{1}{A(z^*)}\bigg[\frac{\partial v}{\partial t}+u\frac{\partial v}{\partial x}+\frac{v_s}{h}\frac{\partial v}{\partial s}\bigg]\\
+%& && = \quad \frac{1}{A(z^*)} \frac{d v}{d t}\\
+%%& && \quad + u \bigg [ \int_{-1}^0 H(\rho(x,s',t)-\rho(x,s,t))h ds'\bigg]_x\\
+%%& && \quad + \frac{v_s}{h} \bigg [ \int_x H(\rho(x',s,t)-\rho(x,s,t))h dx'\bigg]_0^1 \bigg]
+%\end{alignat}
+%\end{subequations}
+
+Using the s-coordinate formulation of Reynolds transport theorem of equation \ref{eq_reyn_zeta} in the appendix's section \ref{annexe_reynolds}:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle
+  & \frac{dz^*}{dt} &&=\bigg ( \frac{d \ v(z^*)}{dz^*} \bigg )^{-1} \frac{d \ v(\rho)}{dt}\\[4mm]
+  & &&= \frac{1}{S(z^*(\rho))}\frac{d}{dt} \iiint_{V_{\zeta}} H\left(\rho(\mathbf{x}',t)-\rho(\mathbf{x},t)\right) d\mathbf{x}'\\[4mm]
+  & && = \frac{1}{S(z^*(\rho))} \iiint_{V_{\zeta}} \frac{\partial}{\partial t} H\left(\rho(\mathbf{x}',t)-\rho(\mathbf{x},t)\right) d\mathbf{x}'\\[4mm]
+  & && \quad  +\frac{1}{S(z^*(\rho))}\iint_{\mathcal{S}_{surf}} H\left(\rho(\mathbf{x}',t)-\rho(\mathbf{x},t)\right) \frac{\partial\zeta(x',t)}{\partial t} dS'
+  \end{alignat}
+\end{subequations}
+
+%\begin{subequations}
+%\begin{alignat}{2}
+%& \frac{d Z^*}{d t} && = \frac{1}{S(Z(\rho))}\int_x\int_{-1}^0 H(\rho(x',s',t)-\rho(x,s,t))  \underbrace{\frac{\partial h}{\partial t}}_{= \ 0 \ sans \ mouvement \ surface \ libre ?}ds'dx'\\
+%& && \quad + \underbrace { \int_x\int_{-1}^0 \frac{\partial }{\partial t} [H(\rho(x',s',t)-\rho(x,s,t))] \ h ds'dx'}_{\int_x \int_{-1}^0 \frac{1}{A} \rho h  ( \ ) dx ds \ = \ 0 ?} 
+%\end{alignat}
+%\end{subequations}
+Where $S_{surf}$ is the free-surface.
+As a consequence, the first RHS term expressed by \ref{RHS_BPE_1} can be rewritten as :
+\begin{subequations}
+\label{buoyancyzstar}
+  \begin{alignat}{2}
+  \displaystyle
+  & \iiint_{\mathbf{V}_{\zeta}} \rho g \frac{dz^*}{dt} d\mathbf{x} &&=
+\underbrace{ \iiint_{\mathbf{V}_{\zeta}} \frac{\rho g}{S(z^*(\rho))} \iiint_{V_{\zeta}} \frac{\partial}{\partial t} H\left(\rho(\mathbf{x}',t)-\rho(\mathbf{x},t)\right) d\mathbf{x}' d\mathbf{x}}_{=0}\\[4mm]
+  & &&+\iiint_{\mathbf{V}_{\zeta}} \frac{\rho g}{S(z^*(\rho))}\iint_{\mathcal{S}_{surf}} H\left(\rho(\mathbf{x}',t)-\rho(\mathbf{x},t)\right) \frac{\partial\zeta(x',y',t)}{\partial t} dS' d\mathbf{x}
+  \end{alignat}
+\end{subequations}
+The first term at the RHS vanishes as shown for instance by \cite{huang_mixing_1998}. The second term, however, will be \textit{a priori} non-zero for any case of with moving free-surface.
+
+Note that with the definition of the Heaviside function, a way to interpret this term is that the contribution of the evolution of the free-surface elevation is only taken into account in the evolution of BPE for fluid parcels as light as the ones at the surface (ie, the parcels at the free-surface themselves), or lighter than them. Those parcels are placed near the top of the reference state's profile, so that $S(z^*(\rho))$ is in most cases the area at the level of the free-surface (but not the area of the deformed free-surface itself).
+\color{black}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Generalized algorithm to evaluate effective diffusivity}
+\subsection{Generalized algorithm to evaluate effective diffusivity}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \label{BPE_algo}
 %\cite{winters_available_1995}'s algorithm to quantify turbulent mixing includes several steps:
@@ -471,14 +727,9 @@ The evolution in time of the effective diffusivity $\kappa_{eff}$ is in contrast
 In the western part of the domain (W) and in it sub-domain (CSw), this semi-diurnal periodicity is readily apparent, not as regular oscillations this time but rather as intermittent episodes (bursts) of higher (positive) effective diffusivity $\kappa_{eff}$ during outflows (when the barotropic component of the current is this time negative).
 
 \section{Discussion and conclusion}
-A complete analysis of the Background Potential Energy (BPE) evolution equation has been carried out in several test-configurations of increasing complexity, ending with an application to the real ocean in the region of the Strait of Gibraltar based on the previous study of chapter \ref{chap2}.
-
-This analysis is based on original analytical developments (to our knowledge at least) to derive an as-complete-as-possible evolution equation of the Background Potential Energy for free-surface water columns (\S \noparref{section_PE_chap2}). Original developments have also been proposed to evaluate numerically this evolution in non-flat regions of the ocean simulated with terrain-following, s-coordinate numerical models (chapter \noparref{chapBPE}). The efficiency of the proposed implementation of the BPE algorithm remains affordable in terms of computing costs and memory storage for the hierarchy of configurations proposed, but new approaches need to be implemented to compute the reference state \citep{saenz_estimating_2015} for 3D LES of more extended regions.
-
+A complete analysis of the Background Potential Energy (BPE) evolution equation has been carried out in several test-configurations of increasing complexity, ending with an application to the real ocean in the region of the strait of Gibraltar. This analysis is based on original analytical developments (to our knowledge at least) to derive an as-complete-as-possible evolution equation of the Background Potential Energy for free-surface water columns (\S \noparref{section_PE_chap2}). Original developments have also been proposed to evaluate numerically this evolution in non-flat regions of the ocean simulated with terrain-following, s-coordinate numerical models (chapter \noparref{chapBPE}). The efficiency of the proposed implementation of the BPE algorithm remains affordable in terms of computing costs and memory storage for the hierarchy of configurations proposed, but new approaches need to be implemented to compute the reference state \citep{saenz_estimating_2015} for 3D LES of more extended regions.\\
 Several assumptions could additionally need to be reconsidered or at least evaluated with care.
-
 The isotropy of the effective diffusivity $(\kappa_h=\kappa_v=\kappa)$ should be reconsidered when the implicit numerical diffusion of the advection schemes is at stake: implicit diffusion is indeed added specifically along the advection direction and diffusivity is not isotropic anymore.
-
 When the reference profile $z^*$ is computed locally, the lateral boundary fluxes exchanged through the vertical boundary separating two neighboring domains do not balance each other. 
 The evaluations of the effective diffusivity have been made offline which leads to an additional limitation. Indeed, if an open-boundary configuration is studied, the sampling frequency must be chosen with care and must in particular remain high enough not to induce numerical truncatures or artefacts.
 
@@ -492,4 +743,559 @@ In the present study, the time-averaging of the effective diffusivity was used t
 %and over a period which must be long enough for the main underlying dynamical adjustments to be achieved (i.e. at least larger than the time-scale of the diapycnal fluxes).
 
 Finally, this study only focuses on the APE/BPE subdivision of the gravitational potential energy of the ocean. More information on the underlying effects of the simulated dynamics on the evolution of BPE and diabatic mixing could be gathered by evaluating transfers with and between other energy compartments, such as the kinetic energy of the flow \citep{floor_energy_2011}.
+\color{black}
+
+\color{blue}
+
+\section{Appendices to \textit{The evolution equation of BPE}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Reynolds Theorem}
+\label{annexe_reynolds}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Flux through a surface}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Based on \citep{delhaye_thermohydraulique_2008}, let $\mathbf{v}_{\Sigma}$ be the velocity of a material surface in the fluid:
+\begin{equation}
+	\displaystyle
+	\mathbf{v}_{\Sigma}=\frac{\partial \mathbf{x}}{\partial t}\bigg\rvert _{\Sigma}
+\end{equation}
+with $\mathbf{x}$ the position of the current point where the velocity is computed. This velocity is undetermined  since the tangential component is itself undetermined. Only its normal component $(\mathbf{n}_{\Sigma}.\mathbf{v}_{\Sigma})$ can be computed and isolated. This component is different from the vertical component of $\mathbf{v}_{\Sigma}$ of equation \ref{eq_vertvelcomp}.
+
+Demonstrations and further expressions of the normal component can be found in \citet{griffies_fundamentals_2004}, \citet{griffies_elements_2012} and \citet{delhaye_thermohydraulique_2008}.
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{\partial z}{\partial t}\bigg\vert_s &&=
+  \frac{\partial s}{\partial t}\bigg\vert_z
+  \frac{\partial z}{\partial s}\bigg\vert_t\\
+  & &&=h\norm{\mathbf{\nabla}s}\mathbf{n}_{\Sigma}.
+  \mathbf{v}_{\Sigma}
+  \end{alignat}
+\end{subequations}
+Metric tensor formulations lead to:
+\begin{subequations}
+  \begin{alignat}{2}
+ & dS_{\Sigma} &&= h\norm{\mathbf{\nabla}s} dS\\
+ & h dS &&=\mathbf{n}_{\Sigma}.\mathbf{v}_{\Sigma}dS_{\Sigma}
+  \end{alignat}
+\end{subequations}
+%See bellow how this formula is used to write Leibniz rule...
+
+\subsubsection{Formulations of the Reynolds Transport Theorem (\& Leibniz Rule)}
+\paragraph{Demonstration.}
+The difficulty to compute:
+\begin{equation}
+ \displaystyle
+ \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau
+\end{equation}
+is due to the fact that for a general time-varying volume $\mathcal{V}(t)$ the differentiation cannot be taken through the internal sign. To do so, we can however consider a change of coordinates to volume-attached coordinates \citep{hirasaki_chapter_2021}. Let $\mathcal{J}$ be the Jacobian (determinant of the Jacobian matrix) of the change of variables from Cartesian coordinates $(\mathbf{x},t)$ to volume varying coordinates $(\boldsymbol{\xi},t)$. Integrating volume is $\mathcal{V}(t)=\mathcal{V}_{\xi}=\mathcal{V}_{\xi}(t)$.
+
+Kinematic evolution of material particulate ("dilation kinematic theorem") is then nothing but Reynolds'transport theorem (which is equivalent to Leibniz derivation rule to 3D volumes) \citep{hirasaki_chapter_2021}. Caution: the demonstration given in \citep{hirasaki_chapter_2021} is for a material volume $\mathcal{V}_M$. As the demonstration is kinematic, it is generalized here to a general volume moving thought the fluid flow $(\mathcal{V}(t))$. This problem is dealt with in \cite{web_course_web_2021} (and further references are given in there).
+
+As a consequence for a general volume $\mathcal{V}(t)$ moving at a 3D velocity $  \mathbf{v}_{\Sigma}$:
+\begin{equation}
+ \displaystyle
+ \frac{dJ}{dt}=J \mathbf{\nabla}.\mathbf{v}_{\Sigma}
+\end{equation}
+which is reminiscent of the kinematic evolution of the specific volume of a fluid particle:
+\begin{equation}
+ \displaystyle
+ \frac{d\tau}{dt}=\tau \mathbf{\nabla}.\mathbf{v}
+\end{equation}
+sometime written:
+\begin{equation}
+ \displaystyle
+ \frac{d\delta\tau}{dt}=\delta\tau \mathbf{\nabla}.\mathbf{v}
+\end{equation}
+which is noting but the continuity equation written for the specific volume. With the natural change of variable, the derivation can enter the integral sign and:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=
+  \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\tau\\[4mm]
+  & &&= \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\mathbf{x}\\[4mm]
+  & &&=\frac{D}{Dt} \iiint_{\mathcal{V}_{\xi}} \rho A J d\boldsymbol{\xi}\\[4mm]
+  & &&=\iiint_{\mathcal{V}_{\xi}} \frac{D\rho A}{Dt}  J d\boldsymbol{\xi}
+  +\iiint_{\mathcal{V}_{\xi}} \rho A \frac{DJ}{Dt} d\boldsymbol{\xi}\\[4mm]
+  & &&=\iiint_{\mathcal{V}_{\xi}} \frac{D\rho A}{Dt}  J d\boldsymbol{\xi}
+  +\iiint_{\mathcal{V}_{\xi}} \rho A \mathbf{\nabla}. \mathbf{v}_{\Sigma}\ J d\boldsymbol{\xi}
+  \end{alignat}
+\end{subequations}
+Following \cite{truesdell_classical_1960}, a more general formulation can thus be recovered for a time-dependant volume $\mathcal{V}(t)$ moving with a velocity $\mathbf{v}_{\Sigma}$:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  &  \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau && =
+  \iiint_{\mathcal{V}(t)} \frac{D\rho A}{Dt}  d\boldsymbol{x}
+  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.\mathbf{v}_{\Sigma}\ d\mathbf{x}\\[4mm]
+ & && =
+  \iiint_{\mathcal{V}(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
+  %+ \varoiint_{\mathcal{V}(t)}\rho A \mathbf{v}.\mathbf{S}\\
+  + \oiint_{\mathcal{S}(t)}\rho A   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}dS_{Sigma}
+  \end{alignat}
+\end{subequations}
+where:
+\begin{equation}
+ \displaystyle
+ \frac{D\bullet}{Dt}=\frac{\partial \bullet}{\partial t}\bigg\vert_{\boldsymbol{\xi}}
+ +  \mathbf{v}_{\Sigma}.\mathbf{\nabla}_{t,\boldsymbol{\xi}}\bullet
+\end{equation}
+This is the generalized (Reynolds) transport theorem or the generalized Leibnitz theorem. Caution: the derivative $D/Dt$ is associated to $  \mathbf{v}_{\Sigma}$.
+
+\paragraph{Closed time-dependent volume $\mathcal{V}(t)$.} 
+Several formulations of this kinematic theorem can be given:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=
+  \iiint_{\mathcal{V}(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
+  %+ \varoiint_{\mathcal{V}(t)}\rho A \mathbf{v}.\mathbf{S}\\
+  + \oiint_{\mathcal{V}(t)}\rho A   \mathbf{v}_{\Sigma}.d\mathbf{S}\\[4mm]
+  % Line 2:
+  &  &&= \iiint_{\mathcal{V}(t)} \left(\frac{\partial \rho A}{\partial t}\bigg\rvert_{xz}
+  +\mathbf{\nabla}.(\rho A   \mathbf{v}_{\Sigma}) \right) d\tau\\[4mm]
+  % Line 3:
+  &  &&= \iiint_{\mathcal{V}(t)} \left(\rho \frac{\partial A}{\partial t}\bigg\rvert_{xz}
+  +A \frac{ \partial \rho }{\partial t}\bigg\rvert_{xz}
+  +\rho   \mathbf{v}_{\Sigma}.\mathbf{\nabla}A 
+  +A\mathbf{\nabla}.(\rho   \mathbf{v}_{\Sigma}) \right) d\tau\\[4mm]
+  % Line 4:
+  & &&=\iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
+  +\iiint_{\mathcal{V}(t)} A \left( \frac{\partial \rho}{\partial t} \bigg\rvert_{xz}
+  +\mathbf{\nabla}.(\rho  \mathbf{v}_{\Sigma})\right) \ d\tau
+  \end{alignat}
+\end{subequations}
+This can also be written:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=
+   \iiint_{\mathcal{V}(t)} \left(\rho \frac{\partial A}{\partial t}\bigg\rvert_{xz}
+  +A \frac{ \partial \rho }{\partial t}\bigg\rvert_{xz}
+  +\rho   \mathbf{v}_{\Sigma}.\mathbf{\nabla}A 
+  +A   \mathbf{v}_{\Sigma}.\mathbf{\nabla}\rho
+  +A\rho\mathbf{\nabla}.  \mathbf{v}_{\Sigma} \right) d\tau\\[4mm]
+  % Line 2:
+  & &&=\iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
+  +\iiint_{\mathcal{V}(t)} A \frac{D \rho}{D t} d\tau
+  + \iiint_{\mathcal{V}(t)} \rho A\mathbf{\nabla}.  \mathbf{v}_{\Sigma} d\tau
+  \end{alignat}
+\end{subequations}
+or alternatively:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&
+  =\iiint_{\mathcal{V}(t)} \rho \frac{dA}{dt}  d\tau 
+  +\iiint_{\mathcal{V}(t)} \left(A \frac{d \rho}{dt} 
+  +\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right]
+  +\rho A \mathbf{\nabla}.\mathbf{v} \right) d\tau\\[4mm]
+  & &&
+  =\iiint_{\mathcal{V}(t)} \rho \frac{dA}{dt}  d\tau 
+  + \iiint_{\mathcal{V}(t)}\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right]d\tau
+    \end{alignat}
+\end{subequations}
+where $  \mathbf{v}_{\Sigma}$ is defined as the velocity of the closed surface of $\mathcal{V}(t)$ and is more generally the 3D displacement velocity of the volume $\mathcal{V}(t)$.
+
+ Caution: this has nothing to do with the velocity of the fluid in this volume except in the following particular case when considering a material volume, i.e. in the Lagrangian approach.
+These general formulations and demonstrations are useful in s-coordinates.
+
+\subsubsection{Material volume $\mathcal{V}_M(t)$ (kinematics \& dynamics)}
+\paragraph{Formulation of the transport theorem.} 
+A material volume $\mathcal{V}_M(t)$ is defined as a volume containing exactly the same fluid particles as time goes on.
+Simplifications to obtain the simple expression of the integral variations in the case of a moving material volume are based on the use of the continuity equation or conservation of mass. 
+
+As the control volume is advected by mean flow (Lagrangian approach), $  \mathbf{v}_{\Sigma}=\mathbf{v}$ :
+\begin{equation}
+  \displaystyle 
+   \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau =
+  \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
+  +\iiint_{\mathcal{V}_M(t)} A \frac{d \rho}{dt} d\tau
+  +\iiint_{\mathcal{V}_M(t)} \rho A\mathbf{\nabla}.\mathbf{v} d\tau
+\end{equation}
+and thus:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau &&= \iiint_{\mathcal{V_M}(t)} \rho \frac{dA}{dt}  d\tau 
+  +\iiint_{\mathcal{V}_M(t)} A \underbrace{\left( \frac{\partial \rho}{\partial t} \bigg\rvert_{xz}+\mathbf{\nabla}.(\rho\mathbf{v})\right)}_{=0} \ d\tau\\[4mm]
+  & && = \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
+  \end{alignat}
+\end{subequations}
+This is a generalization to 3D volume of the Leibniz rule. The time dependency of the integral volume $\mathcal{V}_M(t)$ is for a Lagrangian evolution with time-dependent boundaries. The present formulation is to be used for time-dependent boundaries whatever the velocity $  \mathbf{v}_{\Sigma}$ inside the volume.
+
+\paragraph{Material volume $\mathcal{V}_M(t)$ in Lagrangian material coordinates.} 
+The same exact approach and demonstration can be carried out in the case of a material volume as in the general case.
+Let in this case $\mathcal{J}$ be the Jacobian (determinant of the Jacobian matrix) of the change of variables from Cartesian coordinates $(\mathbf{x},t)$ to material coordinates $(\boldsymbol{\xi},t)$. Integrating volume is $\mathcal{V}(t)=\mathcal{V}_{\xi}$.\\
+Kinematic evolution of material particle ("dilation kinematic theorem") reads \citep{hirasaki_chapter_2021}:
+\begin{equation}
+ \displaystyle
+ \frac{dJ}{dt}=J \mathbf{\nabla}.\mathbf{v}
+\end{equation}
+which is reminiscent of the kinematic evolution of a control volume:
+\begin{equation}
+ \displaystyle
+ \frac{d\tau}{dt}=\tau \mathbf{\nabla}.\mathbf{v}
+\end{equation}
+With this kinematic theorem:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau &&=
+  \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\mathbf{x}\\[4mm]
+  & &&=\frac{d}{dt} \iiint_{\mathcal{V}_{s}} \rho A J d\boldsymbol{\xi}\\[4mm]
+  & &&=\iiint_{\mathcal{V}_{\xi}} \frac{d\rho A}{dt}  J d\boldsymbol{\xi}
+  +\iiint_{\mathcal{V}_{\xi}} \rho A \frac{dJ}{dt} d\boldsymbol{\xi}\\[4mm]
+  & &&=\iiint_{\mathcal{V}_{\xi}} \frac{d\rho A}{dt}  J d\boldsymbol{\xi}
+  +\iiint_{\mathcal{V}_{\xi}} \rho A \mathbf{\nabla}.\mathbf{v}\ J d\boldsymbol{\xi}
+  \end{alignat}
+\end{subequations}
+This leads finally to:
+\begin{subequations}
+  \begin{alignat}{2}
+  \label{dintdt_s}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau &&=
+  \iiint_{\mathcal{V}_{\xi}}\left( \frac{\partial \rho A}{\partial t}   
+  +\mathbf{\nabla}.( \rho A \mathbf{v})\right) J d\boldsymbol{\xi} \\[4mm]
+  & && =\iiint_{\mathcal{V}_M(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
+  + \oiint_{\mathcal{V}_M(t)}\rho A \mathbf{v}.d\mathbf{S}
+  \end{alignat}
+\end{subequations}
+Reynolds transport theorem is recovered for a material volume, understood as a volume containing  the same fluid particles. This last relation can be viewed as the difference between the time variation of the extensive variable inside the domaine and the advective flux through the "control" surface matching at time "t" with material volume.
+
+\paragraph{Time-independant "control" volume $\mathcal{V}_0$.} 
+In the particular case when the volume (and thus his surface) is independent of time, then $  \mathbf{v}_{\Sigma}=0$ and as a consequence:
+\begin{equation}
+ \displaystyle
+ 	\frac{d}{dt}\iiint_{\mathcal{V}_0} A d\tau = \iiint_{\mathcal{V}_0}\frac{\partial A}{\partial t} d\tau
+\end{equation}
+
+\subsection{Formulations based on total derivatives (toward Lagrangian relations...)}
+Note that the continuity equation can be written:
+\begin{equation}
+	\displaystyle
+	\frac{d\ \delta \tau}{dt}=\frac{\partial v_{k}}{\partial x_k} \delta\tau= \mathbf{\nabla}.\mathbf{v}\ \delta\tau
+\end{equation}
+
+and so for a closed, moving volume $\mathcal{V}(t)$:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=  
+  \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
+  +\iiint_{\mathcal{V}(t)} A \frac{D(\rho d\tau)}{Dt}\\[4mm]
+  & && =  \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
+  + \iiint_{\mathcal{V}(t)} A \frac{D\rho}{Dt} d\tau
+  +\iiint_{\mathcal{V}(t)} \rho A \frac{Dd\tau}{Dt}\\[4mm]
+  & && = \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
+  +\iiint_{\mathcal{V}(t)} A \frac{D\rho}{Dt} d\tau
+  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.  \mathbf{v}_{\Sigma}\ d\tau \\[4mm]
+  & && = \iiint_{\mathcal{V}(t)} \rho \frac{DA}{Dt}  d\tau 
+  \end{alignat}
+\end{subequations}
+where $D\bullet/Dt=\partial \bullet/\partial t+  \mathbf{v}_{\Sigma}.\mathbf{\nabla}\bullet$. The last simplification is associated to the conservation of mass when written:
+\begin{equation}
+ \displaystyle
+ \frac{D\rho}{Dt}=-\rho\mathbf{\nabla}.  \mathbf{v}_{\Sigma}
+\end{equation}
+If the volume is now a material volume and is thus advected by the mean flow (Lagrangian approach), $  \mathbf{v}_{\Sigma}=\mathbf{v}_M$ and $D./Dt =d./dt$ :
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  &  \frac{d}{dt} \iiint_{\mathcal{V}_M(t)} \rho A d\tau && = 
+  \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
+  +\iiint_{\mathcal{V}_M(t)} A \frac{d\rho}{dt} d\tau
+  +\iiint_{\mathcal{V}_M(t)} \rho A \mathbf{\nabla}.\mathbf{v} d\tau\\[4mm]
+  & && \left[ =\iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
+  +\iiint_{\mathcal{V}_M(t)} A  \underbrace{\left(\frac{\partial \rho}{\partial t} 
+  +\underbrace{\mathbf{v}.\mathbf{\nabla}\rho+\rho \mathbf{\nabla}.\mathbf{v} }_{=\mathbf{\nabla}.(\rho\mathbf{v})}\right)}_{=0} d\tau \right]\\[4mm]
+  & && = \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
+  +\iiint_{\mathcal{V}_M(t)} A \underbrace{\left( -\rho \mathbf{\nabla}.\mathbf{v} + \rho \mathbf{\nabla}.\mathbf{v}\right)}_{=0} d\tau\\[4mm]
+  & && = \iiint_{\mathcal{V}_M(t)} \rho \frac{dA}{dt}  d\tau 
+  \end{alignat}
+\end{subequations}
+recovering  the results from the Eulerian approach and the previous more general formulation.
+
+\subsubsection{Rate of change of integrals in s-coordinate}
+
+In s-coordinates, the ocean column behaves as a material volume in the vertical direction but not in the horizontal direction where it a fixed-in-time control volume. For a volume associated to the s-coordinate grid: $  \mathbf{v}_{\Sigma}=\mathbf{v}_h+\mathbf{v}_z-\mathbf{v}_s$. This is the vertical velocity of the iso-s surfaces. The integration volume in s-coordinates is a sum of "waters columns" and is named $\mathcal{V}_s$. 
+
+\paragraph{Kinematic-Dynamic evolution (Left-Hand-Side).}
+In an Eulerian approach, the depth-to-surface integration can be carried out using \ref{mass_s} with $J=h(t,\mathbf{x},z)$:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+ 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&
+   =\iiint_{\mathcal{V}_{s}} \frac{d \rho A }{d t}\ d\tau \\[4mm]
+   & && = \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
+  + \iiint_{\mathcal{V}_{s}}\mathbf{\nabla}.( \rho A   \mathbf{v}_{\Sigma}) d\tau \\[4mm]
+  & &&
+   =\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
+ +\iint_{\mathcal{S}} \rho A\   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}
+  \end{alignat}
+\end{subequations}
+\cite{griffies_fundamentals_2004}, \cite{griffies_elements_2012} and \cite{delhaye_thermohydraulique_2008} provides a reformulation of the latest term in Cartesian coordinates:
+\begin{equation}
+%  \begin{alignat}{2}
+  \displaystyle 
+ 	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau
+   =\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}\underbrace{d\tau}_{dxdydz}
+ +\iint_{\mathcal{S}} \rho A\  \frac{\partial z}{\partial t}\bigg\vert_{s}\ \underbrace{dS}_{dxdy}
+%  \end{alignat}
+\end{equation}
+using the central relation (2.121) of \citep{griffies_elements_2012} and in \S 6 of \citep{griffies_fundamentals_2004}:
+\begin{equation}
+ \displaystyle
+  \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}= \frac{\partial z}{\partial t}\bigg\vert_{s}\ dS
+\end{equation}
+Since the ocean bottom boundary is supposed to remain stationary, this leads eventually to:
+\begin{equation}
+\label{eq_reyn_zeta}
+%  \begin{alignat}{2}
+  \displaystyle 
+ 	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau 
+   =\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}\underbrace{d\tau}_{dxdydz}
+ +\iint_{\mathcal{S}_{surf}} \rho A\  \frac{\partial \zeta}{\partial t}\ \underbrace{dS}_{dxdy}
+%  \end{alignat}
+\end{equation}
+
+\paragraph{Using the kinematic condition.}
+Caution: to recover this relation based on the kinematic condition, one has to remember that $\mathbf{v}_{\Sigma}$ is indeterminate \citep{delhaye_thermohydraulique_2008}. Its component tangent to the iso-s surface depends in particular on the parametrization of this surface. The component orthogonal to this surface can however be computed. As a consequence, one has to consider the product $\mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}$ rather than $\mathbf{v}_{\Sigma}$ alone. 
+
+The previous relation can then be recovered writing:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  % Line 2:
+ &\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau &&=
+ \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
+ +\iint_{\mathcal{S}} \rho A\   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}\ dS_{\Sigma}\\[4mm]
+&  &&=
+ \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
+ +\iint_{\mathcal{S}_{surf}} \rho A\  ( \mathbf{u}_{\Sigma}-\mathbf{w}_{\Sigma}).\mathbf{n}_{\Sigma}\ dS_{\Sigma}\\[4mm]
+&  &&=
+ \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
+ +\iint_{\mathcal{S}_{surf}}  \frac{\rho A}{\norm{\mathbf{\nabla}s}}
+ \left( \mathbf{\nabla}_z s.\mathbf{u}-\frac{h}{h}(\frac{\partial s}{\partial t}
+ +\mathbf{\nabla}_z s.\mathbf{u})
+ \right)\underbrace{\ dS_{\Sigma}}_{=\sqrt{1+S^2} dS}
+ \end{alignat}
+\end{subequations}
+Since $h \norm{\mathbf{\nabla}s}=\sqrt{1+S^2}$, we can recover:
+\begin{equation}
+ \displaystyle
+ \frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau=
+  \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau  
+  +\iint_{\mathcal{S}_{surf}}  \rho A \frac{\partial s}{\partial t} dS
+\end{equation}
+Then knowing that:
+\begin{subequations}
+  \begin{alignat}{2}
+ \displaystyle
+&\frac{\partial s}{\partial t}&&=
+\frac{\partial z}{\partial t}-
+\frac{\partial \zeta}{\partial t}\\[4mm]
+& &&=\frac{\partial \zeta}{\partial t}=\frac{\partial \zeta}{\partial t}\bigg\vert_s
+ \end{alignat}
+ we can conclude that:
+\end{subequations}
+\begin{equation}
+ \displaystyle
+ \frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau=
+  \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau  
+  +\iint_{\mathcal{S}_{surf}}  \rho A \frac{\partial \zeta}{\partial t} dS
+\end{equation}
+
+
+\paragraph{In s-coordinates.} 
+This result can also be recovered considering Reynolds transport theorem and the fact that $\mathbf{v}_{s}$ vanishes over both the bottom and surface boundaries\color{black}.
+This latest formulation can be recovered from the expression in Cartesian coordinates since
+\begin{equation}
+  \displaystyle 
+ 	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau  =
+ 	\iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau
+ +\iint_{\mathcal{S}} \rho A\  \frac{\partial z}{\partial t}\bigg\vert_s \ dS
+\end{equation}
+The first term on the right hand side can be rewritten:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle
+ & \iiint_{\mathcal{V}_{s}} \frac{\partial \rho A}{\partial t}d\tau &&=
+ \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho A}{\partial t}\bigg \vert_s 
+ -\frac{1}{h}\frac{\partial \rho A}{\partial s}\frac{\partial z}{\partial t}\bigg\vert_s \right) h \ ds dx dy\\[4mm]
+ & &&=
+ \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
+ -\rho A \frac{\partial h}{\partial t}\bigg\vert_s
+ -\frac{\partial}{\partial s}\left(\rho A \frac{\partial z}{\partial t}\right) \bigg\vert_s
+ +\rho A \underbrace{\frac{\partial^2 z}{\partial s\partial t}}_{\partial h/\partial t\vert_s}
+ \right) ds dx dy
+  \end{alignat}
+\end{subequations}
+Canceling the second, third and fourth terms together and using the Green-Ostrogradsky theorem lead to:
+%\begin{subequations}
+%  \begin{alignat}{2}
+%  \displaystyle 
+% 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau  &&=
+% \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
+% \pm\frac{1}{h}\frac{\partial}{\partial s}\left(\rho A \frac{\partial z}{\partial t}\right) \bigg\vert_s
+% \right) h ds dx dy\\
+% & &&= \iiint_{\mathcal{V}_{s}} \frac{\partial \rho h A}{\partial t}\bigg \vert_s h ds dx dy
+%  \end{alignat}
+%\end{subequations}
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+ 	&\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau  &&=
+ \iiint_{\mathcal{V}_{s}} \left( \frac{\partial \rho h A}{\partial t}\bigg \vert_s 
+ \pm \frac{\partial}{\partial s}\left(\rho A \frac{\partial z}{\partial t}\right) \bigg\vert_s
+ \right) ds dx dy\\[4mm]
+ & &&= \iiint_{\mathcal{V}_{s}} \frac{\partial \rho h A}{\partial t}\bigg \vert_s ds dx dy
+  \end{alignat}
+\end{subequations}
+
+\paragraph{Lagrangian approach.} 
+We can recover the relation for the evolution over a material volume such as a sum of water columns:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}_{s}} \rho A d\tau &&=
+  \iiint_{\mathcal{V}_{s}} \rho \frac{d A}{dt} d\tau
+  + \iiint_{\mathcal{V}_{s}}\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right] d\tau\\[4mm]
+  & &&=
+  \iiint_{\mathcal{V}_{s}} \rho \frac{d A}{dt} d\tau
+  + \iint_{\mathcal{S}_{surf}} \rho A(\mathbf{v}_{\Sigma}-\mathbf{v}).\mathbf{n}_{\Sigma} dS_{\Sigma}
+    \end{alignat}
+\end{subequations}
+\cite{griffies_fundamentals_2004} (page 140) further shows that, at the surface:
+\begin{equation}
+ \displaystyle
+ \mathbf{n}_{\Sigma}.(\mathbf{v}_{\Sigma}-\mathbf{v})=\frac{h}{\sqrt{1+S^2}}\underbrace{\frac{d s}{dt}}_{=1/h\ w_s}
+\end{equation}
+and using $w_s=h\dot{s}$ thus:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  & \frac{d}{dt} \iiint_{\mathcal{V}_{s}} \rho A d\tau &&=
+  \iiint_{\mathcal{V}_{s}} \rho \frac{d A}{dt} d\tau
+  +\iint_{\mathcal{S}_{surf}} \rho A  \underbrace{w_s}_{=0} dS
+    \end{alignat}
+\end{subequations}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Conservation of an extensive quantity in a free-surface ocean}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sub_conservation_ins}
+
+To develop diagnostics in a realistic free-surface ocean, the conservation or at least the evolution of a given property defined as $\mathcal{A}=\iiint_{\mathcal{V}(t)} \rho A d\tau$ where $A$ is a given specific\footnote{Specific: per unit mass of the flow.} property must be calculated in a region of the ocean with a varying upper surface. For a general time-dependent volume $\mathcal{V}(t)$ moving with a velocity $\mathbf{v}_{\Sigma}$, a formulation of the Reynolds transport theorem (or Leibnitz theorem) is given by \citet{truesdell_classical_1960} and reformulated in Appendix \ref{annexe_reynolds}:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+  &  \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau && =
+  \iiint_{\mathcal{V}(t)} \frac{D\rho A}{Dt}  d\boldsymbol{x}
+  +\iiint_{\mathcal{V}(t)} \rho A \mathbf{\nabla}.\mathbf{v}_{\Sigma}\ d\mathbf{x}\\[4mm]
+ & && =
+  \iiint_{\mathcal{V}(t)} \frac{\partial \rho A}{\partial t}\bigg\rvert_{xz} d\tau
+  %+ \varoiint_{\mathcal{V}(t)}\rho A \mathbf{v}.\mathbf{S}\\
+  + \oiint_{\mathcal{S}(t)}\rho A   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}dS_{\Sigma}
+  \end{alignat}
+\end{subequations}
+with the material derivative $D/Dt$ here associated to $  \mathbf{v}_{\Sigma}$:
+\begin{equation}
+ \displaystyle
+ \frac{D\bullet}{Dt}=\frac{\partial \bullet}{\partial t}\bigg\vert_{\boldsymbol{\xi}}
+ +  \mathbf{v}_{\Sigma}.\mathbf{\nabla}_{t,\boldsymbol{\xi}}\bullet
+\end{equation}
+In oceanic configurations, $\mathcal{V}(t)$ can be chosen as $\mathcal{V}_s$, a sum of water columns. In the absence of shoaling processes, this volume's boundaries only move in the vertical direction with the elevation of the free-surface. It is then possible to express $\mathcal{A}$ in s-coordinates with the Jacobian of transformation equal to $\mathcal{J}=h$:
+\begin{equation}
+  \displaystyle 
+ 	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ d\tau  =
+ 	\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ h ds dx_s dy_s
+\end{equation}
+In this case, with the definition of constant-$s$ surfaces, the boundaries of volume $\mathcal{V}_s$ are constant and the time-derivative can directly be applied through the integral as :
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+   &\frac{d }{d t} \iiint_{\mathcal{V}_{s}} \rho A\ h ds dx_s dy_s && =
+   \iiint_{\mathcal{V}_{s}} \frac{\partial h \rho A}{\partial t}\bigg \vert_s ds dx_s dy_s\\[4mm]
+   & &&= \iiint_{\mathcal{V}_{s}} \rho h \frac{\partial A}{\partial t}\bigg \vert_s  ds dx_s dy_s + \iiint_{\mathcal{V}_{s}} A \frac{\partial \rho h}{\partial t}\bigg \vert_s ds dx_s dy_s
+   \end{alignat}
+\end{subequations}
+This formulation is based on Reynolds transport theorem (see appendix \noparref{annexe_reynolds}).
+
+To simplify notations and without any loss of generality, integrals should in the following be restricted to the $(x,z)$ vertical plane and subscript $s$ should be abandoned:
+\begin{equation}
+\displaystyle
+\mathcal{A}=\int_x\int_{-1}^0\rho A\ hdx ds
+\end{equation}
+The conservation of mass in equation \ref{mass_s} and the formulation of evolution of $\rho$ in equation \ref{eq_diff_s} of appendix \ref{annexe_ocmod} can be used, leading to:
+\begin{subequations}
+  \begin{alignat}{2}
+  \displaystyle 
+   & \frac{d }{d t} \int_x\int_{-1}^0\rho A\ hds dx && = \int_x\int_{-1}^0 \frac{\partial A}{\partial t}\bigg \vert_s \rho h ds dx\\[4mm]
+ & && \quad - \int_x \int_{-1}^0 A \frac{\partial \rho h u}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm] 
+ & && \quad - \int_x \int_{-1}^0 A \frac{\partial \rho v_s}{\partial s}\bigg\rvert_{tx} \ dx ds \\[4mm]
+ & && \quad + \int_x \int_{-1}^0 A \frac{\partial}{\partial x} \bigg(h \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}\bigg)_{ts} \ dx ds \\[4mm]
+ & && \quad + \int_x \int_{-1}^0 A \frac{\partial}{\partial s} \bigg(\frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}\bigg)_{tx} \ dx ds 
+   \end{alignat}
+\end{subequations}
+Various fluxes can be simplified in this expression:
+\begin{subequations}
+  \begin{alignat}{2}
+&\frac{d }{d t}\int_x\int_{-1}^0 \rho A\ h ds dx =&&  \int_x \int_{-1}^0 \rho h \frac{\partial A}{\partial t}\bigg\rvert_{xs} \ dx ds\\[4mm]
+ & && \quad - \int_x \int_{-1}^0 \frac{\partial \rho h A u}{\partial x}\bigg\rvert_{ts} \ dx ds
+ + \int_x \int_{-1}^0\rho h u \frac{\partial A}{\partial x}\bigg\rvert_{ts} \ dx ds\\[4mm] 
+ & && \quad - \int_x \int_{-1}^0 \frac{\partial \rho A v_s}{\partial s}\bigg\rvert_{tx} \ dx ds
+ + \int_x \int_{-1}^0 \rho v_s \frac{\partial A}{\partial s}\bigg\rvert_{tx} \ dx ds \\[4mm]
+ & && \quad + \int_x \int_{-1}^0 \frac{\partial}{\partial x} \bigg(h A \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts}\bigg)_{ts} \ dx ds 
+ - \int_x \int_{-1}^0 h \kappa^h \frac{\partial A}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
+ & && \quad + \int_x \int_{-1}^0 \frac{\partial}{\partial s} \bigg( A \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx}\bigg)_{tx} \ dx ds 
+ - \int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds 
+  \end{alignat}
+\end{subequations}
+Integrating by parts the advective and diffusive flux integrals in both the vertical and horizontal directions finally leads to:
+\begin{subequations}
+\label{Aint}
+  \begin{alignat}{2}
+  \displaystyle 
+  &\frac{d }{d t} \int_x \int_{-1}^0 \rho h A\ dx ds =&&
+ %
+ % Begin 5th line
+ %
+\quad  \int_x \int_{-1}^0 \rho h \frac{\partial A}{\partial t}\bigg\rvert_{ts} \ dx ds\\[4mm]
+ & && \quad - \bigg[ \int_{-1}^0 \rho h A u \ ds\bigg]_{x}
+ + \int_x \int_{-1}^0\rho h u \frac{\partial A}{\partial x}\bigg\rvert_{ts} \ dx ds\\[4mm] 
+ & && \quad - \bigg[ \int_{x} \rho A v_s \ ds\bigg]_{0}^1
+ + \int_x \int_{-1}^0 \rho v_s \frac{\partial A}{\partial s}\bigg\rvert_{ts} \ dx ds \\[4mm]
+ & && \quad + \bigg[ \int_{-1}^0 h A \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
+ - \int_x \int_{-1}^0 h \kappa^h \frac{\partial A}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
+ & && \quad + \bigg[ \int_x A \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
+ - \int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds
+   \end{alignat}
+\end{subequations}
+This latest relation can also be formulated as a function of $dA/dt$:
+\begin{subequations}
+  \begin{alignat}{2}
+ %
+ % Begin 6th line
+ %
+ &\frac{d }{d t} \int_x \int_{-1}^0 \rho h A\ dx ds &&= \quad  \int_x \int_{-1}^0 \rho h \frac{d A}{d t} \ dx ds\\[4mm]
+ & && \quad - \bigg[ \int_{-1}^0 \rho h A u \ ds\bigg]_{x} - 0\\[4mm] 
+ & && \quad + \bigg[ \int_{-1}^0 h A \kappa^h \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ ds \bigg]_{x}
+ - \int_x \int_{-1}^0 h \kappa^h \frac{\partial A}{\partial x}\bigg\rvert_{ts} \frac{\partial \rho}{\partial x}\bigg\rvert_{ts} \ dx ds \\[4mm]
+ & && \quad + \bigg[ \int_x A \frac{\kappa^v}{h} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx \bigg]_0^1
+ - \int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial A}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds 
+  \end{alignat}
+\end{subequations}
+with $\bigg[ \int_{x} \rho A v_s \ ds\bigg]_{0}^1 = 0$ since $v_s$ is void at the bottom and top boundaries. 
+
+%\subsection{S-coordinates}
+%Integration over the water column whose surface is varying in time. 
+%A key property is:
+%\begin{equation}
+% \displaystyle
+% \frac{dh}{dt}(t,\mathbf{x},z)=\frac{d}{dt}\left( \frac{\partial z}{\partial s}\bigg\vert_{txy}\right)
+% =\frac{\partial }{\partial s}\frac{dz}{dt}=\frac{\partial w}{\partial s}(t,\mathbf{x},z)
+%\end{equation}
 \color{black}
