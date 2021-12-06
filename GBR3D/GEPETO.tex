@@ -191,14 +191,15 @@ Several improvements shall be made in a future study and are already been evalua
 
 \section{Appendix : Singular Value Decomposition (SVD)}
 \label{annexeSVD}
-Singular Value Decomposition (SVD) consists in finding a basis of singular values and orthonormal singular vectors for a G x T matrix A (complex or real), so that :
+Singular Value Decomposition (SVD) consists in finding a basis of $k$\footnote{In an incomplete decomposition, $k$ the number of singular values on which to decompose A can be specified.} singular values and orthonormal singular vectors for a matrix A (complex or real), so that :
 \begin{equation}
 A = U \Sigma V^* 
 \end{equation}
-Where the G x k matrix $U$ and k x T matrix $V$ (and its conjugate $V^*$) are the left and right singular vectors respectively, and $\Sigma$ is the diagonal k x k matrix of singular values associated to each couple of singular vectors.
+If A has dimensions G x T, $U$ is a G x $k$ matrix, while $V$ (and its conjugate $V^*$) is a k x T matrix. $U$ and $V$ are called the left and right singular vectors respectively, and $\Sigma$ is the diagonal $k$ x $k$ matrix of singular values associated to each couple of singular vectors.
 
-To analyze a time-varryinig signal of variable $\psi$ on a 3D grid (or 2D as in section ..), the spatial field of each of the T timestep is appended into one column of length G to create the GxT matrix A, where T are the number of iterations of the 3D field. 
+To analyze a time-varying signal of variable $\psi$ on a 3D grid of G grid points, the spatial field of each of the T time-steps is appended into one column of length G to create the GxT matrix A, where T are the number of iterations of the 3D field. 
 
-After proceeding with the SVD of this matrix A, the column number i of U is reformed into a 3D field that gives the spatial structure of the field of $\psi$ associated with the i singular value, that has a time-variation in the i row of the singular right vector V.
+After proceeding with the SVD of this matrix A, the column number $i$ of U is reformed into a 3D field that gives the spatial structure of the field of $\psi$ associated with the $i$ singular value, that has a time-variation in the $i$ row of the singular right vector V.
 
-In section \ref{sectionSim2D}, SVD was applied to the complex field of $\psi=w+iu$. consecutive vectors of the basis with close singular value and that exhibited similar time-variations were combined to ... .In section \ref{sectionSim3D}, SVD is applied to the field of the real quantity $Q$.
+In section \ref{sectionSim2D}, SVD was applied to the complex field of $\psi=w+iu$. %consecutive vectors of the basis with close singular value and that exhibited similar time-variations were combined to ... .
+In section \ref{sectionSim3D}, SVD is applied to the field of the real quantity $Q$.

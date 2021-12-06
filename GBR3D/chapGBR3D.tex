@@ -23,7 +23,7 @@ La distinction des situations \textit{s-jump} et \textit{w-jump} avait déjà é
 
 Les marées de plus faible amplitude en périodes de mortes-eaux correspondent à une situation \textit{no-jump}, les plus fortes en périodes de vives-eaux à la situation \textit{w-jump}. La situation \textit{s-jump} est un cas intermédiaire. Les simulations réalisées montrent que la relaxation du ressaut hydraulique débouche bien sur la propagation d'un train d'ondes solitaires. Cependant, elles montrent aussi clairement que la propagation de l'onde longue de marée barocline à travers le détroit sans présence préalable de ressaut (situation  \textit{no-jump}) peut elle aussi dégénérer en un train de solitons sous l'effet de mécanismes non-linéaires. Dans ce cas, le nombre de solitons du train se propageant en mer d'Alboran est réduit, l'amplitude de l'anomalie de profondeur de l'interface initiale étant elle-même plus faible.
 
-Outre la propagation du soliton, la simulation à haute résolution permet (comme au chapitre \ref{chapGBR2D}) de simuler explicitement des instabilités de cisaillement dans le courant de densité à l'ouest du seuil de Camarinal durant les périodes de \color{red}reflux \color{black} de la marée (\textit{outflow}). Les zones probables de leur génération ne changent pas entre les situations \textit{no-jump} et \textit{s-jump} et sont centrées sur les deux sillons nord et sud de part et d'autre du point culminant du seuil de Camarinal. En situation \textit{w-jump}, cette génération se fait à toutes les latitudes.
+Outre la propagation du soliton, la simulation à haute résolution permet (comme au chapitre \ref{chapGBR2D}) de simuler explicitement des instabilités de cisaillement dans le courant de densité à l'ouest du seuil de Camarinal durant les périodes de reflux de la marée (\textit{outflow}). Les zones probables de leur génération ne changent pas entre les situations \textit{no-jump} et \textit{s-jump} et sont centrées sur les deux sillons nord et sud de part et d'autre du point culminant du seuil de Camarinal. En situation \textit{w-jump}, cette génération se fait à toutes les latitudes.
 
 Une étude de sensibilité de la simulation de ces instabilités aux schémas de fermeture turbulente (schéma dit de "Smagorinsky" avec ajustement des paramètres ou schéma GLS) a permis de mettre en exergue l'impact de ces fermetures sur la composition hydrologique du courant méditerranéen via le mélange avec les eaux atlantiques.
 
@@ -261,7 +261,7 @@ The flow in the Strait of Gibraltar can shift from subcritical to supercritical 
 To do so,  the superposition of the Atlantic and Mediterranean water masses (when effective) is chosen as a simple two-layer (at most three-layer if one wants to single the interface) representation of the stratification.
 
 In the previous section \ref{sectionWaterMasses}, Atlantic and Mediterranean water masses have been clearly identified based on their signature in temperature and salinity. Salinity is probably the most pertinent tracer to differentiate these waters in the region of the strait due to the large contrast of salinity existing between Mediterranean and Atlantic water masses.
-An approximate, local, two-layer analysis can thus be carried in the present, fully-3D , realistic configuration if an interface is defined in regard to a reference salinity. In this case, its depth is defined as the height of the first water parcel \sout{from the top down} in the water column for which salinity is above the intreface reference salinity.
+An approximate, local, two-layer analysis can thus be carried in the present, fully-3D , realistic configuration if an interface is defined in regard to a reference salinity. In this case, its depth is defined as the height of the first water parcel in the water column for which salinity is above the intreface reference salinity.
 
 This reference salinity $S_i$ is taken as varying along the strait as a hyperbolic tangent function of longitude centered at CS to account for the different water mass composition in the eastern and western part of the Strait of Gibraltar. 
 
@@ -538,7 +538,7 @@ In the case of implementation of $K-\epsilon$ turbulent scheme in simulation Sim
 \begin{figure}[!h]
 % \centering
  \includegraphics[width=\textwidth]{./GBR3D/Figsmago.png}
- \caption { (A1, A2, A3, A4) Vertical section of salinity (color), contours of $Q = 5.10^{-5} \ s^{-2}$ (red) and Richardson gradient number $=\ 0.25$ (black) at a latitude of $35.9372^o\ N$ in SimIT-S001, SimIT-S01, SimIT-S1 and SimIT-Kep IES respectively, 4 h after the initialization. (B1,B2,B3 and B4) Averaged salinity accross the Mediterranean or Atlantic layer at two different longitudes.\color{red}(Mettre lettres et bons noms de simus)\color{black}}
+ \caption { (A1, A2, A3, A4) Vertical section of salinity (color), contours of $Q = 5.10^{-5} \ s^{-2}$ (red) and Richardson gradient number $=\ 0.25$ (black) at a latitude of $35.9372^o\ N$ in SimIT-S001 (A1), SimIT-S01 (A2), SimIT-S1 (A3) and SimIT-Kep (A4) respectively, 4 h after the initialization. (B1,B2,B3 and B4) Averaged salinity across the Mediterranean (B1 and B3) or Atlantic (B2 and B4) layer at two different longitudes, east (B1 and B2) or west (B3 and B4) of Camarinal Sill.}
  \label{Fig3Dsch}
 \end{figure}
 

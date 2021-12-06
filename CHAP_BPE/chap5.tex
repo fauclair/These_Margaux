@@ -564,10 +564,18 @@ With advective velocity $U_1$ (figure A3), the time-scales $T_{\kappa}^{right}$ 
 %As time goes on, this effective velocity shows oscillations over a period close to the advective time-scale. The effective diffusivity oscillates around a mean value twice as small as the average value of the prescribed explicit velocity. \\
 %but after $t=3.86 \ 10^4 s$ , reach a minimum of $\kappa_{eff}=3.24 \ 10^{-5} m^2/s$. This value then increases again slowly then stabilizes at $\kappa_{eff}=2.2 \ 10^{-4} \ m^2/s$ after $t=2.785 \ 10^5 s$ approx half $T_{adv}^{U_1}$ at this point all original fluid parcels have been advected through the high dissipation area.
 With a much larger advective velocity $U_2$ (figure B3) now, the effective diffusivity oscillates around the averaged explicit advective velocity. The time-scale of the oscillations is now smaller: it remains very close to the advective time-scale $T_{adv}^{U_2}$, with an enveloppe at a smaller frequency that could be linked to $T_{\kappa}^{right}$. When a sliding average operator with time window $T_{adv}^{U_1}$ is applied to the effective diffusivity most of the oscillations are cleared of the signal.
-%When the effective velocity is computed over each sub-domain, the expected values are recovered and this diffusivity oscillates over the same advective time-scale but with a much smaller amplitude. 
+
+When the effective diffusivity is computed independently over each sub-domain, the expected prescribed values are recovered with smaller amplitude oscillations at the advective time-scale (not shown).
+%and this diffusivity oscillates over the same advective time-scale but with a much smaller amplitude. 
 
 \subsection{Partial conclusion}
-The various experiments carried out in the frame of this simple but complete advection- diffusion configuration confirms that \cite{winters_available_1995}'s BPE algorithm can lead to a quantification but also to a localization of the turbulent mixing coefficient in regional ocean configurations. Large variations of the effective diffusivity can yet be observed when it is evaluated over a period smaller than or close to time-scales of active process (such as the advective time-scale in the proposed experiments). To be accurate, this effective diffusivity must in any event be carried out over time-scale larger than the estimated time-scale of the diapycnal fluxes in the region of interest. The effective diffusivity thus calculated is to be viewed as an average for the region (viewed as a sum of water-columns) over which the evolution equation \ref{bilanBPEal} has been evaluated. It has also been confirmed that this algorithm can conveniently be used to evaluate the implicit dissipation induced by advective schemes.
+The various experiments carried out in the frame of this simple but complete advection- diffusion configuration confirms that \cite{winters_available_1995}'s BPE algorithm can lead to a quantification but also to a localization of the turbulent mixing coefficient in regional ocean configurations. This includes an evaluation of the implicit dissipation induced by advective schemes.
+%It has also been confirmed that this algorithm can conveniently be used to evaluate the implicit dissipation induced by advective schemes.
+%Large variations of the effective diffusivity can yet be observed when it is evaluated over a period smaller than or close to time-scales of active process (such as the advective time-scale in the proposed experiments). To be accurate, this effective diffusivity must in any event be carried out over time-scale larger than the estimated time-scale of the diapycnal fluxes in the region of interest. 
+Quantification is achieved through the determination of an effective diffusivity, to be
+viewed as an average for the region (viewed as a sum of water-columns) over which the evolution equation \ref{bilanBPEal} has been evaluated. However, in this advection- diffusion configuration, advection through areas of localized diffusion leads to oscillations of the evaluated effective diffusivity at the advection time-scale. 
+
+%large variations of the effective diffusivity 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Toward an evaluation of mixing in real ocean}
@@ -575,8 +583,11 @@ The various experiments carried out in the frame of this simple but complete adv
 \label{section_CROCO_BPE}
 Several additional test configurations of increasing complexity are now presented to progress toward an evaluation of mixing in a "real ocean" with the "generalized" BPE algorithm presented in \S \ref{BPE_algo}. The consequences of the variations of the ocean free-surface are thus first explored in the case of the free oscillations of a stratified tank. Mixing is then finally evaluated with the BPE algorithm when Kelvin-Helmholtz instabilities are developing and in the region of Gibraltar strait.
 
-\subsection{Free oscillations of a stratified tank ($BPE_{tank}$)}
-As shown in \S \ref{section_PE_chap2}, the variations of the ocean free-surface induce several adaptations of the evolution equation of BPE and, as a consequence, they have a significant impact on the evaluation of mixing in realistic configurations. The present configuration focuses on the mixing induced by the natural (free) oscillations of a stratified tank initially subjected to a gradient of free-surface anomaly. The physical and numerical parameters are presented in table \ref{tab_BPE_TANK}.
+\subsection{Free oscillations of a stratified tank}
+\subsubsection{Linear stratification and free surface: induced mixing ($BPE_{tank}$)}
+
+As shown in \S \ref{section_PE_chap2}, the variations of the ocean free-surface induce several adaptations of the evolution equation of BPE and, as a consequence, they have a significant impact on the evaluation of mixing in realistic configurations. The present configuration focuses on the mixing of a stratified fluid induced by the natural (free) oscillations of a stratified tank initially subjected to a gradient of free-surface anomaly. The physical and numerical parameters are presented in table \ref{tab_BPE_TANK}.
+
 \begin{table}[h]
         %\begin{minipage}{.6\textwidth}
         \centering
@@ -590,7 +601,7 @@ As shown in \S \ref{section_PE_chap2}, the variations of the ocean free-surface 
                 $\Delta x$ & 0.2 m\\
                 $\Delta z$ & $\approx\ 0.2\ m$\\
                 $\Delta t$ & close to CFL requirements in test-configurations\\
-                Diffusivity & $\kappa_{exp} = 10^{-4} \ m^2/s$\\
+                Diffusivity & $\kappa_{exp} = 4.10^{-6} \ m^2/s$\\
                 \hline
         \end{tabular}
         \captionof{table}{$BPE_{ts}$ configuration: numerical parameters.}
@@ -604,18 +615,22 @@ The initial perturbation of the ocean free-surface is chosen equal to:
 \end{equation}
 with $\zeta_0\ =\ 2\ mm$.
 %Now apply determination of $\kappa_{eff}$ to numerical cases Based on TANK experiment (ref?), adapted to have stratification. Evolution of the density tracer field, through the complete system of equation for ocean CROCO. Closed domain, 2D. No initial velocity.
-\subsubsection{Linear stratification and free surface: induced mixing}
-The initial anomaly of the free-surface induces natural oscillations of the stratified flow in the tank due to the propagation and resonance of surface gravity waves. The induced currents lead to diapycnal fluxes and, as a consequence, they participate to increase turbulent mixing.\\ 
+
+The initial anomaly of the free-surface induces natural oscillations of the linearly stratified flow presented in figure (\noparref{figClin}.A) due to the propagation and resonance of surface gravity waves. The induced currents are expected to lead to diapycnal fluxes and, as a consequence, participate to increase turbulent mixing.
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./CHAP_BPE/Fig_TANK_linS.png}
-\caption{Cas strat lineaire}
+\caption{(A) Initial tracer field of the $BPE_{tank}$ configuration. (B1 and B2) Evaluation of the time evolution of some terms of the balance equation \ref{bilanBPEal} over the whole simulated domain. (C1 to C3) same as B1 and B2 but for an evaluation carried out only on the right half of the domain.}
 \label{figClin}
 \end{figure}
 %Movement comes from evolution of initially non-flat free surface. Initial linear stratification $\rho(z)$ (ie, constant N) see figure (\noparref{figClin}.A). $\rho_0=1043 kg/m^3$
 %\item L$=$50m, H$=$10m, dx$=$0.2m$\approx$dz, amplitude oscillation initiale de la surface libre de 2mm. Explicit diffusion coefficient put at $10^{-4}$m$^2$/s. 
-Figure \ref{figClin} shows the initial density field together with the evolution with time of the various terms in the balance equation \ref{bilanBPEal}. Computations are successively carried out for the whole domain (left column of figure \ref{figClin}) or for the right half domain (right column of figure \ref{figClin}).\\
-As could be expected, the oscillations of the free-surface clearly governs not only the variations of the first term $(\Phi_{\zeta})$ of this balance equation but also the variations of the overall BPE variations $(dPE_B/dt)$. Indeed, the long-wave phase speed of surface gravity waves $(c\ =\ \sqrt(g L_z)\approx\ 9.9\ m/s)$ induces a natural time-scale of oscillations of the tank of $T_{\zeta}\ =\ L/c\ =\ 5\ s$ when freely propagating from a wall to the other. The period of the oscillations of $dPE_b/dt$ are close to twice $T_{\zeta}$.\\
+Figure (\noparref{figClin}.B1-B2 and C1 to C3) show %the initial density field together with 
+the evolution with time of the various terms in the balance equation \ref{bilanBPEal}. Computations are successively carried out for the whole domain (figures (\noparref{figClin}.B1 and B2)) or for the right half domain (figures (\noparref{figClin}.C1 to C3)).
+
+As could be expected, the oscillations of the free-surface clearly governs not only the variations of the first term $(\phi_{\zeta})$ of this balance equation but also the variations of the overall BPE variations $(dPE_B/dt)$. Indeed, the long-wave phase speed of surface gravity waves $(c\ =\ \sqrt(g L_z)\approx\ 9.9\ m/s)$ induces a natural time-scale of oscillations of the tank of $T_{\zeta}\ =\ L_x/c\ =\ 5\ s$ when freely propagating from a wall to the other. The period of the oscillations of $dPE_b/dt$ and $\phi_{\zeta}$ are close to twice $T_{\zeta}$.
+
 If the balance equation is evaluated over the whole domain (left column of figure \ref{figClin}), the free-surface term of the evolution equation explains the oscillations of $(dPE_B/dt)$ (figure \noparref{figClin}.c) and the prescribed explicit diffusivity is recovered with good accuracy (figure \noparref{figClin}.e).\\
 If the balance equation is now evaluated over the right half domain only (right column of figure \ref{figClin}), $\Phi_{\zeta}$ is approximately equal to $F_a$ the sum of the advective flux trough the (vertical) lateral boundary of this domain (figure \noparref{figClin}.d). Note that the terms of the evolution equation are several orders of magnitude larger than when the balance equation is evaluated over the whole domain. The effective diffusivity is still recovered with good accuracy (figure \noparref{figClin}.f).\\
 These results confirms the pertinence of the proposed BPE balance equation (\ref{bilanBPEal}) and reinforces the choices made to evaluate numerically the BPE algorithm. Even in a case where the induced mixing is several order of magnitudes smaller than the other terms of the balance equation, the explicit diffusivity can therefore be recovered both globally and locally based on \ref{eq_kappaEff}.
@@ -740,25 +755,28 @@ The evolution in time of the effective diffusivity $\kappa_{eff}$ is in contrast
 In the western part of the domain (W) and in it sub-domain (CSw), this semi-diurnal periodicity is readily apparent, not as regular oscillations this time but rather as intermittent episodes (bursts) of higher (positive) effective diffusivity $\kappa_{eff}$ during outflows (when the barotropic component of the current is this time negative).
 
 \section{Discussion and conclusion}
-A complete analysis of the Background Potential Energy (BPE) evolution equation has been carried out in several test-configurations of increasing complexity, ending with an application to the real ocean in the region of the strait of Gibraltar. This analysis is based on original analytical developments (to our knowledge at least) to derive an as-complete-as-possible evolution equation of the Background Potential Energy for free-surface water columns (\S \noparref{section_PE_chap2}). Original developments have also been proposed to evaluate numerically this evolution in non-flat regions of the ocean simulated with terrain-following, s-coordinate numerical models. The efficiency of the proposed implementation of the BPE algorithm remains affordable in terms of computing costs and memory storage for the hierarchy of configurations proposed, but new approaches need to be implemented to compute the reference state \citep{saenz_estimating_2015} for 3D LES of more extended regions.\\
-Several assumptions could additionally need to be reconsidered or at least evaluated with care.
-The isotropy of the effective diffusivity $(\kappa_h=\kappa_v=\kappa)$ should be reconsidered when the implicit numerical diffusion of the advection schemes is at stake: implicit diffusion is indeed added specifically along the advection direction and diffusivity is not isotropic anymore.
-When the reference profile $z^*$ is computed locally, the lateral boundary fluxes exchanged through the vertical boundary separating two neighboring domains do not balance each other. 
-The evaluations of the effective diffusivity have been made offline which leads to an additional limitation. Indeed, if an open-boundary configuration is studied, the sampling frequency must be chosen with care and must in particular remain high enough not to induce numerical truncatures or artefacts.
+A complete analysis of the Background Potential Energy (BPE) evolution equation has been carried out in several test-configurations of increasing complexity, ending with an application to the real ocean in the region of the strait of Gibraltar. This analysis is based on original analytical developments (to our knowledge at least) to derive an as-complete-as-possible evolution equation of the Background Potential Energy for free-surface water columns (\S \noparref{section_PE_chap2}). Original developments have also been proposed to evaluate numerically this evolution in non-flat regions of the ocean simulated with terrain-following, s-coordinate numerical models. The efficiency of the proposed implementation of the BPE algorithm remains affordable in terms of computing costs and memory storage for the hierarchy of configurations proposed, but new approaches need to be implemented to compute the reference state \citep{saenz_estimating_2015} for 3D LES of more extended regions.
+
+%For now, the results from our test-configurations show that When the reference profile $z^*$ is computed locally, the lateral boundary fluxes exchanged through the vertical boundary separating two neighboring domains do not balance each other. 
 
 In a free-surface domain with opened lateral boundaries, advection and motion of the free surface make $PE_B=\iiint_V \rho g z^* d\tau$ evolve with the reorganisation of the mass field (through $F_a$) and with the change of the water-column volume (through $\phi_{\zeta}$). In most studied configurations, those two terms are of the same order of magnitude and are the largest contributions to $dPE_B/dt$. The effective diffusivity $\kappa_{eff}$ is found to complete the balance and thus reflects (or at least should reflect) diapycnal mixing: it quantifies the averaged turbulent mixing occurring over the domain of integration (a sum of water columns). 
 This averaging effect is in part due to the choice of an homogeneous value of $\kappa_{eff}$ over the selected domain. 
 
-Another consequence of our protocol is that this effective diffusivity value has contributions on timescales similar to other dynamical processes, including ones that would not reflect diapycnal mixing (such as reaching negative values \color{blue} during re-stratification periods\color{black}, whereas mixing is supposed to be an irreversible process). This is in particular the case even when the rearrangement is made over small sub-domains, as the timescale of advection is usually small compared to the timescale of diffusive mechanisms. So, an instantaneous evaluation of effective diffusion would not reflect the dynamical adjustment of the advected structures due to mixing.
+Several assumptions could additionally be reconsidered or at least evaluated with care.
 
-In the present study, the time-averaging of the effective diffusivity was used to retrieve coefficients representative of processes over long-time periods coherent with dissipation processes, but it may be more pertinent to integrate the time-averaging process to the balance equation itself.
+The isotropy of the effective diffusivity $(\kappa_h=\kappa_v=\kappa)$ should be reconsidered when the implicit numerical diffusion of the advection schemes is at stake: implicit diffusion is indeed added specifically along the advection direction and diffusivity is not isotropic anymore.
+
+The evaluations of the effective diffusivity has been made offline which leads to an additional limitation. Indeed, if an open-boundary configuration is studied, the sampling frequency must be chosen with care and must in particular remain high enough not to induce numerical truncation or artefacts.
+
+
+Another consequence of our protocol is that this effective diffusivity value has contributions on timescales similar to other dynamical processes, including ones that would not reflect diapycnal mixing (such as reaching negative values, indicating re-stratification periods, whereas mixing is supposed to be an irreversible process). This is in particular the case even when the rearrangement is made over small sub-domains, as the timescale of advection is usually small compared to the timescale of diffusive mechanisms. So, an instantaneous evaluation of effective diffusion would not reflect the dynamical adjustment of the advected structures due to mixing.
+
+In the present study, the time-averaging of the effective diffusivity was used to retrieve coefficients representative of processes over extended time periods coherent with dissipation processes, but it may be more pertinent to integrate the time-averaging process to the balance equation itself.
 
 %and over a period which must be long enough for the main underlying dynamical adjustments to be achieved (i.e. at least larger than the time-scale of the diapycnal fluxes).
 
 Finally, this study only focuses on the APE/BPE subdivision of the gravitational potential energy of the ocean. More information on the underlying effects of the simulated dynamics on the evolution of BPE and diabatic mixing could be gathered by evaluating transfers with and between other energy compartments, such as the kinetic energy of the flow \citep{floor_energy_2011}.
-\color{black}
 
-\color{blue}
 
 \section{Appendices to \textit{The evolution equation of BPE}}
 

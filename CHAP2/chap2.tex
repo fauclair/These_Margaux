@@ -17,7 +17,7 @@ J'ai participé à une partie des développements de CROCO durant ma thèse, sur
 En parallèle des développements numériques et des travaux sur la dynamique de la région du détroit de Gibraltar menés dans le cadre de la présente thèse de doctorat, a été développé et publié un modèle analytique suffisamment général pour décrire la dispersion des ondes et des modes acoustiques, des ondes et des modes internes de gravité ou encore des ondes de gravité de surface \citep{auclair_modied_2021}. Le modèle analytique de dispersion a de plus été utilisé pour explorer la dynamique ondulatoire dans la région du détroit de Gibraltar.
 J'ai participé et co-signé cette étude en support du développement numérique de CROCO, étude qui n'a pas été incluse dans le présent manuscrit.
 
-Dans ce qui suit du présent chapitre, c'est l'anglais qui est utilisé pour les raisons évoquées précédemment.
+%Dans ce qui suit du présent chapitre, c'est l'anglais qui est utilisé pour les raisons évoquées précédemment.
 
 %Dans une première partie, les équations analytiques servant de base à ce \textit{modèle d'océan} sont présentées (\noparref{section_prim_eq}), l'approche numérique choisie et co-développée pour le coeur numérique non-hydrostatique, compressible et à surface libre de CROCO est détaillée en partie \ref{section_croco}. Un certain nombre de développements sont enfin présentés dans les annexes (\noparref{section_annexe2}).
 
@@ -326,9 +326,9 @@ This splitting conserves basically the formulation of the horizontal momentum eq
 The time-splitting and time-stepping proposed in the following build both on \cite{shchepetkin_regional_2005} and on \cite{Auclair2018}.   \cite{shchepetkin_regional_2005}'s LFAM3\footnote{Leap-Frog Adams-Moulton 3 steps}, predictor-corrector time-stepping is indeed implemented in the slow kernel while a Forward-Backward (FB) scheme is used to integrate the fast-mode. The introduction of a compressible, non-hydrotatic kernel is taken from \cite{Auclair2018} and adapted to a two-mode implementation.
 
 Figure \ref{ModelTS} shows the predictor-corrector implementation of the slow and fast kernels based on ROMS barotropic/baroclinic time-splitting. Both the time-splitting and the various time-stepping are summarized in Equations \ref{TimeSplit}.
-\color{blue}
-Note that in these equations and in the following, to simplify notations and to be coherent with CROCO's variables, s (for "slow") and f (for "fast") subscripts are indicated for right-most variable only: $\rho h \mathbf{v}_s=\rho_s h_s \mathbf{v}_s$ and $\rho h \mathbf{v}_f=\rho_f h_f \mathbf{v}_f$. This means that $\rho h \mathbf{v}$ is a CROCO variable. The decomposition of the density field into its fast and slow components is given by  \ref{decompor_f0}.\\
-\color{black}
+
+Note that in these equations and in the following, to simplify notations and to be coherent with CROCO's variables, s (for "slow") and f (for "fast") subscripts are indicated for right-most variable only: $\rho h \mathbf{v}_s=\rho_s h_s \mathbf{v}_s$ and $\rho h \mathbf{v}_f=\rho_f h_f \mathbf{v}_f$. This means that $\rho h \mathbf{v}$, for exemple, is a CROCO variable. The decomposition of the density field into its fast and slow components is given by  \ref{decompor_f0}.
+
 \begin{figure}[!h]
 	\centering		
 	\begin{subfigure}{1.0\linewidth}
@@ -468,22 +468,26 @@ Note that in these equations and in the following, to simplify notations and to 
 \end{alignat}
 \end{subequations}
 \end{table}
-Predictor (I), fast-kernel Forward-Backward (II) and Corrector (III) steps are shown in horizontal color bands on figure \ref{ModelTS} (yellow for the slow kernel, blue for the fast kernel). After time-interpolating slow-kernel variables to $t_s-\Delta t_s/2$ (step I.a, notation $[.]$), the slow kernel is advanced from $t_s-\Delta t_s/2$ to $t_s+\Delta t_s/2$ with a centered, leap-frog-like, time-stepping (step I.b). Then, to prepare the integration of the fast kernel, the slow-kernel RHS is extrapolated to $t_s+\Delta t_s/2$ based on an AB3 scheme using its previous evaluations at $t_s-2\Delta t_s$, $t_s-\Delta t_s$ and $t_s$ (step I.c, notation $[[.]]$). The fast kernel can in turn be advanced from $t_s$ to $t_s+\Delta t_s$ using a forward-backward like time-stepping (step II) with time-step $\Delta t_f$ satisfying  $N_f=\Delta t_s/\Delta t_f\in\mathcal{N}$. The vertical momentum equation can optionaly be integrated with semi-implicit scheme over the vertical direction.\\ 
-The vertical grid is updated at each fast time-step \ref{TimeSplitIIg} but slow-kernel components of the RHS remain constant during the fast-kernel integration. At the last fast time-step, surface elevation displacement for the slow kernel can be recomputed to ensure perfect numerical coherence between the surface kinematic relation and depth-integrated mass conservation (\noparref{TimeSplitIIa} and \noparref{TimeSplitIIh}).\\
-Further numerical details such as the values of the interpolation $(\alpha_n)$ or extrapolation $(\beta_n)$ coefficients, the expressions of the slow-kernel RHS terms $(\Lambda_s)$, the expressions of the fast-kernel surface-related pressure force terms $(\Lambda_{f,-\nabla\zeta})$,  the fast-kernel RHS remaining terms $(\Lambda_{f})$ or the implicit fast and slow-kernel RHS terms (indicated by an asterisk) can be found in CROCO dedicated manuals and publications.\\  
+Predictor (I), fast-kernel Forward-Backward (II) and Corrector (III) steps are shown in horizontal color bands on figure \ref{ModelTS} (yellow for the slow kernel, blue for the fast kernel). After time-interpolating slow-kernel variables to $t_s-\Delta t_s/2$ (step I.a, notation $[.]$), the slow kernel is advanced from $t_s-\Delta t_s/2$ to $t_s+\Delta t_s/2$ with a centered, leap-frog-like, time-stepping (step I.b). Then, to prepare the integration of the fast kernel, the slow-kernel RHS is extrapolated to $t_s+\Delta t_s/2$ based on an AB3 scheme using its previous evaluations at $t_s-2\Delta t_s$, $t_s-\Delta t_s$ and $t_s$ (step I.c, notation $[[.]]$). The fast kernel can in turn be advanced from $t_s$ to $t_s+\Delta t_s$ using a forward-backward like time-stepping (step II) with time-step $\Delta t_f$ satisfying  $N_f=\Delta t_s/\Delta t_f\in\mathcal{N}$. The vertical momentum equation can optionaly be integrated with semi-implicit scheme over the vertical direction.
+
+The vertical grid is updated at each fast time-step \ref{TimeSplitIIg} but slow-kernel components of the RHS remain constant during the fast-kernel integration. At the last fast time-step, surface elevation displacement for the slow kernel can be recomputed to ensure perfect numerical coherence between the surface kinematic relation and depth-integrated mass conservation (\noparref{TimeSplitIIa} and \noparref{TimeSplitIIh}).
+
+Further numerical details such as the values of the interpolation $(\alpha_n)$ or extrapolation $(\beta_n)$ coefficients, the expressions of the slow-kernel RHS terms $(\Lambda_s)$, the expressions of the fast-kernel surface-related pressure force terms $(\Lambda_{f,-\nabla\zeta})$,  the fast-kernel RHS remaining terms $(\Lambda_{f})$ or the implicit fast and slow-kernel RHS terms (indicated by an asterisk) can be found in CROCO dedicated manuals and publications. 
 %The barotropic-like, depth-independent component is also integrated with the same time-step $\Delta t_f$ with a forward-backward scheme as in \cite{shchepetkin_regional_2005}. 
 A major difference with the hydrostatic time-splitting is that the surface elevation displacement is given by the kinematic condition \ref{TimeSplitIIa} and not by the depth-integral of the mass conservation equation. Once the fast-kernel RHS and variables have been filtered both at $t_s+\Delta t_s$ and $t_s+\Delta t_s/2$ (step III.a, notations $<.>$ and $\ll.\gg$), the slow kernel is finally advanced from $t$ to  $t_s+\Delta t_s$ during the leap-frog-like Corrector step (III.b). A star following the time-index superscript indicates the use of an implicit numerical schemes.
 
 Note that the 2D depth-averaged, barotropic-like, horizontal momentum equations (double over-bar notation) \ref{TimeSplitIIc} are advanced in the same way as in \cite{shchepetkin_regional_2005}. The result of this 2D integration is indeed used to correct both the horizontal momentum itself and the RHS of the horizontal momentum equation at Corrector step. It can also be used to require a perfect coherence of the surface elevation displacement and the depth-average transport (at machine precision) during the slow-mode integration.
 
-\color{blue}
+
 \section{Conclusion, discussion of the \textit{ocean model}}
-In the present chapter, we proposed a rigorous framework (an "map") for our exploration of ocean \textit{fine scales} in \textit{Terra Incognita}. An analytical, terrain-following s-coordinate model for the conservation of mass, momentum, heat and tracers has first been proposed under general assumptions of a compressible, free-surface ocean (\S \noparref{section_prim_eq}). \\
+In the present chapter, we proposed a rigorous framework (a "map") for our exploration of ocean \textit{fine scales} in the \textit{Terra Incognita}. An analytical, terrain-following s-coordinate model for the conservation of mass, momentum, heat and tracers has first been proposed under general assumptions of a compressible, free-surface ocean (\S \noparref{section_prim_eq}). 
+
 %An original derivation (to our knowledge) of the evolution of the potential energy of a free-surface column of fluid has been carried out.\\%FA%
-We then considered the numerical implementation of this general \textit{ocean model} (\S \noparref{section_croco}). After a consideration of the space-time scales potentially involved in the fine scale ocean dynamics, an original time-splitting has been detailed as an extension of \cite{shchepetkin_regional_2005}'s barotropic/baroclinic time-splitting. It is also a restriction to a two-mode time-splitting of \cite{Auclair2018}'s three-mode time-splitting. This time-splitting allows the integration of both acoustic and surface-induced processes with a smaller time-step in order to make the integration of a compressible, free-surface realistic ocean affordable. It is based on the spectral gaps identified in \ref{velocityscales} between acoustic, surface and internal processes.\\
-The region of Gibraltar strait has been chosen as the region of demonstration for its fine-scale dynamics. As a consequence, the LES configurations presented in chapters \ref{chapGBR2D}, \ref{chapGBR3D} and \ref{chapBPE} are not only based on the resulting two-mode CROCO kernel but these configurations have thus been part of the development process itself. 
+We then considered the numerical implementation of this general \textit{ocean model} (\S \noparref{section_croco}). After a consideration of the space-time scales potentially involved in fine scale ocean dynamics, an original time-splitting has been detailed as an extension of \cite{shchepetkin_regional_2005}'s barotropic/baroclinic time-splitting. It is also a restriction to a two-mode time-splitting of \cite{Auclair2018}'s three-mode time-splitting. This time-splitting allows the integration of both acoustic and surface-induced processes with a smaller time-step in order to make the integration of a compressible, free-surface realistic ocean affordable. It is based on the spectral gaps identified in \ref{velocityscales} between acoustic, surface and internal processes.
+
+The region of the Strait of Gibraltar has been chosen as the region of demonstration for fine-scale dynamics in CROCO. As a consequence, the LES configurations presented in chapters \ref{chapGBR2D}, \ref{chapGBR3D} and \ref{chapBPE} are not only based on the two-mode CROCO kernel of section \ref{section_croco}; these configurations have indeed been part of the development process itself. 
 %The investigation of mixing in real-ocean conditions proposed in chapter \ref{chapBPE} takes roots in the general evolution equation of potential energy proposed in (\S \noparref{section_prim_eq}).
-\color{black}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -588,7 +592,7 @@ Using the identities:
   \frac{\partial s}{\partial y}\bigg\vert_z =
   \left(\frac{\partial y}{\partial s}\bigg\vert_z\right)^{-1},\quad
   \frac{\partial s}{\partial z}\bigg\vert_x =
-  \left(\frac{\partial z}{\partial s}\bigg\vert_x\right)^{-1
+  \left(\frac{\partial z}{\partial s}\bigg\vert_x\right)^{-1}
 \end{equation}
 several relations can be obtained from the triple product rule and the coordinate transformations are given by:
 \begin{equation}

@@ -126,15 +126,12 @@ This rather simple configuration is thus of weak computational cost and reduces 
 
 
 In Section 2, we present an overview of CROCO equations and the implementation for the 2D lock-exchange experiment. We describe the implementation of the bathymetry profile, water masses, and the exchange and tidal flows. In Section \ref{sRef}, we analyse the physics of the 2D configuration, comparing the model solution to already published data  (e.g., in \citet{FA1988}). Emphasis is then made on the hydraulic control (Section \ref{tide_hyd}), the hydraulic jump (Section \ref{section_insta2D}) and the mode-1 and mode-2 ISW (non-linear internal trains of solitary waves) propagation (Section \ref{sisw}). Last, the sensitivity to the tidal forcing amplitude and to the numerical choices are analysed respectively in sections \ref{TestAmp} and \ref{TestNum}, with a focus on the fine-scales dynamics listed in Figure \ref{scheme_GBR}. 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Model Description and Configuration}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %----------------------------------------------------------------------------
 \subsubsection{The Numerical Modeling System}
 %----------------------------------------------------------------------------
-
 The proposed numerical model of the Strait of Gibraltar simulates explicitly the fine-scale processes (from tens to hundreds of meters) discussed previously. This assumes that (i) a sufficient grid resolution is provided in the strait and (ii) a well-suited numerical kernel is used.
 
 The nonhydrostatic (non-Boussinesq) CROCO version is chosen for its ability to allow the explicit representation of primary instabilities that cascade the kinetic energy injected at large scale down to the smaller scales. This direct transfer ends at the finest scale resolved; the subgrid dissipation of energy is performed both by the implicit mixing of the advection schemes and the explicit closure schemes. The dissipation is solely performed by (quasi-)monotonic numerical advection schemes \citep{Grinstein2007}  when no parametrized turbulent closure scheme accounts for the sugrid-scale mixing.
