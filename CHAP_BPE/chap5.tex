@@ -523,6 +523,7 @@ Table \ref{tab_NUMLAB_ts} oresents the physical and numerical parameters chosen 
         \label{tab_NUMLAB_ts}
         %\end{minipage}
 \end{table}
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./CHAP_BPE/Fig_numlab_advdiff3.png}
@@ -541,14 +542,19 @@ This leads to the following time-scales : $T_{\kappa}^{left}=2.25 \ 10^7 \ s$, $
 T_{adv}^{U_2}<<T_{adv}^{U_1}<T_{\kappa}^{right}<<T_{\kappa}^{left}
 \end{equation}
 
-Figures (\noparref{fig4numlab}.A1 and B1) show the flow field after $t\ =\ 1.35\ 10^5 \ s$ for both values of the advective velocity. \\
-For a small advective velocity $U\ =\ U_1$ (left), $t\ <\ T_{adv}^{U_1}$ and the displacement of the structure remains small compared to the initial field. When $t$ approaches $T_{\kappa}^{right}$ the smoothing by the explicit dissipation is much larger over the left half domain.\\ 
-For a much larger advective velocity $U\ =\ U_2$ and after several advection time-scales $(t\ >>\ T_{adv}^{U_2})$, the tracer field remains symmetric
-and the amplitude of the tracer-field variations are this time damped over the whole domain. This damping is higher than the damping induced by the smaller advective velocity field $(U_1)$ over the left part.
-Figures (\noparref{fig4numlab}.e-f) additionally show the variations with time of the effective diffusivity $\kappa_{eff}$ for each advective velocity field over the whole domain. \\
+Figures (\noparref{fig4numlab}.A1 and B1) show the flow field after $t\ =\ 1.35\ 10^5 \ s$ for both values of the advective velocity. 
+
+For the smallest advective velocity $U\ =\ U_1$ (figure A1), $t\ <\ T_{adv}^{U_1}$ and an advective cycle as not yet been completed.
+%and the displacement of the structure remains small compared to the initial field. When $t$ approaches $T_{\kappa}^{right}$ the smoothing by the explicit dissipation is much larger over the left half domain.\\ 
+For an advective velocity one order of magnitude greater $U\ =\ U_2$ (figure B1), $t\ >>\ T_{adv}^{U_2}$ and several advection cycles have happened, leading in the whole domain to smaller extremas of $\psi$ than in the $U=U_1$ case.
+%and after several advection time-scales , the tracer field remains symmetric
+%and the amplitude of the tracer-field variations are this time damped over the whole domain. This damping is higher than the damping induced by the smaller advective velocity field $(U_1)$ over the left part.
+
+Figures (\noparref{fig4numlab}.A3 and B3) additionally show the variations with time of the effective diffusivity $\kappa_{eff}$ computed over the whole domain bor each case. 
 %The average of the two values of explicit diffusivity prescribed over the whole domain is equal to $5 \ 10^{-4} \ m^2/s$.
-With a small advective velocity fields $U_1$, the time-scales $T_{\kappa}^{right}$ and $T_{adv}^{U_1}$ are close to each other and the effective diffusivity is initially close to the prescribed averaged explicit diffusivity $(5 \ 10^{-4} \ m^2/s)$. At $t\ =\ 2.785\ 10^5 s$, i.e. after approximately two advective time-scales $T_{adv}^{U_1}$, all the fluid parcels have been advected through the high dissipation area.
-As time goes on, this effective velocity shows oscillations over a period close to the advective time-scale. The effective diffusivity oscillates around a mean value twice as small as the average value of the prescribed explicit velocity. \\
+With advective velocity $U_1$, the time-scales $T_{\kappa}^{right}$ and $T_{adv}^{U_1}$ are close, the effective diffusivity is initially close to the prescribed averaged explicit diffusivity $(5 \ 10^{-4} \ m^2/s)$ but quickly decreases. Figure (\noparref{fig4numlab}.A3) shows two oscillations of $\kappa_{eff}$ with a period of $\approx 1.2 \ 10^5s$, a minimum (maximum) value reached of $3.8 \ 10^{-5} \ m^2/s$ ($5 \ 10^{-4} \ m^2/s$). Those oscillations are not regular and seem to arrise from resonance between the advective and dissipative timescales $T_{adv}^{U_1}$ and $T_{\kappa}^{right}$, they do not average to the median value of diffusivity.
+%. At $t\ =\ 2.785\ 10^5 s$, i.e. after approximately two advective time-scales $T_{adv}^{U_1}$, all the fluid parcels have been advected through the high dissipation area.
+%As time goes on, this effective velocity shows oscillations over a period close to the advective time-scale. The effective diffusivity oscillates around a mean value twice as small as the average value of the prescribed explicit velocity. \\
 %but after $t=3.86 \ 10^4 s$ , reach a minimum of $\kappa_{eff}=3.24 \ 10^{-5} m^2/s$. This value then increases again slowly then stabilizes at $\kappa_{eff}=2.2 \ 10^{-4} \ m^2/s$ after $t=2.785 \ 10^5 s$ approx half $T_{adv}^{U_1}$ at this point all original fluid parcels have been advected through the high dissipation area.
 With a much larger advective velocity fields $U_2$ now, the effective diffusivity oscillates around the averaged explicit advective velocity. The time-scale of the oscillations is now smaller: it remains closer to the advective time-scale $T_{adv}^{U_2}$.
 When the effective velocity is computed over each sub-domain, the expected values are recovered and this diffusivity oscillates over the same advective time-scale but with a much smaller amplitude. 

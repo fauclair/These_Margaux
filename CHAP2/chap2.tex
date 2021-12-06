@@ -478,10 +478,11 @@ Note that the 2D depth-averaged, barotropic-like, horizontal momentum equations 
 
 \color{blue}
 \section{Conclusion, discussion of the \textit{ocean model}}
-In the present chapter, we proposed a rigorous framework for our exploration of ocean \textit{fine scales} in \textit{Terra Incognita}. An analytical, terrain-following s-coordinate model for the conservation of mass, momentum, heat and tracers has first been proposed under general assumptions of a compressible, free-surface ocean (\S \noparref{section_prim_eq}). \\
+In the present chapter, we proposed a rigorous framework (an "map") for our exploration of ocean \textit{fine scales} in \textit{Terra Incognita}. An analytical, terrain-following s-coordinate model for the conservation of mass, momentum, heat and tracers has first been proposed under general assumptions of a compressible, free-surface ocean (\S \noparref{section_prim_eq}). \\
 %An original derivation (to our knowledge) of the evolution of the potential energy of a free-surface column of fluid has been carried out.\\%FA%
-We then considered the numerical implementation of this general \textit{ocean model} (\S \noparref{section_croco}). After a consideration of the space-time scales involved, an original time-splitting has been developed as an extension of \cite{shchepetkin_regional_2005}'s barotropic/baroclinic time-splitting. It is also a restriction to a two-mode time-splitting of \cite{Auclair2018}'s three-mode time-splitting. This time-splitting allows the integration of both acoustic and surface-induced processes with a smaller time-step in order to make the integration of a compressible, free-surface realistic ocean affordable. It is based on the spectral gaps identified in \ref{velocityscales} between acoustic, surface and internal processes.\\
-The region of Gibraltar strait has been chosen as the region of demonstration for its fine-scale dynamics. As a consequence, the LES configurations presented in chapters \ref{chapGBR2D} and \ref{chapGBR3D} are not only based on the resulting two-mode CROCO kernel but these configurations have thus been part of the development process itself. The investigation of mixing in real-ocean conditions proposed in chapter \ref{chapBPE} takes roots in the general evolution equation of potential energy proposed in (\S \noparref{section_prim_eq}).
+We then considered the numerical implementation of this general \textit{ocean model} (\S \noparref{section_croco}). After a consideration of the space-time scales potentially involved in the fine scale ocean dynamics, an original time-splitting has been detailed as an extension of \cite{shchepetkin_regional_2005}'s barotropic/baroclinic time-splitting. It is also a restriction to a two-mode time-splitting of \cite{Auclair2018}'s three-mode time-splitting. This time-splitting allows the integration of both acoustic and surface-induced processes with a smaller time-step in order to make the integration of a compressible, free-surface realistic ocean affordable. It is based on the spectral gaps identified in \ref{velocityscales} between acoustic, surface and internal processes.\\
+The region of Gibraltar strait has been chosen as the region of demonstration for its fine-scale dynamics. As a consequence, the LES configurations presented in chapters \ref{chapGBR2D}, \ref{chapGBR3D} and \ref{chapBPE} are not only based on the resulting two-mode CROCO kernel but these configurations have thus been part of the development process itself. 
+%The investigation of mixing in real-ocean conditions proposed in chapter \ref{chapBPE} takes roots in the general evolution equation of potential energy proposed in (\S \noparref{section_prim_eq}).
 \color{black}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -568,66 +569,56 @@ whereas material derivatives satisfy:
   \end{alignat}
 \end{subequations}
 This leads to:
-\begin{subequations}
-  \begin{alignat}{2}
+\begin{equation}
   \displaystyle 
-  & \dot{z} &&=\frac{dz}{dt}\bigg\vert_s=\frac{\partial z}{\partial t}\bigg\vert_s
+  \dot{z} =\frac{dz}{dt}\bigg\vert_s=\frac{\partial z}{\partial t}\bigg\vert_s
   + \mathbf{u}.\mathbf{\nabla}_s z
-  + \dot{s}\frac{\partial z}{\partial s}\\[4mm]
-  & \dot{s} &&=\frac{ds}{dt}\bigg\vert_z=\frac{\partial s}{\partial t}\bigg\vert_z
+  + \dot{s}\frac{\partial z}{\partial s},\quad r\quad
+  \dot{s} =\frac{ds}{dt}\bigg\vert_z=\frac{\partial s}{\partial t}\bigg\vert_z
   + \mathbf{u}.\mathbf{\nabla}_z s
   + w\frac{\partial s}{\partial z}
-  \end{alignat}
-\end{subequations}
+\end{equation}
 Using the identities:
-\begin{subequations}
-  \begin{alignat}{2}
+\begin{equation}
   \displaystyle
-  &\frac{\partial s}{\partial t}\bigg\vert_z &&=
-  \left(\frac{\partial t}{\partial s}\bigg\vert_z\right)^{-1}\\[4mm]
-  &\frac{\partial s}{\partial x}\bigg\vert_z &&=
-  \left(\frac{\partial x}{\partial s}\bigg\vert_z\right)^{-1}\\[4mm]
-  &\frac{\partial s}{\partial y}\bigg\vert_z &&=
-  \left(\frac{\partial y}{\partial s}\bigg\vert_z\right)^{-1}\\[4mm]
-  &\frac{\partial s}{\partial z}\bigg\vert_x &&=
-  \left(\frac{\partial z}{\partial s}\bigg\vert_x\right)^{-1}
-  \end{alignat}
-\end{subequations}
+  \frac{\partial s}{\partial t}\bigg\vert_z =
+  \left(\frac{\partial t}{\partial s}\bigg\vert_z\right)^{-1},\quad
+  \frac{\partial s}{\partial x}\bigg\vert_z =
+  \left(\frac{\partial x}{\partial s}\bigg\vert_z\right)^{-1},\quad
+  \frac{\partial s}{\partial y}\bigg\vert_z =
+  \left(\frac{\partial y}{\partial s}\bigg\vert_z\right)^{-1},\quad
+  \frac{\partial s}{\partial z}\bigg\vert_x =
+  \left(\frac{\partial z}{\partial s}\bigg\vert_x\right)^{-1
+\end{equation}
 several relations can be obtained from the triple product rule and the coordinate transformations are given by:
-\begin{subequations}
-  \begin{alignat}{2}
+\begin{equation}
   \displaystyle
-  &\frac{\partial z}{\partial t}\bigg\vert_s &&=
-  -\frac{\partial s}{\partial t}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\[4mm]
-  &\frac{\partial z}{\partial x}\bigg\vert_s &&=
-  -\frac{\partial s}{\partial x}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\[4mm]
-  &\frac{\partial z}{\partial y}\bigg\vert_s &&=
+  \frac{\partial z}{\partial t}\bigg\vert_s =
+  -\frac{\partial s}{\partial t}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s,\quad
+  \frac{\partial z}{\partial x}\bigg\vert_s =
+  -\frac{\partial s}{\partial x}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s,\quad
+  \frac{\partial z}{\partial y}\bigg\vert_s =
   -\frac{\partial s}{\partial y}\bigg\vert_z\frac{\partial z}{\partial s}\bigg\vert_s\\
-  \end{alignat}
-\end{subequations}
+\end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Local orthonormal coordinates}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \cite{griffies_fundamentals_2004} further defines in his chapter (6.4) a system of orthonormal coordinates:
-\begin{subequations}
-  \begin{alignat}{2}
+\begin{equation}
   \displaystyle 
-  &\mathbf{e}_{x^*} &&=\frac{\mathbf{y}\wedge{\mathbf{\nabla}s}}
-  {\norm{\mathbf{y}\wedge{\mathbf{\nabla}s}}}\\[4mm]
-  &\mathbf{e}_{y^*} &&=\mathbf{e}_s\wedge{\mathbf{e}_{x^*}}\\[4mm]
-  &\mathbf{e}_s &&=\frac{\mathbf{\nabla}s}{\norm{\mathbf{\nabla}s}}
-  \end{alignat}
-\end{subequations}
+  \mathbf{e}_{x^*} =\frac{\mathbf{y}\wedge{\mathbf{\nabla}s}}
+  {\norm{\mathbf{y}\wedge{\mathbf{\nabla}s}}},\quad
+  \mathbf{e}_{y^*} =\mathbf{e}_s\wedge{\mathbf{e}_{x^*}},\quad
+  \mathbf{e}_s =\frac{\mathbf{\nabla}s}{\norm{\mathbf{\nabla}s}}
+\end{equation}
 In this particular case ($\mathbf{e}_s.\mathbf{z}$) has a unique sign, the basis vectors can be rewritten:
-\begin{subequations}
-  \begin{alignat}{2}
+\begin{equation}
   \displaystyle 
-  &\mathbf{e}_{x^*} &&=\frac{\mathbf{x}+S_x\mathbf{z}}{\sqrt{1+S_x^2}}\\[4mm]
-  &\mathbf{e}_{y^*} &&=\frac{-S_xS_y\mathbf{x}+(1+S_x^2)\mathbf{y}+S_y\mathbf{z}}{\sqrt{1+S^2)(1+S_x^2)}}\\[4mm]
-  &\mathbf{e}_s &&=\frac{(-\mathbf{S},1)}{\sqrt{1+S^2}}
-  \end{alignat}
-\end{subequations}
+  \mathbf{e}_{x^*} =\frac{\mathbf{x}+S_x\mathbf{z}}{\sqrt{1+S_x^2}},\quad
+  \mathbf{e}_{y^*} =\frac{-S_xS_y\mathbf{x}+(1+S_x^2)\mathbf{y}+S_y\mathbf{z}}{\sqrt{1+S^2)(1+S_x^2)}},\quad
+  \mathbf{e}_s =\frac{(-\mathbf{S},1)}{\sqrt{1+S^2}}
+\end{equation}
 The s-coordinate transformation is a rotation and:
 \begin{equation}
    \displaystyle
@@ -667,10 +658,10 @@ the expression of the divergence of the velocity field in s-coordinates can be w
 \begin{subequations}
   \begin{alignat}{2}
   & h \ \mathbf{\nabla}.( \mathbf v) &&= h \frac{\partial u}{\partial x} \bigg \rvert_{zt} +h \frac{\partial v_z}{\partial z} \bigg \rvert_{xt}\\[4mm]
-  & && = h \frac{\partial u}{\partial x} \bigg \rvert_{st} - \frac{h}{h} \frac{\partial u}{\partial s}\bigg \rvert_{tx} \frac{\partial z}{\partial x}\bigg \rvert_{ts} \\[4mm]
-  & && \quad + \frac{h}{h}  \frac{\partial}{\partial s} \bigg ( v_s + \frac{\partial z }{\partial t}\bigg \rvert_{xs} + u \frac{\partial z}{\partial x}\bigg \rvert_{ts} \bigg )\\[4mm]
-  & && = h \frac{\partial u}{\partial x} \bigg \rvert_{st} -  \frac{\partial u}{\partial s}\bigg \rvert_{tx} \frac{\partial z}{\partial x}\bigg \rvert_{ts} \\[4mm]
-  & && \quad +  \frac{\partial v_s}{\partial s} +  \frac{\partial h}{\partial t} + u \frac{\partial h}{\partial x} + \frac{\partial u}{\partial s}\bigg \rvert_{tx} \frac{\partial z}{\partial x}\bigg \rvert_{ts}\\[4mm]
+  & && = h \frac{\partial u}{\partial x} \bigg \rvert_{st} - \frac{h}{h} \frac{\partial u}{\partial s}\bigg \rvert_{tx} \frac{\partial z}{\partial x}\bigg \rvert_{ts}
+  \quad + \frac{h}{h}  \frac{\partial}{\partial s} \bigg ( v_s + \frac{\partial z }{\partial t}\bigg \rvert_{xs} + u \frac{\partial z}{\partial x}\bigg \rvert_{ts} \bigg )\\[4mm]
+  & && = h \frac{\partial u}{\partial x} \bigg \rvert_{st} -  \frac{\partial u}{\partial s}\bigg \rvert_{tx} \frac{\partial z}{\partial x}\bigg \rvert_{ts} 
+  \quad +  \frac{\partial v_s}{\partial s} +  \frac{\partial h}{\partial t} + u \frac{\partial h}{\partial x} + \frac{\partial u}{\partial s}\bigg \rvert_{tx} \frac{\partial z}{\partial x}\bigg \rvert_{ts}\\[4mm]
   & && = \frac{\partial v_s}{\partial s}\bigg \rvert_{tx} + \frac{\partial h u}{\partial x} \bigg \rvert_{ts}+ \frac{\partial h}{\partial t}\bigg \rvert_{xs}
   \end{alignat}
 \end{subequations}
