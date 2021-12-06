@@ -193,10 +193,27 @@
 %\renewcommand{\sectionmark}[1]{%
 %\markboth{\thesection.\ \MakeUppercase{#1}}{}}
 
+%%%RESUME
+La dynamique de l’océan peut être décomposée sur un spectre spatio-temporel où figurent les différents processus dynamiques tels que les courants d’Ekman ou les ondes de marée. Des mécanismes de transferts de propriétés physiques ont lieu entre différentes régions de ce spectre dynamique, par exemple par cascade d’échelles suite à l’instabilité dynamique de l’écoulement.
+
+Cette thèse se focalise sur le domaine dit de la fine échelle, défini ici comme allant des processus de sous-mésoéchelles jusqu'aux grandes structures turbulents qui amorcent la cascade de Richardson directe menant au mélange moléculaire. C’est ce mélange, processus irréversible, qui fixe les propriétés des masses d’eaux circulant dans les bassins océaniques. Si la cascade directe est plutôt bien connue, les instabilités qui y mènent dans l’océan sont peu observées et encore moins simulées, le domaine des fines échelles constitue en quelque sorte une « Terra Incognita » (Scotti, 2010).
+
+Les avancées en coût de calcul des dernières années, couplés à nouveaux algorithmes, permettent néanmoins désormais d’aborder la simulation des grandes structures turbulentes et donc d’étudier cette terra incognita. Cette thèse constitue ainsi une exploration de la fine échelle dans une région spécifique : le Détroit de Gibraltar qui relie la Mer Méditerranée à l’Océan Atlantique. Là se rencontrent des masses d’eaux de densité très différentes au-dessus d’un relief accidenté et relativement peu profond où l’amplitude de la marée est non-négligeable. Des processus de fine échelle émergent de l’interaction de ces éléments dans le détroit, rythmé par le cycle de la marée semi-diurne : un contrôle hydraulique du flux dans le détroit évolue au cours du cycle de marée, entraînant la formation puis la relaxation d’un ressaut hydraulique interne. Lorsqu’il est en place, ce ressaut amplifie le mélange lié aux instabilités de cisaillement dans la veine méditerranéenne, et sa relaxation marque le début de la propagation d’un train d’ondes internes solitaires vers la mer Méditerranée.
+
+Ici, propagation des trains de solitons et instabilités de cisaillement ont été étudiés d’une part par la simulation numérique mais aussi au cours d’une campagned’observation. 
+
+La simulation des fines échelles dans le détroit est rendue possible grâce au développement du mode non-hydrostatique du code CROCO, présentés dans une première partie du manuscrit.
+
+La simulation régionale du détroit est ensuite abordée en deux temps : tout d'abord est élaborée une configuration 2D verticale qui permets d'évaluer les paramètres numériques à bas coût numérique avec une dynamique correcte à l’échelle de la marée. Cette paramétrisation/Cette méthodologie est ensuite appliquée à une configuration 3D réaliste qui constitue une première LES océanique. Cette maquette a été utilisée pour étudier la variabilité au cours du cycle mortes-eaux vives-eaux du lien entre forçage de marée, évolution du contrôle hydraulique, et intensité du mélange. En effet, les grandes structures turbulentes, simulées explicitement, ont été localisées au niveau des seuils, et une intensification de leur génération est observée en période de vive-eaux. La propagation des trains d’ondes solitaires, quant à elle, est mise en relation avec des observations de mouillage, et révèle un mécanisme secondaire de génération des ondes internes de grande amplitude dans le détroit lors des mortes-eaux. 
+
+La simulation permet aussi d’aborder le rôle de la fermeture sous-maille sur le comportement des grandes structures turbulentes, et par rétroaction sur les caractéristiques des masses d’eaux.
+
+Le dernier chapitre de cette thèse aborde la question de la quantification du mélange diapycnal en se basant sur le bilan de l'évolution la quantité d'énergie potentielle de fond (background). Un nouveau terme a été rajouté à ce bilan pour prendre en compte l’évolution du volume avec les mouvements de la surface libre. L’application a des cas tests de plus en plus complexes en terme de dynamique montre que ce terme est non-négligeable, mais certaines hypothèses doivent être revus pour avoir une quantification correcte/précise du mélange diapycnal.
+
 %3pages blanches
-\newpage
- \null
- \thispagestyle{empty}
+%\newpage
+% \null
+% \thispagestyle{empty}
 \newpage
  \null
  \thispagestyle{empty}
