@@ -379,7 +379,7 @@ The first implementation is that of a diffusive but advection-free flow ($U\ =\ 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./CHAP_BPE/AGBPE_numlab2_2.png}
-\caption[Initial field and evaluation of $\kappa_{eff}$ for configuration $BPE_{exp}$]{(A1 and A2) Initial field of tracer $\psi$, and tracer field after $t=100s$ of simulation. (B1 and B2) Reference profiles $z^*(\psi)$ at $t=9.10^3s$ and $t=9.10^4s$ of simulation computed either with the fluid parcels of the left half sub-domain (blue), the right half sub-domain (red), or the complete domain (black). (C, D and E) RHS (C and D) and LHS (E) terms of equation \ref{bilanBPEal} computed on the different (sub-)domains. $F_D^{right}$ is indicated with a factor $-1$ in (D). (F) $\kappa_{eff}$ as evaluated in equation \ref{eq_kappaEff} with the previous terms on the different (sub-)domains.}
+\caption[Initial field and evaluation of $\kappa_{eff}$ for configuration $BPE_{exp}$]{(A1 and A2) Initial field of tracer $\psi$, and tracer field after $t=100s$ of simulation. (B1 and B2) Reference profiles $z^*(\psi)$ at $t=9.10^3s$ and $t=9.10^4s$ of simulation computed either with the fluid parcels of the left-half sub-domain (blue), the right-half sub-domain (red), or the complete domain (black). (C, D and E) RHS (C and D) and LHS (E) terms of equation \ref{bilanBPEal} computed on the different (sub-)domains. $F_D^{right}$ is indicated with a factor $-1$ in (D). (F) $\kappa_{eff}$ as evaluated in equation \ref{eq_kappaEff} with the previous terms on the different (sub-)domains.}
 \label{fig2numlab}
 \end{figure}
 %Initial tracer field same as in fig \ref{fig1numlab}.
@@ -440,7 +440,7 @@ The objective with this new implementation is to evaluate the implicit diffusion
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.5\textwidth]{./CHAP_BPE/AGBPE_numlab3.png}
-\caption[Evaluation of $\kappa_{eff}$ for configuration $BPE_{imp}$ with RK3-UP1 scheme]{$\kappa_{eff}$ computed in the case of implicit diffusion with RK3-UP1 scheme for $\Delta x=0.5m$ (red) or $\Delta x=0.1m$ (blue). In the computation of $\kappa_{eff}$, either isotropic diffusion is assumed ($\kappa_v=\kappa_h$, lines) or that diffusion is only applied in the horizontal direction ($\kappa_v=0$, dashed lines)}
+\caption[Evaluation of $\kappa_{eff}$ for configuration $BPE_{imp}$ with RK3-UP1 schemes]{$\kappa_{eff}$ computed in the case of an implicit diffusion with RK3-UP1 schemes for $\Delta x=0.5m$ (red) or $\Delta x=0.1m$ (blue). In the computation of $\kappa_{eff}$, either isotropic diffusion is assumed ($\kappa_v=\kappa_h$, lines) or that diffusion is only applied in the horizontal direction ($\kappa_v=0$, dashed lines)}
 \label{fig3numlab}
 \end{figure}
 The initial field is the same as in the previous $BPE_{exp}$ configuration ($\psi_2(x,z)$, see figure (\noparref{fig2numlab}.A1)). Advective fluxes are now based on a first-order upstream scheme (UP1) and no explicit harmonic diffusion ($\kappa_{exp}=0$) is specified for now, so all diabatic evolution of $\psi$ will be due to the implicit effect of the advection scheme.
@@ -476,7 +476,7 @@ Once $\kappa_{exp}$ is removed from $\kappa_{eff}$, a unique value of $\kappa_{i
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./CHAP_BPE/AGBPE_numlab5.png}
-\caption[Initial field and comparison of coefficient $k_2$ and $k_4$ for configuration $BPE_{imp}$ with RK3-UP3 scheme]{(A) Initial tracer field. (B) Comparison of the fourth-order (with analytical value of the coefficient $k_4$) and second-order (with value of $k_2$ deduced from $\kappa_{eff}$ in table \ref{table_kappa}) formulation of diffusion at a random grid point.}
+\caption[Initial field and comparison of coefficient $k_2$ and $k_4$ for configuration $BPE_{imp}$ with RK3-UP3 schemes]{(A) Initial tracer field. (B) Comparison of the fourth-order (with an analytical diffusivity $k_4$) and second-order (with a diffusivity $k_2$ deduced from $\kappa_{eff}$ in table \ref{table_kappa}) formulation of diffusion at a random grid point.}
 \label{fig5numlab}
 \end{figure}
 
@@ -621,7 +621,7 @@ The initial anomaly of the free-surface induces natural oscillations of the line
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./CHAP_BPE/Fig_TANK_linS.png}
-\caption[Initial tracer field and evaluation of $\kappa_{eff}$ for configuration $BPE_{tank}$]{(A) Initial tracer field of the $BPE_{tank}$ configuration. (B1 and B2) Evaluation of the time evolution of some terms of the balance equation \ref{bilanBPEal} over the whole simulated domain. (C1 to C3) same as B1 and B2 but for an evaluation carried out only on the right half of the domain.}
+\caption[Initial tracer field and evaluation of $\kappa_{eff}$ for configuration $BPE_{tank}$]{(A) Initial tracer field of the $BPE_{tank}$ configuration. (B1 and B2) Time evolution of some terms of the balance equation \ref{bilanBPEal} over the whole simulated domain. (C1 to C3) same as B1 and B2 but for an evaluation carried out only over the right half of the domain.}
 \label{figClin}
 \end{figure}
 %Movement comes from evolution of initially non-flat free surface. Initial linear stratification $\rho(z)$ (ie, constant N) see figure (\noparref{figClin}.A). $\rho_0=1043 kg/m^3$
@@ -754,7 +754,7 @@ The induced mixing in the vertical section of Gibraltar strait is finally invest
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./CHAP_BPE/Fig_Kappa_CS_ex.png}
-\caption[Field of density anomaly in SimRef and definition of sub-domains.]{(A1 to A4) Simulated field of density anomaly $\rho'$ in simulation SimRef of chapter \ref{chapGBR2D} at various times. In (A1) definition of the sub-domains for the rearrangements as carried to give the temporal evolution of figure \ref{figCgbr2d}. (B) Time evolution of the barotropic current over the shallowest point in the domain at Camarinal Sill, with black dots indicating the instant of figures (A1 to A4).}
+\caption[Field of density anomaly in SimRef and definition of sub-domains.]{(A1 to A4) Simulated field of density anomaly $\rho'$ in simulation SimRef of chapter \ref{chapGBR2D} at various times. In (A1) are shown the locations of the sub-domains for the rearrangements as carried to give the temporal evolution of figure \ref{figCgbr2d}. (B) Time evolution of the barotropic current over the shallowest point in the domain at Camarinal Sill, with black dots indicating the instant of figures (A1 to A4).}
 \label{figCgbr2d_ex}
 \end{figure}
 \begin{figure}[h!]
@@ -770,7 +770,7 @@ The evolution in time of the effective diffusivity $\kappa_{eff}$ is in contrast
 In the western part of the domain (W) and in it sub-domain (CSw), this semi-diurnal periodicity is readily apparent, not as regular oscillations this time but rather as intermittent episodes (bursts) of higher (positive) effective diffusivity $\kappa_{eff}$ during outflows (when the barotropic component of the current is this time negative).
 
 \section{Discussion and conclusion}
-A complete analysis of the Background Potential Energy (BPE) evolution equation has been carried out in several test-configurations of increasing complexity, ending with an application to the real ocean in the region of the strait of Gibraltar. This analysis is based on original analytical developments (to our knowledge at least) to derive an as-complete-as-possible evolution equation of the Background Potential Energy for free-surface water columns (\S \noparref{section_PE_chap2}). Original developments have also been proposed to evaluate numerically this evolution in non-flat regions of the ocean simulated with terrain-following, s-coordinate numerical models. The efficiency of the proposed implementation of the BPE algorithm remains affordable in terms of computing costs and memory storage for the hierarchy of configurations proposed, but new approaches need to be implemented to compute the reference state \citep{saenz_estimating_2015} for 3D LES of more extended regions.
+A complete analysis of the Background Potential Energy (BPE) evolution equation has been carried out in several test-configurations of increasing complexity, ending with an application to the real ocean in the region of the strait of Gibraltar. This analysis is based on original analytical developments (to our knowledge at least) to derive an as-complete-as-possible evolution equation of BPE for free-surface water columns (\S \noparref{section_PE_chap2}). Original developments have also been proposed to evaluate numerically this evolution in non-flat regions of the ocean simulated with terrain-following, s-coordinate numerical models. The efficiency of the proposed implementation of the BPE algorithm remains affordable in terms of computing costs and memory storage for the hierarchy of configurations proposed, but new approaches need to be implemented to compute the reference state \citep{saenz_estimating_2015} for 3D LES of more extended regions.
 
 %For now, the results from our test-configurations show that When the reference profile $z^*$ is computed locally, the lateral boundary fluxes exchanged through the vertical boundary separating two neighboring domains do not balance each other. 
 
@@ -781,12 +781,12 @@ Several assumptions could additionally be reconsidered or at least evaluated wit
 
 The isotropy of the effective diffusivity $(\kappa_h=\kappa_v=\kappa)$ should be reconsidered when the implicit numerical diffusion of the advection schemes is at stake: implicit diffusion is indeed added specifically along the advection direction and diffusivity is not isotropic anymore.
 
-The evaluations of the effective diffusivity has been made offline which leads to an additional limitation. Indeed, if an open-boundary configuration is studied, the sampling frequency must be chosen with care and must in particular remain high enough not to induce numerical truncation or artefacts.
+The evaluations of the effective diffusivity has been made offline which leads to an additional limitation. Indeed, if an open-boundary configuration is studied, the sampling frequency must be chosen with care and must in particular remain high enough not to induce numerical truncations or artefacts.
 
 
-Another consequence of our protocol is that this effective diffusivity value has contributions on timescales similar to other dynamical processes, including ones that would not reflect diapycnal mixing (such as reaching negative values, indicating re-stratification periods, whereas mixing is supposed to be an irreversible process). This is in particular the case even when the rearrangement is made over small sub-domains, as the timescale of advection is usually small compared to the timescale of diffusive mechanisms. So, an instantaneous evaluation of effective diffusion would not reflect the dynamical adjustment of the advected structures due to mixing.
+Another consequence of our protocol is that this effective diffusivity value can have contributions on timescales similar to other dynamical processes, including ones that would not reflect diapycnal mixing (ending up reaching negative values, indicating re-stratification periods, whereas mixing is supposed to be an irreversible process). This is in particular the case even when the rearrangement is made over small sub-domains, as the timescale of advection is usually small compared to the timescale of diffusive mechanisms. So, an instantaneous evaluation of effective diffusivity would not reflect the dynamical adjustment of the advected structures due to mixing.
 
-In the present study, the time-averaging of the effective diffusivity was used to retrieve coefficients representative of processes over extended time periods coherent with dissipation processes, but it may be more pertinent to integrate the time-averaging process to the balance equation itself.
+In the present study, the time-averaging of the effective diffusivity was used to retrieve coefficients representative of processes over extended time periods coherent with dissipation processes, but it may be more pertinent to integrate the time-averaging process into the balance equation itself.
 
 %and over a period which must be long enough for the main underlying dynamical adjustments to be achieved (i.e. at least larger than the time-scale of the diapycnal fluxes).
 
@@ -807,18 +807,15 @@ Based on \citep{delhaye_thermohydraulique_2008}, let $\mathbf{v}_{\Sigma}$ be th
 	\mathbf{v}_{\Sigma}=\frac{\partial \mathbf{x}}{\partial t}\bigg\rvert _{\Sigma}
 \end{equation}
 with $\mathbf{x}$ the position of the current point where the velocity is computed. This velocity is undetermined  since the tangential component is itself undetermined. Only its normal component $(\mathbf{n}_{\Sigma}.\mathbf{v}_{\Sigma})$ can be computed and isolated. This component is different from the vertical component of $\mathbf{v}_{\Sigma}$ of equation \ref{eq_vertvelcomp}.
-
 Demonstrations and further expressions of the normal component can be found in \citet{griffies_fundamentals_2004}, \citet{griffies_elements_2012} and \citet{delhaye_thermohydraulique_2008}.
-\begin{subequations}
-  \begin{alignat}{2}
+\begin{equation}
   \displaystyle 
-  & \frac{\partial z}{\partial t}\bigg\vert_s &&=
+  \frac{\partial z}{\partial t}\bigg\vert_s =
   \frac{\partial s}{\partial t}\bigg\vert_z
-  \frac{\partial z}{\partial s}\bigg\vert_t\\
-  & &&=h\norm{\mathbf{\nabla}s}\mathbf{n}_{\Sigma}.
+  \frac{\partial z}{\partial s}\bigg\vert_t
+  =h\norm{\mathbf{\nabla}s}\mathbf{n}_{\Sigma}.
   \mathbf{v}_{\Sigma}
-  \end{alignat}
-\end{subequations}
+\end{equation}
 Metric tensor formulations lead to:
 \begin{subequations}
   \begin{alignat}{2}
@@ -837,21 +834,22 @@ The difficulty to compute:
 \end{equation}
 is due to the fact that for a general time-varying volume $\mathcal{V}(t)$ the differentiation cannot be taken through the internal sign. To do so, we can however consider a change of coordinates to volume-attached coordinates \citep{hirasaki_chapter_2021}. Let $\mathcal{J}$ be the Jacobian (determinant of the Jacobian matrix) of the change of variables from Cartesian coordinates $(\mathbf{x},t)$ to volume varying coordinates $(\boldsymbol{\xi},t)$. Integrating volume is $\mathcal{V}(t)=\mathcal{V}_{\xi}=\mathcal{V}_{\xi}(t)$.
 
-Kinematic evolution of material particulate ("dilation kinematic theorem") is then nothing but Reynolds'transport theorem (which is equivalent to Leibniz derivation rule to 3D volumes) \citep{hirasaki_chapter_2021}. Caution: the demonstration given in \citep{hirasaki_chapter_2021} is for a material volume $\mathcal{V}_M$. As the demonstration is kinematic, it is generalized here to a general volume moving thought the fluid flow $(\mathcal{V}(t))$. This problem is dealt with in \cite{web_course_web_2021} (and further references are given in there).
-
-As a consequence for a general volume $\mathcal{V}(t)$ moving at a 3D velocity $  \mathbf{v}_{\Sigma}$:
+Kinematic evolution of material particulate ("dilation kinematic theorem") is then nothing but Reynolds'transport theorem (which is equivalent to Leibniz derivation rule to 3D volumes) \citep{hirasaki_chapter_2021}. Caution: the demonstration given in \citep{hirasaki_chapter_2021} is for a material volume $\mathcal{V}_M$. As the demonstration is kinematic, it is generalized here to a general volume moving thought the fluid flow $(\mathcal{V}(t))$. This problem is dealt with in \cite{web_course_web_2021} (and further references are given in there). As a consequence for a general volume $\mathcal{V}(t)$ moving at a 3D velocity $  \mathbf{v}_{\Sigma}$:
 \begin{equation}
  \displaystyle
+ \label{DKT1}
  \frac{dJ}{dt}=J \mathbf{\nabla}.\mathbf{v}_{\Sigma}
 \end{equation}
 which is reminiscent of the kinematic evolution of the specific volume of a fluid particle:
 \begin{equation}
  \displaystyle
+ \label{DKT2}
  \frac{d\tau}{dt}=\tau \mathbf{\nabla}.\mathbf{v}
 \end{equation}
 sometime written:
 \begin{equation}
  \displaystyle
+ \label{DKT3}
  \frac{d\delta\tau}{dt}=\delta\tau \mathbf{\nabla}.\mathbf{v}
 \end{equation}
 which is noting but the continuity equation written for the specific volume. With the natural change of variable, the derivation can enter the integral sign and:
@@ -859,8 +857,8 @@ which is noting but the continuity equation written for the specific volume. Wit
   \begin{alignat}{2}
   \displaystyle 
   & \frac{d}{dt} \iiint_{\mathcal{V}(t)} \rho A d\tau &&=
-  \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\tau\\[4mm]
-  & &&= \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\mathbf{x}\\[4mm]
+  \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\tau
+  = \frac{D}{Dt} \iiint_{\mathcal{V}(t)} \rho A d\mathbf{x}\\[4mm]
   & &&=\frac{D}{Dt} \iiint_{\mathcal{V}_{\xi}} \rho A J d\boldsymbol{\xi}\\[4mm]
   & &&=\iiint_{\mathcal{V}_{\xi}} \frac{D\rho A}{Dt}  J d\boldsymbol{\xi}
   +\iiint_{\mathcal{V}_{\xi}} \rho A \frac{DJ}{Dt} d\boldsymbol{\xi}\\[4mm]
@@ -868,6 +866,12 @@ which is noting but the continuity equation written for the specific volume. Wit
   +\iiint_{\mathcal{V}_{\xi}} \rho A \mathbf{\nabla}. \mathbf{v}_{\Sigma}\ J d\boldsymbol{\xi}
   \end{alignat}
 \end{subequations}
+where:
+\begin{equation}
+ \displaystyle
+ \frac{D\bullet}{Dt}=\frac{\partial \bullet}{\partial t}\bigg\vert_{\boldsymbol{\xi}}
+ +  \mathbf{v}_{\Sigma}.\mathbf{\nabla}_{t,\boldsymbol{\xi}}\bullet
+\end{equation}
 Following \cite{truesdell_classical_1960}, a more general formulation can thus be recovered for a time-dependant volume $\mathcal{V}(t)$ moving with a velocity $\mathbf{v}_{\Sigma}$:
 \begin{subequations}
   \begin{alignat}{2}
@@ -881,12 +885,6 @@ Following \cite{truesdell_classical_1960}, a more general formulation can thus b
   + \oiint_{\mathcal{S}(t)}\rho A   \mathbf{v}_{\Sigma}.\mathbf{n}_{\Sigma}dS_{Sigma}
   \end{alignat}
 \end{subequations}
-where:
-\begin{equation}
- \displaystyle
- \frac{D\bullet}{Dt}=\frac{\partial \bullet}{\partial t}\bigg\vert_{\boldsymbol{\xi}}
- +  \mathbf{v}_{\Sigma}.\mathbf{\nabla}_{t,\boldsymbol{\xi}}\bullet
-\end{equation}
 This is the generalized (Reynolds) transport theorem or the generalized Leibnitz theorem. Caution: the derivative $D/Dt$ is associated to $  \mathbf{v}_{\Sigma}$.
 
 \paragraph{Closed time-dependent volume $\mathcal{V}(t)$.} 
@@ -942,9 +940,7 @@ or alternatively:
   + \iiint_{\mathcal{V}(t)}\mathbf{\nabla}.\left[ \rho A(  \mathbf{v}_{\Sigma}-\mathbf{v})\right]d\tau
     \end{alignat}
 \end{subequations}
-where $  \mathbf{v}_{\Sigma}$ is defined as the velocity of the closed surface of $\mathcal{V}(t)$ and is more generally the 3D displacement velocity of the volume $\mathcal{V}(t)$.
-
- Caution: this has nothing to do with the velocity of the fluid in this volume except in the following particular case when considering a material volume, i.e. in the Lagrangian approach.
+where $  \mathbf{v}_{\Sigma}$ is defined as the velocity of the closed surface of $\mathcal{V}(t)$ and is more generally the 3D displacement velocity of the volume $\mathcal{V}(t)$. Caution: this has nothing to do with the velocity of the fluid in this volume except in the following particular case when considering a material volume, i.e. in the Lagrangian approach.
 These general formulations and demonstrations are useful in s-coordinates.
 
 \subsubsection{Material volume $\mathcal{V}_M(t)$ (kinematics \& dynamics)}
@@ -979,12 +975,7 @@ Kinematic evolution of material particle ("dilation kinematic theorem") reads \c
  \displaystyle
  \frac{dJ}{dt}=J \mathbf{\nabla}.\mathbf{v}
 \end{equation}
-which is reminiscent of the kinematic evolution of a control volume:
-\begin{equation}
- \displaystyle
- \frac{d\tau}{dt}=\tau \mathbf{\nabla}.\mathbf{v}
-\end{equation}
-With this kinematic theorem:
+which is reminiscent of the kinematic evolution of a control volume given in \ref{DKT2}. With this kinematic theorem:
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
@@ -1009,9 +1000,9 @@ This leads finally to:
   + \oiint_{\mathcal{V}_M(t)}\rho A \mathbf{v}.d\mathbf{S}
   \end{alignat}
 \end{subequations}
-Reynolds transport theorem is recovered for a material volume, understood as a volume containing  the same fluid particles. This last relation can be viewed as the difference between the time variation of the extensive variable inside the domaine and the advective flux through the "control" surface matching at time "t" with material volume.
+Reynolds transport theorem is recovered for a material volume, understood as a volume containing  the same fluid particles. This last relation can be viewed as the difference between the time variation of the extensive variable inside the domain and the advective flux through the "control" surface matching at time "t" with material volume.
 
-\paragraph{Time-independant "control" volume $\mathcal{V}_0$.} 
+\paragraph{Time-independent "control" volume $\mathcal{V}_0$.} 
 In the particular case when the volume (and thus his surface) is independent of time, then $  \mathbf{v}_{\Sigma}=0$ and as a consequence:
 \begin{equation}
  \displaystyle

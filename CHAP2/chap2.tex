@@ -210,7 +210,7 @@ v_{\sigma}=(H+\zeta)\frac{d\sigma}{dt}
  \label{section_croco}
  
 %----------------------------------------------------------------------------  
-\subsection{Numerical implementation of the \textit{ocean model}}
+\subsection{From Boussinesq, hydrostatic models to a compressible, non-hydrostatic kernel}
 %----------------------------------------------------------------------------
 Ocean models whether dedicated to global, regional or even coastal scales are traditionally based on the Boussinesq, hydrostatic assumptions \citep{griffies_elements_2012,shchepetkin_regional_2005}. The present study is a step toward the explicit simulation of at least the largest turbulent eddies in a realistic context and, as a consequence, a non-hydrostatic numerical approach is required. \cite{Auclair2018} concluded that an efficient non-hydrostatic, free-surface, mode-splitting numerical model of the ocean could be designed relaxing also the Boussinesq approximation. Doing so, the authors chose to work with local equations and they do not solve for a 3D Poisson equation to diagnose total pressure. They consequently follow the choices made in meso-scale atmospheric modeling by \cite{skamarock_prototypes_2001}. The compressible (non-Boussinesq) approach is original in ocean modeling and in particular in free-surface, ocean modeling. Indeed \cite{marshall_finite-volume_1997} or \cite{auclair_non-hydrostatic_2011} chose to retain the Boussinesq assumption. A consequence of \cite{Auclair2018}'s choice is that the complete \textit{ocean model} presented in \S\ref{section_prim_eq} can be solved numerically.
 
@@ -331,10 +331,7 @@ Note that in these equations and in the following, to simplify notations and to 
 
 \begin{figure}[!h]
 	\centering		
-	\begin{subfigure}{1.0\linewidth}
 		\includegraphics[width=1\linewidth]{CHAP2/Model_TS.png}
-		\caption{}
-	\end{subfigure}
 \caption[Time-splitting and time-stepping of CROCO model with its non-hydrostatic, compressible (NBQ) kernel.]{\textit{Time-splitting and time-stepping of CROCO model with its non-hydrostatic, compressible (NBQ) kernel. Yellow (blue) background color: slow (fast) kernel. }}
 	\label{ModelTS}
 \end{figure}
