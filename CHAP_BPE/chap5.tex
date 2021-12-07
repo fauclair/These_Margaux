@@ -14,7 +14,7 @@ Une première conclusion est que la généralisation de l'algorithme de \cite{wi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\color{blue}
+
 In the present chapter, a substantial step is made toward the quantification of mixing in realistic ocean configurations. The objective is to generalize \citet{winters_available_1995}'s framework, in which mixing is linked to the evolution of potential energy, to the real ocean made of volume-varying ocean columns.\\
 
 The most rigorous approach of the \textit{mixing}-related issues has undoubtedly been proposed by \cite{lorenz_available_1955}, and was recently extended to a fully compressible context by \cite{tailleux_energetics_2009} and lately \cite{tailleux_irreversible_2013}. It is based on the concept of Background and Available gravitational Potential Energy (hereafter respectively BPE and APE) as a decomposition of the total gravitational Potential Energy (PE). The author defines first APE as the potential energy released when reorganizing adiabatically the flow so that it reaches its state of minimal potential energy. This minimal value corresponds to the BPE, that can also be expressed as the difference between the PE and the APE. The BPE compartment, thus defined, grows monotonically under diabatic mixing, offering a well-defined tool to evaluate this mixing.
@@ -32,29 +32,21 @@ local expressions of the available potential energy under a Boussinesq approxima
 
 %Following \cite{lorenz_available_1955} and in a fully compressible context, \cite{tailleux_energetics_2009} and lately \cite{tailleux_irreversible_2013} derived a rigorous (conceptual) thermodynamic framework to study the available potential energy (APE), defined as the difference between the potential energy (PE) and the background potential energy (BPE). 
 
-Both \cite{saenz_estimating_2015} and \cite{tailleux_local_2018} insist on the fact that the Lorenz reference state of absolute minimum potential energy is difficult to define and compute (due to numerical cost of sorting algorithm, non-linearity of the EOS, etc.). As a consequence, these studies are dedicated to the evaluation of the errors and discrepancies when simpler and easier-to-obtain reference states are defined (horizontal averaged, etc.). ((Enleve? \sout{ \cite{saenz_estimating_2015} additionally describes in detail an algorithm to compute Lorenz' reference state in an efficient way. They associate the computation of $Z^*(\rho)$ from the computation of the Level of Neutral Buoyancy (their LNB) and they separate it from the computation of Lorenz' reference state that is obtained first by inverting a non-linear relation. This algorithm is claimed to be much more efficient than classical adiabatic redistribution algorithms based on \citet{winters_available_1995}.
-}))
+Both \cite{saenz_estimating_2015} and \cite{tailleux_local_2018} insist on the fact that the Lorenz reference state of absolute minimum potential energy is difficult to define and compute (due to numerical cost of sorting algorithm, non-linearity of the EOS, etc.). As a consequence, these studies are dedicated to the evaluation of the errors and discrepancies when simpler and easier-to-obtain reference states are defined (horizontal averaged, etc.).  \cite{saenz_estimating_2015} additionally describes in detail an algorithm to compute Lorenz' reference state in an efficient way.\\
 
-In this chapter, developments are made toward evaluating the evolution of BPE in a s-coordinate numerical model for a free-surface ocean. In particular, a general evolution equation for the Background Potential Energy (BPE) needs to be derived to take into account the potential evolution in time of the volume (and as a consequence of the potential energy) of water columns due to free-surface anomalies.
+In this chapter, several developments are made to evaluate the evolution of BPE in a s-coordinate numerical model for a free-surface ocean. In particular, a general evolution equation for the Background Potential Energy (BPE) is derived to take into account the potential evolution in time of the volume (and as a consequence of the potential energy) of water columns due to free-surface anomalies.
 %In addition to the evaluation of several new terms in the evolution equation, 
 Based on such an evolution equation, \cite{winters_available_1995}'s algorithm can then be generalized to realistic numerical ocean configurations. To do so, additional difficulties need to be solved in order to take into account: (i) bathymetry variations, (ii) variations of grid-cell volume in terrain-following s-coordinates, and (iii) diffusive and advective fluxes through open boundaries. In particular for this last point, diapycnal fluxes associated \textit{in fine} to mixing are known to be several orders of magnitude smaller than advective fluxes associated for instance to ocean tides, and computation of the term of the balance equation must be carried out while preserving a high accuracy.
 
-
 The generalized algorithm proposed in this chapter takes root in the "milestone" publication by \citet{winters_available_1995} %. Lately \citet{saenz_estimating_2015} and \citet{tailleux_local_2018} proposed more efficient algorithms for the determination of the reference profile. These 
 and later developments are not yet implemented because (i) the cases studied so far do not require too large computations, and (ii) \citet{winters_available_1995}'s approach is to be used as a reference and, as a consequence, needs to be first implemented. The aim of this chapter is not only to evaluate the relevance and efficiency of the method but also to point where the approach needs to be further refined.
-
-
-
-
-
-
 
 %Propositions are made to overcome such algorithmic difficulties and a step is made toward an original evaluation of mixing in realistic ocean configurations.
 
 This algorithm and other developments are presented in section \ref{BPE_algo} of this chapter. It is applied first in section \ref{section_numlab} to a simple advection - diffusion equation using homogeneous grid cells. In a second step, CROCO ocean model is implemented in test-case configurations of section \ref{section_CROCO_BPE}. Those configurations are of increasing complexity in term of bathymetry and dynamics; the last, more realistic configuration being the vertical section of Gibraltar Experiment (SimRef) studied in chapter \ref{chapGBR2D}.
 
 %With this original algorithm, we investigate, quantify and localize the turbulent mixing induced when a simple passive tracer is (numerically) advected by a constant current and diffused at a constant (known) rate. In the last section, the turbulent mixing induced in an oscillating tank, in an area of ocean submitted to Kelvin-Helmholtz instabilities and in the region of the strait of Gibraltar is studied.
-\color{blue}
+
 \section{Mixing in a general volume-varying ocean region}
 \label{section_mix_vol}
 \subsection{Decomposition of potential energy balance in a free-surface ocean}
@@ -131,11 +123,8 @@ Replacing $A$ in expression \ref{Aint}, that uses the evolution equation for den
  - g\int_x \int_{-1}^0 \frac{\kappa^v}{h} \frac{\partial z}{\partial s}\bigg\rvert_{tx} \frac{\partial \rho}{\partial s}\bigg\rvert_{tx} \ dx ds
   \end{alignat}
 \end{subequations}
-
 With $v_s$ the vertical velocity through $s=cst$ surfaces that was defined in section \ref{subsection_scoord} of chapter \ref{chap2}.
-
 The advective flux of PE (fourth term at the RHS) can be integrated by part leading to:
-
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
@@ -261,12 +250,10 @@ where $F_{A}$ is the lateral (horizontal) advective flux of BPE, $F^{(v)}_{D}$ a
 \subsubsection{Time variations of $z^*$}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The first RHS term of equation \ref{eq_evolBPE}, 
-
 \begin{equation}
 \label{RHS_BPE_1}
 g\int_{x} \int_{-1}^0 \rho h \frac{d z^*}{d t}\ dx ds \\
 \end{equation}
-
 is akin to a vertical buoyancy-flux term for the $z^*$ reference state. It vanishes for a volume of integration with fixed-in-time boundaries (\cite{winters_available_1995}, \cite{huang_mixing_1998} and many others...). But it has no particular reason to vanish when movements of the free-surface are taken into account. This paragraph constitutes a proposition for its development in this case.
 
 Going back to a more general notation of our integral volume $V_{\zeta}$ and following \citet{huang_mixing_1998}, $z^*$ can be expressed as a function of the volume $v(\rho)$ of fluid with a density larger than $\rho$ :
@@ -275,7 +262,6 @@ Going back to a more general notation of our integral volume $V_{\zeta}$ and fol
 v(\rho)=\iiint_{\zeta} H(\rho(\mathbf{x}',t)-\rho(\mathbf{x},t))d\mathbf{x}' %= \int_x\int_{-1}^0 H(\rho(x',s',t)-\rho(x,s,t))h ds'dx'
 \end{equation}
 where $H$ is the Heaviside function, equals to 0 for $\rho(\mathbf{x}',t)<\rho(\mathbf{x},t)$, $1/2$ for $\rho(\mathbf{x}',t)=\rho(\mathbf{x},t)$ , and 1 for $\rho(\mathbf{x}',t)>\rho(\mathbf{x},t)$.
-
 In the reference profile, a given density is associated to a reference depth. This volume can then be expressed as $v(z^*)$, the volume of water between the bottom and the $z^*$ level in the water column :
 \begin{equation}
 v(z^*)=\int^{z^*}_{bottom} S(z')dz'
@@ -293,7 +279,6 @@ with $S(z)$ the area at depth $z$.
 %%& && \quad + \frac{v_s}{h} \bigg [ \int_x H(\rho(x',s,t)-\rho(x,s,t))h dx'\bigg]_0^1 \bigg]
 %\end{alignat}
 %\end{subequations}
-
 Using the s-coordinate formulation of Reynolds transport theorem of equation \ref{eq_reyn_zeta} in the appendix's section \ref{annexe_reynolds}:
 \begin{subequations}
   \begin{alignat}{2}
@@ -600,7 +585,7 @@ With advective velocity $U_1$ (figure A3), the time-scales $T_{\kappa}^{right}$ 
 %. At $t\ =\ 2.785\ 10^5 s$, i.e. after approximately two advective time-scales $T_{adv}^{U_1}$, all the fluid parcels have been advected through the high dissipation area.
 %As time goes on, this effective velocity shows oscillations over a period close to the advective time-scale. The effective diffusivity oscillates around a mean value twice as small as the average value of the prescribed explicit velocity. \\
 %but after $t=3.86 \ 10^4 s$ , reach a minimum of $\kappa_{eff}=3.24 \ 10^{-5} m^2/s$. This value then increases again slowly then stabilizes at $\kappa_{eff}=2.2 \ 10^{-4} \ m^2/s$ after $t=2.785 \ 10^5 s$ approx half $T_{adv}^{U_1}$ at this point all original fluid parcels have been advected through the high dissipation area.
-With a much larger advective velocity $U_2$ (figure B3) now, the effective diffusivity oscillates around the averaged explicit advective velocity. The time-scale of the oscillations is now smaller: it remains very close to the advective time-scale $T_{adv}^{U_2}$, with an enveloppe at a smaller frequency that could be linked to $T_{\kappa}^{right}$. When a sliding average operator with time window $T_{adv}^{U_1}$ is applied to the effective diffusivity most of the oscillations are cleared of the signal.
+With a much larger advective velocity $U_2$ (figure B3) now, the effective diffusivity oscillates around the averaged explicit advective velocity. The time-scale of the oscillations is now smaller: it remains very close to the advective time-scale $T_{adv}^{U_2}$, with an envelope at a smaller frequency that could be linked to $T_{\kappa}^{right}$. When a sliding average operator with time window $T_{adv}^{U_1}$ is applied to the effective diffusivity most of the oscillations are cleared of the signal.
 
 When the effective diffusivity is computed independently over each sub-domain, the expected prescribed values are recovered with smaller amplitude oscillations at the advective time-scale (not shown).
 %and this diffusivity oscillates over the same advective time-scale but with a much smaller amplitude. 
@@ -712,7 +697,7 @@ Two types of "interfacial" gravity waves can now propagate in this stratified ta
 
 The free-surface is supposed to be initially at rest whereas the sinusoidal-shaped initial stratification is shown in figure (\noparref{figCpsin}.A).
 
-As with the previous configuration the evolution of the terms of the balance equation \ref{bilanBPEal} are first evaluated over the whole domain in figures (\noparref{figCspin}.B1 to B3), then over one half in figures (\noparref{figCpsin}.C1 to C4).
+As with the previous configuration the evolution of the terms of the balance equation \ref{bilanBPEal} are first evaluated over the whole domain in figures (\noparref{figCpsin}.B1 to B3), then over one half in figures (\noparref{figCpsin}.C1 to C4).
 
 The evaluation of $\kappa_{eff}$ carried out on the entire domain (figure (\noparref{figCpsin}.B3)) is close to the prescribed diffusivity with a regular pattern of noise (first at $t\ =\ 80\ s$), that could come from interaction of the pycnocline with the boundaries of the closed domain.
 
@@ -743,9 +728,15 @@ The last experiment carried out for the tank configuration includes variations o
 %The interfacial internal wave velocity is about $30\ s$.\\ 
 The phase speed of internal, interfacial waves is in this case approximately equal to $0.32\ m/s$ and the corresponding time-scale is approximately $T_{\eta}\ =\ 30\ s$.
 
-In this configuration, the initial slope of the pycnocline leads to Kelvin-Helmholtz instabilities after approximately 6 mn.\\
-The BPE evolution equation evaluated over the whole domain shows an increase the variations of both $dPE_B/dt$ and $\phi_D$. The term associated to the free-surface oscillations $(\phi_{\zeta})$ is shown to oscillate at a period of $80\ s$ which does not correspond to the expected timescale of free-surface oscillations. The same type of oscillations can be observed on the variations of $\kappa_{eff}$. 
-The BPE balance equation is evaluated over the right half domain in figure \ref{figCbath} (but a symmetric behaviour can be found for the left half). The advective flux term $(F_a)$ shows larger amplitude oscillations than $\Phi_{\zeta}$ but those oscillations have the same time-scale $(80\ s)$ as the BPE evolution.
+In this configuration, the movements induced by the initial slope of the pycnocline lead to Kelvin-Helmholtz instabilities after approximately 400s as depicted in figure (\noparref{figCbath}.A).
+
+As for previous configurations, figures (\noparref{figCbath}.B1 to B3) present terms of the balance of the evolution of BPE and the evaluation of $\kappa_{eff}$ for the algorithm applied to the whole domain, while it is applied only to the right half in figures (\noparref{figCbath}.C1 to C4).
+
+The BPE evolution equation evaluated over the whole domain shows an increase the variations of both $dPE_B/dt$ and $\phi_D$ (figure (\noparref{figCbath}.B1 and B2)). The term associated to the free-surface oscillations $(\phi_{\zeta})$ is shown to oscillate at a period of $80\ s$ which does not correspond to the expected timescale of free-surface oscillations. The same type of oscillations can be observed on the variations of $\kappa_{eff}$ (figure (\noparref{figCbath}.B3)). 
+
+For the balance evaluated over the right half domain, the advective flux term $(F_a)$ shows larger amplitude oscillations than $\phi_{\zeta}$ that contribute to most of the evolution of BPE (figure (\noparref{figCbath}.C1 and C2)). This oscillations are once again at the time-scale $(80\ s)$ and are found in the evaluated $\kappa_{eff}$ (figure (\noparref{figCbath}.C4)).
+
+When $\kappa_{eff}$ evaluated over both domains is averaged over $t=80s$, the prescribed value of diffusivity is at first recovered for the first 250s of simulations. It then decreases slightly as the prturbations of the stratifiaction are amplified due to interaction with the slope, then increases back at $t=350s$ as instabilities begin to develop. 
 %\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -780,14 +771,18 @@ The following configuration focuses on the large turbulent eddies associated to 
 \label{figCkh}
 \end{figure}
 % dx$=$dz$=$2m,$\rho_0 = 1034kg/m^3$ ,amplitude cisaillement courant initial 2m/s, cyclic in x, free surface, based on experiments of \citet{penney_2020}.
-The initial field is a two-layer stratification  $\Delta \rho\  =\ 2.5\ kg/m^3$ and a two-layer sheared horizontal current with $\Delta U\ =\ 2\ m/s$ in the vertical direction. Two unstable billows develop over the domain during the simulated period.\\
-Figure (\noparref{figCkh}.A1-A4) show the evolution of the density field after $t = 200\ s,\ 400\ s,\ 600\ s$ and $800\ s$ and figure (\noparref{figCkh}.B) gives the evolution of the reference profile at the same times. The figures in the lower row provide the various terms involved in the BPE balance equation \ref{bilanBPEal}.\\
-The surface-induced $\phi_{\zeta}$ term remains small compared to the others. The effective diffusivity $\kappa_{eff}$ increases significantly after 200 s as the Kelvin-Helmholtz instability and its associated billows develop. It reaches a maximal value after 600 s which coincides with the maximum amplitude of the diapycnal term $\phi_D$ and the higher shear and density gradients.
-Once the Kelvin-Helmholtz instability has mixed the density field, the reference profile exhibits an intermediate homogeneous layer located between $z^*\ =\ 110\ m$ and $z^*\ =\ 140\ m$, which coincides with a decrease of the effective diffusivity $\kappa_{eff}$.
+The initial field is a two-layer stratification  $\Delta \rho\  =\ 2.5\ kg/m^3$ associated to a two-layer sheared horizontal current with $\Delta U\ =\ 2\ m/s$ in the vertical direction in a domain cyclical in the horizontal direction. 
+
+Two unstable billows develop over the domain during the simulated period, as shown by the evolution of the density field after $t = 200\ s,\ 400\ s,\ 600\ s$ and $800\ s$ in figures (\noparref{figCkh}.A1 to A4).
+
+Figure (\noparref{figCkh}.B) gives the evolution of the reference profile at the same times. Figures (\noparref{figCkh}.C, D and F) in the lower row provide the various terms involved in the BPE balance equation \ref{bilanBPEal}.
+
+The surface-induced $\phi_{\zeta}$ term remains small in the balance, and here the evolution of BPE is mostly due to the diapycnal fluxes $\phi_D$. The effective diffusivity $\kappa_{eff}$ indeed increases significantly after 200 s as the Kelvin-Helmholtz instability and its associated billows develop. It reaches a maximal value after $t=600 s$ which coincides with the maximum amplitude of the diapycnal term $\phi_D$ along with the development of secondary instabilities as depicted in figure (\noparref{figCkh}.A3).
+Once the Kelvin-Helmholtz instability has mixed the density field, the reference profile at $t=800s$ (in purple in figure \noparref{figCkh}.B) exhibits an intermediate homogeneous layer located between $z^*\ =\ 110\ m$ and $z^*\ =\ 140\ m$, which coincides with a decrease of the effective diffusivity $\kappa_{eff}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Gibraltar strait configuration ($SimRef$)}
-The induced mixing in the vertical section of Gibraltar strait is finally investigated in the simplest configuration of ocean flow in Gibraltar strait (SimRef) originally presented in chapter \ref{chapGBR2D}.\\
+The induced mixing in the vertical section of the Strait of Gibraltar is finally investigated in the simplest two-dimensional configuration of ocean flow describing its tidal dynamics and main bathymetric features (SimRef) originally presented in chapter \ref{chapGBR2D}.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./CHAP_BPE/Fig_Kappa_CS_ex.png}
@@ -800,11 +795,15 @@ The induced mixing in the vertical section of Gibraltar strait is finally invest
 \caption[Evaluation of $\kappa_{eff}$ in different sub-domains of SimRef]{Evaluation of the time evolution of the terms of the balance equation \ref{bilanBPEal} in each domain of SimRef as defined in figure (\noparref{figCgbr2d_ex}.A1). Upper row is $dBPE/dt$, second row is $\phi_{\zeta}$ (blue) and $F_a$ (red), third row is $\phi_D$, bottom row is the evaluated $\kappa_{eff}$.}
 \label{figCgbr2d}
 \end{figure}
-The initial time $(t\ =\ 0\ s)$ is now chosen for simulation time $t_{SimRef}\ =\ 6.29\ T$, i.e. at the beginning of the first outflow following the spin-up period whereas the simulation lasts $10.3\ T$ with $T\ =\ 12.4\ h$ the period of semi-diurnal tide.\\
-The BPE evolution equation is evaluated over sub-domains of limited extension (see figure \noparref{figCgbr2d_ex}), where fine-scale processes, large turbulence eddies and thus mixing are supposed to occur. Figure \ref{figCgbr2d} presents the evaluation of the effective diffusivity $\kappa_{eff}$ for each domain, along with the remaining terms of equation \ref{bilanBPEal}.\\ 
-The evolution of $dPE_B/dt$ is a noisy signal, the "noise" being largely explained by the sum of the non-diffusive terms $F_a$ and $\phi_{\zeta}$. Those two terms have approximately the same amplitude. Diffusive fluxes through the lateral boundaries are negligible compared to the diapycnal flux $\phi_D$.\\
-The evolution in time of the effective diffusivity $\kappa_{eff}$ is in contrast noise-free. In the eastern part of the domain (E), this evolution is sinusoidal of period $T$ in agreement with the evolution of barotropic currents: it is positive positive when the barotropic component of the current is positive.
-In the western part of the domain (W) and in it sub-domain (CSw), this semi-diurnal periodicity is readily apparent, not as regular oscillations this time but rather as intermittent episodes (bursts) of higher (positive) effective diffusivity $\kappa_{eff}$ during outflows (when the barotropic component of the current is this time negative).
+The initial time $(t\ =\ 0\ s)$ is now chosen for simulation time $t_{SimRef}\ =\ 6.29\ T$, i.e. at the beginning of the first outflow following the spin-up period so that the algorithm is applied to four tidal cycles of $T\ =\ 12.4\ h$.%whereas the simulation lasts $10.3\ T$ with $T\ =\ 12.4\ h$ the period of semi-diurnal tide.\\
+
+The BPE evolution balance is evaluated over sub-domains of limited extension covering the western part of the eastern part of the Strait, the western part, and the western slope of Camarinal Sill (respectively noted E,W and CSw in figure \noparref{figCgbr2d_ex}.A1). In the latter sub-domain fine-scale processes, large turbulence eddies and thus mixing are supposed to occur, while solitary wave trains propagate in the east domain. Figure \ref{figCgbr2d} presents the evaluation of the effective diffusivity $\kappa_{eff}$ for each domain, along with the remaining terms of equation \ref{bilanBPEal}.
+
+The evolution of $dPE_B/dt$ (figures \noparref{figCgbr2d}.A1, B1 and C1) is a noisy signal not easily interpreted, the "noise" being largely explained by the sum of the non-diffusive terms $F_a$ and $\phi_{\zeta}$. Those two terms have the same order of magnitude but their general trend is symmetrical to the other in regard to 0. Diffusive fluxes through the lateral boundaries ($F_D$) are negligible compared to the diapycnal flux $\phi_D$.
+
+The evolution in time of the effective diffusivity $\kappa_{eff}$ is in contrast noise-free. In the eastern part of the domain (E), this evolution is sinusoidal of period $T$ in agreement with the evolution of barotropic currents (indicated in figure \noparref{figCgbr2d_ex}.B): it is positive when the barotropic component of the current is positive.
+
+In the western part of the domain (W) and in its sub-domain (CSw), this semi-diurnal periodicity is readily apparent, not as regular oscillations this time but rather as intermittent episodes (bursts) of higher (positive) effective diffusivity $\kappa_{eff}$ during outflows (when the barotropic component of the current is this time negative). Those bursts reach higher values in the sub-domain of the sill's slope (CSw), the contribution of mixing in this area being averaged out over the greater west (W) domain. This burst is also of limited amplitude for the third outflow (around $t=10^5s$) because, as can be seen in figure (\noparref{figCgbr2d_ex}.A3), the usual hydraulic jump is absent compared to the previous outflows (see figure (\noparref{figCgbr2d_ex}.A1)).
 
 \section{Discussion and conclusion}
 A complete analysis of the Background Potential Energy (BPE) evolution equation has been carried out in several test-configurations of increasing complexity, ending with an application to the real ocean in the region of the strait of Gibraltar. This analysis is based on original analytical developments (to our knowledge at least) to derive an as-complete-as-possible evolution equation of BPE for free-surface water columns (\S \noparref{section_PE_chap2}). Original developments have also been proposed to evaluate numerically this evolution in non-flat regions of the ocean simulated with terrain-following, s-coordinate numerical models. The efficiency of the proposed implementation of the BPE algorithm remains affordable in terms of computing costs and memory storage for the hierarchy of configurations proposed, but new approaches need to be implemented to compute the reference state \citep{saenz_estimating_2015} for 3D LES of more extended regions.
