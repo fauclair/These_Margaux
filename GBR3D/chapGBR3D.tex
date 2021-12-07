@@ -215,13 +215,13 @@ The comparison of the sea-level anomaly near Tarifa (5.6° West, 36.01° North) 
 \begin{figure}[!h]
         \centering
         \includegraphics[width=0.5\textwidth]{./GBR3D/FigBathyVHR.png}
-        \caption{Area and Bathymetry used for the simulations. The red dot denotes the point at Camarinal Sill where the zonal barotropic current is taken as reference in following figures.}
+        \caption[Area and Bathymetry used for the simulations.]{Area and Bathymetry used for the simulations. The red dot denotes the point at Camarinal Sill where the zonal barotropic current is taken as reference in following figures.}
         \label{FigBathy3D}
 \end{figure}
 
 \begin{figure}[!h]
         \includegraphics[width=\textwidth]{./GBR3D/SLA_Tarifa_ME2VE2IES.png}
-        \caption{Sea level-anomaly at Tarifa: tidal gauge data (black), nearest grid point for parent MitGCM simulation (red) and CROCO simulation (blue) during ME (a), MM (b) and VE (c) events.}
+        \caption[Sea level-anomaly at Tarifa.]{Sea level-anomaly at Tarifa: tidal gauge data (black), nearest grid point for parent MitGCM simulation (red) and CROCO simulation (blue) during ME (a), MM (b) and VE (c) events.}
         \label{fig_maree_tar}
 \end{figure}
 
@@ -231,7 +231,7 @@ Figure (\noparref{Fig_Ini_WM3D}.A) and (B) show the $\theta-S$ diagrams in the e
 
 \begin{figure}[!h]
         \includegraphics[width=\textwidth]{./GBR3D/WM_ini_IES.png}
-        \caption{$\theta$-S diagrams computed at 6.08$^\text{o}$ W (a) and 5.23$^\text{o}$ W at first time step of SimIT. Color indicates the latitude of each grid point. Definition of the water masses according to \citet{Naranjo2014} are also indicated.}
+        \caption[$\theta$-S diagrams at first time step of SimIT.]{$\theta$-S diagrams computed at 6.08$^\text{o}$ W (a) and 5.23$^\text{o}$ W at first time step of SimIT. Color indicates the latitude of each grid point. Definition of the water masses according to \citet{Naranjo2014} are also indicated.}
         \label{Fig_Ini_WM3D}
 \end{figure}
 
@@ -364,7 +364,7 @@ This description is compared to Singular Value Decomposition (SVD) presented in 
 \centering
 \includegraphics[width=\linewidth]{./GBR3D/ME2_13h_p.png}
 \end{subfigure}
-\caption { (A1 and A2) Consecutive inflow and outflow in configuration SimNT, \textit{no-jump} case. The blue (red) shaded areas correspond to supercritical Mediterranean (Atlantic) layers (\S \ref{sectiondiagControl}). Black dots show locations where an hydraulic jump has been detected (\S \ref{sectiondiagJump}). The grey areas denote where $S_{bottom}\ <\ S_{interface}$, the salinity in the bottom grid point is lesser than the interface salinity defined in section\ref{sectiondiagControl}. Colorbar is related to the standard deviation of parameter Q (section \ref{sectiondiagQ}, only values above $10^{-5} s^{-2}$ are represented). Barotropic zonal currents at CS (point indicated in figure \ref{FigBathy3D} are also indicated). Two black isobathes contours are shown: 200 m (bold) and 400 m (thin). (B1 and B2) field of sea level anomaly in the areo of CS and black dots indicating detection of an hydraulic jump as in (A1 and A2).}
+\caption [Supercritical flow, location of hydraulic jump, standard deviation of parameter $Q$ in SimNT.]{ (A1 and A2) Consecutive inflow and outflow in configuration SimNT, \textit{no-jump} case. The blue (red) shaded areas correspond to supercritical Mediterranean (Atlantic) layers (\S \ref{sectiondiagControl}). Black dots show locations where an hydraulic jump has been detected (\S \ref{sectiondiagJump}). The grey areas denote where $S_{bottom}\ <\ S_{interface}$, the salinity in the bottom grid point is lesser than the interface salinity defined in section\ref{sectiondiagControl}. Colorbar is related to the standard deviation of parameter Q (section \ref{sectiondiagQ}, only values above $10^{-5} s^{-2}$ are represented). Barotropic zonal currents at CS (point indicated in figure \ref{FigBathy3D} are also indicated). Two black isobathes contours are shown: 200 m (bold) and 400 m (thin). (B1 and B2) field of sea level anomaly in the areo of CS and black dots indicating detection of an hydraulic jump as in (A1 and A2).}
 \label{FigHCN}
 \end{figure}
 
@@ -383,7 +383,7 @@ Figure \ref{FigHCN} presents a neap-tide situation of weak barotropic currents (
 \centering
 \includegraphics[width=\linewidth]{./GBR3D/VE2_25h_p.png}
 \end{subfigure}
-\caption {Same as figure \ref{FigHCN} but for simulation SimST in inflow and outflow of type \textit{w-jump}}
+\caption [Supercritical flow, location of hydraulic jump, standard deviation of parameter $Q$ in SimST.]{Same as figure \ref{FigHCN} but for simulation SimST in inflow and outflow of type \textit{w-jump}}
 \label{FigHCS}
 \end{figure}
 
@@ -393,7 +393,7 @@ Figure \ref{FigHCN} presents a neap-tide situation of weak barotropic currents (
 %\centering
 \includegraphics[width=\linewidth]{./GBR3D/IES_41h_p.png}
 %\end{subfigure}
- \caption {Same as figure  \ref{FigHCN} but for simulation SimIT and an outflow of type {s-jump}. The sea surface anomaly (SLA) shows the signature of the hydraulic jump of spring tide outflow}
+ \caption [Supercritical flow, location of hydraulic jump, standard deviation of parameter $Q$ in SimIT.]{Same as figure  \ref{FigHCN} but for simulation SimIT and an outflow of type {s-jump}. The sea surface anomaly (SLA) shows the signature of the hydraulic jump of spring tide outflow}
  \label{FigHCI}
 \end{figure}
 
@@ -426,7 +426,7 @@ In figure (\noparref{FigISWGBR3D}.A), two distinct areas of supercritical Atlant
 %\centering
 \includegraphics[width=\linewidth]{./GBR3D/FigWaveCont.png}
 %\end{subfigure}
- \caption {Divergence of the surface current (color) and areas of supercritical Atlantic layer (black hatches) at t = 22.5 h in SimIT (A) and t = 19.5 h in SimST (B)}
+ \caption [Divergence of the surface current and areas of supercritical Atlantic layer]{Divergence of the surface current (color) and areas of supercritical Atlantic layer (black hatches) at t = 22.5 h in SimIT (A) and t = 19.5 h in SimST (B)}
  \label{FigISWGBR3D}
 \end{figure}
 
@@ -436,7 +436,7 @@ In figure (\noparref{FigISWGBR3D}.A), two distinct areas of supercritical Atlant
 \begin{figure}[!h]
  \centering
  \includegraphics[width=1.\textwidth]{./GBR3D/coupesISW_ME2-2.png}
- \caption {Divergence of surface current (A1, A2) and vertical sections (B1, B2) of salinity (black isohalines) and zonal velocity $u$ (color) in SimNT at t = 20 h (A1,B1) and 22 h (A2,B2) of simulation.}
+ \caption [Divergence of surface current and vertical sections of salinity and sonal velocity.]{Divergence of surface current (A1, A2) and vertical sections (B1, B2) of salinity (black isohalines) and zonal velocity $u$ (color) in SimNT at t = 20 h (A1,B1) and 22 h (A2,B2) of simulation.}
   \label{FigISWNT}
 \end{figure}
 
@@ -446,7 +446,7 @@ In figure (\noparref{FigISWGBR3D}.A), two distinct areas of supercritical Atlant
 %\centering
 \includegraphics[width=\linewidth]{./GBR3D/FigTourbVE2.png}
 %\end{subfigure}
- \caption {Divergence of surface current (upper row) at t = 10.5 h, 12.5 h, then 23 h and 25 h of simulation SimST, and z-axis vorticity of surface current (lower row) for the same instants.}
+ \caption [Divergence and vorticity of surface currents.]{Divergence of surface current (upper row) at t = 10.5 h, 12.5 h, then 23 h and 25 h of simulation SimST, and z-axis vorticity of surface current (lower row) for the same instants.}
  \label{FigeddGBR3D}
 \end{figure}
 
@@ -466,7 +466,7 @@ In the simulations, this process of generation of cyclonic eddies in the peninsu
 \begin{figure}[!h]
 % \centering
  \includegraphics[width=\textwidth]{./GBR3D/FigInstaQ_IES4H.png}
- \caption {(A) Bird's eye view of isohaline surface $S=38.1$ (green) and $Q=5.10^{-5} \ s^{-2}$ surfaces (red) in a small area west of CS at t$=$4H in SimIT. 300-m depth isobath (black line) and position of the vertical section for B1 and B2 (dotted black line). (B1) Vertical section of salinity (color), ($u$,$w$) vectors and isoline $Q=5.10^{-5}\ s^{-2}$ (red). (B2) The same vertical section as (B1) with parameter $Q$ (color), isohalines (black lines and green line for $S=38.1$), and vectors ($u'$,$w$) where $u'$ is the residual of $u$ minus its barotropic component.}
+ \caption [Exemple of primary shear instabilities in simIT.]{(A) Bird's eye view of isohaline surface $S=38.1$ (green) and $Q=5.10^{-5} \ s^{-2}$ surfaces (red) in a small area west of CS at t$=$4H in SimIT. 300-m depth isobath (black line) and position of the vertical section for B1 and B2 (dotted black line). (B1) Vertical section of salinity (color), ($u$,$w$) vectors and isoline $Q=5.10^{-5}\ s^{-2}$ (red). (B2) The same vertical section as (B1) with parameter $Q$ (color), isohalines (black lines and green line for $S=38.1$), and vectors ($u'$,$w$) where $u'$ is the residual of $u$ minus its barotropic component.}
  \label{FigInstaEx}
 \end{figure}
 
@@ -495,7 +495,7 @@ The waters of the different Mediterranean vein's pathway are not homogeneous dir
 \begin{figure}[!h]
 % \centering
  \includegraphics[width=\textwidth]{./GBR3D/TS_coupes_14H_VE2o.png}
- \caption {(a) Standard deviation of parameter Q over 30-mn-periods at $t\ =\ 14\ h$ in SimST (color) and isocontour of Q $\ =\ 5 s^{-2}$ from the high-frequency singular vector of SVD performed in the rectangular black box during the outflow period. Black dashed lines indicate the longitude at which $\theta-S$ diagrams are plotted. (B1, B2, B3, and B4) $\theta-S$ diagrams, zoomed in the area of the Mediterranean water masses, in color is the latitude of each point.}
+ \caption [(A) Standard deviation of parameter Q and SVD field of Q. (B) $\theta-S$ diagrams.]{(a) Standard deviation of parameter Q over 30-mn-periods at $t\ =\ 14\ h$ in SimST (color) and isocontour of Q $\ =\ 5 s^{-2}$ from the high-frequency singular vector of SVD performed in the rectangular black box during the outflow period. Black dashed lines indicate the longitude at which $\theta-S$ diagrams are plotted. (B1, B2, B3, and B4) $\theta-S$ diagrams, zoomed in the area of the Mediterranean water masses, in color is the latitude of each point.}
  \label{FigTSCS}
 \end{figure}
 
@@ -514,7 +514,7 @@ In the vertical sections (B2) and (C2) the aspect the salinity billows structure
 \begin{figure}[!h]
 % \centering
  \includegraphics[width=\textwidth]{./GBR3D/EOF5_MIV_2D.png}
- \caption {(A1, B1, C1) Contours of parameter Q$\ =\ 5.10^{-5} \ s^{-2}$ in the first high-frequency singular vector of SVD performed during outflow of figures (\noparref{FigHCN}.A2),\ref{FigHCI} and (\noparref{FigHCS}.A2) respectively. Isobathes in black: 200 m (thicker), 250 to 450 m (thick) and 500 to 600 m (thin). (A2, B2, C2) Vertical sections of salinity (color) and contours of Q-parameter $\ =\ 5.10^{-5}\ s^{-2}$ at latitude $35.9372^\text{o}$ N at the same dates. (D) histogram of the height of the grid points of each singular vector shown in A1, B1 and C1 above the seafloor. (E) Same as (D) but showing the latitude of the grid points.}
+ \caption[SVD of parameter Q across simulations SimNT, SimIT and SimST.]{(A1, B1, C1) Contours of parameter Q$\ =\ 5.10^{-5} \ s^{-2}$ in the first high-frequency singular vector of SVD performed during outflow of figures (\noparref{FigHCN}.A2),\ref{FigHCI} and (\noparref{FigHCS}.A2) respectively. Isobathes in black: 200 m (thicker), 250 to 450 m (thick) and 500 to 600 m (thin). (A2, B2, C2) Vertical sections of salinity (color) and contours of Q-parameter $\ =\ 5.10^{-5}\ s^{-2}$ at latitude $35.9372^\text{o}$ N at the same dates. (D) histogram of the height of the grid points of each singular vector shown in A1, B1 and C1 above the seafloor. (E) Same as (D) but showing the latitude of the grid points.}
  \label{FigEOFMIV}
 \end{figure}
 
@@ -538,7 +538,7 @@ In the case of implementation of $K-\epsilon$ turbulent scheme in simulation Sim
 \begin{figure}[!h]
 % \centering
  \includegraphics[width=\textwidth]{./GBR3D/Figsmago.png}
- \caption { (A1, A2, A3, A4) Vertical section of salinity (color), contours of $Q = 5.10^{-5} \ s^{-2}$ (red) and Richardson gradient number $=\ 0.25$ (black) at a latitude of $35.9372^o\ N$ in SimIT-S001 (A1), SimIT-S01 (A2), SimIT-S1 (A3) and SimIT-Kep (A4) respectively, 4 h after the initialization. (B1,B2,B3 and B4) Averaged salinity across the Mediterranean (B1 and B3) or Atlantic (B2 and B4) layer at two different longitudes, east (B1 and B2) or west (B3 and B4) of Camarinal Sill.}
+ \caption [Vertical section of salinity and averaged salinity in atlantic and mediterranean layers.]{ (A1, A2, A3, A4) Vertical section of salinity (color), contours of $Q = 5.10^{-5} \ s^{-2}$ (red) and Richardson gradient number $=\ 0.25$ (black) at a latitude of $35.9372^o\ N$ in SimIT-S001 (A1), SimIT-S01 (A2), SimIT-S1 (A3) and SimIT-Kep (A4) respectively, 4 h after the initialization. (B1,B2,B3 and B4) Averaged salinity across the Mediterranean (B1 and B3) or Atlantic (B2 and B4) layer at two different longitudes, east (B1 and B2) or west (B3 and B4) of Camarinal Sill.}
  \label{Fig3Dsch}
 \end{figure}
 
