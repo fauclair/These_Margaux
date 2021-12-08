@@ -297,10 +297,10 @@
 %\item definition BPE, eq d'évolution 'générale'
 %\item code CROCO (ou code CROCO en premisce de chap 3 GBR2D????(sinon parait cours?)GBR2D parle passage hydro a NBQ...)
 %\end{itemize}
-
-
 \input{./CHAP2/chap2.tex}
 
+
+\addtocontents{toc}{\vspace{3\baselineskip}}
 \chapter[Fines échelles dans le détroit de Gibraltar: section verticale 2D]{Fines échelles dans le détroit de Gibraltar: simulation numérique et analyse de la dynamique dans une section verticale 2D}
 %\chapter{Fine scales in Gibraltar strait: a high-resolution, vertical section based on Gibraltar Experiment.}
 \label{chapGBR2D}
@@ -349,9 +349,11 @@
 %\addcontentsline{toc}{chapter}{Conclusion et Perspectives}
 \input{./Conclusion.tex}
 
-\listoffigures
 
-\listoftables
+\listoffigures \addcontentsline{toc}{chapter}{Table des figures}
+
+
+\listoftables \addcontentsline{toc}{chapter}{Table des tableaux}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %              Bibliography
@@ -366,6 +368,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Résumé anglais
 \newpage
+\addcontentsline{toc}{chapter}{Abstract}
 \thispagestyle{empty}
 \begin{center}
 \textbf{An exploration of oceanic fine-scale dynamics in the Strait of Gibraltar : numerical simulation, observation, and mixing}
@@ -388,6 +391,7 @@ The final chapter of this manuscript revolves around the quantification of mixin
 %%%RESUME Français
 \newpage
 \thispagestyle{empty}
+\addcontentsline{toc}{chapter}{Résumé}
 \begin{center}
    \textbf{Exploration des fines échelles océaniques dans le détroit de Gibraltar: simulation numérique, observation et mélange induit} 
 \end{center}

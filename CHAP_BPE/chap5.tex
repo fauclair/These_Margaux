@@ -1,15 +1,15 @@
 \section{Résumé en français}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Après avoir développé et analysé une simulation originale des grandes structures turbulentes dans le détroit de Gibraltar, dans le cinquième et dernier chapitre de ce manuscrit est abordée la problématique de l'évaluation du mélange turbulent dans une simulation numérique des grandes structures turbulentes. La quantification et la localisation de ce mélange turbulent via celle des flux diapycnaux dans l'océan est un problème délicat.
+Après avoir développé et analysé une simulation originale des grandes structures turbulentes dans le détroit de Gibraltar, dans le cinquième et dernier chapitre de ce manuscrit est abordée la problématique de l'évaluation du mélange turbulent dans une simulation numérique des grandes structures turbulentes. Sous de nombreux aspects, la quantification et la localisation de ce mélange turbulent via celle des flux diapycnaux dans l'océan est un problème délicat.
 
-Les premières pierres d'un cadre théorique rigoureux ont en effet été posées il y a maintenant plus d'un demi-siècle par E. Lorenz \citep{lorenz_available_1955} avant qu'un algorithme simple ne soit proposé à la fin du siècle précédent par \cite{winters_available_1995} pour intégrer ce raisonnement à partir d'une analyse appuyée sur un raisonnement très physique. La simplicité de cette application algorithmique en fait la force mais aussi d'une certaine façon la faiblesse, en particulier à cause des hypothèses très fortes sur lesquelles elle est fondée. Une hypothèse simplificatrice centrale est celle de la constance du volume de fluide considéré, hypothèse qui devient problématique lorsque le domaine considéré pour le bilan d'énergie potentielle est constitué de colonnes d'eau de mer dont la surface libre et donc la hauteur évoluent au cours du temps.
+Les premières pierres d'un cadre théorique rigoureux ont en effet été posées il y a maintenant plus d'un demi-siècle par E. Lorenz \citep{lorenz_available_1955} avant qu'un algorithme simple ne soit proposé à la fin du siècle précédent par \cite{winters_available_1995} pour intégrer ce raisonnement à partir d'une analyse appuyée sur un raisonnement très physique. La simplicité de cette application algorithmique en fait la force mais aussi d'une certaine façon la faiblesse, en particulier à cause des hypothèses très fortes sur lesquelles elle est fondée. Une hypothèse simplificatrice centrale est celle de la constance du volume de fluide, hypothèse qui devient problématique lorsque le domaine considéré pour le bilan d'énergie potentielle est constitué de colonnes d'eau de mer dont la surface libre et donc la hauteur évoluent au cours du temps.
 
 Dans une première section de ce chapitre (\S \ref{section_mix_vol}), une équation d'évolution complète est tout d'abord proposée pour l'énergie potentielle de référence. L'équation proposée intègre en particulier la somme des contributions de la variation de surface en $dz^*/dt$ ($z^*(\rho)$ représentant ici la cote d'une particule de masse volumique $\rho$ dans le profil de référence réarrangé). A partir de cette équation d'évolution, l'algorithme classique proposé par \cite{winters_available_1995} est généralisé à une somme de colonnes océaniques: une diffusivité efficace est ainsi calculée à partir d'un bilan complet d'énergie potentielle (plus spécifiquement d'énergie potentielle de référence ou BPE en anglais) via la relation \ref{eq_kappaEff}.
 
 Cet algorithme généralisé est ensuite appliqué à un ensemble de configurations de complexité croissante, chaque configuration permettant d'analyser et d'évaluer la pertinence de la quantification et de la localisation du mélange turbulent. Une équation d'advection-diffusion d'un traceur passif est tout d'abord étudiée dans le cadre de stratifications linéaires puis "bi-couche". Le mélange induit par les oscillations libres d'une cuve stratifiée ou dans un écoulement bi-couche instable ou par un écoulement dans la région du détroit de Gibraltar est lui-aussi analysé. Ces trois dernières configurations sont simulées numériquement avec le code océanique à toit libre CROCO dans sa version compressible et non-hydrostatique.
 
-Une première conclusion est que la généralisation de l'algorithme de \cite{winters_available_1995} permet une évaluation rigoureuse et "suffisamment" précise du mélange turbulent (comparée aux erreurs induites par son évaluation). L'efficacité de l'algorithme doit toutefois encore être optimisée avant que ce dernier ne soit appliqué à très haute résolution à des régions océaniques d'extension conséquente.
+Une première conclusion est que la généralisation de l'algorithme de \cite{winters_available_1995} permet une évaluation rigoureuse et "suffisamment" précise du mélange turbulent (comparée aux erreurs induites par son évaluation). L'efficacité de l'algorithme doit toutefois encore être optimisée afin que ce dernier ne soit appliqué à très haute résolution à des régions océaniques d'extension conséquente.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
@@ -32,18 +32,18 @@ local expressions of the available potential energy under a Boussinesq approxima
 
 %Following \cite{lorenz_available_1955} and in a fully compressible context, \cite{tailleux_energetics_2009} and lately \cite{tailleux_irreversible_2013} derived a rigorous (conceptual) thermodynamic framework to study the available potential energy (APE), defined as the difference between the potential energy (PE) and the background potential energy (BPE). 
 
-Both \cite{saenz_estimating_2015} and \cite{tailleux_local_2018} insist on the fact that the Lorenz reference state of absolute minimum potential energy is difficult to define and compute (due to numerical cost of sorting algorithm, non-linearity of the EOS, etc.). As a consequence, these studies are dedicated to the evaluation of the errors and discrepancies when simpler and easier-to-obtain reference states are defined (horizontal averaged, etc.).  \cite{saenz_estimating_2015} additionally describes in detail an algorithm to compute Lorenz' reference state in an efficient way.\\
+Both \cite{saenz_estimating_2015} and \cite{tailleux_local_2018} insist on the fact that the Lorenz reference state of absolute minimum potential energy is difficult to define and compute (due to the numerical cost of the sorting algorithm, the non-linearity of the EOS, etc.). As a consequence, these studies are dedicated to the evaluation of the errors and discrepancies when simpler and easier-to-obtain reference states are defined (horizontal averaged, etc.).  \cite{saenz_estimating_2015} additionally describes in detail an algorithm to compute Lorenz' reference state in an efficient way.\\
 
 In this chapter, several developments are made to evaluate the evolution of BPE in a s-coordinate numerical model for a free-surface ocean. In particular, a general evolution equation for the Background Potential Energy (BPE) is derived to take into account the potential evolution in time of the volume (and as a consequence of the potential energy) of water columns due to free-surface anomalies.
 %In addition to the evaluation of several new terms in the evolution equation, 
-Based on such an evolution equation, \cite{winters_available_1995}'s algorithm can then be generalized to realistic numerical ocean configurations. To do so, additional difficulties need to be solved in order to take into account: (i) bathymetry variations, (ii) variations of grid-cell volume in terrain-following s-coordinates, and (iii) diffusive and advective fluxes through open boundaries. In particular for this last point, diapycnal fluxes associated \textit{in fine} to mixing are known to be several orders of magnitude smaller than advective fluxes associated for instance to ocean tides, and computation of the term of the balance equation must be carried out while preserving a high accuracy.
+Based on such an evolution equation, \cite{winters_available_1995}'s algorithm can then be generalized to realistic numerical ocean configurations. To do so, additional difficulties need to be solved in order to take into account: (i) bathymetry variations, (ii) variations of grid-cell volume in terrain-following s-coordinates, and (iii) diffusive and advective fluxes through open boundaries. In particular for this last point, the diapycnal fluxes associated \textit{in fine} to mixing are known to be several orders of magnitude smaller than the advective fluxes associated for instance to ocean tides, and the computation of the terms of the balance equation must be carried out with care to preserve an overall high accuracy.
 
 The generalized algorithm proposed in this chapter takes root in the "milestone" publication by \citet{winters_available_1995} %. Lately \citet{saenz_estimating_2015} and \citet{tailleux_local_2018} proposed more efficient algorithms for the determination of the reference profile. These 
-and later developments are not yet implemented because (i) the cases studied so far do not require too large computations, and (ii) \citet{winters_available_1995}'s approach is to be used as a reference and, as a consequence, needs to be first implemented. The aim of this chapter is not only to evaluate the relevance and efficiency of the method but also to point where the approach needs to be further refined.
+and later developments to gain efficiency are not yet implemented because (i) the cases studied so far do not require too large computations, and (ii) \citet{winters_available_1995}'s approach is to be used as a reference and, as a consequence, needs to be implemented first. The aim of this chapter is not only to evaluate the relevance and efficiency of the method but also to point out where the approach needs to be further refined.
 
 %Propositions are made to overcome such algorithmic difficulties and a step is made toward an original evaluation of mixing in realistic ocean configurations.
 
-This algorithm and other developments are presented in section \ref{BPE_algo} of this chapter. It is applied first in section \ref{section_numlab} to a simple advection - diffusion equation using homogeneous grid cells. In a second step, CROCO ocean model is implemented in test-case configurations of section \ref{section_CROCO_BPE}. Those configurations are of increasing complexity in term of bathymetry and dynamics; the last, more realistic configuration being the vertical section of Gibraltar Experiment (SimRef) studied in chapter \ref{chapGBR2D}.
+This algorithm and other developments are presented in section \ref{BPE_algo} of this chapter. It is applied first in section \ref{section_numlab} to a simple advection - diffusion equation using homogeneous grid cells. In a second step, CROCO ocean model is implemented in test-case configurations of section \ref{section_CROCO_BPE}. Those configurations are of increasing complexity in terms of bathymetry and dynamics; the last, most realistic configuration being the vertical section of Gibraltar Experiment (SimRef) studied in chapter \ref{chapGBR2D}.
 
 %With this original algorithm, we investigate, quantify and localize the turbulent mixing induced when a simple passive tracer is (numerically) advected by a constant current and diffused at a constant (known) rate. In the last section, the turbulent mixing induced in an oscillating tank, in an area of ocean submitted to Kelvin-Helmholtz instabilities and in the region of the strait of Gibraltar is studied.
 
@@ -63,7 +63,7 @@ This algorithm and other developments are presented in section \ref{BPE_algo} of
 
 %\subsubsection{Reference state(s)}
 
-The state of the stratification after the adiabatical reorganization of \citet{lorenz_available_1955} is called the Lorenz reference state. It consists in attributing a reference depth $z^*$ to each fluid parcel, the potential energy of this state, the BPE, can then be expressed as :
+The Lorenz reference state is the state state of the stratification after the adiabatical reorganization of \citet{lorenz_available_1955}. It consists in attributing a reference depth $z^*$ to each fluid parcel corresponding to its depth in the reference density profile. This reference profile is constructed by redistributing adiabatically the fluid particles in such a way that the heaviest particles are located at the deepest depths, i.e. bellow the lightest particles. The potential energy associated to this state is the BPE of the initial state before reorganisation, and can be expressed as :
 \begin{equation}
     PE_B = \int_x \int_{-1}^0 g \rho z^* h dx ds
 \end{equation}
@@ -72,12 +72,9 @@ The evolution of BPE, through the evolution of the stratification profile $z^*$,
 %As was previously stated, the choice of Lorenz reference state is not always the most easy... In this case, it is crucial to know what state of the ocean a given reference state relates to in order to work within the BPE framework. 
 
 
-
-The expression of the evolution of a quantity integrated in a time varrying volume is addressed in appendices \ref{annexe_chapBPE} of the present chapter. In particular, an expression of the evolution of the quantity 
+The expression of the evolution of a specific quantity integrated in a time-varying volume is addressed in the appendices \ref{annexe_chapBPE} of the present chapter. In particular, an expression of the evolution of the quantity 
 $\mathcal{A}=\int_x\int_{-1}^0\rho A\ hdx ds$
-in vertical s-coordinate is derived using mass conservation and the evolution of density in appendix \ref{sub_conservation_ins}. It is applied in the two following paragraphs in order to express the evolution of PE and BPE (evolution of APE can be retrieved from deducting the latter from the former).
-
-
+in vertical s-coordinate is derived using mass conservation and the state equation in appendix \ref{sub_conservation_ins}. It is applied in the two following paragraphs in order to express the evolution of PE and BPE (evolution of APE can be retrieved from substracting the latter from the former).
 
 
 %Beyond the definition of a reference state and more precisely beyond the definition of a reference profile, several underlying ideas can be found:
@@ -797,20 +794,43 @@ The induced mixing in the vertical section of the Strait of Gibraltar is finally
 \end{figure}
 The initial time $(t\ =\ 0\ s)$ is now chosen for simulation time $t_{SimRef}\ =\ 6.29\ T$, i.e. at the beginning of the first outflow following the spin-up period so that the algorithm is applied to four tidal cycles of $T\ =\ 12.4\ h$.%whereas the simulation lasts $10.3\ T$ with $T\ =\ 12.4\ h$ the period of semi-diurnal tide.\\
 
-The BPE evolution balance is evaluated over sub-domains of limited extension covering the western part of the eastern part of the Strait, the western part, and the western slope of Camarinal Sill (respectively noted E,W and CSw in figure \noparref{figCgbr2d_ex}.A1). In the latter sub-domain fine-scale processes, large turbulence eddies and thus mixing are supposed to occur, while solitary wave trains propagate in the east domain. Figure \ref{figCgbr2d} presents the evaluation of the effective diffusivity $\kappa_{eff}$ for each domain, along with the remaining terms of equation \ref{bilanBPEal}.
+The BPE evolution balance is evaluated over sub-domains of limited extension covering the eastern part of the Strait, the western part, and the western slope of Camarinal Sill (respectively noted E,W and CSw in figure (\noparref{figCgbr2d_ex}.A1)). In the latter sub-domain fine-scale processes, large turbulence eddies and thus mixing are supposed to occur, while solitary wave trains propagate in the east domain. Figure \ref{figCgbr2d} presents the evaluation of the effective diffusivity $\kappa_{eff}$ for each domain, along with the remaining terms of equation \ref{bilanBPEal}.
 
-The evolution of $dPE_B/dt$ (figures \noparref{figCgbr2d}.A1, B1 and C1) is a noisy signal not easily interpreted, the "noise" being largely explained by the sum of the non-diffusive terms $F_a$ and $\phi_{\zeta}$. Those two terms have the same order of magnitude but their general trend is symmetrical to the other in regard to 0. Diffusive fluxes through the lateral boundaries ($F_D$) are negligible compared to the diapycnal flux $\phi_D$.
+The evolution of $dPE_B/dt$ (figures \noparref{figCgbr2d}.A1, B1 and C1) is a noisy signal not easily interpreted, the "noise" being largely explained by the sum of the non-diffusive terms $F_a$ and $\phi_{\zeta}$. Those two terms have the same order of magnitude but their general trend is symmetrical to the other in regard to 0. Diffusive fluxes through the lateral boundaries ($F_D$) are negligible compared to the diapycnal flux $\phi_D$ and are not plotted.
 
 The evolution in time of the effective diffusivity $\kappa_{eff}$ is in contrast noise-free. In the eastern part of the domain (E), this evolution is sinusoidal of period $T$ in agreement with the evolution of barotropic currents (indicated in figure \noparref{figCgbr2d_ex}.B): it is positive when the barotropic component of the current is positive.
 
 In the western part of the domain (W) and in its sub-domain (CSw), this semi-diurnal periodicity is readily apparent, not as regular oscillations this time but rather as intermittent episodes (bursts) of higher (positive) effective diffusivity $\kappa_{eff}$ during outflows (when the barotropic component of the current is this time negative). Those bursts reach higher values in the sub-domain of the sill's slope (CSw), the contribution of mixing in this area being averaged out over the greater west (W) domain. This burst is also of limited amplitude for the third outflow (around $t=10^5s$) because, as can be seen in figure (\noparref{figCgbr2d_ex}.A3), the usual hydraulic jump is absent compared to the previous outflows (see figure (\noparref{figCgbr2d_ex}.A1)).
+
+Due to this different dynamics of consecutive outflows, there are still important variations in the signal of $\kappa_{eff}$ when it is averaged in time over one tidal period $T$. Thus table \ref{tab_kappaTCS} gives the value of this evaluated effective diffusivity as a time-average taken over either two or four tidal cycles. Those values are indeed greater in the sub-domain CSw localised on the west side of Camarinal Sill, especially they are close to one order of magnitude greater there than in the sub-domain E east of this sill. This confirms the faculty of the algorithm to help localize mixing, even in a complex flow area, as it is west of Camarinal Sill that the most intense mixing takes place in the strait of Gibraltar.% (see chapters \ref{chapGBR2D} and \ref{chapGBR3D}).
+
+\begin{table}[h]
+    \centering
+    %\begin{tabular}{|p{.05\textwidth}|c|c|c|}
+    \begin{tabular}{|c|c|c|c|}
+          \hline
+         & E & W & CSw \\
+         \hline
+         % \rule[-0.9cm]{0cm}{1cm}
+         $\: |\kappa|^{2T}_1\;$ & 0.004 & 0.020 & 0.056\\
+         %\hline
+         %\rule[-0.6cm]{0cm}{1cm}
+         $\: |\kappa|^{2T}_2 \;$ & 0.009 & 0.004 & 0.018\\
+         %\hline
+         %\rule[-0.6cm]{0cm}{1cm}
+         $\: |\kappa|^{4T} \;$ & 0.006 & 0.012 & 0.037\\
+         \hline
+    \end{tabular}
+    \caption[Time-averaged effective diffusivity $\kappa_{eff}$ in SimRef.]{Time-averaged effective diffusivity $\kappa_{eff}$ (in $m^2/s$) in each subdomain of SimRef (figure \noparref{figCgbr2d_ex}.A1). Averaging is made either over the first two tidal periods ($|\kappa |^{2T}_1$), the last two periods ($|\kappa |^{2T}_2$), or all four tidal periods ($|\kappa |^{4T}$).}
+    \label{tab_kappaTCS}
+\end{table}
 
 \section{Discussion and conclusion}
 A complete analysis of the Background Potential Energy (BPE) evolution equation has been carried out in several test-configurations of increasing complexity, ending with an application to the real ocean in the region of the strait of Gibraltar. This analysis is based on original analytical developments (to our knowledge at least) to derive an as-complete-as-possible evolution equation of BPE for free-surface water columns (\S \noparref{section_PE_chap2}). Original developments have also been proposed to evaluate numerically this evolution in non-flat regions of the ocean simulated with terrain-following, s-coordinate numerical models. The efficiency of the proposed implementation of the BPE algorithm remains affordable in terms of computing costs and memory storage for the hierarchy of configurations proposed, but new approaches need to be implemented to compute the reference state \citep{saenz_estimating_2015} for 3D LES of more extended regions.
 
 %For now, the results from our test-configurations show that When the reference profile $z^*$ is computed locally, the lateral boundary fluxes exchanged through the vertical boundary separating two neighboring domains do not balance each other. 
 
-In a free-surface domain with opened lateral boundaries, advection and motion of the free surface make $PE_B=\iiint_V \rho g z^* d\tau$ evolve with the reorganisation of the mass field (through $F_a$) and with the change of the water-column volume (through $\phi_{\zeta}$). In most studied configurations, those two terms are of the same order of magnitude and are the largest contributions to $dPE_B/dt$. The effective diffusivity $\kappa_{eff}$ is found to complete the balance and thus reflects (or at least should reflect) diapycnal mixing: it quantifies the averaged turbulent mixing occurring over the domain of integration (a sum of water columns). 
+In a free-surface domain with opened lateral boundaries, advection and motion of the free surface make $PE_B=\iiint_V \rho g z^* d\tau$ evolve with the reorganisation of the mass field (through $F_a$) and with the change of the water-column volume (through $\phi_{\zeta}$). In most studied configurations, those two terms are of the same order of magnitude and are the largest contributions to $dPE_B/dt$. The fluxes associated to the effective diffusivity $\kappa_{eff}$ are found to complete the balance and the effective diffusivity reflects (or at least should reflect) diapycnal mixing: it quantifies the averaged turbulent mixing occurring over the domain of integration (a sum of water columns). 
 This averaging effect is in part due to the choice of an homogeneous value of $\kappa_{eff}$ over the selected domain. 
 
 Several assumptions could additionally be reconsidered or at least evaluated with care.
@@ -826,7 +846,7 @@ In the present study, the time-averaging of the effective diffusivity was used t
 
 %and over a period which must be long enough for the main underlying dynamical adjustments to be achieved (i.e. at least larger than the time-scale of the diapycnal fluxes).
 
-Finally, this study only focuses on the APE/BPE subdivision of the gravitational potential energy of the ocean. More information on the underlying effects of the simulated dynamics on the evolution of BPE and diabatic mixing could be gathered by evaluating transfers with and between other energy compartments, such as the kinetic energy of the flow \citep{floor_energy_2011}.
+Finally, this study only focuses on the APE/BPE subdivision of the gravitational potential energy of the ocean. More information on the underlying effects of the simulated dynamics on the evolution of BPE and diabatic mixing could be gained by evaluating transfers with and between other energy compartments, such as the kinetic energy of the flow \citep{floor_energy_2011}.
 
 
 \section{Appendices to \textit{The evolution equation of BPE}}
@@ -870,7 +890,7 @@ The difficulty to compute:
 \end{equation}
 is due to the fact that for a general time-varying volume $\mathcal{V}(t)$ the differentiation cannot be taken through the internal sign. To do so, we can however consider a change of coordinates to volume-attached coordinates \citep{hirasaki_chapter_2021}. Let $\mathcal{J}$ be the Jacobian (determinant of the Jacobian matrix) of the change of variables from Cartesian coordinates $(\mathbf{x},t)$ to volume varying coordinates $(\boldsymbol{\xi},t)$. Integrating volume is $\mathcal{V}(t)=\mathcal{V}_{\xi}=\mathcal{V}_{\xi}(t)$.
 
-Kinematic evolution of material particulate ("dilation kinematic theorem") is then nothing but Reynolds'transport theorem (which is equivalent to Leibniz derivation rule to 3D volumes) \citep{hirasaki_chapter_2021}. Caution: the demonstration given in \citep{hirasaki_chapter_2021} is for a material volume $\mathcal{V}_M$. As the demonstration is kinematic, it is generalized here to a general volume moving thought the fluid flow $(\mathcal{V}(t))$. This problem is dealt with in \cite{web_course_web_2021} (and further references are given in there). As a consequence for a general volume $\mathcal{V}(t)$ moving at a 3D velocity $  \mathbf{v}_{\Sigma}$:
+Kinematic evolution of material particulate ("dilation kinematic theorem") is then nothing but Reynolds'transport theorem (which is equivalent to Leibniz derivation rule to 3D volumes) \citep{hirasaki_chapter_2021}. Caution: the demonstration given in \citep{hirasaki_chapter_2021} is for a material volume $\mathcal{V}_M$. As the demonstration is kinematic, it is generalized here to a general volume moving thought the fluid flow $(\mathcal{V}(t))$. This problem is dealt with in \cite{jakobsen_chemical_2014} (and further references are given in there). As a consequence for a general volume $\mathcal{V}(t)$ moving at a 3D velocity $  \mathbf{v}_{\Sigma}$:
 \begin{equation}
  \displaystyle
  \label{DKT1}
