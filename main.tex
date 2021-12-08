@@ -198,26 +198,29 @@
 \newpage
  \null
  \thispagestyle{empty}
-\newpage
- \null
- \thispagestyle{empty}
-\newpage
- \null
- \thispagestyle{empty}
+%\newpage
+% \null
+% \thispagestyle{empty}
+
  
 \newpage
 \textbf{Avant-propos et remerciements}
 \setcounter{page}{1}
 \addcontentsline{toc}{section}{Avant-propos et remerciements}
+
+\newpage
+ \null
+ \thispagestyle{empty}
+
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\addcontentsline{toc}{section}{Table des matières}
 
-\tableofcontents
+
+\tableofcontents \addcontentsline{toc}{section}{Table des matières}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\addcontentsline{toc}{section}{Liste des acronymes}
+
 \begin{table}[!h]
         \centering
         \begin{tabular}{|c|ll|}
@@ -263,7 +266,7 @@
                 \hline
                 SAR & Synthetic Aperture Radar & \\
                 \hline
-                SAW & Surface Atlantic Water & Eau de surafce Atlantique\\
+                SAW & Surface Atlantic Water & Eau de surface Atlantique\\
                 \hline
                 SVD & Singular Value Decomposition & Décomposition en Valeurs Singulières  \\
                 \hline
@@ -276,7 +279,7 @@
 %        \captionof{table}{Type of measures, coordinates and date of deployment for moorings of Gibraltar 2020 field campaign.}
 %        \label{tab_moor}
         %\end{minipage}
-\end{table}
+\end{table} \addcontentsline{toc}{section}{Liste des acronymes}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -287,7 +290,10 @@
 \input{./INTRO/intro.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\newpage
+ \null
+ %\thispagestyle{empty}%pour commence page de droite
+ 
 \chapter[Vers une simulation des grandes structures turbulentes]{Vers une simulation des grandes structures turbulentes (LES\footnote{LES: Large Eddy Simulation.\label{LES}})}
 %\chapter[Toward Large Eddy Simulation of the ocean]{Toward Large Eddy Simulation of the ocean (LES\footnote{LES: Large Eddy Simulation.\label{LES}})}
 \label{chap2}
@@ -299,8 +305,12 @@
 %\end{itemize}
 \input{./CHAP2/chap2.tex}
 
-
-\addtocontents{toc}{\vspace{3\baselineskip}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newpage
+% \null
+% \thispagestyle{empty}%pour commence page de droite
+ 
+\addtocontents{toc}{\vspace{3\baselineskip}}%pour formattage table des matieres
 \chapter[Fines échelles dans le détroit de Gibraltar: section verticale 2D]{Fines échelles dans le détroit de Gibraltar: simulation numérique et analyse de la dynamique dans une section verticale 2D}
 %\chapter{Fine scales in Gibraltar strait: a high-resolution, vertical section based on Gibraltar Experiment.}
 \label{chapGBR2D}
@@ -338,6 +348,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+ \null
 \chapter{Énergie potentielle disponible: un outil adapté au diagnostic du mélange turbulent}
 %\chapter{Background Potential Energy: an essential \& pertinent tool to diagnose mixing.}
 \label{chapBPE}
@@ -349,11 +361,13 @@
 %\addcontentsline{toc}{chapter}{Conclusion et Perspectives}
 \input{./Conclusion.tex}
 
+\newpage
+ \null
 
 \listoffigures \addcontentsline{toc}{chapter}{Table des figures}
 
 
-\listoftables \addcontentsline{toc}{chapter}{Table des tableaux}
+\listoftables \addcontentsline{toc}{chapter}{Liste des tableaux}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %              Bibliography
@@ -368,11 +382,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Résumé anglais
 \newpage
-\addcontentsline{toc}{chapter}{Abstract}
 \thispagestyle{empty}
 \begin{center}
 \textbf{An exploration of oceanic fine-scale dynamics in the Strait of Gibraltar : numerical simulation, observation, and mixing}
-\end{center}
+\end{center} \addcontentsline{toc}{chapter}{Abstract}
 This thesis focuses on the so-called \textit{fine-scale} dynamics of the ocean spectrum, ranging from sub-mesoscale processes to the largest turbulent eddy scales leading to the direct Richardson cascade, itself ending up to molecular mixing. The properties of the ocean's water masses are partly ascribed to this irreversible mixing. While energy transfers in the direct cascade are well-known since Kolmogorov (1941)'s work, observations of the instabilities leading to those scales are few and their numerical simulation is seldom carried out, so that fine-scale dynamics constitutes a real \textit{Terra Incognita} (Scotti, 2010).
 
 Improvements in efficiency of computation means and numerical models, along with new algorithms, now allow for the simulation of the largest turbulent eddies and the study of this \textit{Terra Incognita}. An exploration of fine-scale dynamics is performed in the strait of Gibraltar linking the Mediterranean sea to the Atlantic ocean. In this area, water masses of contrasting density meet over an uneven, relatively shallow seafloor, where the tidal amplitude is large. Fine-scale processes are a consequence of these forcing in the strait: an hydraulic control of the flow evolves over each tidal period, generating and then relaxing an internal hydraulic jump. Mixing by shear instabilities is amplified when this jump is active, and the propagation of a train of internal solitary waves toward the Mediterranean sea follows.
@@ -391,11 +404,10 @@ The final chapter of this manuscript revolves around the quantification of mixin
 %%%RESUME Français
 \newpage
 \thispagestyle{empty}
-\addcontentsline{toc}{chapter}{Résumé}
 \begin{center}
    \textbf{Exploration des fines échelles océaniques dans le détroit de Gibraltar: simulation numérique, observation et mélange induit} 
-\end{center}
-Cette thèse se focalise sur la région du spectre océanique dit des \textit{fines échelles}, s'étendant des processus de sous-mésoéchelles jusqu'aux grandes structures turbulentes qui amorcent la cascade de Richardson directe menant elle-même au mélange moléculaire. C’est ce mélange, processus irréversible, qui fixe les propriétés des masses d’eaux circulant dans les bassins océaniques. Si la cascade directe est plutôt bien décrite depuis les travaux de \cite{kolmogorov_local_1941}, les instabilités qui l'amorcent dans l’océan sont peu observées et encore moins simulées, le domaine des fines échelles constitue en quelque sorte une « Terra Incognita » (Scotti, 2010).
+\end{center} \addcontentsline{toc}{chapter}{Résumé}
+Cette thèse se focalise sur la région du spectre océanique dit des \textit{fines échelles}, s'étendant des processus de sous-mésoéchelles jusqu'aux grandes structures turbulentes qui amorcent la cascade de Richardson directe menant elle-même au mélange moléculaire. C’est ce mélange, processus irréversible, qui fixe les propriétés des masses d’eaux circulant dans les bassins océaniques. Si la cascade directe est plutôt bien décrite depuis les travaux de \cite{kolmogorov_local_1941}, les instabilités qui l'amorcent dans l’océan sont peu observées et encore moins simulées, le domaine des fines échelles constitue en quelque sorte une « Terra Incognita » (Scotti, 2010).
 
 L'amélioration des performances des moyens de calcul et des modèles numériques, couplés à de nouveaux algorithmes, permettent néanmoins désormais d’aborder la simulation des grandes structures turbulentes et donc d’étudier cette \textit{Terra Incognita}. Une exploration originale de la fine échelle est proposée dans la région du détroit de Gibraltar qui relie la mer Méditerranée à l’océan Atlantique. Là, se rencontrent des masses d’eaux de densités très différentes au-dessus d’un relief accidenté et relativement peu profond où l’amplitude de la marée est non-négligeable. Des processus de fine échelle émergent de l’interaction de ces éléments dans le détroit, rythmé par le cycle de la marée semi-diurne: un contrôle hydraulique du flux dans le détroit évolue au cours du cycle de marée, entraînant la formation puis la relaxation d’un ressaut hydraulique interne. Lorsqu’il est en place, ce ressaut amplifie le mélange lié aux instabilités de cisaillement dans la veine méditerranéenne, et sa relaxation marque le début de la propagation d’un train d’ondes internes solitaires vers la mer Méditerranée.
 

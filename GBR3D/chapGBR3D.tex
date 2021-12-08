@@ -482,6 +482,12 @@ Comparing the fields of standard deviation of $Q$ in figures \ref{FigHCN}, \ref{
 
 More local patches exist east and west of CS, but with relatively small values of standard deviation that may not be associated with shear instabilities but with propagating internal gravity waves.
 
+\begin{figure}[!h]
+% \centering
+ \includegraphics[width=\textwidth]{./GBR3D/EOF5_MIV_2D.png}
+ \caption[SVD of parameter Q across simulations SimNT, SimIT and SimST.]{(A1, B1, C1) Contours of parameter Q$\ =\ 5.10^{-5} \ s^{-2}$ in the first high-frequency singular vector of SVD performed during outflow of figures (\noparref{FigHCN}.A2),\ref{FigHCI} and (\noparref{FigHCS}.A2) respectively. Isobathes in black: 200 m (thicker), 250 to 450 m (thick) and 500 to 600 m (thin). (A2, B2, C2) Vertical sections of salinity (color) and contours of Q-parameter $\ =\ 5.10^{-5}\ s^{-2}$ at latitude $35.9372^\text{o}$ N at the same dates. (D) histogram of the height of the grid points of each singular vector shown in A1, B1 and C1 above the seafloor. (E) Same as (D) but showing the latitude of the grid points.}
+ \label{FigEOFMIV}
+\end{figure}
 
 \subparagraph{Mixing along the path of the Mediterranean Outflow.}
 Figure (\noparref{FigTSCS}.A) superposes the standard deviation of $Q$ and the singular vector of Singular Value Decomposition (SVD, see annexe \ref{annexeSVD}) performed on the 3D field of this same parameter $Q$ during an outflow of SimST. The singular vector depicted is the fifth one of the decomposition, the most high-ranked singular vector for which temporal evolution shows high frequency variability (timescale in minutes), associated with propagation of vortices (the higher ranked singular vectors (not shown) have low frequency variability and structure associated with the large-scale flow itself). Figures (\noparref{FigTSCS}.B1) to (\noparref{FigTSCS}.B4) are $\theta$-S diagram showing the signature of all the simulation grid-points at a given longitude, zoomed in on the domain of Mediterranean waters, at t$=$14h during this same outflow.
@@ -511,17 +517,19 @@ Looking at the vertical section of figure (C2), in the w-jump case the interface
 In the vertical sections (B2) and (C2) the aspect the salinity billows structured by this instabilities is similar, with the core of the billows having low salinity that can reach 37 psu compared to the ambiant waters around 38 psu. Note that as this longitude, corresponding to the area of the $\theta$-S diagram of figure (\noparref{FigTSCS}.B2), the outflow is still heterogeneous. The aspect of the billows in the no-jump case of figure (\noparref{FigEOFMIV}.A2) is different and does not incorporate as much low salinity waters.
 
 
-\begin{figure}[!h]
-% \centering
- \includegraphics[width=\textwidth]{./GBR3D/EOF5_MIV_2D.png}
- \caption[SVD of parameter Q across simulations SimNT, SimIT and SimST.]{(A1, B1, C1) Contours of parameter Q$\ =\ 5.10^{-5} \ s^{-2}$ in the first high-frequency singular vector of SVD performed during outflow of figures (\noparref{FigHCN}.A2),\ref{FigHCI} and (\noparref{FigHCS}.A2) respectively. Isobathes in black: 200 m (thicker), 250 to 450 m (thick) and 500 to 600 m (thin). (A2, B2, C2) Vertical sections of salinity (color) and contours of Q-parameter $\ =\ 5.10^{-5}\ s^{-2}$ at latitude $35.9372^\text{o}$ N at the same dates. (D) histogram of the height of the grid points of each singular vector shown in A1, B1 and C1 above the seafloor. (E) Same as (D) but showing the latitude of the grid points.}
- \label{FigEOFMIV}
-\end{figure}
+
 
 \subparagraph{Closure schemes.}
 
 Four additional simulations are now presented to investigate and better understand the impact of the turbulent scheme: the first three are based on a different implementation of the Smakorinsky turbulent scheme and the latest uses the GLS K-$\epsilon$ scheme (see table \ref{tab_sim3Dnames}). 
 In figure \noparref{Fig3Dsch}.A1, A2, A3 and A4), vertical sections of salinity during the first outflow after $t\ =\ 5\ h$ of a \textit{no-jump} outflow case. Values are indicated for the Richardson gradient number $Ri=0.25$ (black) and $Q =\ 5.10^{-5} \ s^{-2}$ (red). $Ri$ is calculated from fields of density and velocity averaged over half and hour to filter out the propagating structures.
+
+\begin{figure}[!h]
+% \centering
+ \includegraphics[width=\textwidth]{./GBR3D/Figsmago.png}
+ \caption [Vertical section of salinity and averaged salinity in atlantic and mediterranean layers.]{ (A1, A2, A3, A4) Vertical section of salinity (color), contours of $Q = 5.10^{-5} \ s^{-2}$ (red) and Richardson gradient number $=\ 0.25$ (black) at a latitude of $35.9372^o\ N$ in SimIT-S001 (A1), SimIT-S01 (A2), SimIT-S1 (A3) and SimIT-Kep (A4) respectively, 4 h after the initialization. (B1,B2,B3 and B4) Averaged salinity across the Mediterranean (B1 and B3) or Atlantic (B2 and B4) layer at two different longitudes, east (B1 and B2) or west (B3 and B4) of Camarinal Sill.}
+ \label{Fig3Dsch}
+\end{figure}
 
 Figures (\noparref{Fig3Dsch}.B1, B2, B3, and B4) show the salinity averaged in the Mediterranean (B1, B3) and Atlantic (B2, B4) layers as defined in \S \ref{sectiondiagControl}, west (B1,B2) and east (B3,B4) of CS. Keep in mind that averaged values are shown, and that as previously discussed and shown in figure \ref{FigTSCS}, at this longitude west of CS, the different veins of the Mediterranean outflow are not yet distinct. Primary shear instabilities carry waters of lesser salinity into the outflow, but it has not yet been homogeneized by further mixing processes.
 
@@ -535,12 +543,6 @@ In simulations SimIT-S001 and SimIT-S01 (figures (A1) and (A2)), instabilities a
  
 In the case of implementation of $K-\epsilon$ turbulent scheme in simulation SimIT-Kep, the billows, and more generally the instabilities, are less-developped with smaller values of parameter Q in figure (A4) and a less-salty outflow in (B1). This signal persists $7\ h$ after the initialization when the flow reverses and no instabilities are generated anymore accross all simulations. For SimIT-S1, at this point the salinity averaged in the MEditerranean layer is closer to the other simulations with Smagorinsky schemes, possibly because the increased diffusion in the pycnocline may counteract the previous enhanced injection of Mediterranean water.
 
-\begin{figure}[!h]
-% \centering
- \includegraphics[width=\textwidth]{./GBR3D/Figsmago.png}
- \caption [Vertical section of salinity and averaged salinity in atlantic and mediterranean layers.]{ (A1, A2, A3, A4) Vertical section of salinity (color), contours of $Q = 5.10^{-5} \ s^{-2}$ (red) and Richardson gradient number $=\ 0.25$ (black) at a latitude of $35.9372^o\ N$ in SimIT-S001 (A1), SimIT-S01 (A2), SimIT-S1 (A3) and SimIT-Kep (A4) respectively, 4 h after the initialization. (B1,B2,B3 and B4) Averaged salinity across the Mediterranean (B1 and B3) or Atlantic (B2 and B4) layer at two different longitudes, east (B1 and B2) or west (B3 and B4) of Camarinal Sill.}
- \label{Fig3Dsch}
-\end{figure}
 
 %----------------------------------------------------------------------
 \subsection{Discussion \& conclusions}
