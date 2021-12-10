@@ -1,3 +1,4 @@
+\vspace{-1.\baselineskip}
 \section{Résumé en français}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -102,6 +103,7 @@ by setting $A=gz$ :
   \end{alignat}
 \end{subequations}
 Replacing $A$ in expression \ref{Aint}, that uses the evolution equation for density \ref{eq_diff_cart} :
+%\vspace{-.5\baselineskip}
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
@@ -368,7 +370,6 @@ Total volume is supposed to remain constant so that the RHS term $\phi_{\zeta}$ 
 Depending on the test-case considered, the initial field of passive tracer is either equal to $\psi_1(x)=cos(2\pi x/L_x)$ or to $\psi_2(x,z)=Re(e^{i2\pi x/L_x}e^{i 2 \pi z/L_z})$.
 
 \subsection{Local diffusion test configuration $(BPE_{exp})$}
-%\color{red} Intervertir section advection et diffusion??? Nous n'en avons pas reparlé ce mercredi matin Margaux... mais j'en resterais là!\color{black}
 
 The first implementation is that of a diffusive but advection-free flow ($U\ =\ 0 \ m/s$). The main numerical parameters are given in table \ref{tab_NUMLAB_exp}.
 
@@ -499,13 +500,7 @@ Once $\kappa_{exp}$ is removed from $\kappa_{eff}$, a unique value of $\kappa_{i
 \label{fig5numlab}
 \end{figure}
 
-%Several experiments are carried out with the configuration of schemes: in addition to the implicit diffusion induced by the upstream advection scheme, an explicit harmonic diffusion is also specified. 
-%The effective coefficient found by BPE analysis consequently builds up to $\kappa_{eff} = \kappa_{exp} + \kappa_{imp}$.
-%Figure \ref{fig5numlab}.b and table \ref{table_kappa} compare the effective diffusivity obtained with the BPE algorithm for several values of $\kappa_{exp}$. This diffusivity presents high-frequency oscillations with a non-negligible relative amplitude.
-%\color{red}(correspond temps d'advection d'une cellule??? à vérifier (ou vient calcul des termes du bilan pas en RK3?))\color{black}. \\
-%When averaged in time over the whole simulation, the effective diffusivity reaches approximately $4.65.10^{-5} m^2/s$ when $\kappa_{exp}\ =\ 0$. It is then evaluated for a series of configurations with non-zero explicit diffusivity and the (effective) implicit diffusivity $\kappa_{imp}$ is computed as the time-averaged effective diffusivity over the period minus the explicit diffusivity. The same  value of $4.65.10^{-5}\ m^2/s$ is recovered in all experiments.
-%Since this value is for harmonic diffusion, the diffusion terms based on the effective second order diffusivity $(k_{imp,2}\ =\ \kappa_{eff}-\kappa_{exp})$ and on the analytical fourth-order diffusivity $k_4$ computed above can be compared in figure (\noparref{fig5numlab}.C) as factors of either the second or fourth order spatial derivate of $\psi$ taken at a random grid point. These terms are close to each other. 
-To compare the effective second-order diffusivity $(k_{imp,2}\ =\ \kappa_{eff}-\kappa_{exp})$ with the analytical fourth-order diffusivity $k_4$, figure (\noparref{fig5numlab}.B) shows the evolution of the spatial serivate of the passive tracer field $(\psi)$ with the resulting second and fourth-order diffusion schemes. The resulting trends are close to each other.
+To compare the effective second-order diffusivity $(k_{imp,2}\ =\ \kappa_{eff}-\kappa_{exp})$ with the analytical fourth-order diffusivity $k_4$, figure (\noparref{fig5numlab}.B) shows the evolution of the spatial derivative of the passive tracer field $(\psi)$ with the resulting second and fourth-order diffusion schemes. The resulting trends are close to each other.
 Note however that the second-order and fourth-order advection terms do not operate in a similar way in wave-number space. Indeed, the fourth order is a more selective filter, smoothing more specifically small-scale gradients of passive tracer. This might be sufficient to explain the differences observed in figure (\noparref{fig5numlab}.B).
 %\end{itemize}
 \begin{table}[h!]
@@ -525,7 +520,7 @@ $\kappa_{imp}$&\multicolumn{6}{c|}{$4.65.10^{-5}$}\\
 
 \subsection{Diffusion and advection timescales ($BPE_{ts}$)}
 A third and last experiment ($BPE_{ts}$) based on the advection-diffusion equation \ref{eqAdvDiff} is now presented to better understand the limitation of the BPE algorithm in terms of characteristic time and length scales. The idea is that the BPE algorithm can only give an accurate, valuable value of the effective diffusivity if (i) this diffusivity can be considered as homogeneous and can thus be extracted from the integral of the diapycnal flux in equation \ref{bilanBPEal} and (ii) diapycnal fluxes can be evaluated over time-scales (much) larger than the time-scale of the diapycnal fluxes at stake but also larger than the remaining dynamical time-scales in the studied ocean region.
-Table \ref{tab_NUMLAB_ts} oresents the physical and numerical parameters chosen for this experiment. The configuration is similar to $BPE_{exp}$ with the same distribution of $\kappa_{exp}$ but with active advection by a second-order centered scheme (C2) known to lead to a vanishing implicit dissipation.
+Table \ref{tab_NUMLAB_ts} presents the physical and numerical parameters chosen for this experiment. The configuration is similar to $BPE_{exp}$ with the same distribution of $\kappa_{exp}$ but with active advection by a second-order centered scheme (C2) known to lead to a vanishing implicit dissipation.
 \begin{table}[h]
         %\begin{minipage}{.6\textwidth}
         \centering
@@ -553,7 +548,7 @@ Table \ref{tab_NUMLAB_ts} oresents the physical and numerical parameters chosen 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./CHAP_BPE/Fig_numlab_advdiff3.png}
-\caption[Tracer field and evaluation of $\kappa_{eff}$ for configuration $BPE_{ts}$]{(A1 and B1) Field of tracer $\psi$ at $t= \ 1.35\ 10^5\ s$ after initialisation for $u=2.10^{-4} \ m/s$ (A1) and $u=2.10^{-3} \ m/s$ (B1). (A2 and B2) Evolution of BPE (blue) and of term $\phi_D$ (red) of equation \ref{bilanBPEal} for each experiment. (A3 and B3) Value of instantaneaous $\kappa_{eff} (t)$ as computed in equation \ref{eq_kappaEff} (blue) for each experiment. In (B3) is also plotted in red the sliding averaged value of $\kappa_{eff}$ for a window $T_{adv}=T_{adv}^{U2}=1.5\ 10^4 s$.}
+\caption[Tracer field and evaluation of $\kappa_{eff}$ for configuration $BPE_{ts}$]{(A1 and B1) Field of tracer $\psi$ at $t= \ 1.35\ 10^5\ s$ after initialisation for $u=2.10^{-4} \ m/s$ (A1) and $u=2.10^{-3} \ m/s$ (B1). (A2 and B2) Evolution of BPE (blue) and of term $\phi_D$ (red) of equation \ref{bilanBPEal} for each experiment. (A3 and B3) Value of instantaneous $\kappa_{eff} (t)$ as computed in equation \ref{eq_kappaEff} (blue) for each experiment. In (B3) is also plotted in red the sliding averaged value of $\kappa_{eff}$ for a window $T_{adv}=T_{adv}^{U2}=1.5\ 10^4 s$.}
 \label{fig4numlab}
 \end{figure}
 %\begin{itemize}
@@ -650,7 +645,7 @@ the evolution with time of the various terms in the balance equation \ref{bilanB
 
 As could be expected, the oscillations of the free-surface clearly governs not only the variations of the first term $(\phi_{\zeta})$ of this balance equation but also the variations of the overall BPE variations $(dPE_B/dt)$. Indeed, the long-wave phase speed of surface gravity waves $(c\ =\ \sqrt(g L_z)\approx\ 9.9\ m/s)$ induces a natural time-scale of oscillations of the tank of $T_{\zeta}\ =\ L_x/c\ =\ 5\ s$ when freely propagating from a wall to the other. The period of the oscillations of $dPE_b/dt$ and $\phi_{\zeta}$ are close to twice $T_{\zeta}$.
 
-If the balance equation is evaluated over the whole domain (left column of figure \ref{figClin}), the free-surface term of the evolution equation explains the oscillations of $(dPE_B/dt)$ (figure \noparref{figClin}.B1) and the prescribed explicit diffusivity is recovered with good accuracy (figure \noparref{figClin}.B2) with only some spurrious small amplitude noise.
+If the balance equation is evaluated over the whole domain (left column of figure \ref{figClin}), the free-surface term of the evolution equation explains the oscillations of $(dPE_B/dt)$ (figure \noparref{figClin}.B1) and the prescribed explicit diffusivity is recovered with good accuracy (figure \noparref{figClin}.B2) with only some spurious small amplitude noise.
 
 If the balance equation is now evaluated over the right half domain only (figures \ref{figClin}.C1 to C3), $\phi_{\zeta}$ is approximately equal to $F_a$ the sum of the advective flux of BPE through the (vertical) lateral boundary of this sub-domain (figure \noparref{figClin}.C1). Note that the terms of the evolution equation are all several orders of magnitude larger than when the balance equation is evaluated over the whole domain. The effective diffusivity is still recovered with good accuracy (figure \noparref{figClin}.C3).
 
@@ -709,11 +704,11 @@ In the left half domain, $F_A>>\phi_{\zeta}$ (figure (\noparref{figCpsin}.C1)) i
 %Figure \ref{figCpsin}.c shows the evolution in time of the effective diffusivity when BPE computations are successively carried out over the whole domain (red curve) or over half domains (blue curves). The latter curves present larger-amplitude oscillations but all curves oscillate around the value of the prescribed explicit velocity.
 
 \subsubsection{Pycnocline, free surface and bottom bathymetry ($BPE_{tank3}$)}
-The last experiment carried out for the tank configuration includes variations of the bathymetry. The objective is to evaluate the limitations of the BPE algorithm for in non-flat domains. The physical and numerical parameters are the same as those given in table \ref{tab_BPE_TANK} except for the depth $L_z$ which now varies linearly between 10 to 9.25 m, the width $L_x$ is now 10 m, and the prescribed diffusivity is $10^{-4}m^2/s$ as in the $BPE_{tank2}$ configuration. 
+The last experiment carried out for the tank configuration includes variations of the bathymetry. The objective is to evaluate the limitations of the BPE algorithm for non-flat domains. The physical and numerical parameters are the same as those given in table \ref{tab_BPE_TANK} except for the depth $L_z$ which now varies linearly between 10 to 9.25 m, the width $L_x$ is now 10 m, and the prescribed diffusivity is $10^{-6}m^2/s$.% as in the $BPE_{tank2}$ configuration. 
 
 \begin{figure}[h!]
 %\begin{subfigure}{.5\textwidth}
-\includegraphics[width=1.\textwidth]{./CHAP_BPE/Fig_TANK_pycbath.png}
+\includegraphics[width=1.\textwidth]{./CHAP_BPE/Fig_TANK_pycbath2.png}
 %\caption{Closed domain}
 %\label{figCkh}
 %\end{subfigure}
@@ -729,11 +724,11 @@ In this configuration, the movements induced by the initial slope of the pycnocl
 
 As for previous configurations, figures (\noparref{figCbath}.B1 to B3) present terms of the balance of the evolution of BPE and the evaluation of $\kappa_{eff}$ for the algorithm applied to the whole domain, while it is applied only to the right half in figures (\noparref{figCbath}.C1 to C4).
 
-The BPE evolution equation evaluated over the whole domain shows an increase the variations of both $dPE_B/dt$ and $\phi_D$ (figure (\noparref{figCbath}.B1 and B2)). The term associated to the free-surface oscillations $(\phi_{\zeta})$ is shown to oscillate at a period of $80\ s$ which does not correspond to the expected timescale of free-surface oscillations. The same type of oscillations can be observed on the variations of $\kappa_{eff}$ (figure (\noparref{figCbath}.B3)). 
+The BPE evolution equation evaluated over the whole domain shows an increase of both $dPE_B/dt$ and $\phi_D$ (figure (\noparref{figCbath}.B1 and B2)). The term associated to the free-surface oscillations $(\phi_{\zeta})$ is shown to oscillate at a period of $80\ s$ which does not correspond to the expected timescale of free-surface oscillations. The same type of oscillations can be observed on the variations of $\kappa_{eff}$ (figure (\noparref{figCbath}.B3)). 
 
 For the balance evaluated over the right half domain, the advective flux term $(F_a)$ shows larger amplitude oscillations than $\phi_{\zeta}$ that contribute to most of the evolution of BPE (figure (\noparref{figCbath}.C1 and C2)). This oscillations are once again at the time-scale $(80\ s)$ and are found in the evaluated $\kappa_{eff}$ (figure (\noparref{figCbath}.C4)).
 
-When $\kappa_{eff}$ evaluated over both domains is averaged over $t=80s$, the prescribed value of diffusivity is at first recovered for the first 250s of simulations. It then decreases slightly as the prturbations of the stratifiaction are amplified due to interaction with the slope, then increases back at $t=350s$ as instabilities begin to develop. 
+When $\kappa_{eff}$ evaluated over both domains is averaged over $t=80s$, the prescribed value of diffusivity is at first recovered for the first 250s of simulations in the whole domain. In the right half of the domain, it first decreases and becomes negative as the perturbations of the stratification are amplified due to interaction with the slope, then increases back at $t=350s$ as instabilities begin to develop. This increase is also visible in the entire domain, for which the value of effective diffusivity becomes one order of magnitude greater than the prescribed value at $6.10^{-5} \ m^2/s$. 
 %\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -822,7 +817,7 @@ Due to this different dynamics of consecutive outflows, there are still importan
          $\: |\kappa|^{4T} \;$ & 0.006 & 0.012 & 0.037\\
          \hline
     \end{tabular}
-    \caption[Time-averaged effective diffusivity $\kappa_{eff}$ in SimRef.]{Time-averaged effective diffusivity $\kappa_{eff}$ (in $m^2/s$) in each subdomain of SimRef (figure \noparref{figCgbr2d_ex}.A1). Averaging is made either over the first two tidal periods ($|\kappa |^{2T}_1$), the last two periods ($|\kappa |^{2T}_2$), or all four tidal periods ($|\kappa |^{4T}$).}
+    \caption[Time-averaged effective diffusivity $\kappa_{eff}$ in SimRef.]{Time-averaged effective diffusivity $\kappa_{eff}$ (in $m^2/s$) in each sub-domain of SimRef (figure \noparref{figCgbr2d_ex}.A1). Averaging is made either over the first two tidal periods ($|\kappa |^{2T}_1$), the last two periods ($|\kappa |^{2T}_2$), or all four tidal periods ($|\kappa |^{4T}$).}
     \label{tab_kappaTCS}
 \end{table}
 
