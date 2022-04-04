@@ -57,7 +57,7 @@
 %\renewcommand\theadfont{\bfseries}
 %\usepackage{esint}
 \usepackage{cancel}
-%\usepackage{pdfpages}
+\usepackage{pdfpages}
 \usepackage{fancyhdr}
 %\usepackage{footmisc}
 \usepackage{soul}
@@ -177,7 +177,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%citation à la main car cite marchait pas
+\nocite{Sannino2009b}
+\nocite{Sannino2009}
 
+%%%%%%%
 \hypersetup{pdfborder=0 0 0}%----------------------------------------------------------------------------
 % \ref with or without ( )
 %----------------------------------------------------------------------------
@@ -186,12 +190,12 @@
 
 \setcounter{tocdepth}{2}%1 juste 1 niveau sous-partie de chapitre
 
-
+\includepdf{couverture_these.pdf}
 %Page de garde
-\makeflyleaf
-\pagestyle{fancy}
-%\renewcommand{\sectionmark}[1]{%
-%\markboth{\thesection.\ \MakeUppercase{#1}}{}}
+%\makeflyleaf
+%\pagestyle{fancy}
+%%\renewcommand{\sectionmark}[1]{%
+%%\markboth{\thesection.\ \MakeUppercase{#1}}{}}
 
 
 %3pages blanches

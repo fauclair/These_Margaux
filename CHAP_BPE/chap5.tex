@@ -64,7 +64,7 @@ This algorithm and other developments are presented in section \ref{BPE_algo} of
 
 %\subsubsection{Reference state(s)}
 
-The Lorenz reference state is the state state of the stratification after the adiabatical reorganization of \citet{lorenz_available_1955}. It consists in attributing a reference depth $z^*$ to each fluid parcel corresponding to its depth in the reference density profile. This reference profile is constructed by redistributing adiabatically the fluid particles in such a way that the heaviest particles are located at the deepest depths, i.e. bellow the lightest particles. The potential energy associated to this state is the BPE of the initial state before reorganisation, and can be expressed as :
+The Lorenz reference state is the state state of the stratification after the adiabatical reorganization of \citet{lorenz_available_1955}. It consists in attributing a reference depth $z^*$ to each fluid parcel corresponding to its depth in the reference density profile. This reference profile is constructed by redistributing adiabatically the fluid particles in such a way that the heaviest particles are located at the deepest depths, i.e. below the lightest particles. The potential energy associated to this state is the BPE of the initial state before reorganisation, and can be expressed as :
 \begin{equation}
     PE_B = \int_x \int_{-1}^0 g \rho z^* h dx ds
 \end{equation}
@@ -340,7 +340,7 @@ In this case, the effective diffusivity $(\kappa_{eff})$ can be obtained by refo
 \end{alignat}
 \label{bilanBPEal}
 \end{subequations}
-In essence, the balance is first computed with $\kappa_{eff}=1 kg/m^3$ and both diffusive terms $\phi_D$ and $F_D$ have high values. An instantaneous evaluation of diffusivity is then given by:
+In essence, the balance is first computed with $\kappa_{eff}=1 m^2/s$ and both diffusive terms $\phi_D$ and $F_D$ have high values. An instantaneous evaluation of diffusivity is then given by:
 \begin{equation}
 \kappa_{eff} = \frac{\frac{dPE_B}{dt}-(\phi_{\zeta}+F_A)}{F_D+\phi_D}
 \label{eq_kappaEff}
@@ -875,7 +875,6 @@ Metric tensor formulations lead to:
  & h dS &&=\mathbf{n}_{\Sigma}.\mathbf{v}_{\Sigma}dS_{\Sigma}
   \end{alignat}
 \end{subequations}
-%See bellow how this formula is used to write Leibniz rule...
 
 \subsubsection{Formulations of the Reynolds Transport Theorem (\& Leibniz Rule)}
 \paragraph{Demonstration.}

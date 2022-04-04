@@ -64,14 +64,14 @@ Assuming that variables are in thermodynamic equilibrium, the equation of state 
 \end{equation}
 
 \subsubsection{Boundary conditions}
-The position of the interface separating the ocean and the atmosphere must additionally be calculated and is introduced as a boundary condition. This can be achieved by stating that a salty-water particles that is just bellow this interface in the ocean, remains at the interface, leading to the surface kinematic relation:
+The position of the interface separating the ocean and the atmosphere must additionally be calculated and is introduced as a boundary condition. This can be achieved by stating that a salty-water particles that is just below this interface in the ocean, remains at the interface, leading to the surface kinematic relation:
 \begin{equation}
   \displaystyle
   \label{NS_BC2}
   %\frac{\textrm{d}\zeta(\mathbf{x}_{\scriptscriptstyle H},t)}{\textrm{dt}}=w(\mathbf{x}_{\scriptscriptstyle H},z=\zeta)
   \frac{\partial \zeta}{\partial t}=w(\mathbf{x}_{\scriptscriptstyle H},z=\zeta)-\mathbf{v}_H(\mathbf{x}_{\scriptscriptstyle H},z=\zeta)\cdot\mathbf{\nabla}_H\zeta
 \end{equation}
-where $\zeta$ is the free-surface anomaly in the vicinity of the geoid and subscribe $H$ indicates that only the horizontal component is considered. Assuming then that ocean water cannot penetrate the ocean bottom (at depth $z=-H$):
+where $\zeta$ is the free-surface anomaly in the vicinity of the geoid and subscribe $H$ indicates that only the horizontal component is considered. Assuming then \color{red}no-slip condition and \color{black}that ocean water cannot penetrate the ocean bottom (at depth $z=-H$):
 \begin{equation}
  \displaystyle
  \label{NS_BC0}
@@ -89,7 +89,7 @@ The resulting system of prognostic equations, diagnostic relations and boundary 
 Formulated thus, the system of Navier-Stokes and conservation equations for a free-surface ocean can, at least in theory, be integrated straightforwardly. All variables but the pressure have their own prognostic equation and pressure can be diagnosed from the EOS \ref{NS_e}. Note that the system can be reformulated so that pressure is also given by a prognostic equation.
 
 \subsubsection{Evolution of the density field}
-For a linear approximation of the equation of state, a simple evolution equation of $\rho$ can be obtained as a combination of equations \ref{NS_c} and \ref{NS_d} leading to:
+For a linear approximation of the equation of state, a simple evolution equation of $\rho$ can be obtained as a combination of equations \ref{NS_c} and \ref{NS_d} leading to:\color{red} (eq utilisée pour développement BPE (et ailleurs?) XC : incompressible faut le complet... (mettre els deux) (combinaison des deux équations faut le mettre complet))\color{black}
 \begin{equation}
 \displaystyle
 \frac{d \rho}{d t}=
@@ -276,14 +276,14 @@ The Taylor expansion of density with respect to total pressure \ref{decompor_0} 
   % Density decomposition
   &\rho(\mathbf{x},t) &&=\rho_{\theta S}(\mathbf{x},t)
   +\underbrace{\frac{1}{c_s^{2}}\left(p_h(\mathbf{x},t)+\delta p(\mathbf{x},t)-p_0(\mathbf{x},t)\right)}_{(p(\mathbf{x},t)-p_0(\mathbf{x},t))/c_s^2} 
-   +\, \mathrm{O}(p^2) \\[3mm]
+   +\, \mathrm{O}(\delta p^2) \\[3mm]
   \label{decompor_f0}  
   & &&\approx\underbrace{\rho_h(\mathbf{x},t)+\rho_{nh}(\mathbf{x},t)
   +\frac{1}{c_s^{2}}\left(p_h(\mathbf{x},t)-p_0(\mathbf{x},t)\right)}_{\rho_{s}(\mathbf{x},t)}
   +\underbrace{\frac{\delta p(\mathbf{x},t)}{c_s^{2}}}_{\rho_f(\mathbf{x},t)}
   \end{alignat}
 \end{subequations}
-\noindent with $\partial p / \partial \rho|_\eta = c_s^2$ at constant entropy $\eta$, $\rho_{\theta S}=\rho_{eos}(\theta,\ S,\ p_0)$,   $\rho_{nh}=\rho_{\theta S}-\rho_h$, $\rho_s$ (and $\rho_f$) are respectively the components of the density field treated by the slow (fast) kernel (see bellow). This decomposition of the pressure and density fields clearly demonstrates, if necessary, the inextricable relationships between compressibility and hydrostaticity assumptions. 
+\noindent with $\partial p / \partial \rho|_\eta = c_s^2$ at constant entropy $\eta$, $\rho_{\theta S}=\rho_{eos}(\theta,\ S,\ p_0)$,   $\rho_{nh}=\rho_{\theta S}-\rho_h$, $\rho_s$ (and $\rho_f$) are respectively the components of the density field treated by the slow (fast) kernel (see below). This decomposition of the pressure and density fields clearly demonstrates, if necessary, the inextricable relationships between compressibility and hydrostaticity assumptions. 
 
  %----------------------------------------------------------------------------  
  \subsubsection{Slow vs fast components}
@@ -305,7 +305,7 @@ Based on the decomposition of the pressure and density fields (\noparref{decompo
    & && \quad \underbrace{-\rho_0 g\mathbf\nabla\zeta
    -\mathbf\nabla{\delta p}
    -\rho f'\mathbf{u_y}\wedge\mathbf{v}
-   +\rho\mathbf{g}
+   +(\rho_{nh}+\rho_f)\mathbf{g}
    +\mu_2\mathbf{\nabla}(\mathbf{\nabla}.\mathbf{v})}_{\mathbf{\Lambda}_{f}}
    \end{alignat}
 \end{subequations}
@@ -317,7 +317,7 @@ Note that the Coriolis pseudo-force is itself splitted: the traditional componen
  &\partial_t\rho_f h_f\mathbf{v}_f &&=\ [[\Lambda_s]]   &&+\quad\Lambda_f
 \end{alignat}
 \end{subequations}
-This splitting conserves basically the formulation of the horizontal momentum equations proposed in \cite{shchepetkin_regional_2005}: the length-scales of the processes and the fast-mode forcing are yet obviously different but the filtering procedure $\ll.\gg$ is the "flat" filter proposed by \cite{shchepetkin_regional_2005}. $[[.]]$ notation indicates the extrapolation in time of the slow-kernel terms to be used at the fast-kernel RHS (see \S \noparref{TimeSplit}).\\
+This splitting conserves basically the formulation of the horizontal momentum equations proposed in \cite{shchepetkin_regional_2005}: the length-scales of the processes and the fast-mode forcing are yet obviously different but the filtering procedure $\ll.\gg$ is the "flat" filter proposed by \cite{shchepetkin_regional_2005}\color{red}in figure 15? (reformuler la phrase pour plus claire????)\color{black}. $[[.]]$ notation indicates the extrapolation in time of the slow-kernel terms to be used at the fast-kernel RHS (see \S \noparref{TimeSplit}).\\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
