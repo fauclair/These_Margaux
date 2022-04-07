@@ -61,8 +61,6 @@ Le choix du détroit de Gibraltar comme région d'étude privilégiée pour mes 
 
 
 \section{Une exploration des fines échelles océaniques}
-%\color{red}
-%(verrous puis objectif)
 \subsection{Définir les fines échelles océaniques}
 Objet central de mes travaux de doctorat, les \textit{fines échelles} océaniques doivent en premier lieu être clairement définies. Jusqu'ici, ces fines échelles ont plus spécifiquement été associées dans notre introduction (\S \noparref{subsection_intro1}) à la région du spectre océanique identifiée comme \textit{Terra Incognita}.\\
 
@@ -74,16 +72,13 @@ Objet central de mes travaux de doctorat, les \textit{fines échelles} océaniqu
 \subsection{Les verrous dynamiques et numériques}
 \label{subsection_verrous}
 
-%\color{red}Il a été rappelé à plusieurs reprises que l'échelle des grandes structures turbulentes et de l'entrée dans la micro-échelle dépend du phénomène qui va enclencher ce transfert.\color{black}
-
 Toute entrée dans un territoire inconnu tel que la \textit{Terra Incognita} est associée à la reconnaissance et à la levée d'un certain nombre de difficultés. Dans le cas présent, ces "difficultés" prennent la forme de véritables \textit{verrous} d'ordres dynamiques et numériques.
 
 \subsubsection{Verrous dynamiques.}
 Un certain nombre de "verrous" dynamiques peuvent être identifiés. Les grandes structures turbulentes dont il est en particulier question ici sont le résultat de diverses instabilités "primaires" peuplant la méso et la sous-mésoéchelle océaniques : instabilités de type barotrope, barocline, symétrique, zig-zag, agéostrophique, paramétrique des ondes internes, etc... Ces mécanismes de déstabilisation peuvent être vus comme brisant de façon intermittente des structures, des processus, des équilibres subtils régissant localement et de façon parfois éphémère la dynamique de l'océan. Leur exploration relève par conséquent plus d'une approche stochastique que purement déterministe.
 
-Les grandes structures turbulentes elles-mêmes constituent de plus des processus certes importants mais néanmoins indissociables des transferts d'échelles auxquels elles sont associées, et donc de leur localisation dans le spectre spatio-temporel. %Il a été rappelé à plusieurs reprises que l'échelle des grandes structures turbulentes et de l'entrée dans la micro-échelle dépend du phénomène qui va enclencher ce transfert.
-%Leur localisation au sein du spectre n'est pas chose aisée dans la mesure où
-Aisni ni les échelles spatiales ni les échelles temporelles des instabilités de cisaillement ne sont clairement identifiables à partir de grandeurs caractéristiques comme le peuvent être les rayons de Rossby pour la méso-échelle et ses instabilités barotropes et baroclines. Leur étude requiert donc la prise en compte simultanée de régions étendues du spectre océanique.\\
+Les grandes structures turbulentes elles-mêmes constituent de plus des processus certes importants mais néanmoins indissociables des transferts d'échelles auxquels elles sont associées, et donc de leur localisation dans le spectre spatio-temporel. 
+Ainsi ni les échelles spatiales ni les échelles temporelles des instabilités de cisaillement ne sont clairement identifiables à partir de grandeurs caractéristiques comme le peuvent être les rayons de Rossby pour la méso-échelle et ses instabilités barotropes et baroclines. Leur étude requiert donc la prise en compte simultanée de régions étendues du spectre océanique.\\
 
 Le mélange turbulent lui-même se présente comme un véritable verrou d'ordre conceptuel. Comment en effet le localiser et le quantifier à partir d'observations ou de simulations numériques? Quelles grandeurs évaluer ? 
 Comment faire le lien entre les flux turbulents et une évolution diabatique supposée faible de l'énergie potentielle des masses d'eau et de l'énergie cinétique de la circulation ? 
@@ -111,18 +106,12 @@ Explorer numériquement les fines échelles océaniques implique de simuler expl
 
 La promesse d’une puissance de calcul pétaflopique puis exaflopique a, en théorie au moins, ouvert les portes de la simulation des grandes structures turbulentes (LES) pour l’océan et l’atmosphère. Les météorologues ont par exemple rapidement pu tirer parti des moyens de calcul disponibles: des algorithmes dédiés ont vu le jour dès le début des années 2000 débouchant sur des codes numériques tels que WRF \citep{skamarock_prototypes_2001} en version compressible ou Méso-NH \citep{lac_overview_2018} en version anélastique. Ces deux types de codes permettent, chacun avec leurs spécificités, d’aborder la simulation de la cascade turbulente directe en représentant explicitement les plus grandes structures turbulentes dans l’atmosphère.
 
-Les modèles océaniques n’ont pas été immédiatement en mesure de franchir le cap de la LES en grande partie à cause de la présence d’une surface libre aux conséquences dynamiques multiples. Cette dernière rend en particulier plus complexe la relaxation de l’hypothèse hydrostatique: elle est en effet parcourue par des ondes de gravité se propageant très rapidement et présentant des dynamiques différentes selon que l'hypothèse "onde longue" (hydrostatique) est, ou non, imposée. %Cette surface libre a en particulier été associée à des choix algorithmiques et numériques spécifiques. Ainsi la généralisation sous une hypothèse non-hydrostatique de la séparation des pas de temps (\textit{time splitting} en anglais) doit être réalisée avec soin \citep{auclair_non-hydrostatic_2011, Auclair2018}.
-%Sous une hypothèse non-hydrostatique, la réalisation de la séparation des pas de temps (\textit{time splitting} en anglais) pour améliorer la performance en coût de calcul demande une réflexion particulière pour intégrer la dynamique de cette surface libre \citep{auclair_non-hydrostatic_2011, Auclair2018}.
-
+Les modèles océaniques n’ont pas été immédiatement en mesure de franchir le cap de la LES en grande partie à cause de la présence d’une surface libre aux conséquences dynamiques multiples. Cette dernière rend en particulier plus complexe la relaxation de l’hypothèse hydrostatique: elle est en effet parcourue par des ondes de gravité se propageant très rapidement et présentant des dynamiques différentes selon que l'hypothèse "onde longue" (hydrostatique) est, ou non, imposée.
 
 Plusieurs pré-requis ont dus être satisfaits avant de lancer une exploration numérique des grandes structures turbulentes dans un contexte réaliste aussi complexe que celui par exemple du détroit de Gibraltar.
-Pour ce faire, dans la foulée de l’ANR COMMODO rassemblant au milieu des années 2010 l’ensemble des équipes françaises travaillant sur la modélisation de l’océan, les équipes de recherche en océanographie physique et en mathématiques se sont associées au sein du projet CROCO (www.croco-ocean.org). Un Groupement de Recherche éponyme est né associant les principaux organismes de recherche en informatique et en océanographie français (l’IRD, INRIA, le CNRS-INSU, l’IFREMER et le SHOM) avec l'Université de Toulouse Paul Sabatier. En 2021, l’IRD a entériné la constitution du GdRinternational CROCO (gdri-croco.cnrs.fr) tourné vers les partenaires du projet au Sud. %L'hypothèse hydrostatique, elle-aussi héritée du code ROMS, a dû être remise en cause dans le contexte d'un océan à surface libre, et intégré à la séparation des pas de temps (\textit{time splitting} en anglais). Ceci fut chose faite en relaxant aussi l'hypothèse de Boussinesq comme préconisé par \cite{Auclair2018}.
-
-%Cette surface libre a en particulier été associée à des choix algorithmiques et numériques spécifiques. Ainsi la généralisation sous une hypothèse non-hydrostatique de la séparation des pas de temps (\textit{time splitting} en anglais) doit être réalisée avec soin \citep{auclair_non-hydrostatic_2011, Auclair2018}.
+Pour ce faire, dans la foulée de l’ANR COMMODO rassemblant au milieu des années 2010 l’ensemble des équipes françaises travaillant sur la modélisation de l’océan, les équipes de recherche en océanographie physique et en mathématiques se sont associées au sein du projet CROCO (www.croco-ocean.org). Un Groupement de Recherche éponyme est né associant les principaux organismes de recherche en informatique et en océanographie français (l’IRD, INRIA, le CNRS-INSU, l’IFREMER et le SHOM) avec l'Université de Toulouse Paul Sabatier. En 2021, l’IRD a entériné la constitution du GdRinternational CROCO (gdri-croco.cnrs.fr) tourné vers les partenaires du projet au Sud. 
 
 L'héritage reçu du code américain ROMS \citep{shchepetkin_regional_2005} avait fait de CROCO un code particulièrement efficace dont le coeur numérique (time-splitting, schémas numériques...) a été spécifiquement conçu pour limiter les coûts de calcul et l'utilisation de l'espace mémoire. L'hypothèse hydrostatique, elle-aussi héritée du code ROMS, a dû être remise en cause dans le contexte d'un océan à surface libre, et intégré à la séparation des pas de temps (\textit{time splitting}). Ceci fut chose faite en relaxant aussi l'hypothèse de Boussinesq comme préconisé par \cite{Auclair2018}, tout en maintenant un bon niveau de performance dans un contexte massivement parallèle.
-
-%Ce niveau de performance numérique a pu être maintenu pour le noyau numérique compressible et non-hydrostatique dans un contexte massivement parallèle.
 
 Afin de s'attaquer à l'ensemble des verrous dynamiques et numériques identifiés, de nouvelles recherches ont été entamées en parallèle de mes travaux de thèse pour (i) porter le code sur une nouvelle génération de processeurs dits hétérogènes (associant processeurs CPU et GPU), (ii) permettre le raffinement local de la dynamique océanique par imbrication de configurations LES dans des maquettes numériques régionales très étendues et (iii) repenser la simulation des grandes structures turbulentes dans un contexte "stochastique" \cite{memin_fluid_2014}. Les maquettes que j'ai développées ou co-développées dans le cadre de mes travaux de thèse ont servi durant ces trois années et servent actuellement de configurations-tests pour l'ensemble de ces développements, transformant le détroit de Gibraltar en une véritable région de démonstration.
 
@@ -144,7 +133,6 @@ Mes travaux de thèse s'inscrivent  dans une démarche scientifique que j'ai eu 
     \item l'évaluation des résultats numériques à partir d'observations via des allers-retours entre l'océan réel et l'océan numérique,
     \item le tout dans le contexte d'un travail d'équipe s'inscrivant dans le cadre du Groupement de Recherche CROCO.
 \end{itemize}
-%Confrontation aux obs... ... Volet 2022 plus sur la fine échelle(ou conclusoion?)....
 
 \section{Plan du manuscrit}
 
@@ -153,16 +141,6 @@ Le Chapitre \noparref{chap2} présente le \textit{modèle d'océan} sur lequel s
 Les simulations numériques des fines échelles du détroit de Gibraltar sont présentées dans les Chapitres \noparref{chapGBR2D} et \noparref{chapGBR3D}. Elles sont abordées tout d'abord dans un modèle simplifié à deux dimensions dans le Chapitre \noparref{chapGBR2D}, constitué d'un article publié au cours de mes années de thèse \citep{hilt_2020}. Le Chapitre \noparref{chapGBR3D} poursuit cette démarche de simulation numérique en proposant une maquette océanique réaliste tri-dimensionnelle. Le Chapitre \noparref{chapGBR3D} présente aussi l'analyse d'un premier jeu d'observations issues de la campagne de mesures PROTEVS Gibraltar 2020.
 
 Enfin, dans un dernier Chapitre \noparref{chapBPE}, sont présentés les derniers travaux menés à bien pendant ma thèse avec plusieurs applications d'un algorithme dédié à la quantification et à la localisation du mélange turbulent. Ces applications se font graduellement vers des cas de plus en plus réalistes, jusqu'à celui de la simulation 2D du détroit de Gibraltar présentée au Chapitre \noparref{chapGBR2D}.
-
-%\color{red}CONCLUSION, caser le mot climat\color{black}
-%Morceaux de intro GBR3D : 
-%The amplitude of the exchange varies over timescales larger than the semi-diurnal tide. The lower frequencies (whether seasonal or inter-annual) are usually linked to atmospheric forcing over the MediTerranean \citep{sanchez-roman_2012}. The tidal eddy-fluxes have their own variability associated to the spring-tide cycle and to the monthly tides, with for example a greater depth and stronger shear during neap tides, but more intense mixing during spring tide \citep{naranjo_2014,vargas_2006}.\color{red}(enlever? sert à rien? que dans intro plus générale???)\color{black}
-%Numerical models are discretized and have a treshold resolution under which phyisical pehomenons cannot be represented explicitely. Particularly, diffusion and ... processes,  among other parametrisations of processes like surface exchanges, radiation that occur at molecular or submolecular scales. Diffusion and dissipation are molecular in nature as a , energy flux, but more broadly speaking, dissipation is the transfer of energy from great scales to small scales. In a stratified fluid, this dissipation is accompagnied by mixing , ie a lewoering of potential energy, or more accurately and explained i paragraph ..., of the background potential energy.
-%Broadly for oceanic (or more generally geophyisic?) models classification on DNS, LES, and RANS. DNS has molecular dissipation
-%For the discussions simply coining as LES is not sufficient but need to precise LES in regard to which phenomenon. For exemplein chapoter ... of this manuscript, coined LES because primary instabilities of the flow. However, the primary instabilities that are known to exist at upper and lower boundaries of teh water column are not represented and are parametrized, so in regard to the dissipation those process not LES. 
-%To this considerations, one must also not forget that the discretisation itself introduces numerical dissipation unless using centered schemes (computationnally impossible).
-%\subparagraph{Conclusion générale/dans le manuscrit}
-%Les simulations ... sont première LES maisblablablablabla (trad ce que avait dit...). Besoin outil diagnostique du mélange, chapitre prochain...
 
 
 

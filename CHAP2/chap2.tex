@@ -2,25 +2,15 @@
 \section{Résumé en français}
 Le présent chapitre présente de façon détaillée le \textit{modèle d'océan} utilisé dans le cadre de ma thèse pour simuler numériquement les grandes échelles turbulentes (ou LES$^{\noparref{LES}}$) dans la région du détroit de Gibraltar mais aussi, plus généralement, pour développer des modèles analytiques simplifiés de processus au service de cette approche numérique. Plusieurs sections du chapitre ont été intégrées à des publications acceptées \citep{hilt_2020}, \citep{auclair_modied_2021} ou en cours de rédaction  \citep{auclair_NBQ1_2021} mais aussi au rapport d'études du programme amont PROTEVS Gibraltar du SHOM \citep{auclair_modelisation_2019}. L'ensemble du chapitre est par conséquent rédigé en anglais.
 
-Dans une première partie (\S \ref{section_prim_eq}) sont introduites les équations de conservations usuelles de l'océanographie physique, dont les équations de Navier-Stokes, point de départ du développement du \textit{modèle d'océan}. Le choix est ensuite fait de se placer dans le contexte d'une grille verticale curviligne qui permet d'épouser la forme des fonds marins et de suivre les mouvements de la surface libre de l'océan (dont un certain nombres de développements ont aussi présentés en annexe (\noparref{section_annexe2})). 
-%Dans ce cadre, l'expression de l'évolution de l'énergie potentielle gravitationnelle (PE) et de ses sous-compartiments, énergie potentielle disponible (APE) et énergie potentielle de "background" (BPE), est développée dans un volume local d'océan (section \ref{section_PE_chap2}). En particulier, l'évolution de la BPE fait apparaître un terme source lié aux mouvements de la surface libre. Comme l'évolution de la BPE est lié au mélange diapycnale, la bonne expression de son bilan est impérative afin de faire des diagnostics de quantifications de mélange se basant sur cette méthode. %FA%
+Dans une première partie (\S \noparref{section_prim_eq}) sont introduites les équations de conservations usuelles de l'océanographie physique, dont les équations de Navier-Stokes, point de départ du développement du \textit{modèle d'océan}. Le choix est ensuite fait de se placer dans le contexte d'une grille verticale curviligne qui permet d'épouser la forme des fonds marins et de suivre les mouvements de la surface libre de l'océan (dont un certain nombres de développements ont aussi présentés en Annexe \noparref{section_annexe2}). 
 
-Dans la deuxième partie du chapitre (section \ref{section_croco}), est présenté le fonctionnement du code communautaire à cœur non-hydrostatique, compressible et à surface libre CROCO, basé sur le \textit{modèle d'océan} de la première partie. 
+Dans la deuxième partie du chapitre (Section \noparref{section_croco}), est présenté le fonctionnement du code communautaire à cœur non-hydrostatique, compressible et à surface libre CROCO, basé sur le \textit{modèle d'océan} de la première partie. 
 L'implémentation numérique de ce \textit{modèle d'océan} a demandé d'importants développements tant algorithmiques que numériques, développements qui ne peuvent être menés à bien s'ils miment directement la physique de l'océan. Parce qu'il est très général, ce \textit{modèle d'océan} peut réaliser la synthèse de processus dynamiques dans une gamme très étendue d'échelles spatio-temporelles depuis la circulation basse fréquence, jusqu'aux ondes acoustiques. Ce sont plus spécifiquement les plus fines échelles et les plus hautes fréquences qui peuvent imposer les plus fortes restrictions à l'approche numérique envisagée ; ce sont donc les processus associés et en particulier les processus ondulatoires acoustiques ou gravitaires qui ont été étudiés en priorité. 
-
-%Ce \textit{modèle d'océan} est suffisamment général pour autoriser la représentation explicite d'une large gamme de processus allant des ondes et modes acoustiques dans un océan compressible aux structures turbulentes fondamentalement non-hydrostatiques de \textit{fine échelle} (associées par exemple à des instabilités de Kelvin-Helmholtz) en passant par des processus ondulatoires internes de grande amplitude (tels que les solitons).
 
 J'ai participé à une partie des développements de CROCO durant ma thèse, sur le plan purement numérique tout d'abord, avec l'implémentation et l'évaluation de nouveaux schémas numériques dans un contexte pleinement réaliste et la mise en œuvre de stratégies originales pour la LES. Sur le plan de la dynamique océanique ensuite, avec la réalisation d'études de processus de fines échelles et l'étude des interactions complexes entre ces processus.
 
-%Ce \textit{modèle d'océan} a de plus servi de base au développement dans le cadre de ma thèse de diagnostiques originaux dédiés à la simulation des grandes échelles turbulentes océaniques (LES) dans un contexte réaliste: évaluation quantitative du mélange turbulent (\S \noparref{chapter_bpe}), mise en évidence et caractérisation de ces structures, études de ressauts hydrauliques (\S \noparref{PartDiag3D})...
-
 En parallèle des développements numériques et des travaux sur la dynamique de la région du détroit de Gibraltar menés dans le cadre de la présente thèse de doctorat, a été développé et publié un modèle analytique suffisamment général pour décrire la dispersion des ondes et des modes acoustiques, des ondes et des modes internes de gravité ou encore des ondes de gravité de surface \citep{auclair_modied_2021}. Le modèle analytique de dispersion a de plus été utilisé pour explorer la dynamique ondulatoire dans la région du détroit de Gibraltar.
 J'ai participé et co-signé cette étude en support du développement numérique de CROCO, étude qui n'a pas été incluse dans le présent manuscrit.
-
-%Dans ce qui suit du présent chapitre, c'est l'anglais qui est utilisé pour les raisons évoquées précédemment.
-
-%Dans une première partie, les équations analytiques servant de base à ce \textit{modèle d'océan} sont présentées (\noparref{section_prim_eq}), l'approche numérique choisie et co-développée pour le coeur numérique non-hydrostatique, compressible et à surface libre de CROCO est détaillée en partie \ref{section_croco}. Un certain nombre de développements sont enfin présentés dans les annexes (\noparref{section_annexe2}).
-
 
 \section{A non-hydrostatic, compressible, free-surface ocean model}
 \label{section_prim_eq}
@@ -86,10 +76,10 @@ Neglecting surface-tension pressure drop, the boundary condition for pressure at
 with $p_{atm}$ the atmospheric pressure above the surface of the ocean.
 The resulting system of prognostic equations, diagnostic relations and boundary conditions leads to a non-linear problem whose main characteristics is the wild spectrum of dynamic processes involved (see for instance \cite{gill_atmosphere-ocean_1982} or \cite{vallis_atmospheric_2006}). Periodic processes such as ocean waves can give a comprehensive overview of the extension of space-time spectrum of transient processes which can propagate in the ocean and \cite{auclair_modied_2021} derive a compressible, free-surface, stratified model of two dispersion relations for wave-numbers and pulsation gathering acoustic, surface and internal waves and insisting on the modification of the dispersion of gravity (acoustic) waves by compressibility (gravity and stratification).
 
-Formulated thus, the system of Navier-Stokes and conservation equations for a free-surface ocean can, at least in theory, be integrated straightforwardly. All variables but the pressure have their own prognostic equation and pressure can be diagnosed from the EOS \ref{NS_e}. Note that the system can be reformulated so that pressure is also given by a prognostic equation.
+Formulated thus, the system of Navier-Stokes and conservation equations for a free-surface ocean can, at least in theory, be integrated straightforwardly. All variables but the pressure have their own prognostic equation and pressure can be diagnosed from the equation of state \noparref{NS_e}. Note that the system can be reformulated so that pressure is also given by a prognostic equation.
 
 \subsubsection{Evolution of the density field}
-For a linear approximation of the equation of state, a simple evolution equation of $\rho$ can be obtained as a combination of equations \ref{NS_c} and \ref{NS_d} leading to:\color{red} (eq utilisée pour développement BPE (et ailleurs?) XC : incompressible faut le complet... (mettre els deux) (combinaison des deux équations faut le mettre complet))\color{black}
+For a linear approximation of the equation of state, a simple evolution equation of $\rho$ can be obtained as a combination of Equations \noparref{NS_c} and \noparref{NS_d} leading to:\color{red} (eq utilisée pour développement BPE (et ailleurs?) XC : incompressible faut le complet... (mettre els deux) (combinaison des deux équations faut le mettre complet))\color{black}
 \begin{equation}
 \displaystyle
 \frac{d \rho}{d t}=
@@ -99,10 +89,6 @@ For a linear approximation of the equation of state, a simple evolution equation
 \label{eq_diff_cart}
 \end{equation}
 where $\kappa_{\rho}$ is the equivalent diffusivity of density.
-
- %----------------------------------------------------------------------------  
- %\subsection{Density and pressure decomposition}
- %----------------------------------------------------------------------------
  
 \subsection{Terrain-following coordinates}
 \label{subsection_scoord}
@@ -112,7 +98,7 @@ where $\kappa_{\rho}$ is the equivalent diffusivity of density.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The capacity of numerical models to mimic the evolution of global or regional oceanic circulation relies on horizontal and vertical definition of the grid on which the Navier-Stokes and conservation equations previously defined are solved and integrated in time.
 
-Due to considerations of the representation of bathymetric features and free-surface evolutions, terrain-following coordinates, or S-coordinates, are chosen for the vertical discretisation. They are generally defined on generalized constant-$s$ surfaces with $s$ given by:
+Due to considerations of the representation of bathymetric features and free-surface evolution, terrain-following coordinates, or S-coordinates, are chosen for the vertical discretization. They are generally defined on generalized constant-$s$ surfaces with $s$ given by:
 \begin{equation}
  \displaystyle
  s=s(x,y,z,t)=s(\mathbf{x},t)
@@ -133,11 +119,6 @@ Following  \citet{shchepetkin_regional_2005},  less general $\sigma$-coordinates
  \displaystyle
  z(\mathbf{x},\sigma,t)=\sigma H(\mathbf{x_h})\quad or\quad z(\mathbf{x},\sigma,t)=\sigma(H(\mathbf{x_h})+\zeta(\mathbf{x_h},t))+\zeta(\mathbf{x_h},t)
 \end{equation}
-%or:
-%\begin{equation}
-% \displaystyle
-% z(\mathbf{x},\sigma,t)=\sigma(H+\zeta)+\zeta
-%\end{equation}
 where $H(\mathbf{x_h})=H(\mathbf{x,y})$ is the bottom topography and $\zeta(\mathbf{x_h},t)$ the surface elevation anomaly. Its generalization to s-coordinates is defined by:
 \begin{equation}
  \displaystyle
@@ -154,7 +135,7 @@ and $S(\sigma)$ can be a non-linear function. Some current definitions are prese
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Vertical velocities}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The definition of such a new vertical coordinate requires the derivation of the associated vertical velocity at the grid point. Using the coordinate transformation presented in section \ref{annexe_coordS} of appendix \ref{annexe_ocmod},  $w \equiv v_z$ can be decomposed as :
+The definition of such a new vertical coordinate requires the derivation of the associated vertical velocity at the grid point. Using the coordinate transformation presented in Section \noparref{annexe_coordS} of Appendix \noparref{annexe_ocmod},  $w \equiv v_z$ can be decomposed as :
 \begin{subequations}
   \begin{alignat}{2}
   \displaystyle 
@@ -183,11 +164,8 @@ where:
 
 In other words, the vertical velocity is the composition of $v_{\Sigma,z}$ (the vertical component of the velocity of the constant-$s$ surface as it moves), and $v_s$ (the velocity through this same surface). An important aspect of this computation is that $v_s$ remains a velocity along the vertical axes since no change of direction of the axes is made.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsubsection{Vertical velocities in $"\sigma"$-coordinates}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In the more restrictive case where $\sigma$-coordinates are used:
-% In $\sigma$-coordinates:
+
 \begin{equation}
  \displaystyle
  \sigma=\frac{z-\zeta}{H+\zeta}
@@ -212,12 +190,12 @@ v_{\sigma}=(H+\zeta)\frac{d\sigma}{dt}
 %----------------------------------------------------------------------------  
 \subsection{From Boussinesq, hydrostatic models to a compressible, non-hydrostatic kernel}
 %----------------------------------------------------------------------------
-Ocean models whether dedicated to global, regional or even coastal scales are traditionally based on the Boussinesq, hydrostatic assumptions \citep{griffies_elements_2012,shchepetkin_regional_2005}. The present study is a step toward the explicit simulation of at least the largest turbulent eddies in a realistic context and, as a consequence, a non-hydrostatic numerical approach is required. \cite{Auclair2018} concluded that an efficient non-hydrostatic, free-surface, mode-splitting numerical model of the ocean could be designed relaxing also the Boussinesq approximation. Doing so, the authors chose to work with local equations and they do not solve for a 3D Poisson equation to diagnose total pressure. They consequently follow the choices made in meso-scale atmospheric modeling by \cite{skamarock_prototypes_2001}. The compressible (non-Boussinesq) approach is original in ocean modeling and in particular in free-surface, ocean modeling. Indeed \cite{marshall_finite-volume_1997} or \cite{auclair_non-hydrostatic_2011} chose to retain the Boussinesq assumption. A consequence of \cite{Auclair2018}'s choice is that the complete \textit{ocean model} presented in \S\ref{section_prim_eq} can be solved numerically.
+Ocean models whether dedicated to global, regional or even coastal scales are traditionally based on the Boussinesq, hydrostatic assumptions \citep{griffies_elements_2012,shchepetkin_regional_2005}. The present study is a step toward the explicit simulation of at least the largest turbulent eddies in a realistic context and, as a consequence, a non-hydrostatic numerical approach is required. \cite{Auclair2018} concluded that an efficient non-hydrostatic, free-surface, mode-splitting numerical model of the ocean could be designed relaxing also the Boussinesq approximation. Doing so, the authors chose to work with local equations and they do not solve for a 3D Poisson equation to diagnose total pressure. They consequently follow the choices made in meso-scale atmospheric modeling by \cite{skamarock_prototypes_2001}. The compressible (non-Boussinesq) approach is original in ocean modeling and in particular in free-surface, ocean modeling. Indeed \cite{marshall_finite-volume_1997} or \cite{auclair_non-hydrostatic_2011} chose to retain the Boussinesq assumption. A consequence of \cite{Auclair2018}'s choice is that the complete \textit{ocean model} presented in \S \noparref{section_prim_eq} can be solved numerically.
 
 The computing cost of such a non-hydrostatic, compressible, free-surface approach can quickly become prohibitive especially because the explicit modeling of fine scales requires high-resolution grids. Following the conclusions of the COMODO french community\footnote{COMODO gathered the french ocean modeling community. It was sponsored by the French ANR eponymous project (2011-2016).}, the compressible and free-surface algorithm developed by \cite{Auclair2018} has been implemented in the ROMS-AGRIF branch of the ROMS ocean models \citep{shchepetkin_regional_2005}. This choice was justified by the great efficiency of Shchepetkin's time-splitting and time-stepping and more generally by the experience accumulated in ROMS community during the last two decades.
 
-The simulations of the strait of Gibraltar presented in chapters \ref{chapGBR2D} and \ref{chapGBR3D} were the very first realistic implementation of the non-hydrostatic, compressible, free-surface kernel of CROCO \citep{hilt_2020}.
-\color{black}
+The simulations of the strait of Gibraltar presented in Chapters \noparref{chapGBR2D} and \noparref{chapGBR3D} were the very first realistic implementation of the non-hydrostatic, compressible, free-surface kernel of CROCO \citep{hilt_2020}.
+
 %----------------------------------------------------------------------------  
 \subsection{Time-splitting}
 %----------------------------------------------------------------------------
@@ -244,10 +222,10 @@ Numerical constraints relative to the various transfers of anomalies can basical
 \end{equation} 
 This hierarchy of velocity scales (and thus timescales for a fixed grid-scale) and the associated gaps constitute the basis to develop time-splitting approaches for numerical models of the ocean.
 Under free-surface, Boussinesq and hydrostatic assumptions, the time-splitting procedure implemented in ROMS model \citep{shchepetkin_regional_2005} filters for instance acoustic and non-hydrostatic processes and takes advantage of the gap $v[p_{int},\ ...] \ll v[p_\zeta]$. It can be formulated as a decomposition of the pressure between a 2D surface-induced pressure-component (named external or barotropic-like component) $\bar{p}_h(\mathbf{x},t)$ and a 3D density-induced (internal or baroclinic-like) pressure-component $p_h'(\mathbf{x},t)$. 
-The time-splitting approach for a more general free-surface, non-hydrostatic and compressible ocean can also be based on \ref{velocityscales}. The procedure is yet different from that used for hydrostatic ocean models. In the latter, coupling is based on the separation of the velocity field between a barotropic-like, depth-averaged component and a baroclinic-like anomaly. The faster, surface-induced component of the pressure force is integrated with a small time-step and after each integration sequence of the external mode, the depth-averaged component of the internal-mode velocity is forced to fit to the external-mode, depth-averaged velocity. Separating the "fast" and "slow" components of momentum in a compressible model to integrate them separately is not that simple and more importantly, it is not even necessary. The time-splitting procedure proposed in CROCO compressible kernel is indeed based on the splitting of the terms on the Right-Hand-Side (hereafter RHS) of the prognostic and diagnostic equations of the ocean model. Two coupled models (hereafter called the slow and fast numerical kernels) are then integrated in turn. The slow (respectively fast) kernel is advanced with a large (small) time-step computing explicitly slowly-varying (rapidly-varying) terms at the RHS and implicitly the remaining terms. A time-filtering procedure is additionally implemented to force both the slow and fast mode in a similar way as \citet{shchepetkin_regional_2005}.
+The time-splitting approach for a more general free-surface, non-hydrostatic and compressible ocean can also be based on \color{red}the ranking of Equation\color{black} \noparref{velocityscales}. The procedure is yet different from that used for hydrostatic ocean models. In the latter, coupling is based on the separation of the velocity field between a barotropic-like, depth-averaged component and a baroclinic-like anomaly. The faster, surface-induced component of the pressure force is integrated with a small time-step and after each integration sequence of the external mode, the depth-averaged component of the internal-mode velocity is forced to fit to the external-mode, depth-averaged velocity. Separating the "fast" and "slow" components of momentum in a compressible model to integrate them separately is not that simple and more importantly, it is not even necessary. The time-splitting procedure proposed in CROCO compressible kernel is indeed based on the splitting of the terms on the Right-Hand-Side (hereafter RHS) of the prognostic and diagnostic equations of the ocean model. Two coupled models (hereafter called the slow and fast numerical kernels) are then integrated in turn. The slow (respectively fast) kernel is advanced with a large (small) time-step computing explicitly slowly-varying (rapidly-varying) terms at the RHS and implicitly the remaining terms. A time-filtering procedure is additionally implemented to force both the slow and fast mode in a similar way as \citet{shchepetkin_regional_2005}.
 
 \subsubsection{Pressure and density decomposition}
-The splitting of the processes based on the magnitude of their time-scale relies essentially on a decomposition of the pressure and density fields. Following \cite{auclair_modied_2021}, the pressure decomposition \ref{decompoP_0} can be further developed for a free-surface ocean:
+The splitting of the processes based on the magnitude of their time-scale relies essentially on a decomposition of the pressure and density fields. Following \cite{auclair_modied_2021}, the pressure decomposition in Equation \noparref{decompoP_0} can be further developed for a free-surface ocean:
 \begin{subequations}
   \begin{alignat}{2}
   % Pressure decomposition
@@ -268,7 +246,7 @@ The splitting of the processes based on the magnitude of their time-scale relies
   \end{alignat}
 \end{subequations}
 where $\rho_0$ is a constant reference density. 
-The Taylor expansion of density with respect to total pressure \ref{decompor_0} leads then to:
+The Taylor expansion of density with respect to total pressure (Equation \noparref{decompor_0}) leads then to:
 \begin{subequations}
   \begin{alignat}{2}
   % Pressure decomposition
@@ -288,7 +266,7 @@ The Taylor expansion of density with respect to total pressure \ref{decompor_0} 
  %----------------------------------------------------------------------------  
  \subsubsection{Slow vs fast components}
  %----------------------------------------------------------------------------
-Based on the decomposition of the pressure and density fields (\noparref{decompoP_f}, \noparref{decompor_f0}), the terms at the RHS of the momentum equations can be splitted in two categories depending on the time-scales they are associated with: 
+Based on the decomposition of the pressure and density fields (Equations \noparref{decompoP_f} and \noparref{decompor_f0}), the terms at the RHS of the momentum equations can be split in two categories depending on the time-scales they are associated with: 
 \begin{subequations}
 \label{momsf}
    \begin{alignat}{2}
@@ -309,7 +287,7 @@ Based on the decomposition of the pressure and density fields (\noparref{decompo
    +\mu_2\mathbf{\nabla}(\mathbf{\nabla}.\mathbf{v})}_{\mathbf{\Lambda}_{f}}
    \end{alignat}
 \end{subequations}
-Note that the Coriolis pseudo-force is itself splitted: the traditional component (with $f=2\Omega sin(\phi)$, $\mathbf{u}_z$ the vertical unit vector in Cartesian coordinates and $\phi$ the latitude) is integrated with the slow kernel whereas the non-traditional component (with $f'=2\Omega cos(\phi)$ and $\mathbf{u}_y$ the south-north horizontal unit vector in Cartesian coordinates). This latter component can indeed be associated with horizontal-axis rolls and is integrated with the fast kernel. The nonlinear advective terms are integrated with the slow kernel, i.e. a priori with a larger time-step and thus at a lower cost. Diffusion terms associated to dynamical (respectively bulk) viscosity are integrated with the slow (fast) kernel. The momentum equation \ref{momsf} can thus be rewritten in a compact, conservative form and in s-coordinates as:
+Note that the Coriolis pseudo-force is itself splitted: the traditional component (with $f=2\Omega sin(\phi)$, $\mathbf{u}_z$ the vertical unit vector in Cartesian coordinates and $\phi$ the latitude) is integrated with the slow kernel whereas the non-traditional component (with $f'=2\Omega cos(\phi)$ and $\mathbf{u}_y$ the south-north horizontal unit vector in Cartesian coordinates). This latter component can indeed be associated with horizontal-axis rolls and is integrated with the fast kernel. The nonlinear advective terms are integrated with the slow kernel, i.e. a priori with a larger time-step and thus at a lower cost. Diffusion terms associated to dynamical (respectively bulk) viscosity are integrated with the slow (fast) kernel. The momentum equation (Equation \noparref{momsf}) can thus be rewritten in a compact, conservative form and in s-coordinates as:
 \begin{subequations}
 \begin{alignat}{3}
  \displaystyle
@@ -325,9 +303,9 @@ This splitting conserves basically the formulation of the horizontal momentum eq
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The time-splitting and time-stepping proposed in the following build both on \cite{shchepetkin_regional_2005} and on \cite{Auclair2018}.   \cite{shchepetkin_regional_2005}'s LFAM3\footnote{Leap-Frog Adams-Moulton 3 steps}, predictor-corrector time-stepping is indeed implemented in the slow kernel while a Forward-Backward (FB) scheme is used to integrate the fast-mode. The introduction of a compressible, non-hydrotatic kernel is taken from \cite{Auclair2018} and adapted to a two-mode implementation.
 
-Figure \ref{ModelTS} shows the predictor-corrector implementation of the slow and fast kernels based on ROMS barotropic/baroclinic time-splitting. Both the time-splitting and the various time-stepping are summarized in Equations \ref{TimeSplit}.
+Figure \noparref{ModelTS} shows the predictor-corrector implementation of the slow and fast kernels based on ROMS barotropic/baroclinic time-splitting. Both the time-splitting and the various time-stepping are summarized in Equations \noparref{TimeSplit}.
 
-Note that in these equations and in the following, to simplify notations and to be coherent with CROCO's variables, s (for "slow") and f (for "fast") subscripts are indicated for right-most variable only: $\rho h \mathbf{v}_s=\rho_s h_s \mathbf{v}_s$ and $\rho h \mathbf{v}_f=\rho_f h_f \mathbf{v}_f$. This means that $\rho h \mathbf{v}$, for example, is a CROCO variable. The decomposition of the density field into its fast and slow components is given by  \ref{decompor_f0}.
+Note that in these equations and in the following, to simplify notations and to be coherent with CROCO's variables, s (for "slow") and f (for "fast") subscripts are indicated for right-most variable only: $\rho h \mathbf{v}_s=\rho_s h_s \mathbf{v}_s$ and $\rho h \mathbf{v}_f=\rho_f h_f \mathbf{v}_f$. This means that $\rho h \mathbf{v}$, for example, is a CROCO variable. The decomposition of the density field into its fast and slow components is given by Equation \noparref{decompor_f0}.
 
 \begin{figure}[!h]
 	\centering		
@@ -465,34 +443,29 @@ Note that in these equations and in the following, to simplify notations and to 
 \end{alignat}
 \end{subequations}
 \end{table}
-Predictor (I), fast-kernel Forward-Backward (II) and Corrector (III) steps are shown in horizontal color bands on figure \ref{ModelTS} (yellow for the slow kernel, blue for the fast kernel). After time-interpolating slow-kernel variables to $t_s-\Delta t_s/2$ (step I.a, notation $[.]$), the slow kernel is advanced from $t_s-\Delta t_s/2$ to $t_s+\Delta t_s/2$ with a centered, leap-frog-like, time-stepping (step I.b). Then, to prepare the integration of the fast kernel, the slow-kernel RHS is extrapolated to $t_s+\Delta t_s/2$ based on an AB3 scheme using its previous evaluations at $t_s-2\Delta t_s$, $t_s-\Delta t_s$ and $t_s$ (step I.c, notation $[[.]]$). The fast kernel can in turn be advanced from $t_s$ to $t_s+\Delta t_s$ using a forward-backward like time-stepping (step II) with time-step $\Delta t_f$ satisfying  $N_f=\Delta t_s/\Delta t_f\in\mathcal{N}$. The vertical momentum equation can optionaly be integrated with semi-implicit scheme over the vertical direction.
+Predictor (I), fast-kernel Forward-Backward (II) and Corrector (III) steps are shown in horizontal color bands on Figure \noparref{ModelTS} (yellow for the slow kernel, blue for the fast kernel). After time-interpolating slow-kernel variables to $t_s-\Delta t_s/2$ (step I.a, notation $[.]$), the slow kernel is advanced from $t_s-\Delta t_s/2$ to $t_s+\Delta t_s/2$ with a centered, leap-frog-like, time-stepping (step I.b). Then, to prepare the integration of the fast kernel, the slow-kernel RHS is extrapolated to $t_s+\Delta t_s/2$ based on an AB3 scheme using its previous evaluations at $t_s-2\Delta t_s$, $t_s-\Delta t_s$ and $t_s$ (step I.c, notation $[[.]]$). The fast kernel can in turn be advanced from $t_s$ to $t_s+\Delta t_s$ using a forward-backward like time-stepping (step II) with time-step $\Delta t_f$ satisfying  $N_f=\Delta t_s/\Delta t_f\in\mathcal{N}$. The vertical momentum equation can optionally be integrated with semi-implicit scheme over the vertical direction.
 
-The vertical grid is updated at each fast time-step \ref{TimeSplitIIg} but slow-kernel components of the RHS remain constant during the fast-kernel integration. At the last fast time-step, surface elevation displacement for the slow kernel can be recomputed to ensure perfect numerical coherence between the surface kinematic relation and depth-integrated mass conservation (\noparref{TimeSplitIIa} and \noparref{TimeSplitIIh}).
+The vertical grid is updated at each fast time-step (Equation \noparref{TimeSplitIIg}) but slow-kernel components of the RHS remain constant during the fast-kernel integration. At the last fast time-step, surface elevation displacement for the slow kernel can be recomputed to ensure perfect numerical coherence between the surface kinematic relation and depth-integrated mass conservation (Equations \noparref{TimeSplitIIa} and \noparref{TimeSplitIIh}).
 
 Further numerical details such as the values of the interpolation $(\alpha_n)$ or extrapolation $(\beta_n)$ coefficients, the expressions of the slow-kernel RHS terms $(\Lambda_s)$, the expressions of the fast-kernel surface-related pressure force terms $(\Lambda_{f,-\nabla\zeta})$,  the fast-kernel RHS remaining terms $(\Lambda_{f})$ or the implicit fast and slow-kernel RHS terms (indicated by an asterisk) can be found in CROCO dedicated manuals and publications. 
-%The barotropic-like, depth-independent component is also integrated with the same time-step $\Delta t_f$ with a forward-backward scheme as in \cite{shchepetkin_regional_2005}. 
-A major difference with the hydrostatic time-splitting is that the surface elevation displacement is given by the kinematic condition \ref{TimeSplitIIa} and not by the depth-integral of the mass conservation equation. Once the fast-kernel RHS and variables have been filtered both at $t_s+\Delta t_s$ and $t_s+\Delta t_s/2$ (step III.a, notations $<.>$ and $\ll.\gg$), the slow kernel is finally advanced from $t$ to  $t_s+\Delta t_s$ during the leap-frog-like Corrector step (III.b). A star following the time-index superscript indicates the use of an implicit numerical schemes.
+A major difference with the hydrostatic time-splitting is that the surface elevation displacement is given by the kinematic condition (Equation \noparref{TimeSplitIIa}) and not by the depth-integral of the mass conservation equation. Once the fast-kernel RHS and variables have been filtered both at $t_s+\Delta t_s$ and $t_s+\Delta t_s/2$ (step III.a, notations $<.>$ and $\ll.\gg$), the slow kernel is finally advanced from $t$ to  $t_s+\Delta t_s$ during the leap-frog-like Corrector step (III.b). A star following the time-index superscript indicates the use of an implicit numerical schemes.
 
-Note that the 2D depth-averaged, barotropic-like, horizontal momentum equations (double over-bar notation) \ref{TimeSplitIIc} are advanced in the same way as in \cite{shchepetkin_regional_2005}. The result of this 2D integration is indeed used to correct both the horizontal momentum itself and the RHS of the horizontal momentum equation at Corrector step. It can also be used to require a perfect coherence of the surface elevation displacement and the depth-average transport (at machine precision) during the slow-mode integration.
+Note that the 2D depth-averaged, barotropic-like, horizontal momentum Equations \noparref{TimeSplitIIc} (double over-bar notation) are advanced in the same way as in \cite{shchepetkin_regional_2005}. The result of this 2D integration is indeed used to correct both the horizontal momentum itself and the RHS of the horizontal momentum equation at Corrector step. It can also be used to require a perfect coherence of the surface elevation displacement and the depth-average transport (at machine precision) during the slow-mode integration.
 
 
 \section{Conclusion, discussion of the \textit{ocean model}}
 In the present chapter, we proposed a rigorous framework (a "map") for our exploration of ocean \textit{fine scales} in the \textit{Terra Incognita}. An analytical, terrain-following s-coordinate model for the conservation of mass, momentum, heat and tracers has first been proposed under general assumptions of a compressible, free-surface ocean (\S \noparref{section_prim_eq}). 
 
-%An original derivation (to our knowledge) of the evolution of the potential energy of a free-surface column of fluid has been carried out.\\%FA%
-We then considered the numerical implementation of this general \textit{ocean model} (\S \noparref{section_croco}). After a consideration of the space-time scales potentially involved in fine scale ocean dynamics, an original time-splitting has been detailed as an extension of \cite{shchepetkin_regional_2005}'s barotropic/baroclinic time-splitting. It is also a restriction to a two-mode time-splitting of \cite{Auclair2018}'s three-mode time-splitting. This time-splitting allows the integration of both acoustic and surface-induced processes with a smaller time-step in order to make the integration of a compressible, free-surface realistic ocean affordable. It is based on the spectral gaps identified in \ref{velocityscales} between acoustic, surface and internal processes.
+We then considered the numerical implementation of this general \textit{ocean model} (\S \noparref{section_croco}). After a consideration of the space-time scales potentially involved in fine scale ocean dynamics, an original time-splitting has been detailed as an extension of \cite{shchepetkin_regional_2005}'s barotropic/baroclinic time-splitting. It is also a restriction to a two-mode time-splitting of \cite{Auclair2018}'s three-mode time-splitting. This time-splitting allows the integration of both acoustic and surface-induced processes with a smaller time-step in order to make the integration of a compressible, free-surface realistic ocean affordable. It is based on the spectral gaps identified in Equation \noparref{velocityscales} between acoustic, surface and internal processes.
 
-The region of the Strait of Gibraltar has been chosen as the region of demonstration for fine-scale dynamics in CROCO. As a consequence, the LES configurations presented in chapters \ref{chapGBR2D}, \ref{chapGBR3D} and \ref{chapBPE} are not only based on the two-mode CROCO kernel of section \ref{section_croco}; these configurations have indeed been part of the development process itself. 
-%The investigation of mixing in real-ocean conditions proposed in chapter \ref{chapBPE} takes roots in the general evolution equation of potential energy proposed in (\S \noparref{section_prim_eq}).
+The region of the Strait of Gibraltar has been chosen as the region of demonstration for fine-scale dynamics in CROCO. As a consequence, the LES configurations presented in Chapters \noparref{chapGBR2D}, \noparref{chapGBR3D} and \noparref{chapBPE} are not only based on the two-mode CROCO kernel of Section \noparref{section_croco}; these configurations have indeed been part of the development process itself. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Appendices to the \textit{ocean model}}
 \label{annexe_ocmod}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{$s$-coordinate transformation}
 \label{section_annexe2}
@@ -710,7 +683,7 @@ note finally that the conservation of mass $A=1$ can then be rewritten:
   +\frac{\partial \rho  v_s}{\partial s}\bigg\rvert_{tx}
 \end{equation}
 
-Additionnally, the evolution of $\rho$ in equation \ref{eq_diff_cart} can be rewritten in s-coordinates as:
+Additionally, the evolution of $\rho$ in Equation \noparref{eq_diff_cart} can be rewritten in s-coordinates as:
 \begin{equation}
 \label{eq_diff_s}
 \displaystyle
