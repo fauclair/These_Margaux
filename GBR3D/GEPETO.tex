@@ -188,28 +188,25 @@ Several improvements shall be made in a future study and \color{red}are already 
 
 The choice is made to analyze the flow in the Strait of Gibraltar as a two-layer exchange flow based on salinity. 
 
-The salinity value attributed to the interface however could evolve in the Strait. In a first step, profiles of salinity in the three simulations are fitted to hyperbolic tangent formulations following \citet{sannino_2007} that used this fitted profile to define an interface layer of finite thickness. However, contrary to \citet{sannino_2007} that used this definition to consider the interface as a distinct third layer in the flow, here only the median value of the hyperbolic tangent profile is taken as salinity of the interface delineating between Atlantic and Mediterranean waters.
+To determine this salinity, firstly profiles of salinity in the three simulations are fitted to hyperbolic tangent formulations following \citet{sannino_2007}. However, contrary to \citet{sannino_2007} that used this definition to consider the interface as a distinct third layer of finite thickness with its own dynamic, here only the median value of the hyperbolic tangent profile is taken as salinity of the interface between Atlantic and Mediterranean waters. 
+
+%The salinity value attributed to the interface however could evolve in the Strait. In a first step, profiles of salinity in the three simulations are fitted to hyperbolic tangent formulations following \citet{sannino_2007} that used this fitted profile to define an interface layer of finite thickness. However, contrary to \citet{sannino_2007} that used this definition to consider the interface as a distinct third layer in the flow, here only the median value of the hyperbolic tangent profile is taken as salinity of the interface delineating between Atlantic and Mediterranean waters.
 
 Profiles are analyzed for all three simulations at sections of constant longitude and for various timesteps in the tidal cycle, thus giving both time and spacial variation in this salinity value.
 
-However, the choice is made to only retain a longitudinal variation for the definition of the salinity and so for each longitudinal section in each simulation, a value is averaged that is presented in Figure \noparref{fig_defintf}. On this figure is also plotted the curve of equation :
-
+However, the choice is made to only retain a longitudinal variation for the definition of the interfacial salinity and so for each longitudinal section in each simulation, a value is averaged in time and latitude that is presented in Figure \noparref{fig_defintf}. On this figure is also plotted the finally chosen expression for the value of the salinity interface in the Strait of Gibraltar that reflects the asymmetry with respect to Camarinal Sill:
 \begin{equation}
-	S_i(l)=tanh(\frac{l-L_{CS}}{dl})\frac{S_M-S_m}{2}+\frac{S_M+S_m}{2}
+	S_I(l)=tanh(\frac{l-L_{CS}}{dl})\frac{S_M-S_m}{2}+\frac{S_M+S_m}{2}
 	\label{eqSinterface}
 \end{equation}
 with $L_{CS}=5.75^o$, $dl=0.25^o$, the location and width of the Camarinal Sill in degrees, $S_M=37.39$ and $S_m=37.1$ the max and minimum interface values taken respectively east and west of the sill.
 
-that reflects the asymmetry with respect to Camarinal Sill.
-
-
 \begin{figure}[!h]
  \centering
  \includegraphics[width=0.6\textwidth]{./GBR3D/salinite_interface_papier.png}
- \caption [......]{.....}
+ \caption [Value of salinity of the interface between Atlantic and Mediterranean waters]{Value of salinity of the interface between Atlantic and Mediterranean waters from either average of the median values of fitted hyperbolic tangent profiles in simulations SimNT (blue circles), SimIT (green diamonds) and SimST (red squares) at various longitude, or the curve of equation $S_I(l)$ (black line, see text).}
  \label{fig_defintf}
 \end{figure}
-
 
 This definition is applied online in simulation to define layers, compute average velocity and Froude number and reduce variables outputs.
 \color{black}
