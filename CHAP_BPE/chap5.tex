@@ -597,7 +597,7 @@ The initial field is a two-layer stratification  $\Delta \rho\  =\ 2.5\ kg/m^3$ 
 
 Two unstable billows develop over the domain during the simulated period, as shown by the evolution of the density field after $t = 200\ s,\ 400\ s,\ 600\ s$ and $800\ s$ in Figures \noparref{figCkh}.A1 to A4.
 
-Figure \noparref{figCkh}.B gives the evolution of the reference profile at the same times. Figures \noparref{figCkh}.C, D and F in the lower row provide the various terms involved in the BPE balance equation \noparref{bilanBPEal}.
+Figure \noparref{figCkh}.B gives the evolution of the reference profile at the same times. Figures \noparref{figCkh}.C, D and E in the lower row provide the various terms involved in the BPE balance equation \noparref{bilanBPEal}.
 
 The surface-induced $\phi_{\zeta}$ term remains small in the balance, and here the evolution of BPE is mostly due to the diapycnal fluxes $\phi_D$. The effective diffusivity $\kappa_{eff}$ indeed increases significantly after 200 s as the Kelvin-Helmholtz instability and its associated billows develop. It reaches a maximal value after $t=600 s$ which coincides with the maximum amplitude of the diapycnal term $\phi_D$ along with the development of secondary instabilities as depicted in Figure \noparref{figCkh}.A3.
 Once the Kelvin-Helmholtz instability has mixed the density field, the reference profile at $t=800s$ (in purple in Figure \noparref{figCkh}.B) exhibits an intermediate homogeneous layer located between $z^*\ =\ 110\ m$ and $z^*\ =\ 140\ m$, which coincides with a decrease of the effective diffusivity $\kappa_{eff}$.
@@ -614,7 +614,7 @@ The induced mixing in the vertical section of the Strait of Gibraltar is finally
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./CHAP_BPE/Fig_Kappa_CS_colOut.png}
-\caption[Evaluation of $\kappa_{eff}$ in different sub-domains of SimRef]{Evaluation of the time evolution of the terms of the balance equation \noparref{bilanBPEal} in each domain of SimRef as defined in Figure \noparref{figCgbr2d_ex}.A1. Upper row is $dBPE/dt$, second row is $\phi_{\zeta}$ (blue) and $F_a$ (red), third row is $\phi_D$, bottom row is the evaluated $\kappa_{eff}$. Grey shaded areas delineate periods of inflow\color{red}(Ucs$>$0)\color{black}.}
+\caption[Evaluation of $\kappa_{eff}$ in different sub-domains of SimRef]{Evaluation of the time evolution of the terms of the balance equation \noparref{bilanBPEal} in each domain of SimRef as defined in Figure \noparref{figCgbr2d_ex}.A1. Upper row is the time derivative of $BPE$, second row is $\phi_{\zeta}$ (blue) and $F_a$ (red), third row is $\phi_D$, bottom row is the evaluated $\kappa_{eff}$. Grey shaded areas delineate periods of inflow\color{red}(Ucs$>$0)\color{black}.}
 \label{figCgbr2d}
 \end{figure}
 The initial time $(t\ =\ 0\ s)$ is now chosen for simulation time $t_{SimRef}\ =\ 6.29\ T$, i.e. at the beginning of the first outflow following the spin-up period so that the algorithm is applied to four tidal cycles of $T\ =\ 12.4\ h$.
@@ -655,7 +655,7 @@ Due to this different dynamics of consecutive outflows, there are still importan
 A complete analysis of the Background Potential Energy (BPE) evolution equation has been carried out in several test-configurations of increasing complexity, ending with an application to the real ocean in the region of the strait of Gibraltar. This analysis is based on original analytical developments (to our knowledge at least) to derive an as-complete-as-possible evolution equation of BPE for free-surface water columns (\S \noparref{section_PE_chap2}). Original developments have also been proposed to evaluate numerically this evolution in non-flat regions of the ocean simulated with terrain-following, s-coordinate numerical models. The efficiency of the proposed implementation of the BPE algorithm remains affordable in terms of computing costs and memory storage for the hierarchy of configurations proposed, but new approaches need to be implemented to compute the reference state \citep{saenz_estimating_2015} for 3D LES of more extended regions.
 
 In a free-surface domain with opened lateral boundaries, advection and motion of the free surface make $PE_B=\iiint_V \rho g z^* d\tau$ evolve with the reorganisation of the mass field (through $F_a$) and with the change of the water-column volume (through $\phi_{\zeta}$). In most studied configurations, those two terms are of the same order of magnitude and are the largest contributions to $dPE_B/dt$. The fluxes associated to the effective diffusivity $\kappa_{eff}$ are found to complete the balance and the effective diffusivity reflects (or at least should reflect) diapycnal mixing: it quantifies the averaged turbulent mixing occurring over the domain of integration (a sum of water columns). 
-This averaging effect is in part due to the choice of an homogeneous value of $\kappa_{eff}$ over the selected domain. 
+This averaging effect is in part due to the choice of a homogeneous value of $\kappa_{eff}$ over the selected domain. 
 
 Several assumptions could additionally be reconsidered or at least evaluated with care.
 
