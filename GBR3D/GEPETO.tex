@@ -62,11 +62,11 @@ The in-situ time period covers one (for ship-based instruments and ADCP moorings
 
 Figures \noparref{fig_moor}.B1 and B2 present the $\theta-S$ diagrams from ship-based water column sampling. For both figures, each color refers to a different sampling station indicated in Figure \noparref{fig_moor}.A1.
 
-On the west end of the strait (Figure B1), no Mediterranean water was sampled at the southernmost station and a well-mixed signal could be identified at the northernmost station, delimiting the path of the Mediterranean outflow between 35.7$^{\text{o}}$ and 36$^{\text{o}}$ N. Among the signals of Mediterranean outflow waters, the two northernmost stations that reach depths shallower than 400 m (orange and yellow) show an enhanced mixing with NACW.
+On the west end of the strait (Figure \noparref{fig_moor}.B1), no Mediterranean water was sampled at the southernmost station and a well-mixed signal could be identified at the northernmost station, delimiting the path of the Mediterranean outflow between 35.7$^{\text{o}}$ and 36$^{\text{o}}$ N. Among the signals of Mediterranean outflow waters, the two northernmost stations that reach depths shallower than 400 m (orange and yellow) show an enhanced mixing with NACW.
 
-On the east end of the Strait (figure (B2)), WMDW can be found at depth for all stations except the northernmost (yellow). For the next two stations south of the latter, as well as the two southernmost stations, WMDW is mixed with intermediate waters. 
+On the east end of the Strait (Figure \noparref{fig_moor}.B2), WMDW can be found at depth for all stations except the northernmost (yellow). For the next two stations south of the latter, as well as the two southernmost stations, WMDW is mixed with intermediate waters. 
 
-The five northernmost stations' surface waters are fresher waters than the SAW signal at the rest of the stations. This could be due to the northern stations being affected by the upwelling from the Iberian coast. The intermediate Mediterranean waters sampled at these stations are also warmer and saltier compared to the signal of the remaining four, which is interpreted as LIW.
+The five northernmost stations' surface waters have signal of lower temperature than the SAW signal at the rest of the stations. This could be due to the northern stations being affected by the upwelling from the Iberian coast. The intermediate Mediterranean waters sampled at these stations are also warmer and saltier compared to the signal of the remaining four, which is interpreted as LIW.
 
 
 \subsection{Solitary waves at Mo4 and Mo5 mooring and currents over CS at Mo2 mooring}
@@ -150,7 +150,7 @@ So although it appears here that two cases are distinct (the S case following an
 
 The classification of the previous section is applied to signals at Mo4 and Mo5 mooring following each outflow of the first observation period and is marked as annotations in Figure \noparref{fig_moor_US3}.B.
 
-A pattern emerges linking outflow type and strength of the averaged currents at CS. The beginning of the period corresponds to the neap-tide part of the fortnightly cycle, and either (L) or (o) type of outflows are detected, with no hydraulic jump at CS. The first solitary wave is observed at Mo4 and Mo5 mooring the 12/10/2020. Due to the diurnal variation of the M2 tide, the tidal flow over the following period is weaker (less than 1 m/s) and the signal at Mo4 and Mo5 moorings is an (o) case.
+A pattern emerges linking outflow type and strength of the averaged currents at CS. The beginning of the period corresponds to the neap-tide part of the fortnightly cycle, and either (L) or (o) type of outflows are detected, with no hydraulic jump at CS. The first solitary wave is observed at Mo4 and Mo5 mooring the 12/10/2020. Due to the diurnal variation of semidiurnal flow, the tidal flow over the following period is weaker (less than 1 m/s) and the signal at Mo4 and Mo5 moorings is an (o) case.
 
 Except for one specific (B) case (14/10/2020), during the remainder of the period, trains of ISWs (with either a S or 2S structure) are propagating through Mo4 and Mo5 mooring. The stronger outflows lead to (2S) signals in agreement with the numerical simulations presented in Section \noparref{sectionSim3D}. Under especially strong outflows, the internal hydraulic jump generated over CS is swept downstream as a w-jump, resulting in an initially increased distance between the eastern and western jumps. This distance may not be overcome as quickly upon release of the hydraulic jump as in the s-jump case. This explains the distinction between S and 2S cases, however as explained previously, for some outflows, the distinction between the two may remain subjective.
 
@@ -176,13 +176,13 @@ Concerning the signal associated to "L" structures, the presence of the hydrauli
 
 Looking at the barotropic currents observed at the Mo2 mooring, there is a pattern linking the amplitude of the tide to the signal observed at the Mo4 and Mo5 moorings. Indeed there seems to be a threshold over which hydraulic jumps and solitary waves can be observed. The reproduction of this threshold in numerical simulations of the strait of Gibraltar is expected to be complex. Even in high-resolution regional modelling such as in Section \noparref{sectionSim3D}, the transition between regimes with or without hydraulic jumps depends greatly to the numerical configuration. The quality and realism of the simulated stratification, for example, play a crucial role in controlling the "criticality" of the atlantic-mediterranean exchange flow and consequently in setting the date of appearance of the hydraulic jump. The quality of the water masses simulated numerically can obviously depend greatly on the quality of the atmospheric and large-scale forcing, knowing that the former has been neglected in the present configurations. Other important physical factors are the high-sensitivity to the quality of the high-resolution bathymetric data and to the tidal forcing.
 
-Several improvements shall be made in a future study and \color{red}are already been (????non?????)\color{black} evaluated: 
+Several improvements shall be studied in the future : 
 \begin{itemize}
 \item Atmospheric fluxes are specified at the surface of the ocean.  This provides a better representation of the stratification in the upper surface and has important consequences on the characteristics of the pycnocline and thus on the characteristics of the internal waves, bores and solitons.
 \item The high-resolution dynamics in the strait of Gibraltar can now be explicitly simulated by downscaling the regional circulation (from the Gulf of Cadix to midway of the Alboran Sea). A three-step embedding has already been carried out using AGRIF library from 900-m to 60-m resolution simulations through a 180-m resolution implementation.
 \end{itemize}
  
- \color{red}
+
 \section{Appendix : Interface determination between Atlantic and Mediterranean waters}
 \label{appendix_interface}
 
@@ -209,7 +209,51 @@ with $L_{CS}=5.75^o$, $dl=0.25^o$, the location and width of the Camarinal Sill 
 \end{figure}
 
 This definition is applied online in simulation to define the Atlantic and Mediterranean layers, compute average velocity and Froude number, and reduce variables outputs.
+
+\color{red}
+\section{Discussion of diagnosis for supercritical flow and position of hydraulic jump}
+\label{appendix_compdiag}
+
+\begin{figure}[!h]
+ \centering
+ \includegraphics[width=1\textwidth]{./GBR3D/Comp_Diags_corrC1.png}
+ \caption [Comparison in vertical sections at Camarinal Sill of several diagnosis]{(A1 to A3) Comparison in vertical sections at Camarinal Sill of several diagnosis for $t=23$, $24$ and $25$ hours in SimST. Zonal velocity in the section (colorbar), with isohalines in thin dashed lines and the interface as defined in Appendix \noparref{appendix_interface} in thick black line. The green shaded area denotes the grid points for which $F_2 \geq 1$ (see text). On the upper (lower) boundary of each figures, red (cyan) denotes $F_1^{Atl} \geq 1$ ($F_1^{Med} \geq 1$) (see text). Horizontal thick dashed lines indicate the hydraulic jump position diagnosis. (B) baroclinic velocity $c_1$ (plain lines) and mode-1 internal wave velocity $c_2$ (dashed lines) computed for each vertical section. (C1 to C3) Extension of areas of $F_1^{Med} \geq 1$ (cyan) and $F_1^{Atl} \geq 1$ (red), as well as detection of the hydraulic jump (black dots) in the area of Camarinal Sill for each instant of vertical sections A1 to A3 (section location in dashed line). }
+ \label{fig_compdiags}
+\end{figure}
+
+Figure \noparref{fig_compdiags}.A1 to A3 present vertical sections at Camarinal Sill, several diagnosis are highlighted. In particular, the depth of the interface as defined in Appendix \noparref{appendix_interface} is presented at different moments of the outflow of SimST. As well are indicated the first two diagnosis of Section \noparref{PartDiag3D}:
+\begin{itemize}
+    \item The areas for which the flow in the Mediterranean or Atlantic layer as defined by the above-mentioned interface is supercritical ($F_1^{Atl,Med} \geq 1$).
+    \item The position of the hydraulic jump due to the jump in velocity in each layer is evaluated.
+\end{itemize}
+ Another quantity is represented as green areas. Those areas denote local supercritical flows at model's grid points with a Froude number larger than 1 $(F_2 \geq 1)$ that is defined in a different manner than in Section \noparref{PartDiag3D}.%, where the layer Froude number $F_1^{Atl,Med}$ was computed as the ratio between the mean velocity in a given layer as defined by the interface to the two layer celerity(reprendre terme). 
+ This new Froude number is given by 
+\begin{equation}
+F_2=\frac{\lvert \mathbf{u_h} \rvert}{c_2}
+\end{equation}
+
+\noindent with $\lvert \mathbf{u_h} \rvert=\sqrt{u^2+v^2}$ the norm of the horizontal velocity at each grid point and $c_2$ an evaluation of the phase speed of the first mode for linear internal wave. This evaluation is carried out by making the approximation for all water columns of a flat-bottom and linear stratification in order to solve numerically the Sturm-Liouville problem associated with the linear propagation equation \citep{gill_atmosphere-ocean_1982}:
+\begin{equation}
+ W_n'' + k^2 \frac{N^2 - \omega^2}{\omega ^2 - f^2}W_n = 0
+\end{equation}
+for $n=1$ with bottom and surface boundary conditions $W_n(0) = 0$ and $W_n(-H) = 0$. $\omega$ is the wave frequency, here the M2-tidal frequency, and the value of N is taken as the average value over the water column: $c_2=\omega / k_1 $ (this method was already used in Chapter \noparref{chapGBR2D}).
+
+Figures A1 to A3 and the corresponding Figures C1 to C3 depict the development of the hydraulic jump (\textit{w-jump}) in the spring tide configuration SimST. Figures A1 to A3 are vertical sections orthogonal to the Camarinal Sill that show the flow of Mediterranean Waters under Atlantic waters. The evolution of the criticality of the flow as the tidal variation of the currents strengthen the westward flow can be analyzed, with a comparison between results given by the evaluation of the two Froude numbers $F_1$ and $F_2$. 
+
+In Figure A1, the Mediterranean waters flow on the western side of the sill as a supercritical gravity current while a hydraulic jump is being formed over a shallower section of the Camarinal sill at 5.755$^{o}$W. The supercriticality of the Mediterranean waters on the west slope of the sill extends further in $F_2$ than $F_1^{Med}$ since the latter averages on a layer defined by an interface which is higher in the water column than the shear front of the density current. The detection of the hydraulic jump is close to a noticeable drop of the interface's depth. East of this point there is a bit of overlap between areas of $F_1^{Med} \geq 1$ and $F_1^{Atl} \geq 1$. The area of $F_2 \geq 1$ in the Mediterranean layer can be found downstream whereas the same supercritical region for the Atlantic layer can be found upstream of the drop in the interface's depth.
+
+In Figure A2, one hour later, the position of the hydraulic jump has evolved and moved further west at 5.76$^o$W. The area of supercritical flow has extended east of this point, both for the Mediterranean and the Atlantic layers as the interface is shoaling upflow of the jump. A second hydraulic jump is detected around 5.73$^o$W, associated with the transition to subcritical flow of Atlantic layer and a near vertical drop of the interface. This drop was already present in Figure A1 but with a smaller amplitude and only associated with a non extensive area of $F^{Med}_1 \geq 1$ and $F_2 \geq 1$ near the bottom of the water column.% that extends higher in Figure A2.
+
+At $t=25h$ in Figure A3, the westward current is maximal. Extensive area for supercritical flow according to $F_1^{Med,Atl}$. In the evaluation of $F_2$, the flow is supercritical in the whole water column over an area that extends from 5.77$^o$W to 5.74$^o$W. East of this area, there is extended supercrical flow in the bottom layer, that reaches the interface in the area of the second hydraulic jump. The first hydraulic jump is not detected anymore by the relevant diagnosis while it has fused with the gravity current on the west slope of the sill. Looking at Figure C3 however, this is the case for an area around the section but the detection of the hydraulic jump still occurs at other latitudes.
+
+In Figure B are indicated the theoretical speeds of internal waves, either as the baroclinic speed $c_1$ or the speed of the first mode waves $c_2$ for each time of the section. The evaluation of $c_1$ is always smaller than that of $c_2$. While $c_1$ is compared to the averaged speed in a layer in the definition of $F_1^{Med,Atl}$ assumed here, $c_2$ is compared to local flow at the grid point to define $F_2$. With $c_2>c_1$, if $c_2$ was compared to the average flow in either the Mediterranean or Atlantic layer, the regions of supercritical flow detected in this way would be less extended than the ones seen in Figures C1 to C3.% where $F_2 \geq 1$ is not true for the whole layer.
+However, in general in Figures A1 to A3, the region where $F_1^{Med,Atl} \geq 1$ corresponds to $F_2 \geq 1$ being true through a good vertical extension for the relevant layer, despite the evaluations of internal waves they are based on being dissimilar (those evaluations are as well made based on theoretical developments for cases far from the complex bathymetry and stratification found here. There is as well some coherence with the results of the hydraulic jump detection criteria, despite the latter does not take into account the interface depth and relying on arbitrary parameters so that its efficiency is sensitive to the complex evolutions of the flow.
+
+All those diagnosis, though rudimentary, are complementary, and allow to have an idea of the evolution of the flow conditions at Camarinal Sill. In the first instants of the apparition of the hydraulic jump as an interface depth discontinuity, the transition of the Atlantic layer from west to east (i.e. alongflow), from supercritical to subcritical  over the shallowest part of the sill is mirrored in the bottom Mediterranean layer by a transition from subcritical to supercritical flow associated with the gravity current on the western slope of the sill. Those two transitions coincide with the detection of a hydraulic jump. But as the latter remains while currents strengthen, its position seems to correlate with the transition from supercritical to subcritical in the Atlantic layer as the flow of Mediterranean waters becomes supercritical over a larger area. This extension of supercritical flow of Mediterranean waters to a secondary seamount on the east slope of Camarinal Sill, linked with the shoaling of the Atlantic layer that extends the area of supercritical Atlantic flow, also gives rise to another hydraulic jump at this location.
+
+
 \color{black}
+
 
 \section{Appendix : Singular Value Decomposition (SVD)}
 \label{annexeSVD}
