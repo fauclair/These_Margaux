@@ -154,7 +154,7 @@ where $\vec{v}=(u,v,w)$ is the velocity, $p$ the total pressure, $\zeta$ the fre
  %----------------------------------------------------------------------------  
  \subsubsection{Density and Pressure Decomposition}
  %----------------------------------------------------------------------------
-\indent As part of the time-splitting, the density is splitted into one slow and one fast component based on a first-order decomposition with respect to the total pressure. In the following, $s$ and $f$ subscripts refer to these slow and fast components respectively\footnote{\color{red}$\rho_0$ is a reference density\color{black}}.\\
+\indent As part of the time-splitting, the density is splitted into one slow and one fast component based on a first-order decomposition with respect to the total pressure. In the following, $s$ and $f$ subscripts refer to these slow and fast components respectively\footnote{$\rho_0$ is a reference density that will be specified later on.}.\\
 
 \begin{eqnarray}
    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -242,7 +242,7 @@ The general, compressible Equations set \noparref{NBQsyst} can basically propaga
 
 Simulations are performed with 50m and 220m horizontal resolutions. The bathymetry used in the simulations is averaged laterally to limit the unrealistic effect of local seamounts in the transverse direction such as those found in TN (which can end up acting as another sill in a 2D vertical section). To that end, a Gaussian interpolation of the bathymetry along the section in Figure \noparref{Fig1}.a is used with a greater Gaussian radius in the transverse direction than in the longitudinal direction. The Gaussian radius in the transverse direction is set to 1500 m (i.e. lower than the width of the strait in Figure \noparref{Fig1}.b). As a consequence, the bathymetry only reflects the deepest areas in the canal. In the longitudinal direction, the Gaussian interpolation radius is set to 300 m to preserve the bathymetry variability in this direction.
 
-\footnotetext{\color{red}ie. teh distance along the meridional direction between two isobathes of equal depth\color{black}}
+\footnotetext{in other words, the distance along the meridional direction between two isobaths of equal depth.}
 
 The minimum depth thus assessed at Camarinal Sill (i.e. the main sill in the Strait), along the transect's path goes from the value of approximately 200 m to 245 m. The model bathymetry used is the one shown in Figure \noparref{scheme_GBR}. A reference simulation (hereafter named \textbf{SimRef}) is carried out at 50-m horizontal resolution with additional characteristics and parameters listed in Table \noparref{tabsimref}.
 

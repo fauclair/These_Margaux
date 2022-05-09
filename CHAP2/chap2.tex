@@ -30,7 +30,7 @@ Conservation of mass, conservation of momentum (Newton's second law of motion), 
  \label{NS_b}
  & \frac{\partial \rho \mathbf{v}}{\partial t} 
 	 &&= -\mathbf{\nabla}\cdot(\rho \mathbf{v}\otimes \mathbf{v}) 
-	  \color{black} -2\rho\ \mathbf{\Omega}\ \times \ \mathbf{v} \color{black} -\mathbf{\nabla}p + 		
+	   -2\rho\ \mathbf{\Omega}\ \times \ \mathbf{v} -\mathbf{\nabla}p +
 	\mathbf{\nabla}\cdot\left(
 	\mu(\mathbf{\nabla}\mathbf{v}+\mathbf{\nabla}\mathbf{v}^{\ T})
  +\mu_2(\mathbf{\nabla}\cdot\mathbf{v})\ \mathbf{I}\ \right)
@@ -38,11 +38,11 @@ Conservation of mass, conservation of momentum (Newton's second law of motion), 
  %
  \label{NS_c}
  & \frac{\partial \rho \theta}{\partial t} &&=-\mathbf{\nabla}\cdot(\rho \theta\mathbf{v})
- +\mathbf{\nabla}\cdot\color{black}(\kappa_\theta\mathbf{\nabla}{\theta})\color{black}\\[3mm]
+ +\mathbf{\nabla}\cdot(\kappa_\theta\mathbf{\nabla}{\theta})\\[3mm]
  %
  \label{NS_d}
  & \frac{\partial \rho S}{\partial t} &&=-\mathbf{\nabla}\cdot(\rho S\mathbf{v})
- +\mathbf{\nabla}\cdot\color{black}(\kappa_S\mathbf{\nabla}{S})\color{black}
+ +\mathbf{\nabla}\cdot(\kappa_S\mathbf{\nabla}{S})
  %
   \end{alignat}
 \end{subequations}
@@ -61,7 +61,7 @@ The position of the interface separating the ocean and the atmosphere must addit
   %\frac{\textrm{d}\zeta(\mathbf{x}_{\scriptscriptstyle H},t)}{\textrm{dt}}=w(\mathbf{x}_{\scriptscriptstyle H},z=\zeta)
   \frac{\partial \zeta}{\partial t}=w(\mathbf{x}_{\scriptscriptstyle H},z=\zeta)-\mathbf{v}_H(\mathbf{x}_{\scriptscriptstyle H},z=\zeta)\cdot\mathbf{\nabla}_H\zeta
 \end{equation}
-where $\zeta$ is the free-surface anomaly in the vicinity of the geoid and subscribe $H$ indicates that only the horizontal component is considered. Assuming then \color{red}no-slip condition and \color{black}that ocean water cannot penetrate the ocean bottom (at depth $z=-H$):
+where $\zeta$ is the free-surface anomaly in the vicinity of the geoid and subscribe $H$ indicates that only the horizontal component is considered. Assuming then no-slip condition and that ocean water cannot penetrate the ocean bottom (at depth $z=-H$):
 \begin{equation}
  \displaystyle
  \label{NS_BC0}
@@ -78,14 +78,14 @@ The resulting system of prognostic equations, diagnostic relations and boundary 
 
 Formulated thus, the system of Navier-Stokes and conservation equations for a free-surface ocean can, at least in theory, be integrated straightforwardly. All variables but the pressure have their own prognostic equation and pressure can be diagnosed from the equation of state \noparref{NS_e}. Note that the system can be reformulated so that pressure is also given by a prognostic equation.
 
-\subsubsection{Evolution of the density field}
-For a linear approximation of the equation of state, a simple evolution equation of $\rho$ can be obtained as a combination of Equations \noparref{NS_c} and \noparref{NS_d} leading to:\color{red} (eq utilisée pour développement BPE (et ailleurs?) XC : incompressible faut le complet... (mettre els deux) (combinaison des deux équations faut le mettre complet))\color{black}
+\subsubsection{Evolution of the density field for a Boussinesq fluid}
+For a linear approximation of the equation of state used in a Boussinesq framework (incompressible fluid), a simple evolution equation of $\rho$ can be obtained as a combination of Equations \noparref{NS_c} and \noparref{NS_d} leading to:
 \begin{equation}
 \displaystyle
 \frac{d \rho}{d t}=
 %\frac{\partial}{\partial x} \bigg(\kappa_\rho^h \frac{\partial \rho}{\partial x}\bigg\rvert_{tz}\bigg)_{tz}
 %+ \frac{\partial}{\partial z} \bigg( \kappa \frac{\partial \rho}{\partial z}\bigg\rvert_{tx}\bigg)_{tx} 
- \mathbf{\nabla}\cdot\color{black}(\kappa_{\rho} \mathbf{\nabla}{\rho})
+ \mathbf{\nabla}\cdot(\kappa_{\rho} \mathbf{\nabla}{\rho})
 \label{eq_diff_cart}
 \end{equation}
 where $\kappa_{\rho}$ is the equivalent diffusivity of density.
@@ -222,7 +222,7 @@ Numerical constraints relative to the various transfers of anomalies can basical
 \end{equation} 
 This hierarchy of velocity scales (and thus timescales for a fixed grid-scale) and the associated gaps constitute the basis to develop time-splitting approaches for numerical models of the ocean.
 Under free-surface, Boussinesq and hydrostatic assumptions, the time-splitting procedure implemented in ROMS model \citep{shchepetkin_regional_2005} filters for instance acoustic and non-hydrostatic processes and takes advantage of the gap $v[p_{int},\ ...] \ll v[p_\zeta]$. It can be formulated as a decomposition of the pressure between a 2D surface-induced pressure-component (named external or barotropic-like component) $\bar{p}_h(\mathbf{x},t)$ and a 3D density-induced (internal or baroclinic-like) pressure-component $p_h'(\mathbf{x},t)$. 
-The time-splitting approach for a more general free-surface, non-hydrostatic and compressible ocean can also be based on \color{red}the ranking of Equation\color{black} \noparref{velocityscales}. The procedure is yet different from that used for hydrostatic ocean models. In the latter, coupling is based on the separation of the velocity field between a barotropic-like, depth-averaged component and a baroclinic-like anomaly. The faster, surface-induced component of the pressure force is integrated with a small time-step and after each integration sequence of the external mode, the depth-averaged component of the internal-mode velocity is forced to fit to the external-mode, depth-averaged velocity. Separating the "fast" and "slow" components of momentum in a compressible model to integrate them separately is not that simple and more importantly, it is not even necessary. The time-splitting procedure proposed in CROCO compressible kernel is indeed based on the splitting of the terms on the Right-Hand-Side (hereafter RHS) of the prognostic and diagnostic equations of the ocean model. Two coupled models (hereafter called the slow and fast numerical kernels) are then integrated in turn. The slow (respectively fast) kernel is advanced with a large (small) time-step computing explicitly slowly-varying (rapidly-varying) terms at the RHS and implicitly the remaining terms. A time-filtering procedure is additionally implemented to force both the slow and fast mode in a similar way as \citet{shchepetkin_regional_2005}.
+The time-splitting approach for a more general free-surface, non-hydrostatic and compressible ocean can also be based on the ranking of Equation \noparref{velocityscales}. The procedure is yet different from that used for hydrostatic ocean models. In the latter, coupling is based on the separation of the velocity field between a barotropic-like, depth-averaged component and a baroclinic-like anomaly. The faster, surface-induced component of the pressure force is integrated with a small time-step and after each integration sequence of the external mode, the depth-averaged component of the internal-mode velocity is forced to fit to the external-mode, depth-averaged velocity. Separating the "fast" and "slow" components of momentum in a compressible model to integrate them separately is not that simple and more importantly, it is not even necessary. The time-splitting procedure proposed in CROCO compressible kernel is indeed based on the splitting of the terms on the Right-Hand-Side (hereafter RHS) of the prognostic and diagnostic equations of the ocean model. Two coupled models (hereafter called the slow and fast numerical kernels) are then integrated in turn. The slow (respectively fast) kernel is advanced with a large (small) time-step computing explicitly slowly-varying (rapidly-varying) terms at the RHS and implicitly the remaining terms. A time-filtering procedure is additionally implemented to force both the slow and fast mode in a similar way as \citet{shchepetkin_regional_2005}.
 
 \subsubsection{Pressure and density decomposition}
 The splitting of the processes based on the magnitude of their time-scale relies essentially on a decomposition of the pressure and density fields. Following \cite{auclair_modied_2021}, the pressure decomposition in Equation \noparref{decompoP_0} can be further developed for a free-surface ocean:
@@ -295,7 +295,7 @@ Note that the Coriolis pseudo-force is itself splitted: the traditional componen
  &\partial_t\rho_f h_f\mathbf{v}_f &&=\ [[\Lambda_s]]   &&+\quad\Lambda_f
 \end{alignat}
 \end{subequations}
-This splitting conserves basically the formulation of the horizontal momentum equations proposed in \cite{shchepetkin_regional_2005}: the length-scales of the processes and the fast-mode forcing are yet obviously different but the filtering procedure $\ll.\gg$ is the "flat" filter proposed by \cite{shchepetkin_regional_2005}\color{red}in figure 15? (reformuler la phrase pour plus claire????)\color{black}. $[[.]]$ notation indicates the extrapolation in time of the slow-kernel terms to be used at the fast-kernel RHS (see \S \noparref{TimeSplit}).\\
+This splitting conserves basically the formulation of the horizontal momentum equations proposed in \cite{shchepetkin_regional_2005}: the length-scales of the processes and the fast-mode forcing are yet obviously different but the filtering procedure $\ll.\gg$ is the "flat" filter proposed by \cite{shchepetkin_regional_2005} (top left in Figure 16 of the aforementioned paper). $[[.]]$ notation indicates the extrapolation in time of the slow-kernel terms to be used at the fast-kernel RHS (see \S \noparref{TimeSplit}).\\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
