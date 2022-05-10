@@ -58,7 +58,6 @@
 %\usepackage{esint}
 \usepackage{cancel}
 \usepackage{pdfpages}
-\usepackage{fancyhdr}
 %\usepackage{footmisc}
 \usepackage{soul}
 %----------------------------------------------------------------------------
@@ -193,7 +192,7 @@
 \includepdf{couverture_these.pdf}
 %Page de garde
 %\makeflyleaf
-%\pagestyle{fancy}
+\pagestyle{fancy}
 %%\renewcommand{\sectionmark}[1]{%
 %%\markboth{\thesection.\ \MakeUppercase{#1}}{}}
 
@@ -380,7 +379,9 @@
 \bibliography{mybib_margaux,mybib_Francis,biblio_GBR2D}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\newpage
+\thispagestyle{empty}
+ \null
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %------- Résumés----------%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -388,8 +389,9 @@
 \newpage
 \thispagestyle{empty}
 \begin{center}
-\textbf{An exploration of oceanic fine-scale dynamics in the Strait of Gibraltar : numerical simulation, observation, and mixing}
+{\large \textbf{An exploration of oceanic fine-scale dynamics in the Strait of Gibraltar : numerical simulation, observation, and mixing}\par}
 \end{center} \addcontentsline{toc}{chapter}{Abstract}
+\begin{small}
 This thesis focuses on the so-called \textit{fine-scale} dynamics of the ocean spectrum, ranging from sub-mesoscale processes to the largest turbulent eddy scales leading to the direct Richardson cascade, itself ending up to molecular mixing. The properties of the ocean's water masses are partly ascribed to this irreversible mixing. While energy transfers in the direct cascade are well-known since Kolmogorov (1941)'s work, observations of the instabilities leading to those scales are few and their numerical simulation is seldom carried out, so that fine-scale dynamics constitutes a real \textit{Terra Incognita} (Scotti, 2010).
 
 Improvements in efficiency of computation means and numerical models, along with new algorithms, now allow for the simulation of the largest turbulent eddies and the study of this \textit{Terra Incognita}. An exploration of fine-scale dynamics is performed in the strait of Gibraltar linking the Mediterranean sea to the Atlantic ocean. In this area, water masses of contrasting density meet over an uneven, relatively shallow seafloor, where the tidal amplitude is large. Fine-scale processes are a consequence of these forcing in the strait: an hydraulic control of the flow evolves over each tidal period, generating and then relaxing an internal hydraulic jump. Mixing by shear instabilities is amplified when this jump is active, and the propagation of a train of internal solitary waves toward the Mediterranean sea follows.
@@ -404,13 +406,34 @@ A sensitivity study of the characteristics of turbulent eddies and water masses 
 
 The final chapter of this manuscript revolves around the quantification of mixing based on the evolution of potential energy. A new term is added to the evolution equation of this quantity to take into account the variations of volume with free-surface movements. A careful evaluation of this equation in increasingly complex and realistic flow conditions proves that this term cannot be neglected, highlighting its importance when evaluating mixing with sufficient accuracy.
 
+\vfill
+
+\noindent\rule{\linewidth}{.3mm}
+
+\noindent\textbf{Key words :}  numerical simulation, Strait of Gibraltar, solitary waves, oceanic fine-scales, large eddy simulation, diapycnal mixing
+
+\end{small}
 
 %%%RESUME Français
 \newpage
 \thispagestyle{empty}
 \begin{center}
-   \textbf{Exploration des fines échelles océaniques dans le détroit de Gibraltar: simulation numérique, observation et mélange induit} 
-\end{center} \addcontentsline{toc}{chapter}{Résumé}
+ %{\centering  
+ {\large \textbf{Exploration des fines échelles océaniques dans le détroit de Gibraltar: simulation numérique, observation et mélange induit} \par}
+\end{center}
+
+\begin{small}
+\addcontentsline{toc}{chapter}{Résumé} \noindent Th\`ese pr\'epar\'ee par \textbf{Margaux HILT} 
+
+\noindent sous la direction de \textbf{Francis AUCLAIR} et \textbf{Franck DUMAS}
+
+\noindent Th\`ese soutenue le \textbf{8 mars 2022} \`a Toulouse
+\end{small}
+
+\noindent\rule{\linewidth}{.3mm}
+\begin{footnotesize}
+%\vspace{\baselineskip}
+\break 
 Cette thèse se focalise sur la région du spectre océanique dit des \textit{fines échelles}, s'étendant des processus de sous-mésoéchelles jusqu'aux grandes structures turbulentes qui amorcent la cascade de Richardson directe menant elle-même au mélange moléculaire. C’est ce mélange, processus irréversible, qui fixe les propriétés des masses d’eaux circulant dans les bassins océaniques. Si la cascade directe est plutôt bien décrite depuis les travaux de \cite{kolmogorov_local_1941}, les instabilités qui l'amorcent dans l’océan sont peu observées et encore moins simulées, le domaine des fines échelles constitue en quelque sorte une « Terra Incognita » (Scotti, 2010).
 
 L'amélioration des performances des moyens de calcul et des modèles numériques, couplés à de nouveaux algorithmes, permettent néanmoins désormais d’aborder la simulation des grandes structures turbulentes et donc d’étudier cette \textit{Terra Incognita}. Une exploration originale de la fine échelle est proposée dans la région du détroit de Gibraltar qui relie la mer Méditerranée à l’océan Atlantique. Là, se rencontrent des masses d’eaux de densités très différentes au-dessus d’un relief accidenté et relativement peu profond où l’amplitude de la marée est non-négligeable. Des processus de fine échelle émergent de l’interaction de ces éléments dans le détroit, rythmé par le cycle de la marée semi-diurne: un contrôle hydraulique du flux dans le détroit évolue au cours du cycle de marée, entraînant la formation puis la relaxation d’un ressaut hydraulique interne. Lorsqu’il est en place, ce ressaut amplifie le mélange lié aux instabilités de cisaillement dans la veine méditerranéenne, et sa relaxation marque le début de la propagation d’un train d’ondes internes solitaires vers la mer Méditerranée.
@@ -425,6 +448,18 @@ Une étude de sensibilité des grandes structures turbulentes et, par rétroacti
 
 Le dernier chapitre aborde la question de la quantification du mélange diapycnal en se basant sur l'évolution de l'énergie potentielle. Un nouveau terme a été ajouté au bilan de cette quantité pour prendre en compte l’évolution du volume avec les mouvements de la surface libre. L’application a des cas tests de complexité et de réalisme croissants montre que ce terme est non-négligeable, sa prise en compte permettant de proposer une évaluation précise du mélange turbulent.
 
+\vfill
+
+\noindent\rule{\linewidth}{.3mm}
+
+\noindent\textbf{Mots-clés :} simulation numérique, Détroit de Gibraltar, solitons, fine échelle océanique, simulation des grandes structures turbulentes, mélange diapycnal
+
+\noindent\rule{\linewidth}{.3mm}
+
+\noindent Laboratoire d'Aérologie - UMR CNRS/UPS 5560 ; URA IRD 994 , Observatoire Midi-Pyr\'en\'ees
+
+\noindent 14 avenue \'Edouard Belin, 31400 Toulouse, FRANCE
+\end{footnotesize}
 \end{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
