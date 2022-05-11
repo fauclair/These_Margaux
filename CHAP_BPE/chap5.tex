@@ -621,12 +621,16 @@ The induced mixing in the vertical section of the Strait of Gibraltar is finally
 \caption[Field of density anomaly in SimRef and definition of sub-domains.]{(A1 to A4) Simulated field of density anomaly $\rho'$ in simulation SimRef of Chapter \noparref{chapGBR2D} at various times. In (A1) are shown the locations of the sub-domains for which local sorting is carried out to give the temporal evolution of Figure \noparref{figCgbr2d}. (B) Time evolution of the barotropic current over the shallowest point in the domain at Camarinal Sill, with black dots indicating the instant of figures (A1 to A4).}
 \label{figCgbr2d_ex}
 \end{figure}
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{./CHAP_BPE/Fig_Kappa_CS_colOut.png}
 \caption[Evaluation of $\kappa_{eff}$ in different sub-domains of SimRef]{Evaluation of the time evolution of the terms of the balance equation \noparref{bilanBPEal} in each domain of SimRef as defined in Figure \noparref{figCgbr2d_ex}.A1. Upper row is the time derivative of $BPE$, second row is $\phi_{\zeta}$ (blue) and $F_a$ (red), third row is $\phi_D$, bottom row is the evaluated $\kappa_{eff}$. Grey shaded areas delineate periods of inflow (positive or eastward barotropic currents).}
 \label{figCgbr2d}
 \end{figure}
+
+%\vspace{-5\baselineskip}
+
 The initial time $(t\ =\ 0\ s)$ is now chosen for simulation time $t_{SimRef}\ =\ 6.29\ T$, i.e. at the beginning of the first outflow following the spin-up period so that the algorithm is applied to four tidal cycles of $T\ =\ 12.4\ h$.
 
 The BPE evolution balance is evaluated over sub-domains of limited extension covering the eastern part of the Strait, the western part, and the western slope of Camarinal Sill (respectively noted E,W and CSw in Figure \noparref{figCgbr2d_ex}.A1). In the latter sub-domain (CSw) fine-scale processes, large turbulence eddies and thus mixing are supposed to occur, while solitary wave trains propagate in the east domain (E, see Figure \noparref{figCgbr2d_ex}.A2). Figure \noparref{figCgbr2d} presents the evaluation of the effective diffusivity $\kappa_{eff}$ for each domain, along with the remaining terms of Equation \noparref{bilanBPEal}.
@@ -636,8 +640,6 @@ The evolution of $dPE_B/dt$ (Figures \noparref{figCgbr2d}.A1, B1 and C1) is a no
 The evolution in time of the effective diffusivity $\kappa_{eff}$ (Figures \noparref{figCgbr2d}.A4, B4 and C4) is in contrast noise-free. In the eastern part of the domain (E), this evolution is sinusoidal of period $T$ in agreement with the evolution of barotropic currents (indicated in Figure \noparref{figCgbr2d_ex}.B): it is positive when the barotropic component of the current is positive.
 
 In the western part of the domain (W) and in its sub-domain (CSw), this semi-diurnal periodicity is readily apparent, not as regular oscillations this time but rather as intermittent episodes (bursts) of high (positive) effective diffusivity $\kappa_{eff}$ during outflows (when the barotropic component of the current is this time negative). Those bursts reach higher values in the sub-domain of the sill's slope (CSw), the contribution of mixing in this area being averaged out in the evaluation made over the greater west (W) domain. This burst is also of limited amplitude for the third outflow (around $t=10^5s$) because, as can be seen in Figure \noparref{figCgbr2d_ex}.A3, the usual hydraulic jump is absent compared to the previous and next outflows (see Figure \noparref{figCgbr2d_ex}.A1 and A4).
-
-Due to this different dynamics of consecutive outflows, there are still important variations in the signal of $\kappa_{eff}$ when it is averaged in time over one tidal period $T$. Thus Table \noparref{tab_kappaTCS} gives the value of this evaluated effective diffusivity as a time-average taken over either two or four tidal cycles. Those values are indeed greater in the sub-domain CSw localised on the west side of Camarinal Sill, especially they are close to one order of magnitude greater there than in the sub-domain E east of this sill. This confirms the faculty of the algorithm to help localize mixing, even in a complex flow area, as it is west of Camarinal Sill that the most intense mixing takes place in the strait of Gibraltar.
 
 \begin{table}[h]
     \centering
@@ -660,6 +662,10 @@ Due to this different dynamics of consecutive outflows, there are still importan
     \caption[Time-averaged effective diffusivity $\kappa_{eff}$ in SimRef.]{Time-averaged effective diffusivity $\kappa_{eff}$ (in $m^2/s$) in each sub-domain of SimRef (Figure \noparref{figCgbr2d_ex}.A1). Averaging is made either over the first two tidal periods ($|\kappa |^{2T}_1$), the last two periods ($|\kappa |^{2T}_2$), or all four tidal periods ($|\kappa |^{4T}$).}
     \label{tab_kappaTCS}
 \end{table}
+
+Due to this different dynamics of consecutive outflows, there are still important variations in the signal of $\kappa_{eff}$ when it is averaged in time over one tidal period $T$. Thus Table \noparref{tab_kappaTCS} gives the value of this evaluated effective diffusivity as a time-average taken over either two or four tidal cycles. Those values are indeed greater in the sub-domain CSw localised on the west side of Camarinal Sill, especially they are close to one order of magnitude greater there than in the sub-domain E east of this sill. This confirms the faculty of the algorithm to help localize mixing, even in a complex flow area, as it is west of Camarinal Sill that the most intense mixing takes place in the strait of Gibraltar.
+
+
 
 \section{Discussion and conclusion}
 A complete analysis of the Background Potential Energy (BPE) evolution equation has been carried out in several test-configurations of increasing complexity, ending with an application to the real ocean in the region of the strait of Gibraltar. This analysis is based on original analytical developments (to our knowledge at least) to derive an as-complete-as-possible evolution equation of BPE for free-surface water columns (\S \noparref{section_PE_chap2}). Original developments have also been proposed to evaluate numerically this evolution in non-flat regions of the ocean simulated with terrain-following, s-coordinate numerical models. The efficiency of the proposed implementation of the BPE algorithm remains affordable in terms of computing costs and memory storage for the hierarchy of configurations proposed, but new approaches need to be implemented to compute the reference state in a cost-efficient way \citep{saenz_estimating_2015} for 3D LES of more extended regions.

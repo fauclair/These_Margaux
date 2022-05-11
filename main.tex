@@ -11,7 +11,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[a4paper,top=1.8cm,bottom=2.3cm,left=2.7cm,right=2.7cm,marginparwidth=1.75cm]{geometry}
-\usepackage[ED=SDU2E-Oc, Ets=UT3]{tlsflyleaf}%page de garde&
+%\usepackage[ED=SDU2E-Oc, Ets=UT3]{tlsflyleaf}%page de garde&
 \usepackage{microtype}
 \usepackage{graphicx} 
 \usepackage[hidelinks]{hyperref} 
@@ -144,41 +144,10 @@
 \titleformat{\subsubsection}{}{\thesubsubsection}{1em}{\bfseries\itshape}
 \titleformat*{\paragraph}{\normalsize\bfseries\itshape}
 
-%----------------------------------------------------------------------------
-% Page de garde
-%----------------------------------------------------------------------------
-%% Titre, auteur, date, laboratoire, cotutelle
-\title{Exploration des fines échelles océaniques dans le détroit de Gibraltar: simulation numérique, observation et mélange induit}
-% en anglais : An exploration of oceanic fine-scale dynamics in the Strait of Gibraltar : numerical simulation, observation, and mixing
-\author{Margaux HILT}
-\defencedate{(JJ/MM/AAAA)}%date de défense
-\lab{Laboratoire d'Aérologie}
-%\cotutelle{Institut de cotutelle}
-
-%% Directeur(s) de thèse
-\nboss{2}                                    % Nombre de directeur(s) de thèse
-\makesomeone{boss}{2}{Franck DUMAS}{AA}{AA}  % Sera affiché en second
-\makesomeone{boss}{1}{Francis AUCLAIR}{AA}{AA} % Sera affiché en premier
-%% Referee
-\nreferee{2}
-\makesomeone{referee}{1}{Jes\'us GARC\'IA-LAFUENTE}{AA}{AA}
-\makesomeone{referee}{2}{Xavier CARTON}{AA}{AA}
-%\makesomeone{referee}{3}{Maria-Eletta NEGRETTI}{AA}{AA}
-%% Jury
-\njudge{3}
-%\makesomeone{judge}{1}{Premier MEMBRE}{Professeur d'Université}{Président du Jury}
-%\makesomeone{judge}{2}{Second MEMBRE}{Astronome Adjoint}{Membre du Jury}
-%\makesomeone{judge}{3}{Troisième MEMBRE}{Chargé de Recherche}{Membre du Jury}
-\makesomeone{judge}{1}{ }{ }{ }
-\makesomeone{judge}{2}{ }{ }{ }
-\makesomeone{judge}{3}{ }{ }{ }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%citation à la main car cite marchait pas
-%\nocite{Sannino2009b}
-%\nocite{Sannino2009}
 
 %%%%%%%
 \hypersetup{pdfborder=0 0 0}%----------------------------------------------------------------------------
@@ -191,10 +160,7 @@
 
 \includepdf{couverture_these.pdf}
 %Page de garde
-%\makeflyleaf
 \pagestyle{fancy}
-%%\renewcommand{\sectionmark}[1]{%
-%%\markboth{\thesection.\ \MakeUppercase{#1}}{}}
 
 
 %3pages blanches
@@ -207,19 +173,34 @@
 
  
 \newpage
-\textbf{Avant-propos et remerciements}
+%\thispagestyle{empty}
+\noindent \textbf{Avant-propos et remerciements}\\
 \setcounter{page}{1}
 \addcontentsline{toc}{section}{Avant-propos et remerciements}
 
+En regardant en arrière, on voit le chemin parcouru et à quel point il a été long. Le constat étant ici, pour tout ce que ce chemin a eu de sinueux, je me retrouve assez loin du point de départ. Bon, je vais arrêter ici la métaphore avant de me retrouver dans le fossé. Le principal c'est que je m'étais dit que je tenterais l'aventure si l'occasion se présentait, et c'est chose faite.\\
+
+Pour avoir permis l'existence de ce travail scientifique, je tiens d'abord à remercier mon directeur de thèse, Francis Auclair, auprès duquel j'ai beaucoup appris de la rigueur scientifique au cours de ces années et qui m'a fait confiance pour développer mes idées, depuis le stage de fin de master jusqu'à aujourd'hui. Je remercie aussi mon co-directeur, Franck Dumas, avec qui c'était toujours un plaisir d'échanger même si les occasions étaient plus rares. Et un grand merci à Laurent Roblou et Cyril Nguyen, avec qui j'ai beaucoup travaillé, pour toute l'aide qu'ils m'ont apporté dans la réalisation de ce travail.
+
+Merci aux équipes du Laboratoire d'Aérologie pour leur accueil, et d'autant plus pour leur travail durant les confinements. Merci à Sylvain Coquillat d'avoir accepté de présider le jury pour ma soutenance.
+
+Je remercie aussi les autres membres de mon jury de soutenance: Maria-Eletta Negretti pour avoir accepté d'en faire parti et ses retours pour la correction de ce manuscrit; Lucie Bordois, dont cette thèse est la continuation d'un travail de simulation numérique qu'elle avait amorçé et qui a mis au point la campagne à la mer Gibraltar 2020; Yves Morel, Patrick Marchesiello, et Xavier Capet, tous les trois aussi membres de mon commité de thèse, pour leur intérêt sur ce travail et leur exigence; et enfin mes rapporteurs Xavier Carton et Jes\`us Garc\'ia Lafuente d'avoir lu ce manuscrit. Merci Xavier pour tes remarques pertinentes. Thank you Jes\`us for reading this manuscript and for all your insight on the Strait of Gibraltar.
+
+Merci Leeko, puis Pauline, puis Sorën, qui ont partagé le bureau A101 avec moi, de la relative fraîcheur de l'hiver toulousain à l'été parfois étouffant. Et merci à tous ces gens que j'ai pu rencontrer, principalement les stagiaires, doctorants et post-doctorants du laboratoire d'Aérologie, dont Azusa, Carlos (et Zoé), Marina, Laurent, Nicolas, Gaëtan, Joris, et tous les autres, pour les bons moments de convivialités passés ensemble. Un merci particulier à Roxane avec qui j'ai partagé une cabine sur l'Atalante (dont des premiers jours mouvementés en mer), aux autres membres de l'équipe scientifique de la campagne Gibraltar 2020, aux hydrographes du SHOM, et bien sûr aux membres de l'équipage.
+
+D'un point de vu plus personnel, merci Alix pour tous nos rendez-vous hebdomadaires, les visites à Nancy ou à Metz, et une virée à la plage de Gruissan. Et merci à mes parents, en particulier à ma mère, Véronique, pour l'hébergement alors que je rédigeais ce manuscrit. Et enfin bravo à mon frère, Jérémy, pour être devenu interne en médecine. Même si je suis 'docteur Hilt' la première, ce sera bientôt ton tour.
+
+
+
 \newpage
  \null
- \thispagestyle{empty}
+ %\thispagestyle{empty}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\tableofcontents \addcontentsline{toc}{section}{Table des matières}
+\addcontentsline{toc}{section}{Table des matières} \tableofcontents 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -390,7 +371,7 @@
 \thispagestyle{empty}
 \begin{center}
 {\large \textbf{An exploration of oceanic fine-scale dynamics in the Strait of Gibraltar : numerical simulation, observation, and mixing}\par}
-\end{center} \addcontentsline{toc}{chapter}{Abstract}
+\end{center} %\addcontentsline{toc}{chapter}{Abstract}
 \begin{small}
 This thesis focuses on the so-called \textit{fine-scale} dynamics of the ocean spectrum, ranging from sub-mesoscale processes to the largest turbulent eddy scales leading to the direct Richardson cascade, itself ending up to molecular mixing. The properties of the ocean's water masses are partly ascribed to this irreversible mixing. While energy transfers in the direct cascade are well-known since Kolmogorov (1941)'s work, observations of the instabilities leading to those scales are few and their numerical simulation is seldom carried out, so that fine-scale dynamics constitutes a real \textit{Terra Incognita} (Scotti, 2010).
 
@@ -423,7 +404,8 @@ The final chapter of this manuscript revolves around the quantification of mixin
 \end{center}
 
 \begin{small}
-\addcontentsline{toc}{chapter}{Résumé} \noindent Th\`ese pr\'epar\'ee par \textbf{Margaux HILT} 
+%\addcontentsline{toc}{chapter}{Résumé} 
+\noindent Th\`ese pr\'epar\'ee par \textbf{Margaux HILT} 
 
 \noindent sous la direction de \textbf{Francis AUCLAIR} et \textbf{Franck DUMAS}
 
